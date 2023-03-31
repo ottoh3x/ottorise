@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         RISE.EXE - Cracked
+// @name         OTTORISE.EXE
 // @version      1.0
-// @description  Highly skidded Vanis.io Multibox Extension - @discord.me/axoninfinite
+// @description  Highly skidded Vanis.io Multibox Extension -
 // @match        *://vanis.io/*
-// @author       Stack Overflow
+// @author       OTTOMOTTO
 // @run-at       document-end
 // ==/UserScript==
 
@@ -27,5 +27,5 @@
     document.close(),
     b();
 })(
-  "https://raw.githubusercontent.com/aero-the-synaptic-electrician/rize-cracked/main"
+  "https://raw.githubusercontent.com/ottoh3x/ottorise/master"
 );
