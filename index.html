@@ -33,6 +33,11 @@
         cursor: not-allowed;
         display: none;
       }
+      
+      * {
+        cursor:url(https://deltav4.gitlab.io/v7/assets/cursors/cursor_01.cur), auto !important;
+
+      }
       #hotkey-container .reset-button2[data-v-2dbed53e],
       .pretty input,
       .replay-list-page > .anchor .current > .real[data-v-4a996e52],
@@ -1870,8 +1875,8 @@
         visibility: hidden;
       }
       .fade-box {
-        background: #161616;
-        border: 4px solid #1a1a1a;
+        background: #000000;
+        border: 1px solid #fdfdfd1f;
       }
       #overlay {
         background: radial-gradient(
@@ -1931,7 +1936,7 @@
         background-color: rgba(0, 0, 0, 0.3);
       }
       .server-list-item:hover {
-        background: #064b66;
+        background: #1d1e1e;
       }
       .server-list-item .server-name {
         font-weight: 700;
@@ -1960,7 +1965,7 @@
       input::placeholder {
         color: #5e5e5e;
       }
-      .confidential {
+      /* .confidential {
         color: transparent !important;
         text-shadow: 0 0 9px hsla(0, 0%, 85.5%, 0.5);
         transition: 0.2s;
@@ -1979,7 +1984,7 @@
       .confidential:hover::placeholder {
         color: #5e5e5e !important;
         text-shadow: none;
-      }
+      } */
       #starfield {
         width: 100%;
         height: 100%;
@@ -2059,7 +2064,7 @@
         top: 5px;
       }
       .active[data-v-0647fbb0] {
-        background: #07719b;
+        background: #343636;
         text-shadow: 0 0 4px #000;
       }
       .server-list[data-v-0647fbb0] {
@@ -2084,6 +2089,7 @@
         display: flex;
         font-size: 18px;
         margin-bottom: 5px;
+        border-bottom: 1px solid #ffffff26;
       }
       #tab-menu .tab[data-v-0647fbb0] {
         flex: 1;
@@ -2098,10 +2104,10 @@
         text-shadow: 1px 1px 4px #000;
       }
       #tab-menu .tab:hover[data-v-0647fbb0] {
-        background: #9d9494;
+        background: #181717;
       }
       #tab-menu .tab.active[data-v-0647fbb0] {
-        background: #878787;
+        background: #201f1f;
       }
       #hotkey-container .bind[data-v-2dbed53e]:focus,
       .overlay[data-v-0eaeaf66] {
@@ -2165,6 +2171,7 @@
       .container[data-v-15c13b66],
       .container[data-v-3ddebeb3] {
         padding: 10px;
+        background:black
       }
       .row[data-v-15c13b66],
       .row[data-v-3ddebeb3] {
@@ -2712,6 +2719,11 @@
       }
       #nickname[data-v-1bcde71e] {
         margin-right: 10px;
+        background:#101010
+      }
+      #teamtag[data-v-1bcde71e] {
+       
+        background:#101010
       }
       #player-container #skin[data-v-1bcde71e] {
         display: block;
@@ -2728,6 +2740,9 @@
         height: 100%;
         box-sizing: border-box;
         padding: 0 15px 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
       #player-container #player-data > [data-v-1bcde71e] {
         margin-bottom: 7px;
@@ -2744,11 +2759,11 @@
         text-shadow: 1px 1px 4px #000;
         flex: 9;
         margin-right: 7px;
-        background: #208eb9;
+        background: #343636;
       }
       #player-container #game-buttons #play-button[data-v-1bcde71e]:hover {
         transition: 0.15s;
-        background: #07719b;
+        background: #1d1e1e;
       }
       #player-container #game-buttons #play-button[data-v-1bcde71e]:active,
       #player-container #game-buttons #spec-button[data-v-1bcde71e]:active {
@@ -2773,10 +2788,10 @@
         font-size: 16px;
         text-shadow: 1px 1px 2px #000;
         flex: 1;
-        background: #208eb9;
+        background: #343636;
       }
       #player-container #game-buttons #spec-button[data-v-1bcde71e]:hover {
-        background: #07719b;
+        background: #1d1e1e;
         transition: 0.15s;
       }
       .tabs[data-v-1bcde71e] {
@@ -2875,6 +2890,7 @@
       }
       #skinurl[data-v-1c614894] {
         margin-bottom: 15px;
+        background:#101010
       }
       #skins-container[data-v-1c614894] {
         padding: 7px;
@@ -2882,7 +2898,7 @@
       }
       #skins[data-v-1c614894] {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-auto-rows: 1fr;
         grid-gap: 15px;
         min-width: 100%;

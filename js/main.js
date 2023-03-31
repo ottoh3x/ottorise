@@ -9887,6 +9887,7 @@
                           attrs: { src: t, alt: "" },
                           on: {
                             click: function () {
+                                console.log(i)
                               return e.selectSkin(i);
                             },
                             contextmenu: function () {
@@ -9987,6 +9988,12 @@
                       this.saveSkins();
                     var t = Math.max(0, this.selectedSkinIndex - 1);
                     this.selectSkin(t);
+                  },
+                  selectedSkin1(e) {
+                    console.log("selected skin 1",e)
+                  },
+                  selectedSkin2(e) {
+                    console.log("selected skin 2",e)
                   },
                   addSkin(e) {
                     if (!this.skins.includes(e)) {
