@@ -2471,6 +2471,13 @@
             zoomLevel3: o.setZoomLevel.bind(o, 3),
             zoomLevel4: o.setZoomLevel.bind(o, 4),
             zoomLevel5: o.setZoomLevel.bind(o, 5),
+            chatPreset1: a.actions.chatPreset.bind(null, 1),
+        chatPreset2: a.actions.chatPreset.bind(null, 2),
+        chatPreset3: a.actions.chatPreset.bind(null, 3),
+        chatPreset4: a.actions.chatPreset.bind(null, 4),
+        chatPreset5: a.actions.chatPreset.bind(null, 5),
+        chatPreset6: a.actions.chatPreset.bind(null, 6),
+        chatPreset7: a.actions.chatPreset.bind(null, 7),
             multibox() {
               let { dual: e } = i;
               e.switch();
@@ -2510,6 +2517,13 @@
             zoomLevel3: "3",
             zoomLevel4: "4",
             zoomLevel5: "5",
+            chatPreset1: "",
+        chatPreset2: "",
+        chatPreset3: "",
+        chatPreset4: "",
+        chatPreset5: "",
+        chatPreset6: "",
+        chatPreset7: "",
           };
         e.exports = i.hotkeyManager = new (class e {
           constructor() {
