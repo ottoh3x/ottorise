@@ -2471,13 +2471,13 @@
             zoomLevel3: o.setZoomLevel.bind(o, 3),
             zoomLevel4: o.setZoomLevel.bind(o, 4),
             zoomLevel5: o.setZoomLevel.bind(o, 5),
-            chatPreset1: o.chatPreset.bind(null, 1),
-        chatPreset2: o.chatPreset.bind(null, 2),
-        chatPreset3: o.chatPreset.bind(null, 3),
-        chatPreset4: o.chatPreset.bind(null, 4),
-        chatPreset5: o.chatPreset.bind(null, 5),
-        chatPreset6: o.chatPreset.bind(null, 6),
-        chatPreset7: o.chatPreset.bind(null, 7),
+            chatPreset1: o.chatPreset.bind(o, 1),
+        chatPreset2: o.chatPreset.bind(o, 2),
+        chatPreset3: o.chatPreset.bind(o, 3),
+        chatPreset4: o.chatPreset.bind(o, 4),
+        chatPreset5: o.chatPreset.bind(o, 5),
+        chatPreset6: o.chatPreset.bind(o, 6),
+        chatPreset7: o.chatPreset.bind(o, 7),
             multibox() {
               let { dual: e } = i;
               e.switch();
@@ -4996,7 +4996,7 @@
               t.focused = !t.focused;
             }, 45);
           }
-          chat = (t) => {
+          chat(t){
             let s = SmartBuffer.fromSize(t.length + 1);
             s.writeUInt8(99), s.writeEscapedString(t), a.connection.send(s);
           }
@@ -5012,7 +5012,7 @@
           setZoomLevel(e) {
             a.mouseZoom = 0.8 / Math.pow(2, e - 1);
           }
-          chatPreset = (t) => {
+          chatPreset(t) {
             let s;
             switch (t) {
               case 1: {
