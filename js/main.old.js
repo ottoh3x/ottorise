@@ -1,20 +1,21 @@
 !(function e() {
   if ("?vanilla" === location.search) return;
   {
-    let s = "https://vanis.io/zimek-is-a-pedophile";
-    location.href !== s && (location.href = s);
+    let t = "https://vanis.io/rize-client";
+    location.href !== t && (location.href = t);
   }
-  window.customModal = (e, s) => {
-    document.getElementsByClassName("fa-clipboard-list")[0].click(),
-      setTimeout(() => {
-        (document
-          .getElementsByClassName("content fade-box")[0]
-          .getElementsByTagName("div")[0].innerHTML = e),
-          s && setTimeout(s, 50);
-      }, 50);
-  };
-  class i {
-    constructor(e, s) {
+  (document.title = "Vanis.io"),
+    (window.customModal = (e, t) => {
+      document.getElementsByClassName("fa-clipboard-list")[0].click(),
+        setTimeout(() => {
+          (document
+            .getElementsByClassName("content fade-box")[0]
+            .getElementsByTagName("div")[0].innerHTML = e),
+            t && setTimeout(t, 50);
+        }, 50);
+    });
+  class s {
+    constructor(e, t) {
       if (((this.view = null), e instanceof DataView)) this.view = e;
       else {
         if (!(e instanceof ArrayBuffer))
@@ -23,144 +24,164 @@
           );
         this.view = new DataView(e);
       }
-      this.offset = s ?? 0;
+      this.offset = t || 0;
     }
     ensureCapacity(e) {
-      let s = this.offset + e;
-      if (s > this.length) {
-        let i = new ArrayBuffer(s),
-          a = new Uint8Array(i);
-        a.set(new Uint8Array(this.buffer)), (this.view = new DataView(i));
+      let t = this.offset + e;
+      if (t > this.length) {
+        let s = new ArrayBuffer(t),
+          i = new Uint8Array(s);
+        i.set(new Uint8Array(this.buffer)), (this.view = new DataView(s));
       }
     }
     static fromSize(e) {
       return new this(new ArrayBuffer(e), 0);
     }
-    static fromBuffer(e) {
-      return new this(e, 0);
-    }
-    get buffer() {
-      return this.view?.buffer ?? null;
+    static fromBuffer(e, t) {
+      return new this(e, t || 0);
     }
     toBuffer() {
       return this.buffer;
     }
+    get buffer() {
+      return this.view?.buffer ?? null;
+    }
     get length() {
-      return this.view?.byteLength ?? -1;
+      return this.view?.byteLength ?? 0;
     }
     get eof() {
       return this.offset >= this.length;
     }
-    read(e, s, i, a) {
-      let n = e.call(this.view, a ?? this.offset, i);
-      return a || (this.offset += s), n;
+    read(e, t, s, i) {
+      let a = e.call(this.view, i ?? this.offset, s);
+      return null == i && (this.offset += t), a;
     }
-    write(e, s, i, a) {
-      this.ensureCapacity(s),
-        e.call(this.view, this.offset, i, a),
-        (this.offset += s);
+    write(e, t, s, i) {
+      this.ensureCapacity(t),
+        e.call(this.view, this.offset, s, i),
+        (this.offset += t);
     }
-    readInt8 = (e) => this.read(DataView.prototype.getInt8, 1, null, e);
-    readUInt8 = (e) => this.read(DataView.prototype.getUint8, 1, null, e);
-    readInt16LE = (e) => this.read(DataView.prototype.getInt16, 2, !0, e);
-    readInt16BE = (e) => this.read(DataView.prototype.getInt16, 2, !1, e);
-    readUInt16LE = (e) => this.read(DataView.prototype.getUint16, 2, !0, e);
-    readUInt16BE = (e) => this.read(DataView.prototype.getUint16, 2, !1, e);
-    readInt32LE = (e) => this.read(DataView.prototype.getInt32, 4, !0, e);
-    readInt32BE = (e) => this.read(DataView.prototype.getInt32, 4, !1, e);
-    readUInt32LE = (e) => this.read(DataView.prototype.getUint32, 4, !0, e);
-    readUInt32BE = (e) => this.read(DataView.prototype.getUint32, 4, !1, e);
+    readInt8(e) {
+      return this.read(DataView.prototype.getInt8, 1, null, e);
+    }
+    readUInt8(e) {
+      return this.read(DataView.prototype.getUint8, 1, null, e);
+    }
+    readInt16LE(e) {
+      return this.read(DataView.prototype.getInt16, 2, !0, e);
+    }
+    readInt16BE(e) {
+      return this.read(DataView.prototype.getInt16, 2, !1, e);
+    }
+    readUInt16LE(e) {
+      return this.read(DataView.prototype.getUint16, 2, !0, e);
+    }
+    readUInt16BE(e) {
+      return this.read(DataView.prototype.getUint16, 2, !1, e);
+    }
+    readInt32LE(e) {
+      return this.read(DataView.prototype.getInt32, 4, !0, e);
+    }
+    readInt32BE(e) {
+      return this.read(DataView.prototype.getInt32, 4, !1, e);
+    }
+    readUInt32LE(e) {
+      return this.read(DataView.prototype.getUint32, 4, !0, e);
+    }
+    readUInt32BE(e) {
+      return this.read(DataView.prototype.getUint32, 4, !1, e);
+    }
     readString16() {
       let e = "";
       for (;;) {
-        let s = this.eof ? 0 : this.readUInt16LE();
-        if (0 === s) break;
-        e += String.fromCharCode(s);
+        let t = this.eof ? 0 : this.readUInt16LE();
+        if (0 === t) break;
+        e += String.fromCharCode(t);
       }
       return e;
     }
     readString() {
       let e = "";
       for (;;) {
-        let s = this.eof ? 0 : this.readUInt8();
-        if (0 === s) break;
-        e += String.fromCharCode(s);
+        let t = this.eof ? 0 : this.readUInt8();
+        if (0 === t) break;
+        e += String.fromCharCode(t);
       }
       return e;
     }
-    readEscapedString = () => decodeURIComponent(escape(this.readString()));
-    writeInt8 = (e) => this.write(DataView.prototype.setInt8, 1, e, null);
-    writeUInt8 = (e) => this.write(DataView.prototype.setUint8, 1, e, null);
-    writeInt16LE = (e) => this.write(DataView.prototype.setInt16, 2, e, !0);
-    writeInt16BE = (e) => this.write(DataView.prototype.setInt16, 2, e, !1);
-    writeUInt16LE = (e) => this.write(DataView.prototype.setUint16, 2, e, !0);
-    writeUInt16BE = (e) => this.write(DataView.prototype.setUint16, 2, e, !1);
-    writeInt32LE = (e) => this.write(DataView.prototype.setInt32, 4, e, !0);
-    writeInt32BE = (e) => this.write(DataView.prototype.setInt32, 4, e, !1);
-    writeUInt32LE = (e) => this.write(DataView.prototype.setUint32, 4, e, !0);
-    writeUInt32BE = (e) => this.write(DataView.prototype.setUint32, 4, e, !1);
+    readEscapedString() {
+      return decodeURIComponent(escape(this.readString()));
+    }
+    writeInt8(e) {
+      this.write(DataView.prototype.setInt8, 1, e, null);
+    }
+    writeUInt8(e) {
+      this.write(DataView.prototype.setUint8, 1, e, null);
+    }
+    writeInt16LE(e) {
+      this.write(DataView.prototype.setInt16, 2, e, !0);
+    }
+    writeInt16BE(e) {
+      this.write(DataView.prototype.setInt16, 2, e, !1);
+    }
+    writeUInt16LE(e) {
+      this.write(DataView.prototype.setUint16, 2, e, !0);
+    }
+    writeUInt16BE(e) {
+      this.write(DataView.prototype.setUint16, 2, e, !1);
+    }
+    writeInt32LE(e) {
+      this.write(DataView.prototype.setInt32, 4, e, !0);
+    }
+    writeInt32BE(e) {
+      this.write(DataView.prototype.setInt32, 4, e, !1);
+    }
+    writeUInt32LE(e) {
+      this.write(DataView.prototype.setUint32, 4, e, !0);
+    }
+    writeUInt32BE(e) {
+      this.write(DataView.prototype.setUint32, 4, e, !1);
+    }
     writeString(e) {
-      let s = e.length;
-      this.ensureCapacity(s);
-      for (let i = 0; i < s; i++) this.writeUInt8(e.charCodeAt(i));
+      let t = e.length;
+      this.ensureCapacity(t);
+      let s = this.offset;
+      for (this.offset += t; t--; ) this.view.setUint8(s + t, e.charCodeAt(t));
     }
     writeStringNT(e) {
       this.writeString(e), this.writeUInt8(0);
     }
-    writeEscapedString = (e) =>
+    writeEscapedString(e) {
       this.writeString(unescape(encodeURIComponent(e)));
-    writeEscapedStringNT = (e) =>
+    }
+    writeEscapedStringNT(e) {
       this.writeStringNT(unescape(encodeURIComponent(e)));
+    }
   }
-  window.SmartBuffer = i;
-  let a = [5, 104, 253, 62, 175, 116, 238, 41];
-  class n {
+  window.SmartBuffer = s;
+  let i = [5, 104, 253, 62, 175, 116, 238, 41];
+  class a {
     constructor(e) {
       this.data = e;
     }
-    writeIndex(e, s) {
-      let i = this.data[s],
-        n = (i + 5) & 7,
-        r = e[s > 0 ? s - 1 : 0] ^ a[s];
-      e.push((((i << n) | (i >>> (8 - n))) & 255) ^ r ^ 62);
+    writeIndex(e, t) {
+      let s = this.data[t],
+        a = (s + 5) & 7,
+        n = e[t > 0 ? t - 1 : 0] ^ i[t];
+      e.push(((((s << a) | (s >>> (8 - a))) & 255) ^ n ^ 62) & 255);
     }
     build(e = !1) {
-      let s = [];
-      for (let i = 0; i < 8; i++) this.writeIndex(s, i);
-      let a = 1 + Math.floor(2147483646 * Math.random());
+      let t = [];
+      for (let s = 0; s < 8; s++) this.writeIndex(t, s);
+      let i = 1 + Math.floor(2147483646 * Math.random());
       return (
-        s.push((s[0] ^ (a >> 24)) & 255),
-        s.push((s[1] ^ (a >> 16)) & 255),
-        s.push((s[2] ^ (a >> 8)) & 255),
-        s.push((a ^ s[3]) & 255),
-        s.push(s[0] ^ +e ^ 31),
-        s
+        t.push((t[0] ^ (i >> 24)) & 255),
+        t.push((t[1] ^ (i >> 16)) & 255),
+        t.push((t[2] ^ (i >> 8)) & 255),
+        t.push((i ^ t[3]) & 255),
+        t.push((t[0] ^ +e ^ 31) & 255),
+        t
       );
-    }
-  }
-  let r = "?fps" === location.search;
-  r && (document.title = "Vanis.io - @discord.me/axoninf");
-  class o extends PIXI.Graphics {
-    constructor(e, s, i) {
-      super();
-      var a = (this.lineWidth = s || 12),
-        n = (this.lineColor = i || 16777215);
-      (this.points = e),
-        this.lineStyle(a, n),
-        (this.alpha = 0.35),
-        this.moveTo(e[0], e[1]),
-        this.lineTo(e[2], e[3]);
-    }
-    updatePoints(e) {
-      try {
-        var s = (this.points = e.map((e, s) => e || this.points[s])),
-          i = this.lineWidth,
-          a = this.lineColor;
-        window.cancerLines || this.clear(),
-          this.lineStyle(i, a),
-          this.moveTo(s[0], s[1]),
-          this.lineTo(s[2], s[3]);
-      } catch (n) {}
     }
   }
   (window.TagColor = {
@@ -168,24 +189,24 @@
     array: ["#69ff91", "#69fff0", "#696bff", "#ff69f3", "#ffdc69", "#ff6969"],
   }),
     (window.TagColor.null = "#ffffff");
-  var l = [0.79, 1.52, 2.35, 3, 3.92, 4.7, 5.5, 6.2];
-  function c(e) {
-    for (var s = 9e9, i = 0, a = 0; e.length < a; a++)
-      e[a].id < s && ((i = a), (s = e[a].id));
-    return e.splice(i, 1), e;
+  var n = [0.79, 1.52, 2.35, 3, 3.92, 4.7, 5.5, 6.2];
+  function o(e) {
+    for (var t = 9e9, s = 0, i = 0; e.length < i; i++)
+      e[i].id < t && ((s = i), (t = e[i].id));
+    return e.splice(s, 1), e;
   }
   (String.prototype.toHHMMSS = function () {
     var e = parseInt(this, 10),
-      s = Math.floor(e / 3600),
-      i = Math.floor((e - 3600 * s) / 60);
-    return `${0 !== i ? `${i}m ` : ""}${e - 3600 * s - 60 * i}s`;
+      t = Math.floor(e / 3600),
+      s = Math.floor((e - 3600 * t) / 60);
+    return `${0 !== s ? `${s}m ` : ""}${e - 3600 * t - 60 * s}s`;
   }),
     (window.makeid = (e) => {
-      for (var s = "", i = "X0123456789", a = i.length, n = 0; n < e; n++)
-        s += i.charAt(Math.floor(Math.random() * a));
-      return s;
+      for (var t = "", s = "X0123456789", i = s.length, a = 0; a < e; a++)
+        t += s.charAt(Math.floor(Math.random() * i));
+      return t;
     }),
-    (window.$ = (e, s = document) => s.querySelector(e)),
+    (window.$ = (e, t = document) => t.querySelector(e)),
     (window.extraServers = [
       {
         name: "Local:8080",
@@ -199,98 +220,98 @@
       },
     ]),
     (function (e) {
-      var s,
-        i =
-          ((s = !0),
-          function (e, i) {
-            var a = s
+      var t,
+        s =
+          ((t = !0),
+          function (e, s) {
+            var i = t
               ? function () {
-                  if (i) {
-                    var s = i.apply(e, arguments);
-                    return (i = null), s;
+                  if (s) {
+                    var t = s.apply(e, arguments);
+                    return (s = null), t;
                   }
                 }
               : function () {};
-            return (s = !1), a;
+            return (t = !1), i;
           });
-      function a(s) {
-        var a = i(this, function () {
+      function i(t) {
+        var i = s(this, function () {
           var e = function () {
             return !e
               .constructor('return /" + this + "/')()
               .constructor("^([^ ]+( +[^ ]+)+)+[^ ]}")
-              .test(a);
+              .test(i);
           };
           return e();
         });
-        a();
+        i();
         for (
-          var r, c, d = s[0], h = s[1], u = s[2], v = 0, m = [];
-          v < d.length;
-          v++
+          var n, l, c = t[0], h = t[1], d = t[2], p = 0, g = [];
+          p < c.length;
+          p++
         )
-          (c = d[v]),
-            Object.prototype.hasOwnProperty.call(o, c) &&
-              o[c] &&
-              m.push(o[c][0]),
-            (o[c] = 0);
-        for (r in h)
-          Object.prototype.hasOwnProperty.call(h, r) && (e[r] = h[r]);
-        for (p && p(s); m.length; ) m.shift()();
-        return l.push.apply(l, u || []), n();
+          (l = c[p]),
+            Object.prototype.hasOwnProperty.call(o, l) &&
+              o[l] &&
+              g.push(o[l][0]),
+            (o[l] = 0);
+        for (n in h)
+          Object.prototype.hasOwnProperty.call(h, n) && (e[n] = h[n]);
+        for (u && u(t); g.length; ) g.shift()();
+        return r.push.apply(r, d || []), a();
       }
-      function n() {
-        for (var e, s = 0; s < l.length; s++) {
-          for (var i = l[s], a = !0, n = 1; n < i.length; n++)
-            0 !== o[i[n]] && (a = !1);
-          a && (l.splice(s--, 1), (e = c((c.s = i[0]))));
+      function a() {
+        for (var e, t = 0; t < r.length; t++) {
+          for (var s = r[t], i = !0, a = 1; a < s.length; a++)
+            0 !== o[s[a]] && (i = !1);
+          i && (r.splice(t--, 1), (e = l((l.s = s[0]))));
         }
         return e;
       }
-      var r = {},
+      var n = {},
         o = { 0: 0 },
-        l = [];
-      function c(s) {
-        if (r[s]) return r[s].exports;
-        var i = (r[s] = { i: s, l: !1, exports: {} });
-        return e[s].call(i.exports, i, i.exports, c), (i.l = !0), i.exports;
+        r = [];
+      function l(t) {
+        if (n[t]) return n[t].exports;
+        var s = (n[t] = { i: t, l: !1, exports: {} });
+        return e[t].call(s.exports, s, s.exports, l), (s.l = !0), s.exports;
       }
-      (window.getModule = c),
-        (c.m = e),
-        (c.c = r),
-        (c.d = function (e, s, i) {
-          c.o(e, s) || Object.defineProperty(e, s, { enumerable: !0, get: i });
+      (window.getModule = l),
+        (l.m = e),
+        (l.c = n),
+        (l.d = function (e, t, s) {
+          l.o(e, t) || Object.defineProperty(e, t, { enumerable: !0, get: s });
         }),
-        (c.r = function (e) {
+        (l.r = function (e) {
           "undefined" != typeof Symbol &&
             Symbol.toStringTag &&
             Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }),
             Object.defineProperty(e, "__esModule", { value: !0 });
         }),
-        (c.t = function (e, s) {
+        (l.t = function (e, t) {
           if (
-            (1 & s && (e = c(e)),
-            8 & s || (4 & s && "object" == typeof e && e && e.__esModule))
+            (1 & t && (e = l(e)),
+            8 & t || (4 & t && "object" == typeof e && e && e.__esModule))
           )
             return e;
-          var i = Object.create(null);
+          var s = Object.create(null);
           if (
-            (c.r(i),
-            Object.defineProperty(i, "default", { enumerable: !0, value: e }),
-            2 & s && "string" != typeof e)
+            (l.r(s),
+            Object.defineProperty(s, "default", { enumerable: !0, value: e }),
+            2 & t && "string" != typeof e)
           )
-            for (var a in e)
-              c.d(
+            for (var i in e)
+              l.d(
+                s,
                 i,
-                a,
-                function (s) {
-                  return e[s];
-                }.bind(null, a)
+                function (t) {
+                  return e[t];
+                }.bind(null, i)
               );
-          return i;
+          return s;
         }),
-        (c.n = function (e) {
-          var s =
+        (l.n = function (e) {
+          var t =
             e && e.__esModule
               ? function () {
                   return e.default;
@@ -298,508 +319,931 @@
               : function () {
                   return e;
                 };
-          return c.d(s, "a", s), s;
+          return l.d(t, "a", t), t;
         }),
-        (c.o = function (e, s) {
-          return Object.prototype.hasOwnProperty.call(e, s);
+        (l.o = function (e, t) {
+          return Object.prototype.hasOwnProperty.call(e, t);
         }),
-        (c.p = "");
-      var d = (window.webpackJsonp = window.webpackJsonp || []),
-        h = d.push.bind(d);
-      (d.push = a), (d = d.slice());
-      for (var u = 0; u < d.length; u++) a(d[u]);
-      var p = h;
-      l.push([118, 1]), n();
+        (l.p = "");
+      var c = (window.webpackJsonp = window.webpackJsonp || []),
+        h = c.push.bind(c);
+      (c.push = i), (c = c.slice());
+      for (var d = 0; d < c.length; d++) i(c[d]);
+      var u = h;
+      r.push([118, 1]), a();
     })([
       ,
-      function (e, s, a) {
-        let n = a(4),
-          r = a(24),
-          o = a(121),
-          l = a(125),
-          c = a(12),
-          d = a(23),
-          h = a(128),
-          { lerp: u, hideCaptchaBadge: p } = a(8),
-          v = (window.GAME = { ws: { close() {} } });
-        function m(e, s) {
-          for (; e.length; ) e.pop().destroy(s);
-        }
-        (GAME.killCount = 0),
-          (GAME.timeAlive = 0),
-          (v.clientVersion = 19),
-          (v.events = new d()),
-          (v.settings = n),
-          (v.renderer = r),
-          (v.usingWebGL = r.type === PIXI.RENDERER_TYPE.WEBGL),
-          (v.skinLoader = new h()),
-          c.virus.loadVirusFromUrl(n.virusImageUrl),
-          (v.state = {
+      function (e, t, i) {
+        let n = i(5),
+          { writeUserData: o } = i(8),
+          r = i(4),
+          l = i(24),
+          c = i(121),
+          h = i(125),
+          d = i(78),
+          u = i(12),
+          p = i(23),
+          g = i(128),
+          { lerp: A, clampNumber: m, hideCaptchaBadge: v } = i(8),
+          { htmlEncode: f } = i(8),
+          C,
+          y = {
             connectionUrl: null,
             selectedServer: null,
-            allowed: !1,
             spectators: 0,
-            isAlive: !1,
+            lifeState: 0,
+            allowed: !1,
             playButtonDisabled: !1,
             playButtonText: "Play",
             deathDelay: !1,
-            isAutoRespawning: !1,
-          }),
-          (document.body.oncontextmenu = function (e) {
-            return e.target && "email" === e.target.id;
-          }),
-          (v.start = function (e) {
-            if (
-              ((v.initData = e),
-              !(e.protocol && e.instanceSeed && e.playerId && e.border))
-            )
-              throw "Lacking mandatory data";
-            (v.nwDataMax = 0),
-              (v.nwDataSent = 0),
-              (v.nwDataTotal = 0),
-              (v.nwData = 0),
-              (v.viruses = { 1: [], 2: [] }),
-              (v.running = !0),
-              (v.replaying = !!e.replayUpdates),
-              (v.protocol = e.protocol),
-              (v.modeId = e.gamemodeId || 0),
-              (v.instanceSeed = e.instanceSeed),
-              (v.pingstamp = 0),
-              (v.timestamp = 0),
-              (v.serverTick = 0),
-              (v.playerId = e.playerId),
-              (v.multiboxPid = null),
-              (v.activePid = v.playerId),
-              (v.tagId = null),
-              (v.spectating = !1),
-              (v.state.spectators = 0),
-              (v.state.isAlive = !1),
-              (v.score = 0),
-              (v.cellCount = 0),
-              (v.nodes = {}),
-              (v.nodesOwn = {}),
-              (v.nodelist = []),
-              (v.multinodelist = []),
-              (v.removedNodes = []),
-              (v.rawMouse = {}),
-              (v.mouse = {}),
-              (v.border = e.border),
-              (v.food = e.food),
-              (v.mouseZoom = 0.3),
-              (v.mouseZoomMin = 0.01),
-              (v.camera = {
+            autoRespawning: !1,
+          },
+          w = (e, t) => {
+            n.toast.fire({
+              type: t ? "error" : "info",
+              title: e,
+              timer: t ? 5e3 : 2e3,
+            });
+          },
+          I = (e, t) => {
+            for (; e.length; ) e.pop().destroy(t);
+          };
+        document.body.oncontextmenu = (e) => e.target?.id === "email";
+        class k {
+          constructor() {
+            (this.running = !1),
+              this.protocol,
+              this.modeId,
+              this.instanceSeed,
+              this.replaying,
+              this.nwDataMax,
+              this.nwDataSent,
+              this.nwDataTotal,
+              this.nwData,
+              this.playerId,
+              this.multiboxPid,
+              this.activePid,
+              this.tagId,
+              this.spectating,
+              (this.alive = !1),
+              (this.center = { x: 0, y: 0 }),
+              y.spectators,
+              y.lifeState,
+              (this.score = 0),
+              (this.highestScore = 0),
+              (this.killCount = 0),
+              (this.timeAlive = 0),
+              (this.clientVersion = 19),
+              (this.events = new p()),
+              (this.settings = r),
+              (this.renderer = l),
+              (this.skinLoader = new g()),
+              u.virus.loadVirusFromUrl(r.virusImageUrl),
+              (this.state = y),
+              h.useGame(this),
+              this.playback,
+              (this.connection = new (class e {
+                constructor() {
+                  (this.socketCount = 0), (this.opened = !1);
+                }
+                onClosed(e) {
+                  delete C.currentWsId,
+                    (this.opened = !1),
+                    C.running && C.stop();
+                  let t;
+                  if (1003 === e.code)
+                    (t = 1500), w("Server restarting...", !1);
+                  else {
+                    t = 3500 + ~~(100 * Math.random());
+                    let s = "You have been disconnected";
+                    e.reason && (s += ` (${e.reason})`), w(s, !0);
+                  }
+                  setTimeout(() => {
+                    this.opened || C.events.$emit("reconnect-server");
+                  }, t),
+                    C.showMenu(!0);
+                }
+                onRejected() {
+                  delete C.currentWsId,
+                    (this.opened = !1),
+                    w("Connection rejected", !0);
+                }
+                open(e) {
+                  C.dual.close(),
+                    C.running && C.stop(),
+                    this.close(),
+                    C.events.$emit("chat-clear"),
+                    (this.opened = !0);
+                  let t = (C.ws = new WebSocket(e, "tFoL46WDlZuRja7W6qCl"));
+                  (t.binaryType = "arraybuffer"),
+                    (t.packetCount = 0),
+                    (t.onopen = () => {
+                      this.opened &&
+                        ((C.currentWsId = t.id = this.socketCount++),
+                        (C.state.connectionUrl = e),
+                        (t.onclose = this.onClosed.bind(this)));
+                    }),
+                    (t.onclose = this.onRejected.bind(this)),
+                    (t.onmessage = (e) => {
+                      let { data: t } = e;
+                      (C.nwData += t.byteLength),
+                        C.parseMessage(s.fromBuffer(t));
+                    });
+                }
+                close() {
+                  C.dual.close(), (C.debugElement.innerHTML = "");
+                  let { ws: e } = C;
+                  e &&
+                    ((e.onmessage = null),
+                    (e.onclose = null),
+                    (e.onerror = null),
+                    e.close(),
+                    delete C.ws,
+                    delete C.state.connectionUrl,
+                    (this.opened = !1));
+                }
+                send(e, t, i = !1) {
+                  e instanceof s && (e = e.view), (t = !!t);
+                  let { dual: a } = C;
+                  if (t ? !(a.opened && (i || a.ready)) : !this.opened)
+                    return !1;
+                  let n = t ? a.ws : C.ws;
+                  return (
+                    console.assert(!!n, "Socket not defined?"), n.send(e), !0
+                  );
+                }
+                sendMouse() {
+                  let e = s.fromSize(5);
+                  e.writeUInt8(16);
+                  let { x: t, y: i } = C.mouse;
+                  e.writeInt16LE(t), e.writeInt16LE(i);
+                  let { dual: a } = C;
+                  this.send(e, a.focused),
+                    a.connected &&
+                      ((C.isAlive(!1) && C.isAlive(!0)) ||
+                        this.send(e, C.isAlive(!1)));
+                }
+                sendOpcode(e, t) {
+                  let i = s.fromSize(1);
+                  i.writeUInt8(e), this.send(i, t);
+                }
+                ping() {
+                  (C.pingStamp = performance.now()), this.sendOpcode(3);
+                }
+                sendJoinData(e, t) {
+                  let i = s.fromSize(2 + e.length + 7);
+                  i.writeUInt8(5),
+                    i.writeUInt8(C.clientVersion),
+                    i.ensureCapacity(e.length),
+                    e.forEach((e) => i.writeUInt8(e)),
+                    o(i, !!t);
+                  let a = localStorage.vanisToken;
+                  a &&
+                    /^wss?:\/\/[a-zA-Z0-9_-]+\.vanis\.io/i.test(C.ws.url) &&
+                    i.writeStringNT(a),
+                    this.send(i, t, !!t);
+                }
+                sendRecaptchaToken(e, t) {
+                  e = unescape(encodeURIComponent(e));
+                  let i = s.fromSize(1 + e.length + 1);
+                  i.writeUInt8(11), i.writeStringNT(e), this.send(i, t);
+                }
+                sendChatMessage(e, t) {
+                  e = unescape(encodeURIComponent(e));
+                  let i = s.fromSize(1 + e.length + 1);
+                  i.writeUInt8(99), i.writeString(e), this.send(i, t);
+                }
+              })()),
+              this.dual,
+              this.pingStamp,
+              this.timeStamp,
+              this.serverTick,
+              (this.cells = new Map()),
+              (this.destroyedCells = []),
+              (this.cellCount = 0),
+              (this.ownedCells = new Set()),
+              this.rawMouse,
+              this.mouse,
+              this.mouseZoom,
+              this.mouseZoomMin,
+              this.camera,
+              (this.massTextPool = []),
+              (this.crownPool = []),
+              c.useGame(this),
+              this.scene,
+              this.playerManager,
+              this.ticker,
+              this.splitCount,
+              this.moveWaitUntil,
+              this.stopMovePackets,
+              this.mouseFrozen,
+              this.moveInterval,
+              setInterval(() => this.events.$emit("every-second"), 1e3),
+              setInterval(() => this.events.$emit("every-minute"), 6e4);
+          }
+          isAlive(e = !1) {
+            let { dual: t } = this;
+            return e
+              ? t.opened && t.alive
+              : this.connection.opened && this.alive;
+          }
+          get allCells() {
+            let e = this.cells,
+              { dual: t } = this;
+            if (!t.opened) return e;
+            e = new Map([...e]);
+            let s = t.cells;
+            return (
+              s.forEach((t, s) => {
+                e.has(s) || e.set(s, t);
+              }),
+              e
+            );
+          }
+          updateStates(e) {
+            let t = !1,
+              s = !1,
+              { dual: i } = this;
+            return (
+              C.allCells.forEach((e) => {
+                e.pid &&
+                  (e.pid == this.playerId
+                    ? (this.alive = t = !0)
+                    : i.opened && e.pid == i.pid && (i.alive = s = !0));
+              }),
+              this.alive && !t && (this.alive = !1),
+              i.alive && !s && (i.alive = !1),
+              (y.lifeState = (t ? 1 : 0) + (s ? 2 : 0)),
+              e ? s : t
+            );
+          }
+          start(e) {
+            if (!(e.protocol && e.instanceSeed && e.playerId && e.border))
+              throw Error("Lacking mandatory data");
+            (this.running = !0),
+              (this.protocol = e.protocol),
+              (this.modeId = e.gamemodeId || 0),
+              (this.instanceSeed = e.instanceSeed),
+              (this.replaying = !!e.replayUpdates),
+              (this.nwDataMax =
+                this.nwDataSent =
+                this.nwDataTotal =
+                this.nwData =
+                  0),
+              (this.pingStamp = 0),
+              (this.timeStamp = 0),
+              (this.serverTick = 0),
+              (this.playerId = e.playerId),
+              (this.multiboxPid = 0),
+              (this.activePid = this.playerId),
+              (this.tagId = null),
+              (this.spectating = !1),
+              (this.alive = !1),
+              (y.spectators = 0),
+              (y.lifeState = 0),
+              (this.score = 0),
+              (this.highestScore = 0),
+              (this.cellCount = 0),
+              (this.rawMouse = { x: 0, y: 0 }),
+              (this.mouse = { x: 0, y: 0 });
+            let t = (this.border = e.border);
+            (this.food = e.food),
+              (this.mouseZoom = 0.3),
+              (this.mouseZoomMin = 0.01),
+              (this.camera = {
                 time: 0,
                 sx: 0,
                 sy: 0,
-                ox: e.border.x,
-                nx: e.border.x,
-                oy: e.border.y,
-                ny: e.border.y,
-                oz: v.mouseZoom,
-                nz: v.mouseZoom,
+                ox: t.x,
+                nx: t.x,
+                oy: t.y,
+                ny: t.y,
+                oz: this.mouseZoom,
+                nz: this.mouseZoom,
               }),
-              (v.massTextPool = []),
-              (v.crownPool = []);
-            var s =
-              PIXI.utils.isWebGLSupported() &&
-              n.useWebGL &&
-              n.showBackgroundImage;
-            (v.scene = new o(v, v.border, s)),
-              v.scene.container.pivot.set(e.border.x, e.border.y),
-              v.scene.container.scale.set(v.zoom),
-              (v.playerManager = new l(v)),
-              (v.ticker = new PIXI.Ticker()),
-              v.ticker.add(v.tick),
-              v.state.selectedServer &&
-                v.state.connectionUrl !== v.state.selectedServer.url &&
-                (v.state.selectedServer = null),
-              v.replaying
-                ? (v.playback.set(e.replayUpdates),
-                  (v.moveInterval = setInterval(v.playback.next, 40)),
-                  v.events.$emit(
-                    "show-replay-controls",
-                    e.replayUpdates.length
-                  ),
-                  v.events.$emit("minimap-stats-visible", !1))
-                : ((v.splitCount = 0),
-                  (v.moveWaitUntil = 0),
-                  (v.stopMovePackets = !1),
-                  (v.moveToCenterOfCells = !1),
-                  (v.mouseFrozen = !1),
-                  n.minimapEnabled && v.events.$emit("minimap-show"),
-                  n.showChat && v.events.$emit("chat-visible", { visible: !0 }),
-                  v.events.$emit("leaderboard-show"),
-                  v.events.$emit("stats-visible", !0),
-                  (v.moveInterval = setInterval(() => {
-                    v.stopMovePackets ||
-                      (v.moveToCenterOfCells
-                        ? v.connection.sendOpcode(9)
-                        : v.connection.sendMouse());
-                  }, 40)),
-                  v.events.$on("every-second", v.everySecond),
-                  (v.state.allowed = !0),
-                  (v.lastDeathTime = Date.now())),
-              v.ticker.start(),
-              v.eventListeners(!0),
-              v.events.$emit("game-started"),
-              (v.scene.container.alpha = window.settings.gameAlpha);
-          }),
-          (v.updateStats = function (e) {
-            (v.ping = e),
-              v.events.$emit("stats-changed", {
-                ping: e,
-                fps: Math.round(v.ticker.FPS),
-                mass: v.score,
-                score: v.highscore,
-              }),
-              v.events.$emit("minimap-stats-changed", {
-                playerCount: v.playerManager.playerCount,
-                spectators: v.state.spectators,
-              });
-          }),
-          (v.everySecond = function () {
+              (this.massTextPool = []),
+              (this.crownPool = []);
+            let i =
+                PIXI.utils.isWebGLSupported() &&
+                r.useWebGL &&
+                r.showBackgroundImage,
+              a = (this.scene = new c(t, i));
             if (
-              (GAME.alive(!1) && GAME.timeAlive++,
-              v.nwData > v.nwDataMax && (v.nwDataMax = v.nwData),
-              (v.nwDataTotal += v.nwData),
-              (v.settings.debugStats || v.settings.clientStats) &&
-                1 == v.ws.readyState &&
-                v.debugElement)
+              ((a.container.alpha = r.gameAlpha || 1),
+              a.container.pivot.set(t.x, t.y),
+              a.container.scale.set(this.zoom),
+              (this.playerManager = new h()),
+              (this.ticker = new PIXI.Ticker()),
+              this.ticker.add(this.onTick.bind(this)),
+              y.selectedServer &&
+                y.connectionUrl !== y.selectedServer.url &&
+                (y.selectedServer = null),
+              this.replaying)
             ) {
-              var e = Multibox.connected(),
-                s = "";
-              v.settings.debugStats &&
-                (s += `
-            <b>(NET)</b> ${(v.nwData / 1024).toFixed(0)} Kb/s <br>
-            <b>(NET PEAK)</b> ${(v.nwDataMax / 1024).toFixed(0)} Kb/s <br>
-            <b>(NET TOTAL)</b> ${(v.nwDataTotal / 1024 / 1024).toFixed(
+              let { playback: n } = this,
+                o = e.replayUpdates;
+              n.set(o),
+                (this.moveInterval = setInterval(n.next.bind(n), 40)),
+                this.events.$emit("show-replay-controls", o.length),
+                this.events.$emit("minimap-stats-visible", !1);
+            } else
+              (this.splitCount = 0),
+                (this.moveWaitUntil = 0),
+                (this.stopMovePackets = 0),
+                (this.moveToCenterOfCells = 0),
+                (this.mouseFrozen = !1),
+                r.minimapEnabled && this.events.$emit("minimap-show"),
+                r.showChat &&
+                  this.events.$emit("chat-visible", { visible: !0 }),
+                this.events.$emit("leaderboard-show"),
+                this.events.$emit("stats-visible", !0),
+                (this.moveInterval = setInterval(() => {
+                  let { dual: e } = this;
+                  if (this.stopMovePackets === 1 + +e.focused) return;
+                  let t = this.moveToCenterOfCells;
+                  if (
+                    (0 != t && this.connection.sendOpcode(9, 2 == t),
+                    e.focused ? 2 == t : 1 == t)
+                  )
+                    return;
+                  let i = s.fromSize(5);
+                  i.writeUInt8(16);
+                  let { x: a, y: n } = this.mouse;
+                  i.writeInt16LE(a),
+                    i.writeInt16LE(n),
+                    this.connection.send(i, e.focused);
+                }, 40)),
+                this.events.$on("every-second", k.everySecond),
+                (y.allowed = !0);
+            this.ticker.start(),
+              this.eventListeners(!0),
+              this.events.$emit("game-started");
+          }
+          stop() {
+            let { dual: e } = this;
+            e.opened && e.close(),
+              (this.running = !1),
+              delete this.protocol,
+              delete this.modeId,
+              delete this.instanceSeed,
+              delete this.replaying,
+              delete this.nwDataMax,
+              delete this.nwDataSent,
+              delete this.nwDataTotal,
+              delete this.nwData,
+              delete this.playerId,
+              delete this.multiboxPid,
+              delete this.activePid,
+              delete this.tagId,
+              (this.spectating = !1),
+              (this.alive = !1),
+              (y.spectators = 0),
+              (y.lifeState = 0),
+              (y.allowed = !1),
+              (y.playButtonDisabled = !1),
+              (y.playButtonText = "Play"),
+              this.eventListeners(!1),
+              delete this.score,
+              delete this.highestScore,
+              delete this.pingStamp,
+              delete this.timeStamp,
+              delete this.serverTick,
+              delete this.playerId,
+              delete this.multiboxPid,
+              delete this.activePid,
+              delete this.tagId,
+              delete this.spectating,
+              this.clearCells(),
+              delete this.cellCount,
+              delete this.rawMouse,
+              delete this.mouse,
+              delete this.mouseZoom,
+              delete this.mouseZoomMin,
+              delete this.camera,
+              this.ticker && (this.ticker.stop(), delete this.ticker),
+              delete this.splitCount,
+              delete this.moveWaitUntil,
+              delete this.stopMovePackets,
+              delete this.moveToCenterOfCells,
+              delete this.mouseFrozen,
+              clearInterval(this.moveInterval),
+              delete this.moveInterval,
+              this.playback.reset(),
+              this.events.$off("every-second", k.everySecond),
+              this.skinLoader.clearCallbacks(),
+              this.events.$emit("minimap-stats-visible", !0),
+              this.events.$emit("stats-visible", !1),
+              this.events.$emit("chat-visible", { visible: !1 }),
+              this.events.$emit("leaderboard-hide"),
+              this.events.$emit("minimap-hide"),
+              this.events.$emit("minimap-destroy"),
+              this.events.$emit("show-replay-controls", !1),
+              this.events.$emit("cells-changed", 0),
+              this.events.$emit("reset-cautions"),
+              this.events.$emit("game-stopped"),
+              this.playerManager.destroy(),
+              delete this.playerManager;
+            let { scene: t } = this;
+            t &&
+              (t.destroyBackgroundImage(!1),
+              t.uninstallMassTextFont(),
+              t.container.destroy({ children: !0 }),
+              delete this.scene),
+              this.renderer.clear(),
+              u.cells.destroyCache(),
+              u.squares.destroyCache(),
+              I(this.massTextPool, !0),
+              I(this.crownPool),
+              delete this.massTextPool,
+              delete this.crownPool;
+          }
+          showMenu(e) {
+            if (((e ??= !this.app.showMenu), this.app.showDeathScreen))
+              return !1;
+            if (((this.app.showMenu = e), this.actions.stopMovement(e), e))
+              this.events.$emit("menu-opened");
+            else {
+              let t = document.activeElement;
+              t?.id !== "chatbox-input" && l.view.focus(),
+                (this.stopMovePackets = 0),
+                v();
+            }
+            return e;
+          }
+          updateStats(e) {
+            this.events.$emit("stats-changed", {
+              ping: e,
+              fps: Math.round(this.ticker.FPS),
+              mass: this.score,
+              score: this.highestScore,
+            }),
+              this.events.$emit("minimap-stats-changed", {
+                playerCount: this.playerManager.playerCount,
+                spectators: y.spectators,
+              });
+          }
+          static everySecond() {
+            (C.isAlive(!1) || C.isAlive(!0)) && C.timeAlive++,
+              C.nwData > C.nwDataMax && (C.nwDataMax = C.nwData),
+              (C.nwDataTotal += C.nwData);
+            let { connection: e } = C,
+              { debugElement: t } = C;
+            if (t) {
+              if ((r.debugStats || r.clientStats) && e.opened) {
+                let s = C.dual.connected,
+                  i = "";
+                if (
+                  (r.debugStats &&
+                    !C.replaying &&
+                    (i += `
+            <b>(NET)</b> ${(C.nwData / 1024).toFixed(0)} Kb/s <br>
+            <b>(NET PEAK)</b> ${(C.nwDataMax / 1024).toFixed(0)} Kb/s <br>
+            <b>(NET TOTAL)</b> ${(C.nwDataTotal / 1024 / 1024).toFixed(
               0
             )} MB <br>
             <br>`),
-                v.settings.clientStats &&
-                  (s += `
-        <b>(MOUSE)</b> ${v.mouse.x.toFixed(0)} ${v.mouse.y.toFixed(0)} <br>
-        ${e ? `<b>(DUAL PID)</b> ${v.multiboxPid} <br>` : ""}
-        <b>(PID)</b> ${v.playerId} <br>
-        <b>(NODES)</b> ${v.nodelist.length} <br>
-        `),
-                GAME.replaying && (s = ""),
-                (v.debugElement.innerHTML = s);
-            } else
-              v.debugElement &&
-                "" !== v.debugElement.innerHTML &&
-                (v.debugElement.innerHTML = "");
-            (v.nwData = 0),
-              (v.app.showMenu || v.app.showDeathScreen) && v.updateStats(null),
-              1 == v.ws.readyState &&
-                (v.pingstamp = Date.now()) &&
-                v.connection.sendOpcode(3),
-              Multibox.connected() &&
-                Multibox.updateCamera() &&
-                v.connection.sendOpcode(3, !0);
-          }),
-          (v.clearNodes = function (e) {
-            if (v.nodelist) {
-              for (; v.nodelist.length; ) v.nodelist[0].destroy();
-              for (; v.removedNodes.length; )
-                v.removedNodes.pop().destroySprite();
-              for (; e ? v.viruses[2].length : v.viruses[1].length; )
-                v.viruses[e ? "2" : "1"][0].destroy();
+                  r.clientStats)
+                ) {
+                  let { x: a, y: n } = C.mouse;
+                  i += `
+        <b>(MOUSE)</b> ${a.toFixed(0)} ${n.toFixed(0)} <br>
+        ${s ? `<b>(DUAL PID)</b> ${C.multiboxPid} <br>` : ""}
+        <b>(PID)</b> ${C.playerId} <br>
+        <b>(NODES)</b> ${C.allCells.size} <br>
+        `;
+                }
+                t.innerHTML = i;
+              } else "" !== t.innerHTML && (t.innerHTML = "");
             }
-          }),
-          (v.stop = function () {
-            (v.running = !1),
-              (v.state.isAlive = !1),
-              (v.state.spectators = 0),
-              (v.state.allowed = !1),
-              (v.state.playButtonDisabled = !1),
-              (v.state.playButtonText = "Play"),
-              v.eventListeners(!1),
-              delete v.running,
-              delete v.protocol,
-              delete v.modeId,
-              delete v.initialDataPacket,
-              delete v.instanceSeed,
-              delete v.pingstamp,
-              delete v.timestamp,
-              delete v.serverTick,
-              delete v.playerId,
-              delete v.multiboxPid,
-              delete v.activePid,
-              delete v.tagId,
-              delete v.spectating,
-              delete v.center,
-              delete v.score,
-              delete v.highscore,
-              delete v.cellCount,
-              delete v.replaying,
-              v.clearNodes(),
-              delete v.nodes,
-              delete v.nodesOwn,
-              delete v.nodelist,
-              delete v.removedNodes,
-              delete v.rawMouse,
-              delete v.mouse,
-              delete v.border,
-              delete v.mouseZoom,
-              delete v.mouseZoomMin,
-              delete v.camera,
-              v.ticker.stop(),
-              delete v.ticker,
-              delete v.splitCount,
-              delete v.moveWaitUntil,
-              delete v.stopMovePackets,
-              delete v.moveToCenterOfCells,
-              delete v.mouseFrozen,
-              delete v.lastDeathTime,
-              delete v.selectedPlayer,
-              clearInterval(v.moveInterval),
-              delete v.moveInterval,
-              v.playback.reset(),
-              v.events.$off("every-second", v.everySecond),
-              v.skinLoader.clearCallbacks(),
-              v.events.$emit("minimap-stats-visible", !0),
-              v.events.$emit("stats-visible", !1),
-              v.events.$emit("chat-visible", { visible: !1 }),
-              v.events.$emit("leaderboard-hide"),
-              v.events.$emit("minimap-hide"),
-              v.events.$emit("minimap-destroy"),
-              v.events.$emit("show-replay-controls", !1),
-              v.events.$emit("cells-changed", 0),
-              v.events.$emit("reset-cautions"),
-              v.events.$emit("players-menu", !1),
-              v.events.$emit("account-menu", !1),
-              v.events.$emit("chatbox-menu", !1),
-              v.events.$emit("options-menu", !1),
-              v.events.$emit("replays-menu", !1),
-              v.events.$emit("game-stopped"),
-              v.playerManager.destroy(),
-              delete v.playerManager,
-              v.scene &&
-                (v.scene.destroyBackgroundImage(!1),
-                v.scene.uninstallMassTextFont(),
-                v.scene.container.destroy({ children: !0 }),
-                delete v.scene),
-              v.renderer.clear(),
-              c.cells.destroyCache(),
-              c.squares.destroyCache(),
-              m(v.massTextPool, !0),
-              m(v.crownPool),
-              delete v.massTextPool,
-              delete v.crownPool;
-          }),
-          (v.showMenu = function (e, s) {
-            if (
-              (null == e && (s = e = !v.app.showMenu), (v.app.showMenu = e), e)
-            )
-              v.events.$emit("menu-opened"),
-                s && setTimeout(() => v.app.showMenu, 1500);
-            else {
-              let i = document.activeElement;
-              i?.id !== "chatbox-input" && v.renderer.view.focus(),
-                (v.stopMovePackets = !1),
-                p();
+            (C.nwData = 0), e.opened && e.ping();
+            let { dual: o } = C;
+            o.connected &&
+              ((o.pingStamp = performance.now()), e.sendOpcode(3, !0));
+          }
+          clearCells() {
+            this.cells.forEach((e) => e.destroy(1));
+            let { destroyedCells: e } = this;
+            for (; e.length; ) e.pop().destroySprite();
+          }
+          onTick() {
+            let e = (this.timeStamp = performance.now());
+            e >= this.moveWaitUntil &&
+              (this.updateMouse(), (this.splitCount = 0));
+            let { destroyedCells: t } = this,
+              s = t.length;
+            for (; s--; ) {
+              let i = t[s];
+              i.update() && (i.destroySprite(), t.splice(s, 1));
             }
-            return e;
-          }),
-          (v.triggerDeathDelay = function (e) {
-            clearTimeout(v.deathTimeout), delete v.deathTimeout;
-            let { state: s } = v;
+            let a = 0;
+            this.allCells.forEach((e) => {
+              e.update(), e.pid == this.activePid && a++;
+            }),
+              this.cellCount != a &&
+                ((this.cellCount = a), this.events.$emit("cells-changed", a));
+            let { scene: n } = this;
+            n.sort();
+            let o = this.updateCamera();
+            if (o) {
+              this.score = o;
+              let { highestScore: r } = this;
+              this.highestScore = r ? (r < o ? o : r) : o;
+            } else this.isAlive(!0) || this.isAlive(!1) || (this.score = 0);
+            this.renderer.render(n.container);
+          }
+          updateCamera(e = !1) {
+            let { scene: t, camera: s } = this,
+              i = this.timeStamp - s.time,
+              a = m(i / r.cameraMoveDelay, 0, 1),
+              n = m(i / r.cameraZoomDelay, 0, 1),
+              o = (t.container.pivot.x = A(s.ox, s.nx, a)),
+              l = (t.container.pivot.y = A(s.oy, s.ny, a)),
+              c = A(s.oz, s.nz, n);
+            t.container.scale.set(c);
+            let h = this.mouseZoom,
+              d = 0,
+              u = 0,
+              p = 0;
+            if (this.spectating) {
+              let { sx: g, sy: v } = s;
+              (d = g), (u = v);
+            } else {
+              let f = !1;
+              if (!this.replaying) {
+                let { dual: y } = this;
+                if (y.connected) {
+                  let w = y.getDistanceFromOwner();
+                  f = !!r.singleView || null == w || w > 8e3;
+                }
+              }
+              let I = 0,
+                k;
+              for (k of this.ownedCells.values()) {
+                if (f && k.pid != C.activePid) continue;
+                let b = Math.round(Math.pow(k.nSize / 10, 2));
+                (d += k.nx * b), (u += k.ny * b), (I += k.nSize), (p += b);
+              }
+              p
+                ? ((d /= p),
+                  (u /= p),
+                  r.autoZoom && (h *= Math.pow(Math.min(64 / I, 1), 0.27)))
+                : ((d = s.nx), (u = s.ny));
+            }
+            return e
+              ? ((s.ox = o),
+                (s.oy = l),
+                (s.oz = c),
+                (s.nx = d),
+                (s.ny = u),
+                (s.nz = h),
+                (s.time = this.timeStamp),
+                0)
+              : p;
+          }
+          updateMouse(e = !1) {
+            if (this.mouseFrozen && !e) return;
+            let t = this.scene.container,
+              { x: s, y: i } = this.rawMouse;
+            (this.mouse.x = m(
+              t.pivot.x + (s - window.innerWidth / 2) / t.scale.x,
+              -32768,
+              32767
+            )),
+              (this.mouse.y = m(
+                t.pivot.y + (i - window.innerHeight / 2) / t.scale.y,
+                -32768,
+                32767
+              ));
+          }
+          seededRandom(e) {
+            return (
+              (e = Math.sin(e) * (1e4 + this.instanceSeed)) - Math.floor(e)
+            );
+          }
+          createThumbnail(e = 240, t = 135) {
+            let s = this.scene.container,
+              i = new PIXI.Container();
+            (i.pivot.x = s.position.x),
+              (i.pivot.y = s.position.y),
+              (i.position.x = e / 2),
+              (i.position.y = t / 2),
+              i.scale.set(0.25),
+              i.addChild(s);
+            let { renderer: a } = this,
+              n = PIXI.RenderTexture.create(e, t);
+            a.render(i, n), i.removeChild(s);
+            let o = a.plugins.extract.canvas(n),
+              l = document.createElement("canvas");
+            (l.width = e), (l.height = t);
+            let c = l.getContext("2d");
+            c.beginPath(),
+              c.rect(0, 0, e, t),
+              (c.fillStyle = "#" + r.backgroundColor),
+              c.fill(),
+              c.drawImage(o, 0, 0, e, t);
+            let h = l.toDataURL();
+            return i.destroy(!0), h;
+          }
+          setTagId(e) {
+            return e || (e = null), e !== this.tagId && ((this.tagId = e), !0);
+          }
+          getMassText(e) {
+            return !r.shortMass || e < 1e3
+              ? e.toFixed(0)
+              : (e / 1e3).toFixed(1) + "k";
+          }
+          shouldAutoRespawn(e) {
+            return !this.app.showMenu && (e ? r.mbAutorespawn : r.autoRespawn);
+          }
+          triggerDeathDelay(e) {
             if (
-              (e
-                ? (Multibox.autoRespawning = !1)
-                : ((s.deathDelay = !1), (s.isAutoRespawning = !1)),
-              !n.mbAutorespawn && !n.autoRespawn)
+              (clearTimeout(this.deathTimeout),
+              delete this.deathTimeout,
+              e
+                ? delete this.dual.autoRespawning
+                : ((y.deathDelay = !1), (y.autoRespawning = !1)),
+              !r.mbAutorespawn && !r.autoRespawn)
             ) {
-              let i = [];
-              i.push(`Kills: ${v.killCount}`),
-                i.push(`Time alive: ${v.timeAlive.toString().toHHMMSS()}`),
-                i.push(
-                  `Highscore: ${v.highscore
+              let t = [];
+              t.push(`Kills: ${this.killCount}`),
+                t.push(`Time alive: ${this.timeAlive.toString().toHHMMSS()}`),
+                t.push(
+                  `Highscore: ${this.highestScore
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
                 ),
-                ($(".bar").innerHTML = i.join("<br>")),
-                (v.highscore = 0),
-                (v.killCount = 0),
-                (v.timeAlive = 0),
-                v.showMenu(!0);
+                ($(".bar").innerHTML = t.join("<br>")),
+                (this.killCount = 0),
+                (this.timeAlive = 0);
             }
-          }),
-          (v.handleDeath = function (e, s) {
-            let a = new i(e);
-            a.offset++,
-              a.readUInt16LE(),
-              (GAME.killCount += a.readUInt16LE()),
-              a.readUInt32LE();
-            let { state: n } = v;
-            if ((s || (n.deathDelay = !0), v.shouldAutoRespawn(s)))
-              s
-                ? ((Multibox.autoRespawning = !0),
-                  (Multibox.ticksSinceDeath = 0))
-                : ((n.isAutoRespawning = !0), (v.ticksSinceDeath = 0));
-            else {
-              let r = Date.now();
-              s ? (Multibox.lastDeathTime = r) : (v.lastDeathTime = r);
-            }
-            (s ? Multibox.autoRespawning : n.isAutoRespawning) ||
-              (v.deathTimeout = setTimeout(
-                v.triggerDeathDelay.bind(null, s),
-                900
-              )),
-              Multibox.updateOutlines();
-          }),
-          (v.triggerAutoRespawn = function (e) {
-            let { state: s } = v;
-            e
-              ? ((Multibox.autoRespawning = !1), Multibox.spawn())
-              : ((s.deathDelay = !1),
-                (s.isAutoRespawning = !1),
-                v.actions.join());
-          }),
-          (v.tick = function () {
-            (v.timestamp = performance.now()),
-              v.timestamp >= v.moveWaitUntil &&
-                (v.updateMouse(), (v.splitCount = 0));
-            for (var e = v.removedNodes.length; e--; ) {
-              var s = v.removedNodes[e];
-              s.update() && (s.destroySprite(), v.removedNodes.splice(e, 1));
-            }
-            for (var i = 0, a = 0; a < v.nodelist.length; a++) {
-              var n = v.nodelist[a];
-              n.update(),
-                n.player && n.player.isMe && n.pid === v.activePid && i++;
-            }
-            v.cellCount !== i &&
-              ((v.cellCount = i), v.events.$emit("cells-changed", i)),
-              GAME.aimbotnodes(),
-              v.scene.sort();
-            var r = v.updateCamera();
-            r
-              ? ((v.score = r), (v.highscore = Math.max(r, v.highscore || 0)))
-              : (v.score = 0),
-              v.renderer.render(v.scene.container);
-          }),
-          (v.updateCamera = function (e) {
-            var s,
-              i = v.timestamp - v.camera.time;
-            s = Math.min(Math.max(i / n.cameraMoveDelay, 0), 1);
-            var a = (v.scene.container.pivot.x = u(
-                v.camera.ox,
-                v.camera.nx,
-                s
-              )),
-              r = (v.scene.container.pivot.y = u(v.camera.oy, v.camera.ny, s));
-            s = Math.min(Math.max(i / n.cameraZoomDelay, 0), 1);
-            var o = u(v.camera.oz, v.camera.nz, s);
-            v.scene.container.scale.set(o);
-            var l = 0,
-              c = 0,
-              d = 0,
-              h = 0,
-              p = 0,
-              m = v.mouseZoom;
-            if (v.spectating) (l = v.camera.sx), (c = v.camera.sy);
-            else {
-              for (var g in v.nodesOwn) {
-                var f = v.nodes[g],
-                  y = f.nSize * f.nSize;
-                (l += f.nx * y),
-                  (c += f.ny * y),
-                  (d += y),
-                  (h += f.nSize),
-                  (p += y / 100);
+          }
+          triggerAutoRespawn(e) {
+            if (e) {
+              let { dual: t } = this;
+              (t.autoRespawning = !1), t.spawn();
+            } else
+              (y.deathDelay = !1), (y.autoRespawning = !1), this.actions.join();
+          }
+          handleDeath(e, t) {
+            e.readUInt16LE(),
+              (this.killCount += e.readUInt16LE()),
+              e.readUInt32LE(),
+              t || (y.deathDelay = !0);
+            let { dual: s } = this;
+            this.shouldAutoRespawn(t)
+              ? t
+                ? ((s.autoRespawning = !0), (s.ticksSinceDeath = 0))
+                : ((y.autoRespawning = !0), (this.ticksSinceDeath = 0))
+              : (this.deathTimeout = setTimeout(
+                  this.triggerDeathDelay.bind(this, t),
+                  900
+                )),
+              s.updateOutlines();
+          }
+          parseLeaderboard(e) {
+            let t = [];
+            for (;;) {
+              let s = e.readUInt16LE();
+              if (0 == s) {
+                this.events.$emit("leaderboard-update", t);
+                return;
               }
-              d
-                ? ((l /= d),
-                  (c /= d),
-                  n.autoZoom && (m *= Math.pow(Math.min(64 / h, 1), 0.27)))
-                : ((l = v.camera.nx), (c = v.camera.ny), (m = v.camera.nz));
+              let i = this.playerManager.getPlayer(s);
+              if (!i) continue;
+              let a = {
+                pid: s,
+                position: t.length + 1,
+                text: i.name,
+                color: i.nameColorCss || "#ffffff",
+                bold: !!i.nameColor,
+              };
+              t.push(a);
             }
-            return (
-              e &&
-                ((v.camera.ox = a),
-                (v.camera.oy = r),
-                (v.camera.oz = o),
-                (v.camera.nx = l),
-                (v.camera.ny = c),
-                (v.camera.nz = m),
-                (v.camera.time = v.timestamp)),
-              Math.floor(p)
-            );
-          }),
-          (v.updateMouse = function (e = !1) {
-            if (!v.mouseFrozen || e) {
-              var s = v.scene.container;
-              (v.mouse.x = Math.min(
-                Math.max(
-                  s.pivot.x +
-                    (v.rawMouse.x - window.innerWidth / 2) / s.scale.x,
-                  -32768
-                ),
-                32767
-              )),
-                (v.mouse.y = Math.min(
-                  Math.max(
-                    s.pivot.y +
-                      (v.rawMouse.y - window.innerHeight / 2) / s.scale.y,
-                    -32768
-                  ),
-                  32767
-                ));
+          }
+          parseMinimap(e) {
+            let t = [];
+            for (;;) {
+              let s = e.readUInt16LE();
+              if (0 == s) {
+                this.events.$emit("minimap-positions", t);
+                return;
+              }
+              e.offset++;
+              let i = e.readUInt8(),
+                a = e.readUInt8();
+              t.push({ pid: s, x: i / 255, y: a / 255 });
             }
-          }),
-          (v.seededRandom = function (e) {
-            var s = Math.sin(e) * (1e4 + v.instanceSeed);
-            return s - Math.floor(s);
-          }),
-          (v.getThumbnail = function () {
-            var e = v.scene.container,
-              s = new PIXI.Container();
-            (s.pivot.x = e.position.x),
-              (s.pivot.y = e.position.y),
-              (s.position.x = 120),
-              (s.position.y = 67.5),
-              s.scale.set(1 / 4),
-              s.addChild(e);
-            var i = PIXI.RenderTexture.create(240, 135);
-            v.renderer.render(s, i), s.removeChild(e);
-            var a = v.renderer.extract.canvas(i),
-              r = document.createElement("canvas");
-            (r.width = 240), (r.height = 135);
-            var o = r.getContext("2d");
-            o.beginPath(),
-              o.rect(0, 0, 240, 135),
-              (o.fillStyle = n.backgroundColor),
-              o.fill(),
-              o.drawImage(a, 0, 0, 240, 135);
-            var l = r.toDataURL();
-            return i.destroy(!0), l;
-          }),
-          (v.setTagId = function (e) {
-            return e || (e = null), e !== v.tagId && ((v.tagId = e), !0);
-          }),
-          (v.getMassText = function (e) {
-            return !n.shortMass || e < 1e3
-              ? e.toFixed(0)
-              : (e / 1e3).toFixed(1) + "k";
-          }),
-          (v.shouldAutoRespawn = function (e) {
-            return !v.app.showMenu && (e ? n.mbAutorespawn : n.autoRespawn);
-          }),
-          setInterval(() => v.events.$emit("every-second"), 1e3),
-          setInterval(() => v.events.$emit("every-minute"), 6e4),
-          v.events.$on("every-minute", () => {}),
-          (e.exports = v);
+          }
+          parsePlayers(e) {
+            let t = JSON.parse(e.readEscapedString()),
+              s = t.find((e) => e.pid === this.playerId),
+              i = s && this.setTagId(s.tagId),
+              { playerManager: a } = this,
+              n = [];
+            for (let o of t) {
+              let r = a.setPlayerData(o);
+              n.push(r);
+            }
+            i &&
+              (this.events.$emit("minimap-positions", []),
+              a.invalidateVisibility(n));
+          }
+          parseMessage(e) {
+            let t = e.readUInt8();
+            switch (t) {
+              case 1: {
+                let s = d(e);
+                (this.initialDataPacket = e.view), this.start(s);
+                return;
+              }
+              case 2: {
+                let i = new Uint8Array(e.buffer, 1);
+                this.connection.sendJoinData(new a(i).build(), !1);
+                return;
+              }
+              case 3: {
+                let o = performance.now() - this.pingStamp;
+                this.updateStats(Math.round(o));
+                return;
+              }
+              case 4: {
+                let { playerManager: r } = this;
+                for (;;) {
+                  let l = e.readUInt16LE();
+                  if (0 == l) return;
+                  r.delayedRemovePlayer(l);
+                }
+              }
+              case 6:
+                this.connection.sendOpcode(6);
+                return;
+              case 7: {
+                let c = e.readUInt8(),
+                  h,
+                  u;
+                if (1 & c) {
+                  let p = e.readUInt16LE();
+                  u = this.playerManager.getPlayer(p);
+                }
+                if (2 & c) {
+                  let g = e.readUInt16LE();
+                  h = this.playerManager.getPlayer(g);
+                }
+                h && h.setCrown(!1), u && u.setCrown(!0);
+                return;
+              }
+              case 8:
+                if (this.multiboxPid) return;
+                this.multiboxPid = e.readUInt16LE();
+                return;
+              case 9: {
+                let { playerManager: A } = this,
+                  m = this.activePid;
+                m && A.getPlayer(m).setOutline(16777215),
+                  (m = this.activePid = e.readUInt16LE()),
+                  A.getPlayer(m).setOutline(16711935);
+                return;
+              }
+              case 10: {
+                this.timeStamp = performance.now();
+                let v = e.packetId || (e.packetId = this.ws.packetCount++);
+                this.parseCells(e, v), this.updateStates(!0);
+                let w = this.alive;
+                w && (this.spectating = !1);
+                let { dual: I } = this,
+                  { replay: k } = this;
+                w && !this.replaying
+                  ? k.add(e.view, !1)
+                  : I.alive || k.clear(!1),
+                  !w &&
+                    y.autoRespawning &&
+                    37 == ++this.ticksSinceDeath &&
+                    this.triggerAutoRespawn(!1),
+                  this.serverTick++,
+                  this.playerManager.sweepRemovedPlayers(),
+                  I.focused || this.updateCamera(!0);
+                return;
+              }
+              case 11:
+                this.parseLeaderboard(e);
+                return;
+              case 12:
+                this.parseMinimap(e);
+                return;
+              case 13: {
+                let b = { pid: e.readInt16LE(), text: e.readString16() };
+                if (0 == b.pid) {
+                  let { selectedServer: _ } = y;
+                  _ &&
+                    /Welcome to Vanis\.io,.+\!/.test(b.text) &&
+                    (b.text = `Connected to ${_.region} ${_.name}`),
+                    this.events.$emit("chat-message", b.text);
+                  return;
+                }
+                let S = this.playerManager.getPlayer(b.pid);
+                if (!S) return;
+                b.from = S.name;
+                let { nameColorCss: E } = S;
+                E && (b.fromColor = E), this.events.$emit("chat-message", b);
+                return;
+              }
+              case 14: {
+                let x = e.readUInt8(),
+                  B = {};
+                if (2 & x) {
+                  let Q = e.readUInt8();
+                  typeId > 0 &&
+                    typeId < 4 &&
+                    (B.type = {
+                      1: "success",
+                      2: "error",
+                      3: "warning",
+                      4: "info",
+                    }[Q]);
+                }
+                4 & x && (B.timer = e.readUInt16LE());
+                let M = e.readString();
+                (B.title = f(M)), n.toast.fire(B);
+                return;
+              }
+              case 15: {
+                let { playerManager: T } = this;
+                for (;;) {
+                  let D = e.readUInt16LE();
+                  if (0 === D) return;
+                  let L = e.readString16(),
+                    N = e.readString(),
+                    U = { pid: D, nickname: L, skinUrl: N };
+                  T.setPlayerData(U);
+                }
+              }
+              case 16:
+                this.parsePlayers(e);
+                return;
+              case 17:
+                (C.camera.sx = e.readInt16LE()),
+                  (C.camera.sy = e.readInt16LE());
+                return;
+              case 18: {
+                let { replay: R } = this;
+                R.clear(!1), this.clearCells();
+                return;
+              }
+              case 19: {
+                let F = 0 !== e.readUInt8();
+                if ((this.events.$emit("xp-update", e.readUInt32LE()), !F))
+                  return;
+                let P = e.readUInt16LE(),
+                  G = atob("WW91IGhhdmUgcmVhY2hlZCBsZXZlbA==");
+                n.toast.fire({
+                  background: "#b58b00",
+                  title: `${G} ${P}!`,
+                  type: "success",
+                  timer: 4e3,
+                });
+                return;
+              }
+              case 20:
+                this.handleDeath(e, !1);
+                return;
+              case 21:
+                return;
+              case 22:
+                if (!window.grecaptcha)
+                  return void alert("Captcha library is not loaded");
+                this.events.$emit("show-image-captcha");
+                return;
+              case 23:
+                y.spectators = e.readUInt16LE();
+                return;
+              case 24:
+                (this.serverTick = e.readUInt32LE()),
+                  this.events.$emit("restart-timing-changed", e.readUInt32LE());
+                return;
+              case 25:
+                this.events.$emit("update-cautions", {
+                  custom: e.readString16(),
+                });
+                return;
+              case 26:
+                (y.playButtonDisabled = !!e.readUInt8()),
+                  e.length > e.offset + 1 &&
+                    (y.playButtonText = e.readString() || "Play");
+                return;
+            }
+          }
+        }
+        e.exports = C = window.GAME = new k();
       },
       ,
       ,
       function (e) {
-        var s = {
+        var t = {
           useWebGL: !0,
           gameResolution: 1,
           smallTextThreshold: 40,
           autoZoom: !1,
+          rememeberEjecting: !0,
           autoRespawn: !1,
           mouseFreezeSoft: !0,
           drawDelay: 120,
@@ -888,7 +1332,7 @@
           chatColorOnlyPeople: !1,
           mbArrow: "https://i.postimg.cc/6pvLJ2TW/image.png",
         };
-        function i(e) {
+        function s(e) {
           switch (e) {
             case 2:
               return "bold";
@@ -898,25 +1342,25 @@
               return "normal";
           }
         }
-        function a(e, s) {
-          var i;
+        function i(e, t) {
+          var s;
           switch (e) {
             case 3:
-              i = s / 5;
+              s = t / 5;
               break;
             case 1:
-              i = s / 20;
+              s = t / 20;
               break;
             default:
-              i = s / 10;
+              s = t / 10;
           }
-          return Math.ceil(i);
+          return Math.ceil(s);
         }
         e.exports = window.settings = new (class {
           constructor() {
             this.getInternalSettings(),
               (this.userDefinedSettings = this.loadUserDefinedSettings()),
-              Object.assign(this, s, this.userDefinedSettings),
+              Object.assign(this, t, this.userDefinedSettings),
               this.set("skinsEnabled", !0),
               this.set("namesEnabled", !0),
               this.set("massEnabled", !0),
@@ -930,12 +1374,12 @@
             var e = {
               fontFamily: this.cellNameFont,
               fontSize: 80,
-              fontWeight: i(this.cellNameWeight),
+              fontWeight: s(this.cellNameWeight),
             };
             return (
               this.cellNameOutline &&
                 ((e.stroke = PIXI.utils.string2hex(this.cellNameOutlineColor)),
-                (e.strokeThickness = a(this.cellNameOutline, e.fontSize)),
+                (e.strokeThickness = i(this.cellNameOutline, e.fontSize)),
                 (e.lineJoin = this.cellNameSmoothOutline ? "round" : "miter")),
               (this.nameTextStyle = e)
             );
@@ -944,14 +1388,14 @@
             var e = {
               fontFamily: this.cellMassFont,
               fontSize: 56 + 20 * this.cellMassTextSize,
-              fontWeight: i(this.cellMassWeight),
+              fontWeight: s(this.cellMassWeight),
               lineJoin: "round",
               fill: PIXI.utils.string2hex(this.cellMassColor),
             };
             return (
               this.cellMassOutline &&
                 ((e.stroke = PIXI.utils.string2hex(this.cellMassOutlineColor)),
-                (e.strokeThickness = a(this.cellMassOutline, e.fontSize)),
+                (e.strokeThickness = i(this.cellMassOutline, e.fontSize)),
                 (e.lineJoin = this.cellMassSmoothOutline ? "round" : "miter")),
               (this.massTextStyle = e)
             );
@@ -965,13 +1409,13 @@
             }
           }
           getDefault(e) {
-            return s[e];
+            return t[e];
           }
-          set(e, s) {
+          set(e, t) {
             return (
-              this[e] !== s &&
-              ((this[e] = s),
-              (this.userDefinedSettings[e] = s),
+              this[e] !== t &&
+              ((this[e] = t),
+              (this.userDefinedSettings[e] = t),
               (localStorage.settings = JSON.stringify(
                 this.userDefinedSettings
               )),
@@ -980,215 +1424,266 @@
           }
         })();
       },
-      function (e, s, i) {
-        var a = i(270).default,
-          n = a.mixin({
+      function (e, t, s) {
+        var i = s(270).default,
+          a = i.mixin({
             toast: !0,
             position: "top",
             showConfirmButton: !1,
             showCloseButton: !0,
           });
-        (window.Swal = a),
+        (window.Swal = i),
           (window.SwalAlerts = e.exports =
             {
-              toast: n,
+              toast: a,
               alert: function (e) {
-                a.fire({ text: e, confirmButtonText: "OK" });
+                i.fire({ text: e, confirmButtonText: "OK" });
               },
-              confirm: function (e, s, i) {
-                a.fire({
+              confirm: function (e, t, s) {
+                i.fire({
                   text: e,
                   showCancelButton: !0,
                   confirmButtonText: "Continue",
                 }).then((e) => {
-                  e.value ? s() : i && i();
+                  e.value ? t() : s && s();
                 });
               },
-              instance: a,
+              instance: i,
             });
       },
       ,
       ,
-      function (e) {
-        var s = !1;
+      function (e, t, s) {
+        let i = s(4),
+          a = !1;
         e.exports = {
-          lerp: function (e, s, i) {
-            return (1 - i) * e + i * s;
-          },
-          createBuffer: function (e) {
-            return new DataView(new ArrayBuffer(e));
-          },
-          getTimeString: function (e, s, i) {
+          lerp: (e, t, s) => e + (t - e) * s,
+          clampNumber: (e, t, s) => Math.min(s, Math.max(t, e)),
+          getTimeString: function (e, t, s) {
             e instanceof Date && (e = e.getTime());
-            var a = s ? 1 : 1e3,
-              n = 60 * a,
-              r = 60 * n;
-            if (e < a) return "1 second";
+            var i = t ? 1 : 1e3,
+              a = 60 * i,
+              n = 60 * a;
+            if (e < i) return "1 second";
             for (
-              var o = [24 * r, r, n, a],
-                l = ["day", "hour", "minute", "second"],
-                c = !1,
-                d = [],
+              var o = [24 * n, n, a, i],
+                r = ["day", "hour", "minute", "second"],
+                l = !1,
+                c = [],
                 h = 0;
               h < o.length;
               h++
             ) {
-              var u = o[h],
-                p = Math.floor(e / u);
-              if (p) {
-                var v = l[h],
-                  m = p > 1 ? "s" : "";
-                d.push(p + " " + v + m), (e %= u);
+              var d = o[h],
+                u = Math.floor(e / d);
+              if (u) {
+                var p = r[h],
+                  g = u > 1 ? "s" : "";
+                c.push(u + " " + p + g), (e %= d);
               }
-              if (c) break;
-              p && !i && (c = !0);
+              if (l) break;
+              u && !s && (l = !0);
             }
-            return d.join(", ");
+            return c.join(", ");
           },
-          htmlEncode: function (e) {
-            return (e = e
+          encodeHTML: (e) =>
+            e
               .replace(/&/g, "&amp;")
               .replace(/</g, "&lt;")
               .replace(/>/g, "&gt;")
               .replace(/'/g, "&apos;")
-              .replace(/"/g, "&quot;"));
-          },
-          getTimestamp: function () {
-            var e = new Date(),
+              .replace(/"/g, "&quot;"),
+          getTimestamp() {
+            let e = new Date(),
+              t = e.getFullYear(),
               s = e.getMonth() + 1,
-              i = e.getDate();
-            return (
-              [
-                e.getFullYear(),
-                (s > 9 ? "" : "0") + s,
-                (i > 9 ? "" : "0") + i,
-              ].join("") +
-              "-" +
-              [
+              i = e.getDate(),
+              a = [t, (s > 9 ? "" : "0") + s, (i > 9 ? "" : "0") + i].join(""),
+              n = [
                 ("0" + e.getHours()).slice(-2),
                 ("0" + e.getMinutes()).slice(-2),
                 ("0" + e.getSeconds()).slice(-2),
-              ].join("")
-            );
+              ].join("");
+            return a + "-" + n;
           },
-          loadImage: function (e) {
-            return fetch(e, { mode: "cors" })
+          loadImage: (e) =>
+            fetch(e, { mode: "cors" })
               .then((e) => e.blob())
-              .then((e) => createImageBitmap(e));
+              .then((e) => createImageBitmap(e)),
+          hideCaptchaBadge() {
+            a || (document.body.classList.add("hide-captcha-badge"), (a = !0));
           },
-          hideCaptchaBadge: function () {
-            s || (document.body.classList.add("hide-captcha-badge"), (s = !0));
-          },
-          destroyPixiPlugins: function (e) {
-            ["interaction", "accessibility"].forEach((s) => {
-              var i = e.plugins[s];
-              i && (i.destroy(), delete e.plugins[s]);
+          destroyPixiPlugins(e) {
+            ["interaction", "accessibility"].forEach((t) => {
+              let s = e.plugins[t];
+              s && (s.destroy(), delete e.plugins[t]);
             });
           },
-          writePlayerData: function (e, s) {
-            var i =
-                s && window.settings.mbUseName
-                  ? window.settings.mbName
+          writeUserData(e, t) {
+            let s =
+                t && i.mbUseName
+                  ? i.mbName || "Dual"
                   : document.getElementById("nickname").value,
-              a = s
-                ? window.settings.mbSkin
+              a = t
+                ? i.mbSkin || "vanis1"
                 : document.getElementById("skinurl").value,
               n = document.getElementById("teamtag").value;
-            "RISE" == n.toUpperCase() && (n = window.RISETAG),
-              e.utf8(i),
-              e.utf8(a),
-              e.utf8(n);
+            e.writeEscapedStringNT(s),
+              e.writeEscapedStringNT(a),
+              e.writeEscapedStringNT(n);
           },
         };
       },
       ,
       ,
       ,
-      function (e, s, i) {
-        var a = i(122),
-          n = i(123),
-          r = i(124);
-        e.exports = { cells: a, squares: n, virus: r };
+      function (e, t, s) {
+        let i = s(4);
+        class a {
+          constructor() {
+            (this.cache = new Map()),
+              (this.textureSize = i.cellSize),
+              (this.cellSize = this.textureSize / 2);
+          }
+          destroyCache() {
+            let { cache: e } = this;
+            e.forEach((e) => e.destroy(!0)), e.clear();
+          }
+        }
+        let n = s(24),
+          o = s(124);
+        e.exports = {
+          cells: new (class e extends a {
+            getTexture(e) {
+              let { cache: t } = this;
+              if (t.has(e)) return t.get(e);
+              {
+                let { cellSize: s, textureSize: i } = this,
+                  a = new PIXI.Graphics()
+                    .beginFill(e)
+                    .drawCircle(0, 0, s)
+                    .endFill();
+                a.position.set(s);
+                let o = PIXI.RenderTexture.create(i, i);
+                return t.set(e, o), n.render(a, o), o;
+              }
+            }
+          })(),
+          squares: new (class e extends a {
+            getTexture(e) {
+              let { cache: t } = this;
+              if (t.has(e)) return t.get(e);
+              {
+                let { cellSize: s, textureSize: i } = this,
+                  a = new PIXI.Graphics()
+                    .beginFill(e)
+                    .drawRect(-s, -s, 2 * s, 2 * s)
+                    .endFill();
+                a.position.set(s);
+                let o = PIXI.RenderTexture.create(i, i);
+                return t.set(e, o), n.render(a, o), o;
+              }
+            }
+          })(),
+          virus: o,
+        };
       },
       ,
-      function (e, s, i) {
-        let a = i(1),
-          n = i(4),
-          { cells: r } = i(12);
-        e.exports = class e {
-          constructor(e) {
-            (this.game = a),
-              (this.id = e.id || 0),
-              (this.flags = e.flags),
-              (this.oSize = this.size = e.size),
-              (this.updateTime = 0),
-              (this.newPositionScale = 1),
-              (this.removed = !1),
-              (this.texture = e.texture || r.getTexture(0)),
-              (this.sprite = new PIXI.Sprite(this.texture)),
-              this.sprite.anchor.set(0.5),
-              (this.sprite.gameData = this),
-              (this.x = this.ox = this.sprite.position.x = e.x),
-              (this.y = this.oy = this.sprite.position.y = e.y);
+      function (e, t, s) {
+        let i = s(1),
+          a = s(4),
+          { cells: n } = s(12),
+          { clampNumber: o } = s(8);
+        class r {
+          constructor({
+            id: e,
+            x: t,
+            y: s,
+            size: i,
+            flags: a,
+            texture: o,
+            context: r,
+          }) {
+            (o = o || n.getTexture(0)),
+              (this.flags = a),
+              (this.oSize = this.size = i),
+              (this.destroyed = !1),
+              (this.id = e || 0);
+            let l = (this.sprite = new PIXI.Sprite((this.texture = o)));
+            l.anchor.set(0.5),
+              (l.gameData = this),
+              (this.x = this.ox = l.position.x = t),
+              (this.y = this.oy = this.sprite.position.y = s),
+              (this.mainContext = r),
+              (this.activeContexts = 1);
           }
           update() {
-            let e = a.timestamp - this.updateTime,
-              s = Math.min(Math.max(e / n.drawDelay, 0), 1);
-            (this.x =
-              s * this.newPositionScale * (this.nx - this.ox) + this.ox),
-              (this.y =
-                s * this.newPositionScale * (this.ny - this.oy) + this.oy);
-            let i =
-                2 * (this.size = s * (this.nSize - this.oSize) + this.oSize),
-              { sprite: r } = this;
-            if (!r) return !1;
-            let { position: o } = r,
-              l = o.x !== this.x || o.y !== this.y || r.width !== i;
+            let e = i.timeStamp - this.updateStamp,
+              t = o(e / a.drawDelay, 0, 1);
+            if (this.destroyed && (1 === t || this.texture.clearedFromCache))
+              return !0;
+            let s =
+                2 * (this.size = t * (this.nSize - this.oSize) + this.oSize),
+              { sprite: n } = this;
+            if (!n) return !0;
+            n.width = n.height = s;
+            let { position: r } = n;
             return (
-              !!this.texture.clearedFromCache ||
-              !l ||
-              ((o.x = this.x),
-              (o.y = this.y),
-              (r.width = r.height = i),
-              this.onUpdate?.(),
-              !1)
+              (r.x = this.x =
+                t * this.newPositionScale * (this.nx - this.ox) + this.ox),
+              (r.y = this.y =
+                t * this.newPositionScale * (this.ny - this.oy) + this.oy),
+              this.onUpdate && this.onUpdate(),
+              !1
             );
           }
-          destroy(e) {
-            if (!this.removed) {
-              this.onDestroy && this.onDestroy();
-              var s = this.isVirus
-                  ? this.game.viruses[this.multi ? "2" : "1"]
-                  : this.game.nodelist,
-                i = s.indexOf(this);
-              i >= 0 && s.splice(i, 1),
-                delete this.game.nodes[this.id],
-                delete this.game.nodesOwn[this.id],
-                (this.removed = !0),
-                e ? this.game.removedNodes.push(this) : this.destroySprite();
+          destroy(e, t = !1) {
+            if (this.destroyed) return !1;
+            let { dual: s } = i,
+              { cells: a } = 1 & e ? i : s,
+              { id: n } = this;
+            if ((a.delete(n), s.opened)) {
+              let o = this.mainContext,
+                r = --this.activeContexts;
+              if (o == e) {
+                let { cells: l } = 2 & e ? i : s;
+                if (l.has(n)) return (this.mainContext = 1 & e ? 2 : 1), !1;
+              }
+              if (0 != r) return !1;
             }
+            return (
+              this.onDestroy && this.onDestroy(),
+              this.pid && i.ownedCells.delete(this),
+              (this.destroyed = !0),
+              t ? i.destroyedCells.push(this) : this.destroySprite(),
+              !0
+            );
           }
           destroySprite() {
             this.sprite && (this.sprite.destroy(), (this.sprite = null));
           }
-        };
+        }
+        (r.prototype.type = 0),
+          (r.prototype.updateStamp = 0),
+          (r.prototype.newPositionScale = 1),
+          (e.exports = r);
       },
       ,
       ,
-      function (e, s, i) {
-        var a = i(5);
-        function n() {
-          a.instance.fire({
+      function (e, t, s) {
+        var i = s(5);
+        function a() {
+          i.instance.fire({
             type: "warning",
             title: "Browser support limited",
             html: "Skins might not work properly in this browser.<br>Please consider using Chrome.",
             allowOutsideClick: !1,
           });
         }
-        function r(e) {
-          for (var s = "", i = 0; i < e.length; i++)
-            s += String.fromCharCode(e.charCodeAt(i) - 2);
-          return s;
+        function n(e) {
+          for (var t = "", s = 0; s < e.length; s++)
+            t += String.fromCharCode(e.charCodeAt(s) - 2);
+          return t;
         }
         var o = [
             "pkiigt",
@@ -1234,27 +1729,27 @@
             "hwem",
             "ujkv",
           ],
-          l = o.map(r),
-          c = o
-            .map(r)
-            .sort((e, s) => s.length - e.length)
+          r = o.map(n),
+          l = o
+            .map(n)
+            .sort((e, t) => t.length - e.length)
             .map((e) =>
               RegExp("[^s]*" + e.split("").join("s*") + "[^s]*", "gi")
             );
         e.exports = {
           noop: function () {},
           checkBadWords: function (e) {
-            return (e = e.toLowerCase()), l.some((s) => e.includes(s));
+            return (e = e.toLowerCase()), r.some((t) => e.includes(t));
           },
           replaceBadWordsChat: function (e) {
-            for (var s = 0; s < c.length; s++)
-              e = e.replace(c[s], (e) => Array(e.length).fill("*").join(""));
+            for (var t = 0; t < l.length; t++)
+              e = e.replace(l[t], (e) => Array(e.length).fill("*").join(""));
             return e;
           },
           notifyUnsupportedBrowser: async function () {
             window.safari ||
             /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
-              ? a.instance.fire({
+              ? i.instance.fire({
                   type: "warning",
                   title: "Safari browser is not supported :(",
                   html: "Please consider using Google Chrome.",
@@ -1266,16 +1761,16 @@
               : !localStorage.skipUnsupportedAlert &&
                 (((localStorage.skipUnsupportedAlert = !0),
                 navigator.userAgent.toLowerCase().includes("edge"))
-                  ? n()
+                  ? a()
                   : (await new Promise((e) => {
-                      var s = new Image();
-                      (s.src =
+                      var t = new Image();
+                      (t.src =
                         "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA"),
-                        (s.onload = s.onerror =
+                        (t.onload = t.onerror =
                           () => {
-                            e(2 === s.height);
+                            e(2 === t.height);
                           });
-                    })) || n());
+                    })) || a());
           },
           isFirstVisit:
             !localStorage.visitedBefore &&
@@ -1288,144 +1783,144 @@
       ,
       ,
       ,
-      function (e, s, i) {
-        var a = i(4),
-          n = i(8);
+      function (e, t, s) {
+        var i = s(4),
+          a = s(8);
         PIXI.utils.skipHello();
-        var r = document.getElementById("canvas"),
+        var n = document.getElementById("canvas"),
           o = {
-            resolution: a.customResolution || window.devicePixelRatio || 1,
-            view: r,
-            forceCanvas: !a.useWebGL,
+            resolution: i.customResolution || window.devicePixelRatio || 1,
+            view: n,
+            forceCanvas: !i.useWebGL,
             antialias: !1,
             powerPreference: "high-performance",
-            backgroundColor: PIXI.utils.string2hex(a.backgroundColor),
+            backgroundColor: PIXI.utils.string2hex(i.backgroundColor),
           };
-        o.resolution = a.gameResolution;
-        var l = PIXI.autoDetectRenderer(o);
-        function c() {
-          l.resize(window.innerWidth, window.innerHeight);
+        o.resolution = i.gameResolution;
+        var r = PIXI.autoDetectRenderer(o);
+        function l() {
+          r.resize(window.innerWidth, window.innerHeight);
         }
-        c(),
-          n.destroyPixiPlugins(l),
-          window.addEventListener("resize", c),
-          l.clear(),
-          (e.exports = l);
+        l(),
+          a.destroyPixiPlugins(r),
+          window.addEventListener("resize", l),
+          r.clear(),
+          (e.exports = r);
       },
       function (e) {
-        function s() {
+        function t() {
           this.data = [];
         }
-        (e.exports = s),
-          (s.prototype.write = function () {
+        (e.exports = t),
+          (t.prototype.write = function () {
             return new Uint8Array(this.data);
           }),
-          (s.prototype.uint8 = function (e) {
+          (t.prototype.uint8 = function (e) {
             this.data.push(e);
           }),
-          (s.prototype.uint8Array = function (e) {
-            for (var s = 0; s < e.length; s++) this.data.push(e[s]);
+          (t.prototype.uint8Array = function (e) {
+            for (var t = 0; t < e.length; t++) this.data.push(e[t]);
           }),
-          (s.prototype.utf8 = function (e) {
+          (t.prototype.utf8 = function (e) {
             e = unescape(encodeURIComponent(e));
-            for (var s = 0; s < e.length; s++) this.data.push(e.charCodeAt(s));
+            for (var t = 0; t < e.length; t++) this.data.push(e.charCodeAt(t));
             this.data.push(0);
           });
       },
       ,
       ,
       ,
-      function (e, s, i) {
-        var a = i(2),
-          n = i(167);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(167);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(31),
-          n = i.n(a);
-        s.default = n.a;
+        var i = s(31),
+          a = s.n(i);
+        t.default = a.a;
       },
       function (e) {
         e.exports = { data: () => ({}) };
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(169);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(169);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(171);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(171);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(173);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(173);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(175);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(175);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(177);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(177);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(179);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(179);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(39),
-          n = i.n(a);
-        s.default = n.a;
+        var i = s(39),
+          a = s.n(i);
+        t.default = a.a;
       },
-      function (e, s, i) {
-        var a = i(89),
-          n = i(1),
-          r = i(5),
-          o = n.replay.database;
+      function (e, t, s) {
+        var i = s(89),
+          a = s(1),
+          n = s(5),
+          o = a.replay.database;
         e.exports = {
           props: ["replay"],
           methods: {
             async play(e) {
               if (
-                !n.connection.opened ||
+                !a.connection.opened ||
                 (await new Promise((e) => {
-                  r.confirm(
+                  n.confirm(
                     "You will be disconnected",
                     () => e(!0),
                     () => e(!1)
@@ -1433,17 +1928,17 @@
                 }))
               )
                 try {
-                  n.replay.play(e);
-                } catch (s) {
-                  console.log(s),
-                    n.stop(),
-                    r.alert(
+                  a.replay.play(e);
+                } catch (t) {
+                  console.log(t),
+                    a.stop(),
+                    n.alert(
                       "Waching replays on extension currently does not work, please watch them without extension or render them!"
                     );
                 }
             },
             downloadReplay(e) {
-              r.instance
+              n.instance
                 .fire({
                   input: "text",
                   inputValue: e.name,
@@ -1451,22 +1946,22 @@
                   confirmButtonText: "Download",
                   html: "Only Vanis.io can read replay files.<br>It consists of player positions and other game related data.",
                 })
-                .then((s) => {
-                  var i = s.value;
-                  if (i) {
-                    var n = new Blob([e.data], {
+                .then((t) => {
+                  var s = t.value;
+                  if (s) {
+                    var a = new Blob([e.data], {
                       type: "text/plain;charset=utf-8",
                     });
-                    a.saveAs(n, i + ".vanis");
+                    i.saveAs(a, s + ".vanis");
                   }
                 });
             },
             deleteReplay(e) {
-              r.confirm(
+              n.confirm(
                 "Are you sure that you want to delete this replay?",
                 () => {
                   o.removeItem(e, () => {
-                    n.events.$emit("replay-removed");
+                    a.events.$emit("replay-removed");
                   });
                 }
               );
@@ -1474,195 +1969,195 @@
           },
         };
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(219);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(219);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(221);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(221);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(223);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(223);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(225);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(225);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(227);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(227);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(231);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(231);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(233);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(233);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(235);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(235);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(237);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(237);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(239);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(239);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(241);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(241);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(243);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(243);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(245);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(245);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(247);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(247);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(249);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(249);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(56),
-          n = i.n(a);
-        s.default = n.a;
+        var i = s(56),
+          a = s.n(i);
+        t.default = a.a;
       },
-      function (e, s, i) {
-        var a = i(1),
-          n = i(8),
-          r = i(4),
-          o = r.minimapSize,
-          l = r.minimapFPS,
-          c = r.minimapSmoothing,
-          d = new PIXI.Container(),
+      function (e, t, s) {
+        var i = s(1),
+          a = s(8),
+          n = s(4),
+          o = n.minimapSize,
+          r = n.minimapFPS,
+          l = n.minimapSmoothing,
+          c = new PIXI.Container(),
           h = {};
-        function u() {
+        function d() {
           return new Date().toLocaleTimeString();
         }
-        function p(e, s = !1) {
-          if (s && e < 1) return "instant";
+        function u(e, t = !1) {
+          if (t && e < 1) return "instant";
           e = Math.floor(e);
-          let i = Math.floor(e / 60),
-            a = Math.floor(i / 60);
-          return i < 1
-            ? s
+          let s = Math.floor(e / 60),
+            i = Math.floor(s / 60);
+          return s < 1
+            ? t
               ? e + "s"
               : "<1min"
-            : a < 1
-            ? i + "min"
-            : i % 60 == 0
-            ? a + "hr"
-            : a + "hr " + (i % 60) + "min";
+            : i < 1
+            ? s + "min"
+            : s % 60 == 0
+            ? i + "hr"
+            : i + "hr " + (s % 60) + "min";
         }
         e.exports = {
           data: () => ({
             showMinimap: !1,
             showMinimapCircle: !1,
             showMinimapStats: !0,
-            showLocations: r.minimapLocations,
+            showLocations: n.minimapLocations,
             interval: null,
             minimapStatsBottom: 10,
-            showClock: r.showClock,
-            showSessionTime: r.showSessionTime,
-            showSpectators: r.showSpectators,
-            showPlayerCount: r.showPlayerCount,
-            showRestartTiming: r.showRestartTiming,
-            systemTime: u(),
-            sessionTime: p(0, !1),
-            restartTime: p(0, !0),
+            showClock: n.showClock,
+            showSessionTime: n.showSessionTime,
+            showSpectators: n.showSpectators,
+            showPlayerCount: n.showPlayerCount,
+            showRestartTiming: n.showRestartTiming,
+            systemTime: d(),
+            sessionTime: u(0, !1),
+            restartTime: u(0, !0),
             spectators: 0,
             playerCount: 0,
             restartTick: 0,
             startTime: null,
-            gameState: a.state,
+            gameState: i.state,
           }),
           computed: {
             playerCountDisplayed() {
@@ -1679,185 +2174,174 @@
           },
           methods: {
             initRenderer(e) {
-              var s = PIXI.autoDetectRenderer({
+              var t = PIXI.autoDetectRenderer({
                 resolution: 1,
                 view: e,
                 width: o,
                 height: o,
-                forceCanvas: !r.useWebGL,
+                forceCanvas: !n.useWebGL,
                 antialias: !1,
                 powerPreference: "high-performance",
                 transparent: !0,
               });
-              n.destroyPixiPlugins(s), s.clear(), (this.renderer = s);
+              a.destroyPixiPlugins(t), t.clear(), (this.renderer = t);
             },
             destroyMinimap() {
-              d.destroy(!0), (d = new PIXI.Container()), this.renderer.clear();
+              c.destroy(!0), (c = new PIXI.Container()), this.renderer.clear();
             },
             onMinimapShow() {
               this.interval ||
                 ((this.showMinimap = !0),
                 (this.minimapStatsBottom = o + 10),
-                a.events.$on("minimap-positions", this.updatePositions),
-                (this.interval = setInterval(this.render, 1e3 / l)));
+                i.events.$on("minimap-positions", this.updatePositions),
+                (this.interval = setInterval(this.render, 1e3 / r)));
             },
             onMinimapHide() {
               this.interval &&
                 ((this.showMinimap = !1),
                 (this.minimapStatsBottom = 10),
-                a.events.$off("minimap-positions", this.updatePositions),
+                i.events.$off("minimap-positions", this.updatePositions),
                 clearInterval(this.interval),
                 (this.interval = null),
                 (this.spectators = 0),
                 (this.playerCount = 0));
             },
-            createNode(e, s, i, a) {
-              var n = h[e];
-              n && n.destroy(!0), i || (i = 16777215), a || (a = 16777215);
-              var r,
-                o,
-                l,
-                c,
-                d,
-                u = new PIXI.Container();
-              (u.newPosition = {}),
-                u.addChild(
-                  ((r = a),
-                  (o = new PIXI.Graphics()).beginFill(r),
-                  o.drawCircle(0, 0, 5),
-                  o.endFill(),
-                  o)
-                ),
-                s &&
-                  u.addChild(
-                    ((l = s),
-                    (c = i),
-                    (d = new PIXI.Text(l, {
-                      strokeThickness: 4,
-                      lineJoin: "round",
-                      fontFamily: "Nunito",
-                      fill: c,
-                      fontSize: 12,
-                    })).anchor.set(0.5),
-                    (d.pivot.y = 15),
-                    d)
-                  ),
-                (h[e] = u);
+            createNode(e, t, s, i) {
+              e in h && h[e].destroy(!0),
+                (s = s || 16777215),
+                (i = i || 16777215);
+              let a = new PIXI.Container();
+              a.newPosition = {};
+              let n = new PIXI.Graphics()
+                .beginFill(i)
+                .drawCircle(0, 0, 5)
+                .endFill();
+              if ((a.addChild(n), t)) {
+                let o = new PIXI.Text(t, {
+                  strokeThickness: 4,
+                  lineJoin: "round",
+                  fontFamily: "Nunito",
+                  fill: s,
+                  fontSize: 12,
+                });
+                o.anchor.set(0.5), (o.pivot.y = 15), a.addChild(o);
+              }
+              h[e] = a;
             },
             destroyNode(e) {
-              var s = h[e];
-              s && (s.destroy(!0), delete h[e]);
+              var t = h[e];
+              t && (t.destroy(!0), delete h[e]);
             },
             updatePositions(e) {
-              d.removeChildren();
-              for (var s = 0; s < e.length; s++) {
-                var i = e[s],
-                  a = h[i.pid];
-                a &&
-                  ((a.newPosition.x = i.x * o),
-                  (a.newPosition.y = i.y * o),
-                  d.addChild(a));
+              c.removeChildren();
+              for (var t = 0; t < e.length; t++) {
+                var s = e[t],
+                  i = h[s.pid];
+                i &&
+                  ((i.newPosition.x = s.x * o),
+                  (i.newPosition.y = s.y * o),
+                  c.addChild(i));
               }
               this.render();
             },
             render() {
               for (
-                var e = d.children, s = c * (30 / l), i = 0;
-                i < e.length;
-                i++
+                var e = c.children, t = l * (30 / r), s = 0;
+                s < e.length;
+                s++
               ) {
-                var a = e[i];
-                (a.position.x = n.lerp(a.position.x, a.newPosition.x, s)),
-                  (a.position.y = n.lerp(a.position.y, a.newPosition.y, s));
+                var i = e[s];
+                (i.position.x = a.lerp(i.position.x, i.newPosition.x, t)),
+                  (i.position.y = a.lerp(i.position.y, i.newPosition.y, t));
               }
-              this.renderer.render(d);
+              this.renderer.render(c);
             },
-            drawLocationGrid(e, s) {
-              var i = o / s;
+            drawLocationGrid(e, t) {
+              var s = o / t;
               (e.globalAlpha = 0.1), (e.strokeStyle = "#202020"), e.beginPath();
-              for (var a = 1; a < s; a++) {
-                var n = a * i;
-                e.moveTo(n, 0), e.lineTo(n, o), e.moveTo(0, n), e.lineTo(o, n);
+              for (var i = 1; i < t; i++) {
+                var a = i * s;
+                e.moveTo(a, 0), e.lineTo(a, o), e.moveTo(0, a), e.lineTo(o, a);
               }
               e.stroke(), e.closePath();
             },
-            drawLocationCodes(e, s) {
-              var i = o / s,
-                a = i / 2;
+            drawLocationCodes(e, t) {
+              var s = o / t,
+                i = s / 2;
               (e.globalAlpha = 0.1),
                 (e.font = "14px Nunito"),
                 (e.textAlign = "center"),
                 (e.textBaseline = "middle"),
                 (e.fillStyle = "#ffffff");
-              for (var n = 0; n < s; n++)
-                for (var r = n * i + a, l = 0; l < s; l++) {
-                  var c = String.fromCharCode(97 + l).toUpperCase() + (n + 1),
-                    d = l * i + a;
-                  e.strokeText(c, r, d), e.fillText(c, r, d);
+              for (var a = 0; a < t; a++)
+                for (var n = a * s + i, r = 0; r < t; r++) {
+                  var l = String.fromCharCode(97 + r).toUpperCase() + (a + 1),
+                    c = r * s + i;
+                  e.strokeText(l, n, c), e.fillText(l, n, c);
                 }
             },
             drawLocations(e) {
               e.width = e.height = o;
-              var s = e.getContext("2d"),
-                i = o / 2;
+              var t = e.getContext("2d"),
+                s = o / 2;
               if (this.showLocations) {
-                if ((s.save(), this.showMinimapCircle)) {
-                  var a = new Path2D();
-                  a.ellipse(i, i, i, i, 0, 0, 2 * Math.PI), s.clip(a);
+                if ((t.save(), this.showMinimapCircle)) {
+                  var i = new Path2D();
+                  i.ellipse(s, s, s, s, 0, 0, 2 * Math.PI), t.clip(i);
                 }
-                this.drawLocationGrid(s, 5), this.drawLocationCodes(s, 5);
+                this.drawLocationGrid(t, 5), this.drawLocationCodes(t, 5);
               }
-              s.restore(),
+              t.restore(),
                 this.showMinimapCircle &&
-                  ((s.globalAlpha = 0.45),
-                  s.beginPath(),
-                  s.arc(i, i, i + 1, -Math.PI / 2, 0),
-                  s.lineTo(o, 0),
-                  s.closePath(),
-                  s.fill());
+                  ((t.globalAlpha = 0.45),
+                  t.beginPath(),
+                  t.arc(s, s, s + 1, -Math.PI / 2, 0),
+                  t.lineTo(o, 0),
+                  t.closePath(),
+                  t.fill());
             },
           },
           created() {
-            a.events.$on("minimap-show", this.onMinimapShow),
-              a.events.$on("minimap-hide", this.onMinimapHide),
-              a.events.$on("minimap-destroy", this.destroyMinimap),
-              a.events.$on("minimap-create-node", this.createNode),
-              a.events.$on("minimap-destroy-node", this.destroyNode),
-              a.events.$on("minimap-show-locations", (e) => {
+            i.events.$on("minimap-show", this.onMinimapShow),
+              i.events.$on("minimap-hide", this.onMinimapHide),
+              i.events.$on("minimap-destroy", this.destroyMinimap),
+              i.events.$on("minimap-create-node", this.createNode),
+              i.events.$on("minimap-destroy-node", this.destroyNode),
+              i.events.$on("minimap-show-locations", (e) => {
                 (this.showLocations = e),
                   this.drawLocations(this.$refs.locations);
               }),
-              a.events.$on(
+              i.events.$on(
                 "minimap-stats-visible",
                 (e) => (this.showMinimapStats = e)
               ),
-              a.events.$on("minimap-stats-changed", (e) => {
+              i.events.$on("minimap-stats-changed", (e) => {
                 (this.spectators = e.spectators),
                   (this.playerCount = e.playerCount);
               }),
-              a.events.$on(
+              i.events.$on(
                 "restart-timing-changed",
                 (e) => (this.restartTick = e)
               ),
-              a.events.$on("game-started", () => {
-                (this.showMinimapCircle = a.border.circle),
+              i.events.$on("game-started", () => {
+                (this.showMinimapCircle = i.border.circle),
                   this.drawLocations(this.$refs.locations);
               }),
-              a.events.$on("game-stopped", () => (this.restartTick = 0)),
-              a.events.$on("minimap-stats-invalidate-shown", () => {
-                (this.showClock = r.showClock),
-                  (this.showSessionTime = r.showSessionTime),
-                  (this.showSpectators = r.showSpectators),
-                  (this.showPlayerCount = r.showPlayerCount),
-                  (this.showRestartTiming = r.showRestartTiming);
+              i.events.$on("game-stopped", () => (this.restartTick = 0)),
+              i.events.$on("minimap-stats-invalidate-shown", () => {
+                (this.showClock = n.showClock),
+                  (this.showSessionTime = n.showSessionTime),
+                  (this.showSpectators = n.showSpectators),
+                  (this.showPlayerCount = n.showPlayerCount),
+                  (this.showRestartTiming = n.showRestartTiming);
               }),
-              a.events.$on("every-second", () => {
-                this.systemTime = u();
+              i.events.$on("every-second", () => {
+                this.systemTime = d();
                 var e = (Date.now() - this.startTime) / 1e3;
-                (this.sessionTime = p(e, !1)),
-                  this.restartTick && a.serverTick
-                    ? ((e = (this.restartTick - a.serverTick) / 25),
-                      (this.restartTime = p(e, !0)))
+                (this.sessionTime = u(e, !1)),
+                  this.restartTick && i.serverTick
+                    ? ((e = (this.restartTick - i.serverTick) / 25),
+                      (this.restartTime = u(e, !0)))
                     : (this.restartTime = null);
               });
           },
@@ -1867,135 +2351,139 @@
           },
         };
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(251);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(251);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(253);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(253);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(255);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(255);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(257);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(257);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(259);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(259);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(261);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(261);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(263);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(263);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(266);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(266);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
       ,
-      function (e, s, i) {
-        var a = i(1),
-          n = i(5),
+      function (e, t, s) {
+        let i = s(1),
+          a = s(4),
+          n = s(5),
+          o = i.actions,
           r = {
-            toggleAutoRespawn: function () {
-              let e = a.settings.autoRespawn;
-              a.settings.set("autoRespawn", !e),
-                e && a.state.isAutoRespawning && a.triggerAutoRespawn(!1);
-              let s = "Auto respawn ";
-              (s += e ? "disabled" : "enabled"),
-                n.toast.fire({ type: "info", title: s, timer: 1500 });
+            toggleAutoRespawn() {
+              let e = a.autoRespawn;
+              a.set("autoRespawn", !e),
+                e && i.state.autoRespawning && i.triggerAutoRespawn(!1);
+              let t = "Auto respawn ";
+              (t += e ? "disabled" : "enabled"),
+                n.toast.fire({ type: "info", title: t, timer: 1500 });
             },
-            respawn: function () {
-              a.actions.join(Multibox.active), a.showMenu(!1);
+            respawn() {
+              o.join(i.dual.focused), i.showMenu(!1);
             },
-            feed: a.actions.feed.bind(null),
-            feedMacro: a.actions.feed.bind(null, !0),
-            ping: a.actions.ping,
-            aimbot: a.actions.aimbotlocker,
-            split: a.actions.split.bind(null, 1),
-            splitx2: a.actions.split.bind(null, 2),
-            splitx3: a.actions.split.bind(null, 3),
-            splitMax: a.actions.split.bind(null, 4),
-            split32: a.actions.split.bind(null, 5),
-            split64: a.actions.split.bind(null, 6),
-            multi1: a.actions.multicombo.bind(null, 1),
-            multi2: a.actions.multicombo.bind(null, 2),
-            multi3: a.actions.multicombo.bind(null, 3),
-            linesplit: a.actions.linesplit,
-            freezeMouse: a.actions.freezeMouse,
-            lockLinesplit: a.actions.lockLinesplit,
-            stopMovement: a.actions.stopMovement,
-            toggleSkins: a.actions.toggleSkins,
-            toggleNames: a.actions.toggleNames,
-            toggleFood: a.actions.toggleFood,
-            toggleMass: a.actions.toggleMass,
-            toggleChat: a.actions.toggleChat,
-            toggleChatToast: a.actions.toggleChatToast,
-            toggleHud: a.actions.toggleHud,
-            spectateLock: a.actions.spectateLockToggle,
-            selectPlayer: a.actions.targetPlayer.bind(null),
-            saveReplay: a.replay.save,
-            zoomLevel1: a.actions.setZoomLevel.bind(null, 1),
-            zoomLevel2: a.actions.setZoomLevel.bind(null, 2),
-            zoomLevel3: a.actions.setZoomLevel.bind(null, 3),
-            zoomLevel4: a.actions.setZoomLevel.bind(null, 4),
-            zoomLevel5: a.actions.setZoomLevel.bind(null, 5),
+            feed: o.feed.bind(o),
+            feedMacro: o.feed.bind(o, !0),
+            split: o.split.bind(o, 1),
+            splitx2: o.split.bind(o, 2),
+            splitx3: o.split.bind(o, 3),
+            splitMax: o.split.bind(o, 4),
+            split32: o.split.bind(o, 5),
+            split64: o.split.bind(o, 6),
+            split128: o.split.bind(o, 7),
+            split256: o.split.bind(o, 8),
+            multi1: o.multicombo.bind(o, 1),
+            multi2: o.multicombo.bind(o, 2),
+            multi3: o.multicombo.bind(o, 3),
+            linesplit: o.linesplit.bind(o),
+            freezeMouse: o.freezeMouse.bind(o),
+            lockLinesplit: o.lockLinesplit.bind(o),
+            stopMovement: o.stopMovement.bind(o),
+            toggleSkins: o.toggleSkins.bind(o),
+            toggleNames: o.toggleNames.bind(o),
+            toggleFood: o.toggleFood.bind(o),
+            toggleMass: o.toggleMass.bind(o),
+            toggleChat: o.toggleChat.bind(o),
+            toggleChatToast: o.toggleChatToast.bind(o),
+            toggleHud: o.toggleHud.bind(o),
+            spectateLock: o.spectateLockToggle.bind(o),
+            selectPlayer: o.targetPlayer.bind(o),
+            saveReplay() {
+              let { dual: e } = i;
+              i.replay.save(e.focused);
+            },
+            zoomLevel1: o.setZoomLevel.bind(o, 1),
+            zoomLevel2: o.setZoomLevel.bind(o, 2),
+            zoomLevel3: o.setZoomLevel.bind(o, 3),
+            zoomLevel4: o.setZoomLevel.bind(o, 4),
+            zoomLevel5: o.setZoomLevel.bind(o, 5),
             multibox() {
-              Multibox && Multibox.switch();
+              let { dual: e } = i;
+              e.switch();
             },
           },
-          o = {
+          l = {
             multibox: "TAB",
-            ping: "MOUSE0",
             feed: "",
-            aimbot: "",
             feedMacro: "W",
             split: "SPACE",
             splitx2: "G",
@@ -2003,6 +2491,8 @@
             splitMax: "T",
             split32: "",
             split64: "",
+            split128: "",
+            split256: "",
             multi1: "",
             multi2: "",
             multi3: "",
@@ -2026,7 +2516,7 @@
             zoomLevel4: "4",
             zoomLevel5: "5",
           };
-        e.exports = new (class {
+        e.exports = i.hotkeyManager = new (class e {
           constructor() {
             (this.version = 2),
               (this.pressHandlers = null),
@@ -2034,26 +2524,23 @@
               this.resetObsoleteHotkeys(),
               this.load();
           }
-          resetObsoleteHotkeys() {
-            parseInt(localStorage.hotkeysVersion) !== this.version &&
-              (localStorage.hotkeys && localStorage.removeItem("hotkeys"),
-              (localStorage.hotkeysVersion = this.version));
-          }
+          resetObsoleteHotkeys() {}
           load() {
-            (window.hotkeys = this.hotkeys = this.loadHotkeys()),
+            (this.hotkeys = this.loadHotkeys()),
               this.loadHandlers(this.hotkeys);
           }
           loadHotkeys() {
-            var e = Object.assign({}, o),
-              s = localStorage.hotkeys;
-            if (!s) return e;
-            var i = Object.values((s = JSON.parse(s)));
+            let e = Object.assign({}, l),
+              t = localStorage.hotkeys;
+            if (!t) return e;
+            t = JSON.parse(t);
+            let s = Object.values(t);
             return (
-              Object.keys(e).forEach((s) => {
-                var a = e[s];
-                a && i.includes(a) && (e[s] = "");
+              Object.keys(e).forEach((t) => {
+                let i = e[t];
+                i && s.includes(i) && (e[t] = "");
               }),
-              Object.assign(e, s)
+              Object.assign(e, t)
             );
           }
           saveHotkeys(e) {
@@ -2067,43 +2554,37 @@
           get() {
             return this.hotkeys;
           }
-          set(e, s) {
-            if (r[e]) {
-              if (this.hotkeys[e] === s) return !0;
-              if (s)
-                for (var i in this.hotkeys)
-                  this.hotkeys[i] === s && (this.hotkeys[i] = "");
-              return (
-                (this.hotkeys[e] = s),
-                this.saveHotkeys(this.hotkeys),
-                this.loadHandlers(this.hotkeys),
-                !0
-              );
-            }
+          set(e, t) {
+            if (!(e in r)) return !1;
+            if (this.hotkeys[e] === t) return !0;
+            if (t)
+              for (let s in this.hotkeys)
+                this.hotkeys[s] === t && (this.hotkeys[s] = "");
+            return (
+              (this.hotkeys[e] = t),
+              this.saveHotkeys(this.hotkeys),
+              this.loadHandlers(this.hotkeys),
+              !0
+            );
           }
           loadHandlers(e) {
-            (this.pressHandlers = {}),
-              Object.keys(e).forEach((s) => {
-                var i = r[s];
-                if (i) {
-                  var a = e[s];
-                  this.pressHandlers[a] = i;
-                }
-              }),
-              (this.releaseHandlers = {}),
-              e.feedMacro &&
-                (this.releaseHandlers[e.feedMacro] = a.actions.feed.bind(
-                  null,
-                  !1
-                ));
+            for (let t in ((this.pressHandlers = {}), e)) {
+              if (!(t in r)) continue;
+              let s = r[t],
+                i = e[t];
+              this.pressHandlers[i] = s;
+            }
+            (this.releaseHandlers = {}),
+              "feedMacro" in e &&
+                (this.releaseHandlers[e.feedMacro] = o.feed.bind(o, !1));
           }
           press(e) {
-            var s = this.pressHandlers[e];
-            return !!s && (s(), !0);
+            let t = this.pressHandlers[e];
+            return !!t && (t(), !0);
           }
           release(e) {
-            var s = this.releaseHandlers[e];
-            s && s();
+            let t = this.releaseHandlers[e];
+            t?.();
           }
           convertKey(e) {
             return e
@@ -2121,13 +2602,13 @@
       ,
       ,
       ,
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = function () {
+        var i = function () {
             var e = this.$createElement,
-              s = this._self._c || e;
-            return s("div", [
-              s(
+              t = this._self._c || e;
+            return t("div", [
+              t(
                 "div",
                 {
                   directives: [
@@ -2142,7 +2623,7 @@
                   style: { bottom: this.minimapStatsBottom + "px" },
                 },
                 [
-                  s(
+                  t(
                     "div",
                     {
                       directives: [
@@ -2157,7 +2638,7 @@
                     [this._v(this._s(this.systemTime))]
                   ),
                   this._v(" "),
-                  s(
+                  t(
                     "div",
                     {
                       directives: [
@@ -2172,7 +2653,7 @@
                     [this._v(this._s(this.sessionTime) + " session")]
                   ),
                   this._v(" "),
-                  s(
+                  t(
                     "div",
                     {
                       directives: [
@@ -2187,7 +2668,7 @@
                     [this._v(this._s(this.playerCountDisplayed))]
                   ),
                   this._v(" "),
-                  s(
+                  t(
                     "div",
                     {
                       directives: [
@@ -2208,7 +2689,7 @@
                     ]
                   ),
                   this._v(" "),
-                  s(
+                  t(
                     "div",
                     {
                       directives: [
@@ -2225,7 +2706,7 @@
                 ]
               ),
               this._v(" "),
-              s(
+              t(
                 "div",
                 {
                   directives: [
@@ -2240,31 +2721,31 @@
                   class: { circle: this.showMinimapCircle },
                 },
                 [
-                  s("canvas", { ref: "locations", attrs: { id: "locations" } }),
+                  t("canvas", { ref: "locations", attrs: { id: "locations" } }),
                   this._v(" "),
-                  s("canvas", { ref: "minimap", attrs: { id: "minimap" } }),
+                  t("canvas", { ref: "minimap", attrs: { id: "minimap" } }),
                 ]
               ),
             ]);
           },
-          n = [];
-        (a._withStripped = !0),
-          i.d(s, "a", function () {
-            return a;
+          a = [];
+        (i._withStripped = !0),
+          s.d(t, "a", function () {
+            return i;
           }),
-          i.d(s, "b", function () {
-            return n;
+          s.d(t, "b", function () {
+            return a;
           });
       },
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = function () {
+        var i = function () {
             var e = this,
-              s = e.$createElement,
-              i = e._self._c || s;
-            return i("transition", { attrs: { name: "fade", appear: "" } }, [
-              i("div", { staticClass: "modal" }, [
-                i("div", {
+              t = e.$createElement,
+              s = e._self._c || t;
+            return s("transition", { attrs: { name: "fade", appear: "" } }, [
+              s("div", { staticClass: "modal" }, [
+                s("div", {
                   staticClass: "overlay",
                   on: {
                     click: function () {
@@ -2273,7 +2754,7 @@
                   },
                 }),
                 e._v(" "),
-                i("i", {
+                s("i", {
                   staticClass: "fas fa-times-circle close-button",
                   on: {
                     click: function () {
@@ -2282,12 +2763,12 @@
                   },
                 }),
                 e._v(" "),
-                i(
+                s(
                   "div",
                   { staticClass: "wrapper" },
                   [
-                    i("transition", { attrs: { name: "scale", appear: "" } }, [
-                      i(
+                    s("transition", { attrs: { name: "scale", appear: "" } }, [
+                      s(
                         "div",
                         { staticClass: "content fade-box" },
                         [e._t("default", [e._v("Here should be something")])],
@@ -2300,22 +2781,22 @@
               ]),
             ]);
           },
-          n = [];
-        (a._withStripped = !0),
-          i.d(s, "a", function () {
-            return a;
+          a = [];
+        (i._withStripped = !0),
+          s.d(t, "a", function () {
+            return i;
           }),
-          i.d(s, "b", function () {
-            return n;
+          s.d(t, "b", function () {
+            return a;
           });
       },
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = function () {
+        var i = function () {
             var e = this,
-              s = e.$createElement,
-              i = e._self._c || s;
-            return i(
+              t = e.$createElement,
+              s = e._self._c || t;
+            return s(
               "div",
               {
                 staticClass: "replay-item",
@@ -2327,7 +2808,7 @@
                 },
               },
               [
-                i(
+                s(
                   "div",
                   {
                     staticClass: "replay-header",
@@ -2338,28 +2819,28 @@
                     },
                   },
                   [
-                    i("div", { staticClass: "replay-name" }, [
+                    s("div", { staticClass: "replay-name" }, [
                       e._v(e._s(e.replay.name)),
                     ]),
                     e._v(" "),
-                    i("div", [
-                      i("i", {
+                    s("div", [
+                      s("i", {
                         staticClass: "replay-button fas fa-cloud-download-alt",
                         on: {
-                          click: function (s) {
+                          click: function (t) {
                             return (
-                              s.stopPropagation(), e.downloadReplay(e.replay)
+                              t.stopPropagation(), e.downloadReplay(e.replay)
                             );
                           },
                         },
                       }),
                       e._v(" "),
-                      i("i", {
+                      s("i", {
                         staticClass: "replay-button fas fa-trash-alt",
                         on: {
-                          click: function (s) {
+                          click: function (t) {
                             return (
-                              s.stopPropagation(), e.deleteReplay(e.replay.name)
+                              t.stopPropagation(), e.deleteReplay(e.replay.name)
                             );
                           },
                         },
@@ -2370,38 +2851,38 @@
               ]
             );
           },
-          n = [];
-        (a._withStripped = !0),
-          i.d(s, "a", function () {
-            return a;
+          a = [];
+        (i._withStripped = !0),
+          s.d(t, "a", function () {
+            return i;
           }),
-          i.d(s, "b", function () {
-            return n;
+          s.d(t, "b", function () {
+            return a;
           });
       },
-      function (e, s) {
-        (s.neon = [16776960, 65280, 65535, 16711935]),
-          (s.basic = [
+      function (e, t) {
+        (t.neon = [16776960, 65280, 65535, 16711935]),
+          (t.basic = [
             16711680, 16744448, 16776960, 8453888, 65280, 65408, 65535, 33023,
             8388863, 16711935, 16711808,
           ]),
-          (s.basicd = s.basic.map((e) => {
-            var s = (e >> 16) & 255,
-              i = (e >> 8) & 255,
-              a = 255 & e;
-            return ((s *= 0.5) << 16) | ((i *= 0.5) << 8) | ((a *= 0.5) >> 0);
+          (t.basicd = t.basic.map((e) => {
+            var t = (e >> 16) & 255,
+              s = (e >> 8) & 255,
+              i = 255 & e;
+            return ((t *= 0.5) << 16) | ((s *= 0.5) << 8) | ((i *= 0.5) >> 0);
           }));
       },
       function (e) {
-        var s = new (class {
+        var t = new (class {
           constructor() {
             this.ads = {};
           }
-          addAd(e, s, i) {
+          addAd(e, t, s) {
             this.ads[e] = {
-              elementId: s,
+              elementId: t,
               lastRefresh: 0,
-              waitInterval: i || 0,
+              waitInterval: s || 0,
             };
           }
           getAd(e) {
@@ -2413,288 +2894,307 @@
             });
           }
           refreshAd(e) {
-            var s = this.getAd(e);
-            if (!s) return !1;
-            var i = Date.now();
+            var t = this.getAd(e);
+            if (!t) return !1;
+            var s = Date.now();
             return (
-              !(s.lastRefresh + 1e3 * s.waitInterval > i) &&
-              ((s.lastRefresh = i), this.pushAd(s.elementId), !0)
+              !(t.lastRefresh + 1e3 * t.waitInterval > s) &&
+              ((t.lastRefresh = s), this.pushAd(t.elementId), !0)
             );
           }
         })();
-        s.addAd("menu-box", "vanis-io_300x250", 30),
-          s.addAd("menu-banner", "vanis-io_728x90", 120),
-          s.addAd("death-box", "vanis-io_300x250_2", 30),
+        t.addAd("menu-box", "vanis-io_300x250", 30),
+          t.addAd("menu-banner", "vanis-io_728x90", 120),
+          t.addAd("death-box", "vanis-io_300x250_2", 30),
           (e.exports = {
             loadAdinplay(e) {
-              var s = (window.aiptag = s || {});
-              (s.cmd = s.cmd || []),
-                (s.cmd.display = s.cmd.display || []),
-                (s.gdprShowConsentTool = !0);
-              var i = document.createElement("script");
-              (i.onload = e),
-                (i.src =
+              var t = (window.aiptag = t || {});
+              (t.cmd = t.cmd || []),
+                (t.cmd.display = t.cmd.display || []),
+                (t.gdprShowConsentTool = !0);
+              var s = document.createElement("script");
+              (s.onload = e),
+                (s.src =
                   "//api.adinplay.com/libs/aiptag/pub/VAN/vanis.io/tag.min.js"),
-                document.head.appendChild(i);
+                document.head.appendChild(s);
             },
-            refreshAd: (e) => s.refreshAd(e),
+            refreshAd: (e) => t.refreshAd(e),
           });
       },
       function (e) {
-        let s = (e) => {
-          let s = new i(e);
-          s.offset++;
-          let a = { border: {}, food: {} };
-          if (((a.protocol = s.readUInt8()), a.protocol >= 4)) {
-            (a.gamemodeId = s.readUInt8()),
-              (a.instanceSeed = s.readUInt16LE()),
-              (a.playerId = s.readUInt16LE()),
-              (a.border.minx = s.readInt16LE()),
-              (a.border.miny = s.readInt16LE()),
-              (a.border.maxx = s.readInt16LE()),
-              (a.border.maxy = s.readInt16LE()),
-              (a.flags = s.readUInt8()),
-              (a.border.circle = !!(1 & a.flags));
-            let { food: n } = a;
-            if (2 & a.flags) {
-              let r = (n.minSize = s.readUInt16LE()),
-                o = (n.maxSize = s.readUInt16LE());
-              n.stepSize = o - r;
+        let t = (e) => {
+          let t = { border: {}, food: {} };
+          if (((t.protocol = e.readUInt8()), t.protocol >= 4)) {
+            (t.gamemodeId = e.readUInt8()),
+              (t.instanceSeed = e.readUInt16LE()),
+              (t.playerId = e.readUInt16LE()),
+              (t.border.minx = e.readInt16LE()),
+              (t.border.miny = e.readInt16LE()),
+              (t.border.maxx = e.readInt16LE()),
+              (t.border.maxy = e.readInt16LE()),
+              (t.flags = e.readUInt8()),
+              (t.border.circle = !!(1 & t.flags)),
+              (t.border.width = t.border.maxx - t.border.minx),
+              (t.border.height = t.border.maxy - t.border.miny);
+            let { food: s } = t;
+            if (2 & t.flags) {
+              let i = (s.minSize = e.readUInt16LE()),
+                a = (s.maxSize = e.readUInt16LE());
+              s.stepSize = a - i;
             }
-            4 & a.flags && (n.ejectedSize = s.readUInt16LE()),
-              (a.border.width = a.border.maxx - a.border.minx),
-              (a.border.height = a.border.maxy - a.border.miny);
+            4 & t.flags && (s.ejectedSize = e.readUInt16LE());
           } else {
-            if (a.protocol >= 2)
-              (a.gamemodeId = s.readUInt8()),
-                (a.instanceSeed = s.readUInt16LE()),
-                (a.playerId = s.readUInt16LE()),
-                (a.border.width = s.readUInt32LE()),
-                (a.border.height = s.readUInt32LE());
+            if (t.protocol >= 2)
+              (t.gamemodeId = e.readUInt8()),
+                (t.instanceSeed = e.readUInt16LE()),
+                (t.playerId = e.readUInt16LE()),
+                (t.border.width = e.readUInt32LE()),
+                (t.border.height = e.readUInt32LE());
             else {
-              (a.gamemodeId = 1),
-                (a.instanceSeed = s.readInt16LE()),
-                (a.playerId = s.readInt16LE());
-              let l = s.readUInt16LE();
-              (a.border.width = l), (a.border.height = l);
+              (t.gamemodeId = 1),
+                (t.instanceSeed = e.readInt16LE()),
+                (t.playerId = e.readInt16LE());
+              let n = e.readUInt16LE();
+              (t.border.width = n), (t.border.height = n);
             }
-            (a.border.minx = -a.border.width / 2),
-              (a.border.miny = -a.border.height / 2),
-              (a.border.maxx = +a.border.width / 2),
-              (a.border.maxy = +a.border.height / 2);
+            (t.border.minx = -t.border.width / 2),
+              (t.border.miny = -t.border.height / 2),
+              (t.border.maxx = +t.border.width / 2),
+              (t.border.maxy = +t.border.height / 2);
           }
           return (
-            (a.border.x = (a.border.minx + a.border.maxx) / 2),
-            (a.border.y = (a.border.miny + a.border.maxy) / 2),
-            a
+            (t.border.x = (t.border.minx + t.border.maxx) / 2),
+            (t.border.y = (t.border.miny + t.border.maxy) / 2),
+            t
           );
         };
-        e.exports = s;
+        e.exports = t;
       },
-      function (e, s, a) {
-        let n = a(1),
-          o = a(4),
+      function (e, t, s) {
+        let i = s(1),
+          a = s(4),
           {
-            PlayerCell: l,
-            Virus: c,
-            EjectedMass: d,
-            Food: h,
-            Crown: u,
-            DeadCell: p,
-          } = a(133),
-          v = new (class e {
-            constructor() {
-              (this.records = []), (this.removed = []), (this.eaten = []);
+            PlayerCell: n,
+            Virus: o,
+            EjectedMass: r,
+            Food: l,
+            Crown: c,
+            DeadCell: h,
+          } = s(133);
+        s(14);
+        let { clampNumber: d } = s(8),
+          u = (e, t, s, a, d, u, p, g, A = 1) => {
+            let m = 15 & e;
+            if ((3 == m || 4 == m) && (void 0 == a || void 0 == u)) {
+              let { food: v } = i,
+                f = (u =
+                  3 == m
+                    ? v.ejectedSize || 1
+                    : v.minSize + (s % v.stepSize) || 1);
+              if (4 == m) {
+                let { border: C } = i;
+                (a =
+                  C.minx + f + (C.width - 2 * f) * i.seededRandom(65536 + s)),
+                  (d =
+                    C.miny +
+                    f +
+                    (C.height - 2 * f) * i.seededRandom(131072 + s));
+              }
             }
-            add(e) {
-              return this.records.push(e);
-            }
-            added(e) {
-              return this.records.some((s) => s.id === e);
-            }
-            remove(e) {
-              return this.removed.push(e);
-            }
-            removed(e) {
-              return -1 !== this.removed.indexOf(e);
-            }
-            eat(e, s) {
-              this.eaten.push([e, s]);
-            }
-            eaten(e) {
-              return this.eaten.some((s) => s[0] === e);
-            }
-            mangle(e) {}
-            clear() {
-              let { records: e, removed: s, eaten: i } = this;
-              e.length = s.length = i.length = 0;
-            }
-          })(),
-          m = (e, s, i) => {
-            let a = 15 & e.type,
-              { id: o, pid: m, x: g, y: f, size: y, flags: w } = e;
-            if (null === y) {
-              let { food: b } = n;
-              4 === a
-                ? (y = b.minSize + (o % b.stepSize) || 1)
-                : 3 === a && (y = b.ejectedSize || 1),
-                (e.size = y);
-            }
-            null === g &&
-              4 === a &&
-              ((g = e.x =
-                n.border.minx +
-                y +
-                (n.border.width - 2 * y) * n.seededRandom(65536 + o)),
-              (f = e.y =
-                n.border.miny +
-                y +
-                (n.border.height - 2 * y) * n.seededRandom(131072 + o)));
-            let _ = o in n.nodes,
-              k = _ ? n.nodes[o] : null;
-            if (k) k.update(), (k.ox = k.x), (k.oy = k.y), (k.oSize = k.size);
+            let { dual: y } = i,
+              { cells: w } = 1 & A ? i : y,
+              I;
+            if (w.has(s))
+              (I = w.get(s)).update(),
+                (I.ox = I.x),
+                (I.oy = I.y),
+                (I.oSize = I.size);
             else {
-              switch (a) {
+              let k = {
+                  type: e,
+                  id: s,
+                  pid: t,
+                  x: a,
+                  y: d,
+                  size: u,
+                  flags: p,
+                  context: A,
+                },
+                b = !1;
+              if (y.opened) {
+                let { cells: _ } = 2 & A ? i : y;
+                if (_.has(s)) {
+                  if (1 != m) return;
+                  (I = _.get(s)), I.activeContexts++, w.set(s, I), (b = !0);
+                }
+              }
+              switch (m) {
                 case 1: {
-                  let C = n.playerManager.getPlayer(m);
-                  (e.texture = C.texture), (k = new l(e, C));
+                  if (b) break;
+                  let S = i.playerManager.getPlayer(t);
+                  if (!S) return;
+                  (k.texture = S.texture), (I = new n(k, S));
                   break;
                 }
                 case 2:
-                  k = new c(e);
+                  I = new o(k);
                   break;
                 case 3:
-                  k = new d(e);
+                  I = new r(k);
                   break;
                 case 4:
-                  if (r) break;
-                  k = new h(e);
+                  I = new l(k);
                   break;
                 case 6:
-                  if (r) break;
-                  k = new u(e);
+                  I = new c(k);
                   break;
                 default: {
-                  if (r) break;
-                  let x = 4210752,
-                    S = !1;
-                  w &&
-                    ((x = 0),
-                    128 & w && (x |= 7340032),
-                    64 & w && (x |= 28672),
-                    32 & w && (x |= 112),
-                    16 & w && (S = !0)),
-                    (k = new p(e, x, S));
+                  let E = 4210752,
+                    x = !1;
+                  p > 1 &&
+                    ((E = 0),
+                    128 & p && (E |= 7340032),
+                    64 & p && (E |= 28672),
+                    32 & p && (E |= 112),
+                    16 & p && (x = !0)),
+                    (I = new h(k, E, x));
                 }
               }
-              i && (k.multi = !0);
-              let { scene: M } = n;
-              M[1 & w ? "addFood" : "addCell"](k.sprite), (k.createTick = s);
-              let { nodelist: T, nodes: I } = n;
-              k.isVirus ? n.viruses[i ? "2" : "1"].push(k) : T.push(k),
-                (I[o] = k),
-                i || v.add(e);
+              if (!b) {
+                let { scene: B } = i;
+                B[1 & p ? "addFood" : "addCell"](I.sprite);
+              }
+              w.set(s, I);
             }
-            null !== g && ((k.nx = g), (k.ny = f)),
-              null !== y && (k.nSize = y),
-              (k.updateTime = n.timestamp);
-            let { player: P } = k;
-            if (!P) return;
-            P.isMe && P.pid === n.playerId && (n.isAlive = !0);
-            let { replay: L } = n;
-            L.updateHistory.length
-              ? (P.lastUpdateTick = s)
-              : delete P.lastUpdateTick,
-              v.clear(),
-              window.aimbotpid === P.pid &&
-                (window.lastNodesTick !== s
-                  ? ((window.nodesTick = []),
-                    (window.lastNodesTick = s),
-                    delete window.hasBeenTriggered)
-                  : (window.nodesTick.push(k),
-                    window.nodesTick.length > 15 &&
-                      !window.hasBeenTriggered &&
-                      ((window.hasBeenTriggered = !0),
-                      GAME.actions.split(2, !1),
-                      GAME.actions.aimbotlocker())));
+            void 0 != a && ((I.nx = a), (I.ny = d)),
+              void 0 != u && (I.nSize = u),
+              (I.updateStamp = i.timeStamp);
+            let { player: Q } = I;
+            if (!Q || 2 & A) return;
+            let { replay: M } = i;
+            M.recording() ? (Q.lastUpdateTick = g) : delete Q.lastUpdateTick;
           },
-          g = (e, s) => {
-            let { nodes: i } = n,
-              a = i[e];
-            if (!a) return;
-            let r = i[s];
-            if (!r) return void a.destroy();
-            a.update(),
-              a.destroy(o.eatAnimation),
-              (a.nx = r.x),
-              (a.ny = r.y),
-              (a.nSize = 0),
-              (a.newPositionScale = Math.min(Math.max(a.size / r.nSize, 0), 1)),
-              (a.updateTime = n.timestamp);
+          p = (e, t, s) => {
+            let { cells: n } = 1 & s ? i : i.dual;
+            if (!n.has(e)) return;
+            let o = n.get(e);
+            if (o.destroyed) return;
+            if (!n.has(t)) return void o.destroy(s);
+            let r = n.get(t);
+            if ((o.update(), !o.destroy(s, a.eatAnimation))) return;
+            (o.nx = r.nx), (o.ny = r.ny);
+            let l = o.nSize;
+            (o.nSize = 0),
+              (o.newPositionScale = d(l / r.nSize, 0, 1)),
+              (o.updateStamp = i.timeStamp);
           },
-          f = (e, s) => {
-            s ? (e.multi = !0) : (e.packetId ??= ++n.ws.packetId);
-            let a = new i(e);
-            for (a.offset++; ; ) {
-              let r = a.readUInt8(),
-                o = 15 & r;
-              if (0 === r) break;
-              let l = 1 === o ? a.readUInt16BE() : null,
-                c = a.readUInt16BE(),
-                d = !(32 & r),
-                h = null,
-                u = null;
-              d && ((h = a.readInt16BE()), (u = a.readInt16BE()));
-              let p = 64 & r ? null : a.readUInt16BE(),
-                f = (r << 24) >> 24 < 0 ? a.readUInt8() : 0;
-              m(
-                {
-                  type: r,
-                  pid: l,
-                  id: c,
-                  x: h,
-                  y: u,
-                  size: p,
-                  flags: f | ((4 === o) | (f > 15)),
-                },
-                n.ws.packetId,
-                s
+          g = (e, t) => {
+            let { cells: s } = 1 & t ? i : i.dual;
+            s.has(e) && s.get(e).destroy(t);
+          },
+          A = new (class e {
+            async init() {
+              if (this.initializing || this.instance) return !1;
+              this.initializing = !0;
+              let e = await fetch(
+                  "data:application/wasm;base64,AGFzbQEAAAABKAdgAX8Bf2ABfwBgA39/fwBgAAF/YAAAYAJ/fwBgCX9/f39/f39/fwACUQQDZW52C2FkZE9yVXBkYXRlAAYDZW52B2Rlc3Ryb3kABQNlbnYDZWF0AAIDZW52H2Vtc2NyaXB0ZW5fbm90aWZ5X21lbW9yeV9ncm93dGgAAQMLCgQCAwAAAAEDAQAEBQFwAQICBQcBAYACgIACBgkBfwFBgIzAAgsHjQEKBm1lbW9yeQIAC2Rlc2VyaWFsaXplAAULX2luaXRpYWxpemUABBlfX2luZGlyZWN0X2Z1bmN0aW9uX3RhYmxlAQAQX19lcnJub19sb2NhdGlvbgAGCXN0YWNrU2F2ZQALDHN0YWNrUmVzdG9yZQAMCnN0YWNrQWxsb2MADQZtYWxsb2MACQRmcmVlAAoJBwEAQQELAQQKjT8KAwABC6oEAQt/QQEhAyAALQAAIgYEQANAIAZB/wFxIQhBACEKAkAgBkEfcUEBRwRAQQAhCwwBCyAAIAVqLQACIAAgA2otAABBCHRyIQsgBUEDaiEDCyAAIANqIgUvAAAhByADQQJqIQQCQCAIQSBxBEBBACEMDAELIAUtAAMgACAEai0AAEEIdHIhCiAFLwAEIgRBCHQgBEEIdnIhDCADQQZqIQQLIAdBCHYhBSAHQQh0IQlBACEDAkAgCEHAAHEEQEEAIQcMAQsgACAEai8AACIHQQh0IAdBCHZyIQcgBEECaiEECyAGQQ9xIQ0gBSAJciEJIAZBGHRBGHVBf0oEfyAEBSAAIARqLQAAIQMgBEEBagshBSACIAggCyAJQf//A3EgCkEQdEEQdSAMQRB0QRB1IAdB//8DcSADIA1BBEYgA0H/AXFBD0tyckH/AXEgARAAIAVBAWohAyAAIAVqLQAAIgYNAAsLIANBAmohBAJAIAAgBWotAAIgACADai0AAEEIdHIiBUUEQCADIQYMAQsDQCACIAAgA2otAAMgACAEIgZqLQAAQQh0chABIARBAmohBCAGIQMgBUEBayIFQf//A3ENAAsLIAAgBmotAAMgACAEai0AAEEIdHIiAwRAA0AgACAGaiEBIAIgACAGQQRqIgZqLwAAIgRBCHQgBEEIdnJB//8DcSABLwAGIgFBCHQgAUEIdnJB//8DcRACIANBAWsiA0H//wNxDQALCwsFAEGECAsjACAAPwBBEHRrQf//A2pBEHZAAEF/RgRAQQAPC0EAEANBAQtSAQJ/QYAIKAIAIgEgAEEDakF8cSICaiEAAkAgAkEBTkEAIAAgAU0bDQA/AEEQdCAASQRAIAAQB0UNAQtBgAggADYCACABDwtBhAhBMDYCAEF/C5ctAQx/IwBBEGsiDCQAAkACQAJAAkACQAJAAkACQAJAAkACQAJAIABB9AFNBEBBiAgoAgAiBUEQIABBC2pBeHEgAEELSRsiCEEDdiICdiIBQQNxBEAgAUF/c0EBcSACaiIDQQN0IgFBuAhqKAIAIgRBCGohAAJAIAQoAggiAiABQbAIaiIBRgRAQYgIIAVBfiADd3E2AgAMAQsgAiABNgIMIAEgAjYCCAsgBCADQQN0IgFBA3I2AgQgASAEaiIBIAEoAgRBAXI2AgQMDQsgCEGQCCgCACIKTQ0BIAEEQAJAQQIgAnQiAEEAIABrciABIAJ0cSIAQQAgAGtxQQFrIgAgAEEMdkEQcSICdiIBQQV2QQhxIgAgAnIgASAAdiIBQQJ2QQRxIgByIAEgAHYiAUEBdkECcSIAciABIAB2IgFBAXZBAXEiAHIgASAAdmoiA0EDdCIAQbgIaigCACIEKAIIIgEgAEGwCGoiAEYEQEGICCAFQX4gA3dxIgU2AgAMAQsgASAANgIMIAAgATYCCAsgBEEIaiEAIAQgCEEDcjYCBCAEIAhqIgIgA0EDdCIBIAhrIgNBAXI2AgQgASAEaiADNgIAIAoEQCAKQQN2IgFBA3RBsAhqIQdBnAgoAgAhBAJ/IAVBASABdCIBcUUEQEGICCABIAVyNgIAIAcMAQsgBygCCAshASAHIAQ2AgggASAENgIMIAQgBzYCDCAEIAE2AggLQZwIIAI2AgBBkAggAzYCAAwNC0GMCCgCACIGRQ0BIAZBACAGa3FBAWsiACAAQQx2QRBxIgJ2IgFBBXZBCHEiACACciABIAB2IgFBAnZBBHEiAHIgASAAdiIBQQF2QQJxIgByIAEgAHYiAUEBdkEBcSIAciABIAB2akECdEG4CmooAgAiASgCBEF4cSAIayEDIAEhAgNAAkAgAigCECIARQRAIAIoAhQiAEUNAQsgACgCBEF4cSAIayICIAMgAiADSSICGyEDIAAgASACGyEBIAAhAgwBCwsgASAIaiIJIAFNDQIgASgCGCELIAEgASgCDCIERwRAIAEoAggiAEGYCCgCAEkaIAAgBDYCDCAEIAA2AggMDAsgAUEUaiICKAIAIgBFBEAgASgCECIARQ0EIAFBEGohAgsDQCACIQcgACIEQRRqIgIoAgAiAA0AIARBEGohAiAEKAIQIgANAAsgB0EANgIADAsLQX8hCCAAQb9/Sw0AIABBC2oiAEF4cSEIQYwIKAIAIglFDQBBHyEFQQAgCGshAwJAAkACQAJ/IAhB////B00EQCAAQQh2IgAgAEGA/j9qQRB2QQhxIgJ0IgAgAEGA4B9qQRB2QQRxIgF0IgAgAEGAgA9qQRB2QQJxIgB0QQ92IAEgAnIgAHJrIgBBAXQgCCAAQRVqdkEBcXJBHGohBQsgBUECdEG4CmooAgAiAkULBEBBACEADAELQQAhACAIQQBBGSAFQQF2ayAFQR9GG3QhAQNAAkAgAigCBEF4cSAIayIHIANPDQAgAiEEIAciAw0AQQAhAyACIQAMAwsgACACKAIUIgcgByACIAFBHXZBBHFqKAIQIgJGGyAAIAcbIQAgAUEBdCEBIAINAAsLIAAgBHJFBEBBAiAFdCIAQQAgAGtyIAlxIgBFDQMgAEEAIABrcUEBayIAIABBDHZBEHEiAnYiAUEFdkEIcSIAIAJyIAEgAHYiAUECdkEEcSIAciABIAB2IgFBAXZBAnEiAHIgASAAdiIBQQF2QQFxIgByIAEgAHZqQQJ0QbgKaigCACEACyAARQ0BCwNAIAAoAgRBeHEgCGsiASADSSECIAEgAyACGyEDIAAgBCACGyEEIAAoAhAiAQR/IAEFIAAoAhQLIgANAAsLIARFDQAgA0GQCCgCACAIa08NACAEIAhqIgYgBE0NASAEKAIYIQUgBCAEKAIMIgFHBEAgBCgCCCIAQZgIKAIASRogACABNgIMIAEgADYCCAwKCyAEQRRqIgIoAgAiAEUEQCAEKAIQIgBFDQQgBEEQaiECCwNAIAIhByAAIgFBFGoiAigCACIADQAgAUEQaiECIAEoAhAiAA0ACyAHQQA2AgAMCQsgCEGQCCgCACICTQRAQZwIKAIAIQMCQCACIAhrIgFBEE8EQEGQCCABNgIAQZwIIAMgCGoiADYCACAAIAFBAXI2AgQgAiADaiABNgIAIAMgCEEDcjYCBAwBC0GcCEEANgIAQZAIQQA2AgAgAyACQQNyNgIEIAIgA2oiACAAKAIEQQFyNgIECyADQQhqIQAMCwsgCEGUCCgCACIGSQRAQZQIIAYgCGsiATYCAEGgCEGgCCgCACICIAhqIgA2AgAgACABQQFyNgIEIAIgCEEDcjYCBCACQQhqIQAMCwtBACEAIAhBL2oiCQJ/QeALKAIABEBB6AsoAgAMAQtB7AtCfzcCAEHkC0KAoICAgIAENwIAQeALIAxBDGpBcHFB2KrVqgVzNgIAQfQLQQA2AgBBxAtBADYCAEGAIAsiAWoiBUEAIAFrIgdxIgIgCE0NCkHACygCACIEBEBBuAsoAgAiAyACaiIBIANNDQsgASAESw0LC0HECy0AAEEEcQ0FAkACQEGgCCgCACIDBEBByAshAANAIAMgACgCACIBTwRAIAEgACgCBGogA0sNAwsgACgCCCIADQALC0EAEAgiAUF/Rg0GIAIhBUHkCygCACIDQQFrIgAgAXEEQCACIAFrIAAgAWpBACADa3FqIQULIAUgCE0NBiAFQf7///8HSw0GQcALKAIAIgQEQEG4CygCACIDIAVqIgAgA00NByAAIARLDQcLIAUQCCIAIAFHDQEMCAsgBSAGayAHcSIFQf7///8HSw0FIAUQCCIBIAAoAgAgACgCBGpGDQQgASEACwJAIAhBMGogBU0NACAAQX9GDQBB6AsoAgAiASAJIAVrakEAIAFrcSIBQf7///8HSwRAIAAhAQwICyABEAhBf0cEQCABIAVqIQUgACEBDAgLQQAgBWsQCBoMBQsgACIBQX9HDQYMBAsAC0EAIQQMBwtBACEBDAULIAFBf0cNAgtBxAtBxAsoAgBBBHI2AgALIAJB/v///wdLDQEgAhAIIgFBABAIIgBPDQEgAUF/Rg0BIABBf0YNASAAIAFrIgUgCEEoak0NAQtBuAtBuAsoAgAgBWoiADYCAEG8CygCACAASQRAQbwLIAA2AgALAkACQAJAQaAIKAIAIgcEQEHICyEAA0AgASAAKAIAIgMgACgCBCICakYNAiAAKAIIIgANAAsMAgtBmAgoAgAiAEEAIAAgAU0bRQRAQZgIIAE2AgALQQAhAEHMCyAFNgIAQcgLIAE2AgBBqAhBfzYCAEGsCEHgCygCADYCAEHUC0EANgIAA0AgAEEDdCIDQbgIaiADQbAIaiICNgIAIANBvAhqIAI2AgAgAEEBaiIAQSBHDQALQZQIIAVBKGsiA0F4IAFrQQdxQQAgAUEIakEHcRsiAGsiAjYCAEGgCCAAIAFqIgA2AgAgACACQQFyNgIEIAEgA2pBKDYCBEGkCEHwCygCADYCAAwCCyABIAdNDQAgAyAHSw0AIAAoAgxBCHENACAAIAIgBWo2AgRBoAggB0F4IAdrQQdxQQAgB0EIakEHcRsiAGoiAjYCAEGUCEGUCCgCACAFaiIBIABrIgA2AgAgAiAAQQFyNgIEIAEgB2pBKDYCBEGkCEHwCygCADYCAAwBC0GYCCgCACABSwRAQZgIIAE2AgALIAEgBWohAkHICyEAAkACQAJAAkACQAJAA0AgAiAAKAIARwRAIAAoAggiAA0BDAILCyAALQAMQQhxRQ0BC0HICyEAA0AgByAAKAIAIgJPBEAgAiAAKAIEaiIEIAdLDQMLIAAoAgghAAwACwALIAAgATYCACAAIAAoAgQgBWo2AgQgAUF4IAFrQQdxQQAgAUEIakEHcRtqIgkgCEEDcjYCBCACQXggAmtBB3FBACACQQhqQQdxG2oiBSAJayAIayECIAggCWohBiAFIAdGBEBBoAggBjYCAEGUCEGUCCgCACACaiIANgIAIAYgAEEBcjYCBAwDCyAFQZwIKAIARgRAQZwIIAY2AgBBkAhBkAgoAgAgAmoiADYCACAGIABBAXI2AgQgACAGaiAANgIADAMLIAUoAgQiAEEDcUEBRgRAIABBeHEhBwJAIABB/wFNBEAgBSgCCCIDIABBA3YiAEEDdEGwCGpGGiADIAUoAgwiAUYEQEGICEGICCgCAEF+IAB3cTYCAAwCCyADIAE2AgwgASADNgIIDAELIAUoAhghCAJAIAUgBSgCDCIBRwRAIAUoAggiACABNgIMIAEgADYCCAwBCwJAIAVBFGoiACgCACIDDQAgBUEQaiIAKAIAIgMNAEEAIQEMAQsDQCAAIQQgAyIBQRRqIgAoAgAiAw0AIAFBEGohACABKAIQIgMNAAsgBEEANgIACyAIRQ0AAkAgBSAFKAIcIgNBAnRBuApqIgAoAgBGBEAgACABNgIAIAENAUGMCEGMCCgCAEF+IAN3cTYCAAwCCyAIQRBBFCAIKAIQIAVGG2ogATYCACABRQ0BCyABIAg2AhggBSgCECIABEAgASAANgIQIAAgATYCGAsgBSgCFCIARQ0AIAEgADYCFCAAIAE2AhgLIAUgB2ohBSACIAdqIQILIAUgBSgCBEF+cTYCBCAGIAJBAXI2AgQgAiAGaiACNgIAIAJB/wFNBEAgAkEDdiIAQQN0QbAIaiECAn9BiAgoAgAiAUEBIAB0IgBxRQRAQYgIIAAgAXI2AgAgAgwBCyACKAIICyEAIAIgBjYCCCAAIAY2AgwgBiACNgIMIAYgADYCCAwDC0EfIQAgAkH///8HTQRAIAJBCHYiACAAQYD+P2pBEHZBCHEiA3QiACAAQYDgH2pBEHZBBHEiAXQiACAAQYCAD2pBEHZBAnEiAHRBD3YgASADciAAcmsiAEEBdCACIABBFWp2QQFxckEcaiEACyAGIAA2AhwgBkIANwIQIABBAnRBuApqIQQCQEGMCCgCACIDQQEgAHQiAXFFBEBBjAggASADcjYCACAEIAY2AgAgBiAENgIYDAELIAJBAEEZIABBAXZrIABBH0YbdCEAIAQoAgAhAQNAIAEiAygCBEF4cSACRg0DIABBHXYhASAAQQF0IQAgAyABQQRxaiIEKAIQIgENAAsgBCAGNgIQIAYgAzYCGAsgBiAGNgIMIAYgBjYCCAwCC0GUCCAFQShrIgNBeCABa0EHcUEAIAFBCGpBB3EbIgBrIgI2AgBBoAggACABaiIANgIAIAAgAkEBcjYCBCABIANqQSg2AgRBpAhB8AsoAgA2AgAgByAEQScgBGtBB3FBACAEQSdrQQdxG2pBL2siACAAIAdBEGpJGyICQRs2AgQgAkHQCykCADcCECACQcgLKQIANwIIQdALIAJBCGo2AgBBzAsgBTYCAEHICyABNgIAQdQLQQA2AgAgAkEYaiEAA0AgAEEHNgIEIABBCGohASAAQQRqIQAgASAESQ0ACyACIAdGDQMgAiACKAIEQX5xNgIEIAcgAiAHayIEQQFyNgIEIAIgBDYCACAEQf8BTQRAIARBA3YiAEEDdEGwCGohAgJ/QYgIKAIAIgFBASAAdCIAcUUEQEGICCAAIAFyNgIAIAIMAQsgAigCCAshACACIAc2AgggACAHNgIMIAcgAjYCDCAHIAA2AggMBAtBHyEAIAdCADcCECAEQf///wdNBEAgBEEIdiIAIABBgP4/akEQdkEIcSICdCIAIABBgOAfakEQdkEEcSIBdCIAIABBgIAPakEQdkECcSIAdEEPdiABIAJyIAByayIAQQF0IAQgAEEVanZBAXFyQRxqIQALIAcgADYCHCAAQQJ0QbgKaiEDAkBBjAgoAgAiAkEBIAB0IgFxRQRAQYwIIAEgAnI2AgAgAyAHNgIAIAcgAzYCGAwBCyAEQQBBGSAAQQF2ayAAQR9GG3QhACADKAIAIQEDQCABIgIoAgRBeHEgBEYNBCAAQR12IQEgAEEBdCEAIAIgAUEEcWoiAygCECIBDQALIAMgBzYCECAHIAI2AhgLIAcgBzYCDCAHIAc2AggMAwsgAygCCCIAIAY2AgwgAyAGNgIIIAZBADYCGCAGIAM2AgwgBiAANgIICyAJQQhqIQAMBQsgAigCCCIAIAc2AgwgAiAHNgIIIAdBADYCGCAHIAI2AgwgByAANgIIC0GUCCgCACIAIAhNDQBBlAggACAIayIBNgIAQaAIQaAIKAIAIgIgCGoiADYCACAAIAFBAXI2AgQgAiAIQQNyNgIEIAJBCGohAAwDC0GECEEwNgIAQQAhAAwCCwJAIAVFDQACQCAEKAIcIgJBAnRBuApqIgAoAgAgBEYEQCAAIAE2AgAgAQ0BQYwIIAlBfiACd3EiCTYCAAwCCyAFQRBBFCAFKAIQIARGG2ogATYCACABRQ0BCyABIAU2AhggBCgCECIABEAgASAANgIQIAAgATYCGAsgBCgCFCIARQ0AIAEgADYCFCAAIAE2AhgLAkAgA0EPTQRAIAQgAyAIaiIAQQNyNgIEIAAgBGoiACAAKAIEQQFyNgIEDAELIAQgCEEDcjYCBCAGIANBAXI2AgQgAyAGaiADNgIAIANB/wFNBEAgA0EDdiIAQQN0QbAIaiECAn9BiAgoAgAiAUEBIAB0IgBxRQRAQYgIIAAgAXI2AgAgAgwBCyACKAIICyEAIAIgBjYCCCAAIAY2AgwgBiACNgIMIAYgADYCCAwBC0EfIQAgA0H///8HTQRAIANBCHYiACAAQYD+P2pBEHZBCHEiAnQiACAAQYDgH2pBEHZBBHEiAXQiACAAQYCAD2pBEHZBAnEiAHRBD3YgASACciAAcmsiAEEBdCADIABBFWp2QQFxckEcaiEACyAGIAA2AhwgBkIANwIQIABBAnRBuApqIQICQAJAIAlBASAAdCIBcUUEQEGMCCABIAlyNgIAIAIgBjYCACAGIAI2AhgMAQsgA0EAQRkgAEEBdmsgAEEfRht0IQAgAigCACEIA0AgCCIBKAIEQXhxIANGDQIgAEEddiECIABBAXQhACABIAJBBHFqIgIoAhAiCA0ACyACIAY2AhAgBiABNgIYCyAGIAY2AgwgBiAGNgIIDAELIAEoAggiACAGNgIMIAEgBjYCCCAGQQA2AhggBiABNgIMIAYgADYCCAsgBEEIaiEADAELAkAgC0UNAAJAIAEoAhwiAkECdEG4CmoiACgCACABRgRAIAAgBDYCACAEDQFBjAggBkF+IAJ3cTYCAAwCCyALQRBBFCALKAIQIAFGG2ogBDYCACAERQ0BCyAEIAs2AhggASgCECIABEAgBCAANgIQIAAgBDYCGAsgASgCFCIARQ0AIAQgADYCFCAAIAQ2AhgLAkAgA0EPTQRAIAEgAyAIaiIAQQNyNgIEIAAgAWoiACAAKAIEQQFyNgIEDAELIAEgCEEDcjYCBCAJIANBAXI2AgQgAyAJaiADNgIAIAoEQCAKQQN2IgBBA3RBsAhqIQRBnAgoAgAhAgJ/QQEgAHQiACAFcUUEQEGICCAAIAVyNgIAIAQMAQsgBCgCCAshACAEIAI2AgggACACNgIMIAIgBDYCDCACIAA2AggLQZwIIAk2AgBBkAggAzYCAAsgAUEIaiEACyAMQRBqJAAgAAunDAEHfwJAIABFDQAgAEEIayIDIABBBGsoAgAiAUF4cSIAaiEFAkAgAUEBcQ0AIAFBA3FFDQEgAyADKAIAIgFrIgNBmAgoAgBJDQEgACABaiEAIANBnAgoAgBHBEAgAUH/AU0EQCADKAIIIgIgAUEDdiIEQQN0QbAIakYaIAIgAygCDCIBRgRAQYgIQYgIKAIAQX4gBHdxNgIADAMLIAIgATYCDCABIAI2AggMAgsgAygCGCEGAkAgAyADKAIMIgFHBEAgAygCCCICIAE2AgwgASACNgIIDAELAkAgA0EUaiICKAIAIgQNACADQRBqIgIoAgAiBA0AQQAhAQwBCwNAIAIhByAEIgFBFGoiAigCACIEDQAgAUEQaiECIAEoAhAiBA0ACyAHQQA2AgALIAZFDQECQCADIAMoAhwiAkECdEG4CmoiBCgCAEYEQCAEIAE2AgAgAQ0BQYwIQYwIKAIAQX4gAndxNgIADAMLIAZBEEEUIAYoAhAgA0YbaiABNgIAIAFFDQILIAEgBjYCGCADKAIQIgIEQCABIAI2AhAgAiABNgIYCyADKAIUIgJFDQEgASACNgIUIAIgATYCGAwBCyAFKAIEIgFBA3FBA0cNAEGQCCAANgIAIAUgAUF+cTYCBCADIABBAXI2AgQgACADaiAANgIADwsgAyAFTw0AIAUoAgQiAUEBcUUNAAJAIAFBAnFFBEAgBUGgCCgCAEYEQEGgCCADNgIAQZQIQZQIKAIAIABqIgA2AgAgAyAAQQFyNgIEIANBnAgoAgBHDQNBkAhBADYCAEGcCEEANgIADwsgBUGcCCgCAEYEQEGcCCADNgIAQZAIQZAIKAIAIABqIgA2AgAgAyAAQQFyNgIEIAAgA2ogADYCAA8LIAFBeHEgAGohAAJAIAFB/wFNBEAgBSgCCCICIAFBA3YiBEEDdEGwCGpGGiACIAUoAgwiAUYEQEGICEGICCgCAEF+IAR3cTYCAAwCCyACIAE2AgwgASACNgIIDAELIAUoAhghBgJAIAUgBSgCDCIBRwRAIAUoAggiAkGYCCgCAEkaIAIgATYCDCABIAI2AggMAQsCQCAFQRRqIgIoAgAiBA0AIAVBEGoiAigCACIEDQBBACEBDAELA0AgAiEHIAQiAUEUaiICKAIAIgQNACABQRBqIQIgASgCECIEDQALIAdBADYCAAsgBkUNAAJAIAUgBSgCHCICQQJ0QbgKaiIEKAIARgRAIAQgATYCACABDQFBjAhBjAgoAgBBfiACd3E2AgAMAgsgBkEQQRQgBigCECAFRhtqIAE2AgAgAUUNAQsgASAGNgIYIAUoAhAiAgRAIAEgAjYCECACIAE2AhgLIAUoAhQiAkUNACABIAI2AhQgAiABNgIYCyADIABBAXI2AgQgACADaiAANgIAIANBnAgoAgBHDQFBkAggADYCAA8LIAUgAUF+cTYCBCADIABBAXI2AgQgACADaiAANgIACyAAQf8BTQRAIABBA3YiAUEDdEGwCGohAAJ/QYgIKAIAIgJBASABdCIBcUUEQEGICCABIAJyNgIAIAAMAQsgACgCCAshAiAAIAM2AgggAiADNgIMIAMgADYCDCADIAI2AggPC0EfIQIgA0IANwIQIABB////B00EQCAAQQh2IgEgAUGA/j9qQRB2QQhxIgF0IgIgAkGA4B9qQRB2QQRxIgJ0IgQgBEGAgA9qQRB2QQJxIgR0QQ92IAEgAnIgBHJrIgFBAXQgACABQRVqdkEBcXJBHGohAgsgAyACNgIcIAJBAnRBuApqIQECQAJAAkBBjAgoAgAiBEEBIAJ0IgdxRQRAQYwIIAQgB3I2AgAgASADNgIAIAMgATYCGAwBCyAAQQBBGSACQQF2ayACQR9GG3QhAiABKAIAIQEDQCABIgQoAgRBeHEgAEYNAiACQR12IQEgAkEBdCECIAQgAUEEcWoiB0EQaigCACIBDQALIAcgAzYCECADIAQ2AhgLIAMgAzYCDCADIAM2AggMAQsgBCgCCCIAIAM2AgwgBCADNgIIIANBADYCGCADIAQ2AgwgAyAANgIIC0GoCEGoCCgCAEEBayIAQX8gABs2AgALCwQAIwALBgAgACQACxAAIwAgAGtBcHEiACQAIAALCwkBAEGBCAsCBlA="
+                ),
+                t = (this.instance = await WebAssembly.instantiate(
+                  await WebAssembly.compile(await e.arrayBuffer()),
+                  {
+                    env: {
+                      addOrUpdate(e, t, s, a, n, o, r, l, c) {
+                        let { playback: h } = i;
+                        if (h.dry) {
+                          let { updates: d } = h,
+                            p = d[0][0];
+                          p[a] = {
+                            type: t,
+                            pid: s,
+                            id: a,
+                            x: n,
+                            y: o,
+                            size: r,
+                            flags: l,
+                          };
+                          return;
+                        }
+                        (n = 32 & t ? void 0 : n),
+                          (r = 64 & t ? void 0 : r),
+                          u(15 & t, s, a, n, o, r, l, c, e);
+                      },
+                      destroy(e, t) {
+                        let { playback: s } = i;
+                        if (s.dry) {
+                          s.destroyCell(t);
+                          return;
+                        }
+                        g(t, e);
+                      },
+                      eat(e, t, s) {
+                        let { playback: a } = i;
+                        if (a.dry) {
+                          a.eatCell(t, s);
+                          return;
+                        }
+                        p(t, s, e);
+                      },
+                      emscripten_notify_memory_growth(e) {},
+                    },
+                  }
+                )),
+                { memory: s } = t.exports;
+              return (
+                (this.HEAPU8 = new Uint8Array(s.buffer)),
+                (this.HEAPU16 = new Uint8Array(s.buffer)),
+                (this.HEAPF32 = new Uint8Array(s.buffer)),
+                (this.HEAPU32 = new Uint8Array(s.buffer)),
+                delete this.initializing,
+                !0
               );
             }
-            let { nodes: y } = n,
-              w = a.readUInt16BE();
-            for (; w--; ) {
-              let b = a.readUInt16BE();
-              b in y && (y[b].destroy(), s || v.remove(b));
+            deserialize(e, t, s) {
+              if (!this.instance) return 0;
+              let {
+                  deserialize: i,
+                  malloc: a,
+                  free: n,
+                } = this.instance.exports,
+                o = t.byteLength,
+                r = a(o);
+              this.HEAPU8.set(t, r), i(r, s, e), n(r);
             }
-            for (w = a.readUInt16BE(); w--; ) {
-              let _ = a.readUInt16BE(),
-                k = a.readUInt16BE();
-              _ in y && (g(_, k), s || v.eat(_, k in y ? k : null));
-            }
-            s && !n.alive() && n.updateCamera(!0);
-          };
-        (n.parseNodes = f), (e.exports = { addOrUpdate: m, remove: g });
-      },
-      function (e, s, i) {
-        var a = i(140);
-        function n(e, s, i, n) {
-          var r = e.length,
-            o = a._malloc(r),
-            l = new Uint8Array(a.HEAPU8.buffer, o, r);
-          l.set(e);
-          var c = s(o, n);
-          if (!i) {
-            var d = new Uint8Array(new ArrayBuffer(r));
-            d.set(l);
-          }
-          return a._free(o), i ? c : d;
-        }
-        i(141),
+          })();
+        A.init(),
+          (window.Module = A),
+          (i.parseCells = (e) =>
+            A.deserialize(1, new Uint8Array(e.buffer, 1), e.packetId)),
           (e.exports = {
-            skid: (e) => n(e, a._skid, !1),
-            skid3: (e, s) => n(e, a._skid3, !0, s),
-            skid4: (e, s) => n(e, a._skid4, !0, s),
+            wasmModule: A,
+            addOrUpdateCell: u,
+            destroyCell: g,
+            eatCell: p,
+          });
+      },
+      function (e, t, s) {
+        var i = s(140);
+        function a(e, t, s, a) {
+          var n = e.length,
+            o = i._malloc(n),
+            r = new Uint8Array(i.HEAPU8.buffer, o, n);
+          r.set(e);
+          var l = t(o, a);
+          if (!s) {
+            var c = new Uint8Array(new ArrayBuffer(n));
+            c.set(r);
+          }
+          return i._free(o), s ? l : c;
+        }
+        s(141),
+          (e.exports = {
+            skid: (e) => a(e, i._skid, !1),
+            skid3: (e, t) => a(e, i._skid3, !0, t),
+            skid4: (e, t) => a(e, i._skid4, !0, t),
           });
       },
       ,
@@ -2731,104 +3231,106 @@
       ,
       ,
       ,
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(74),
-          n = i(30),
-          r = Object((i(168), i(0)).a)(
-            n.default,
-            a.a,
-            a.b,
+        var i = s(74),
+          a = s(30),
+          n = Object((s(168), s(0)).a)(
+            a.default,
+            i.a,
+            i.b,
             !1,
             null,
             "0eaeaf66",
             null
           );
-        (r.options.__file = "src/components/modal.vue"),
-          (s.default = r.exports);
+        (n.options.__file = "src/components/modal.vue"),
+          (t.default = n.exports);
       },
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(75),
-          n = i(38),
-          r = Object((i(218), i(0)).a)(
-            n.default,
-            a.a,
-            a.b,
+        var i = s(75),
+          a = s(38),
+          n = Object((s(218), s(0)).a)(
+            a.default,
+            i.a,
+            i.b,
             !1,
             null,
             "1dbc6ed9",
             null
           );
-        (r.options.__file = "src/components/replay-item.vue"),
-          (s.default = r.exports);
+        (n.options.__file = "src/components/replay-item.vue"),
+          (t.default = n.exports);
       },
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(73),
-          n = i(55),
-          r = Object((i(250), i(0)).a)(
-            n.default,
-            a.a,
-            a.b,
+        var i = s(73),
+          a = s(55),
+          n = Object((s(250), s(0)).a)(
+            a.default,
+            i.a,
+            i.b,
             !1,
             null,
             "4c95bd45",
             null
           );
-        (r.options.__file = "src/components/minimap.vue"),
-          (s.default = r.exports);
+        (n.options.__file = "src/components/minimap.vue"),
+          (t.default = n.exports);
       },
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        i.r(s);
-        var a = i(8),
-          n = (i.n(a), i(119));
-        i.n(n),
-          (window.v = 5),
-          i(17).notifyUnsupportedBrowser(),
-          i(1),
-          i(130),
-          i(132),
-          i(142),
-          i(148),
-          i(269),
-          i(267),
-          i(268);
+        s(17).notifyUnsupportedBrowser(),
+          s(1),
+          s(130),
+          s(132),
+          s(142),
+          s(148),
+          s(269),
+          s(267),
+          s(268);
       },
-      function (e, s, i) {
-        var a = i(2),
-          n = i(120);
-        "string" == typeof (n = n.__esModule ? n.default : n) &&
-          (n = [[e.i, n, ""]]);
-        var r =
-          (a(n, { insert: "head", singleton: !1 }), n.locals ? n.locals : {});
-        e.exports = r;
+      function (e, t, s) {
+        var i = s(2),
+          a = s(120);
+        "string" == typeof (a = a.__esModule ? a.default : a) &&
+          (a = [[e.i, a, ""]]);
+        var n =
+          (i(a, { insert: "head", singleton: !1 }), a.locals ? a.locals : {});
+        e.exports = n;
       },
       function () {},
-      function (e, s, i) {
-        var a = i(4),
-          n = i(12);
-        function r({ width: e, height: s, circle: i }) {
-          var n = PIXI.utils.string2hex(a.borderColor),
-            r = new PIXI.Graphics();
-          return (
-            r.lineStyle(100, n, 1, 0.5),
-            i
-              ? r.drawEllipse(e / 2, s / 2, e / 2, s / 2)
-              : r.drawRect(0, 0, e, s),
-            r.endFill(),
-            r.pivot.set(e / 2, s / 2),
-            r
-          );
-        }
-        e.exports = class {
-          constructor(e, s, i) {
-            (this.game = e),
-              (this.border = s),
+      function (e, t, s) {
+        let i,
+          a = s(4),
+          n = s(12),
+          o = ({ width: e, height: t, circle: s }) => {
+            let i = PIXI.utils.string2hex(a.borderColor),
+              n = new PIXI.Graphics();
+            return (
+              n.lineStyle(100, i, 1, 0.5),
+              s
+                ? n.drawEllipse(e / 2, t / 2, e / 2, t / 2)
+                : n.drawRect(0, 0, e, t),
+              n.endFill(),
+              n.pivot.set(e / 2, t / 2),
+              n
+            );
+          },
+          r = ({ width: e, height: t }) => {
+            let s = new PIXI.Graphics()
+              .beginFill(16777215)
+              .drawEllipse(e / 2, t / 2, e / 2, t / 2)
+              .endFill();
+            return s.pivot.set(e / 2, t / 2), s;
+          };
+        e.exports = class e {
+          constructor(e, t) {
+            (this.border = e),
               (this.container = new PIXI.Container()),
               (this.background = new PIXI.Container()),
-              (this.borderSprite = r(s)),
+              (this.borderSprite = o(e)),
               this.background.addChild(this.borderSprite),
               (this.foreground = new PIXI.Container()),
               (this.food = new PIXI.Container()),
@@ -2840,19 +3342,22 @@
                 this.foreground
               ),
               this.setPosition(),
-              i && this.setBackgroundImage(),
-              (this.background.position.x = s.x),
-              (this.background.position.y = s.y);
+              t && this.setBackgroundImage(),
+              (this.background.position.x = e.x),
+              (this.background.position.y = e.y);
+          }
+          static useGame(e) {
+            i = e;
           }
           setPosition() {
             (this.container.position.x = window.innerWidth / 2),
               (this.container.position.y = window.innerHeight / 2);
           }
           sort() {
-            this.foreground.children.sort((e, s) =>
-              (e = e.gameData).size === (s = s.gameData).size
-                ? e.id - s.id
-                : e.size - s.size
+            this.foreground.children.sort((e, t) =>
+              (e = e.gameData).size === (t = t.gameData).size
+                ? e.id - t.id
+                : e.size - t.size
             );
           }
           addCell(e) {
@@ -2867,57 +3372,49 @@
               : e || this.destroyBackgroundImage(!0);
           }
           setBackgroundImage() {
-            var e = a.backgroundImageUrl;
-            if (e) {
-              var s = (
-                a.backgroundImageRepeat ? PIXI.TilingSprite : PIXI.Sprite
-              ).from(e, {});
-              (s.width = this.border.width),
-                (s.height = this.border.height),
-                (s.alpha = a.backgroundImageOpacity),
-                s.anchor.set(0.5);
-              var i = this.backgroundSprite;
-              if (i) {
-                var n = s.texture !== i.texture;
-                this.destroyBackgroundImage(n);
-              }
-              if (
-                ((this.backgroundSprite = s),
-                this.background.addChildAt(s, 0),
-                this.border.circle)
-              ) {
-                var r = (function ({ width: e, height: s }) {
-                  var i = new PIXI.Graphics();
-                  return (
-                    i.beginFill(16777215),
-                    i.drawEllipse(e / 2, s / 2, e / 2, s / 2),
-                    i.endFill(),
-                    i.pivot.set(e / 2, s / 2),
-                    i
-                  );
-                })(this.border);
-                this.background.addChildAt(r, 1),
-                  (this.backgroundSprite.mask = r);
-              }
-            } else this.destroyBackgroundImage();
+            let e = a.backgroundImageUrl;
+            if (!e) {
+              this.destroyBackgroundImage();
+              return;
+            }
+            let t = (
+              a.backgroundImageRepeat ? PIXI.TilingSprite : PIXI.Sprite
+            ).from(e, {});
+            (t.width = this.border.width),
+              (t.height = this.border.height),
+              (t.alpha = a.backgroundImageOpacity),
+              t.anchor.set(0.5);
+            let s = this.backgroundSprite;
+            if (s) {
+              let i = t.texture !== s.texture;
+              this.destroyBackgroundImage(i);
+            }
+            if (
+              ((this.backgroundSprite = t),
+              this.background.addChildAt(t, 0),
+              !this.border.circle)
+            )
+              return;
+            let n = r(this.border);
+            this.background.addChildAt(n, 1), (this.backgroundSprite.mask = n);
           }
           destroyBackgroundImage(e) {
             this.backgroundSprite &&
               (this.backgroundSprite.destroy(!!e),
-              (this.backgroundSprite = null));
+              delete this.backgroundSprite);
           }
           resetBorder() {
             this.borderSprite.destroy(),
-              (this.borderSprite = r(this.border)),
+              (this.borderSprite = o(this.border)),
               this.background.addChild(this.borderSprite);
           }
           reloadFoodTextures() {
-            this.game.nodelist.forEach((e) => {
+            i.allCells.forEach((e) => {
               e.isFood && e.reloadTexture();
             });
           }
           reloadEjectedTextures() {
-            this.game.nodelist.forEach((e) => {
+            i.allCells.forEach((e) => {
               e.isEjected && e.reloadTexture();
             });
           }
@@ -2925,180 +3422,180 @@
             n.virus.loadVirusFromUrl(a.virusImageUrl);
           }
           resetPlayerLongNames() {
-            this.game.playerManager.players.forEach((e) =>
-              e.applyNameToSprite()
-            );
+            i.playerManager.players.forEach((e) => e.applyNameToSprite());
           }
           resetNameTextStyle() {
-            let e = this.game.settings.nameTextStyle,
-              { nodelist: s } = this.game;
-            s.forEach((e) => {
-              e.isPlayerCell &&
+            [...i.allCells.values()]
+              .filter((e) => !!e.isPlayerCell)
+              .forEach((e) => {
                 e.nameSprite &&
-                (e.nameSprite.destroy(!1), (e.nameSprite = null));
-            });
-            let { playerManager: i } = this.game;
-            i.players.forEach((s) => {
-              let i = s.nameSprite;
-              if (!i) return;
-              let a = i.style.fill;
-              (i.style = e), (i.style.fill = a), i.updateText();
+                  (e.nameSprite.destroy(!1), (e.nameSprite = null));
+              });
+            let e = a.nameTextStyle;
+            i.playerManager.players.forEach((t) => {
+              let s = t.nameSprite;
+              if (!s) return;
+              let i = s.style.fill;
+              (s.style = e), (s.style.fill = i), s.updateText();
             });
           }
           resetMassTextStyle(e) {
-            var s = this.game.settings.massTextStyle;
+            e && this.uninstallMassTextFont();
+            let t = a.massTextStyle;
             for (
-              e && this.uninstallMassTextFont(),
-                PIXI.BitmapFont.from("mass", s, { chars: "1234567890k." });
-              this.game.massTextPool.length;
+              PIXI.BitmapFont.from("mass", t, { chars: "1234567890k." });
+              i.massTextPool.length;
 
             )
-              this.game.massTextPool.pop().destroy(!1);
-            for (var i = 0; i < this.game.nodelist.length; i++) {
-              var a = this.game.nodelist[i];
-              a.isPlayerCell &&
-                a.massText &&
-                (a.sprite.removeChild(a.massText),
-                a.massText.destroy(!1),
-                (a.massText = null));
-            }
+              i.massTextPool.pop().destroy(!1);
+            [...i.allCells.values()]
+              .filter((e) => !!e.isPlayerCell)
+              .forEach((e) => {
+                e.massText &&
+                  e.sprite &&
+                  (e.sprite.removeChild(e.massText),
+                  e.massText.destroy(!1),
+                  (e.massText = null));
+              });
           }
           uninstallMassTextFont() {
             PIXI.BitmapFont.uninstall("mass");
           }
         };
       },
-      function (e, s, i) {
-        var a = i(4),
-          n = i(24),
-          r = {};
+      function (e, t, s) {
+        var i = s(4),
+          a = s(24),
+          n = {};
         e.exports = {
           getTexture: function (e) {
-            var s, i, o, l, c, d, h, u;
+            var t, s, o, r, l, c, h, d;
             return (
-              r[e] ||
-              (r[e] =
-                ((s = e),
+              n[e] ||
+              (n[e] =
+                ((t = e),
                 (h =
-                  ((i = d = (c = a.cellSize) / 2),
-                  (o = s),
-                  (l = new PIXI.Graphics()).beginFill(o),
-                  l.drawCircle(0, 0, i),
-                  l.endFill(),
-                  l)).position.set(d),
-                (u = PIXI.RenderTexture.create(c, c)),
-                n.render(h, u),
-                u))
+                  ((s = c = (l = i.cellSize) / 2),
+                  (o = t),
+                  (r = new PIXI.Graphics()).beginFill(o),
+                  r.drawCircle(0, 0, s),
+                  r.endFill(),
+                  r)).position.set(c),
+                (d = PIXI.RenderTexture.create(l, l)),
+                a.render(h, d),
+                d))
             );
           },
           destroyCache: function () {
-            for (var e in r) r[e].destroy(!0), delete r[e];
+            for (var e in n) n[e].destroy(!0), delete n[e];
           },
         };
       },
-      function (e, s, i) {
-        var a = i(4),
-          n = i(24),
-          r = {};
+      function (e, t, s) {
+        var i = s(4),
+          a = s(24),
+          n = {};
         e.exports = {
           getTexture: function (e) {
-            var s, i, o, l, c, d, h, u;
+            var t, s, o, r, l, c, h, d;
             return (
-              r[e] ||
-              (r[e] =
-                ((s = e),
+              n[e] ||
+              (n[e] =
+                ((t = e),
                 (h =
-                  ((i = d = (c = a.cellSize) / 2),
-                  (o = s),
-                  (l = new PIXI.Graphics()).beginFill(o),
-                  l.drawRect(-i, -i, 2 * i, 2 * i),
-                  l.endFill(),
-                  l)).position.set(d),
-                (u = PIXI.RenderTexture.create(c, c)),
-                n.render(h, u),
-                u))
+                  ((s = c = (l = i.cellSize) / 2),
+                  (o = t),
+                  (r = new PIXI.Graphics()).beginFill(o),
+                  r.drawRect(-s, -s, 2 * s, 2 * s),
+                  r.endFill(),
+                  r)).position.set(c),
+                (d = PIXI.RenderTexture.create(l, l)),
+                a.render(h, d),
+                d))
             );
           },
           destroyCache: function () {
-            for (var e in r) r[e].destroy(!0), delete r[e];
+            for (var e in n) n[e].destroy(!0), delete n[e];
           },
         };
       },
-      function (e, s, i) {
-        var a = i(24),
-          { loadImage: n } = i(8),
-          r = PIXI.RenderTexture.create(200, 200),
+      function (e, t, s) {
+        var i = s(24),
+          { loadImage: a } = s(8),
+          n = PIXI.RenderTexture.create(200, 200),
           o = Promise.resolve();
         e.exports = {
           getTexture: function () {
-            return r;
+            return n;
           },
           loadVirusFromUrl: async function (e) {
             await o,
-              (o = new Promise(async (s) => {
-                var i = await n(e),
-                  o = PIXI.Sprite.from(i, void 0, 18);
+              (o = new Promise(async (t) => {
+                var s = await a(e),
+                  o = PIXI.Sprite.from(s, void 0, 18);
                 (o.width = o.height = 200),
-                  a.render(o, r, !0),
+                  i.render(o, n, !0),
                   o.destroy(!0),
-                  s();
+                  t();
               }));
           },
         };
       },
-      function (e, s, i) {
-        let a = i(126);
+      function (e, t, s) {
+        let i,
+          a = s(126);
         e.exports = class e {
-          constructor(e) {
-            (this.game = e),
-              (this.playersRemoving = []),
+          constructor() {
+            (this.playersRemoving = []),
               (this.players = new Map()),
               (this.botCount = 0);
+          }
+          static useGame(e) {
+            (i = e), a.useGame(e);
           }
           get playerCount() {
             return this.players.size - this.botCount;
           }
-          getPlayer = (e) => (this.players.has(e) ? this.players.get(e) : null);
+          getPlayer(e) {
+            return this.players.has(e) ? this.players.get(e) : null;
+          }
           setPlayerData({
             pid: e,
-            nickname: s,
-            skin: i,
-            skinUrl: n,
-            hat: r,
-            nameColor: o,
-            tagId: l,
-            bot: c,
+            nickname: t,
+            skin: s,
+            skinUrl: i,
+            nameColor: n,
+            tagId: o,
+            bot: r,
           }) {
             !this.players.has(e) &&
-              (this.players.set(e, new a(this.game, e, c)),
-              c && this.botCount++);
-            let d = this.players.get(e);
-            i && (n = `https://skins.vanis.io/s/${i}`);
-            let h = d.setName(s, o),
-              u = d.setSkin(n),
-              p = d.setTagId(l);
-            return (
-              (h || u || p) && d.invalidateVisibility(), r && (d.hat = r), d
-            );
+              (this.players.set(e, new a(e, r)), r && this.botCount++);
+            let l = this.players.get(e);
+            s && (i = `https://skins.vanis.io/s/${s}`);
+            let c = l.setName(t, n),
+              h = l.setSkin(i),
+              d = l.setTagId(o);
+            return (c || h || d) && l.invalidateVisibility(), l;
           }
           invalidateVisibility(e = []) {
-            for (let s of this.players.values())
-              0 > e.indexOf(s) && s.invalidateVisibility();
+            for (let t of this.players.values())
+              0 > e.indexOf(t) && t.invalidateVisibility();
           }
           sweepRemovedPlayers() {
-            let { replay: e } = this.game,
-              s = e.updateHistory[0]?.packetId,
-              i = 0;
-            for (; i < this.playersRemoving.length; ) {
-              let a = this.playersRemoving[i];
-              if (!this.players.has(a)) {
-                this.playersRemoving.splice(i, 1);
+            let { replay: e } = i,
+              t = e.packets[0],
+              s = t[0]?.packetId,
+              a = 0;
+            for (; a < this.playersRemoving.length; ) {
+              let n = this.playersRemoving[a];
+              if (!this.players.has(n)) {
+                this.playersRemoving.splice(a, 1);
                 continue;
               }
-              let n = this.players.get(a);
-              !s || (n.lastUpdateTick && s > n.lastUpdateTick)
-                ? (this.removePlayer(a), this.playersRemoving.splice(i, 1))
-                : i++;
+              let o = this.players.get(n);
+              s && o.lastUpdateTick && !(s > o.lastUpdateTick)
+                ? a++
+                : (this.removePlayer(n), this.playersRemoving.splice(a, 1));
             }
           }
           delayedRemovePlayer(e) {
@@ -3106,150 +3603,151 @@
           }
           removePlayer(e) {
             if (!this.players.has(e)) return;
-            let s = this.players.get(e);
-            s.bot && this.botCount--,
-              s.clearCachedData(),
+            let t = this.players.get(e);
+            t.bot && this.botCount--,
+              t.clearCachedData(),
               this.players.delete(e);
           }
           destroy() {
             for (let e of this.players.keys()) this.removePlayer(e);
-            this.playersRemoving.splice(0, this.playersRemoving.length);
+            (this.botCount = 0),
+              this.playersRemoving.splice(0, this.playersRemoving.length);
           }
         };
       },
-      function (e, s, i) {
-        var a = i(4),
-          n = i(76),
-          r = n.basic,
-          o = n.basicd,
-          l = a.cellSize;
-        function c(e) {
-          e = e || 0;
-          var s = new PIXI.Graphics();
-          return (
-            s.lineStyle(a.cellBorderSize, 0, 0.5),
-            s.beginFill(e),
-            s.drawCircle(0, 0, a.cellSize / 2),
-            s.endFill(),
-            s
-          );
-        }
-        e.exports = class {
-          constructor(e, s, i, a) {
-            (this.game = e),
-              (this.pid = s),
-              (this.bot = i),
-              (this.hat = a),
-              (this.skinUrl = i ? "" : null),
+      function (e, t, s) {
+        var i = s(4),
+          a = s(76),
+          n = a.basic,
+          o = a.basicd;
+        i.cellSize;
+        let r = settings.cellSize,
+          l = r / 2,
+          c = settings.cellBorderSize,
+          h = (e) => {
+            e = e || 0;
+            let t = new PIXI.Graphics()
+              .lineStyle(c, 0, 0.5)
+              .beginFill(e)
+              .drawCircle(0, 0, l)
+              .endFill();
+            return t;
+          },
+          d = null;
+        e.exports = class e {
+          constructor(e, t) {
+            (this.pid = e),
+              (this.bot = t || !1),
+              (this.skinUrl = null),
               (this.tagId = null),
-              (this.isMe =
-                s === e.playerId || s === e.multiboxPid || s === Multibox.pid),
-              (this.texture = PIXI.RenderTexture.create(l, l)),
+              (e === d.playerId || e === d.multiboxPid) && (this.isMe = !0),
+              (this.texture = PIXI.RenderTexture.create(r, r)),
               (this.cellContainer = this.createCellContainer()),
               this.renderCell();
           }
-          get visibility() {
-            return this.game.tagId === this.tagId ? 1 : 2;
+          static useGame(e) {
+            d = e;
           }
-          setOutline(e, s = 15) {
-            if (((e = e || 0), 0 == s)) return this.renderCell();
-            var i = a.cellSize / 2,
-              n = s,
-              r = new PIXI.Graphics();
-            this.outline && (this.outline.clear(), this.outline.destroy()),
-              (this.outline = r),
-              r.lineStyle(n, e, 1),
-              r.drawCircle(0, 0, i - (n - 1) / 2),
-              r.endFill(),
-              r.pivot.set(-i),
-              this.game.renderer.render(r, this.texture, !1);
+          get visibility() {
+            return 1 + +(d.tagId !== this.tagId);
+          }
+          setOutline(e, t = 15, s = !1) {
+            if (
+              (this.outlineGraphic &&
+                (this.outlineGraphic.destroy(), delete this.outlineGraphic),
+              s)
+            )
+              return void this.renderCell();
+            e = e || 0;
+            let i = (this.outlineGraphic = new PIXI.Graphics()
+              .lineStyle(t, e, 1)
+              .drawCircle(0, 0, l - (t - 1) / 2)
+              .endFill());
+            i.pivot.set(-l), d.renderer.render(i, this.texture, !1);
           }
           setCrown(e) {
             this.hasCrown = e;
-            for (
-              var s = this.pid, i = this.game.nodelist, a = 0;
-              a < i.length;
-              a++
-            ) {
-              var n = i[a];
-              n.pid === s && (e ? n.addCrown() : n.removeCrown());
-            }
+            let t = this.pid;
+            d.allCells.forEach((s) => {
+              s.isPlayerCell &&
+                s.pid === t &&
+                (e ? s.addCrown() : s.removeCrown());
+            });
           }
           createCellContainer() {
-            var e = new PIXI.Container(),
-              s = c(this.getCellColor());
-            return e.pivot.set(-l / 2), e.addChild(s), e;
+            let e = new PIXI.Container();
+            return e.pivot.set(-r / 2), e.addChild(h(this.getCellColor())), e;
           }
           createSkinSprite(e) {
-            var s = new PIXI.BaseTexture(e),
-              i = new PIXI.Texture(s),
-              n = new PIXI.Sprite(i);
-            return (n.width = n.height = a.cellSize), n.anchor.set(0.5), n;
+            let t = new PIXI.BaseTexture(e),
+              s = new PIXI.Texture(t),
+              i = new PIXI.Sprite(s);
+            return (i.width = i.height = r), i.anchor.set(0.5), i;
           }
           renderCell() {
-            this.game.renderer.render(this.cellContainer, this.texture, !0);
+            d.renderer.render(this.cellContainer, this.texture, !0);
           }
           setTagId(e) {
             return (
               e || (e = null),
-              (this.tagId = e),
-              this.bot || this.setTagSprite(),
-              !0
+              this.tagId !== e &&
+                ((this.tagId = e), this.bot || this.setTagSprite(), !0)
             );
           }
           setNameColor(e) {
             return (
+              (e = e ? parseInt(e, 16) : null),
+              (this.nameColor = e),
+              (this.nameColorCss = e && PIXI.utils.hex2string(e)),
               e
-                ? ((e = parseInt(e, 16)),
-                  (this.nameColor = e),
-                  (this.nameColorCss = PIXI.utils.hex2string(e)))
-                : ((this.nameColor = null), (this.nameColorCss = null)),
-              this.nameColor
             );
           }
-          setName(e, s) {
+          setName(e, t) {
             return (
               e || (e = "Unnamed"),
-              (this.nameFromServer !== e || this.nameColorFromServer !== s) &&
+              (this.nameFromServer !== e || this.nameColorFromServer !== t) &&
                 ((this.nameFromServer = e),
-                (this.nameColorFromServer = s),
+                (this.nameColorFromServer = t),
                 this.applyNameToSprite(),
                 !0)
             );
           }
           applyNameToSprite() {
-            var e,
-              s = "Unnamed" === this.nameFromServer,
-              i = "Long Name" === this.nameFromServer,
-              n = s ? "" : this.nameFromServer,
-              r = this.name,
-              o = this.nameColor;
+            let e = "Unnamed" === this.nameFromServer,
+              t = "Long Name" === this.nameFromServer,
+              s = e ? "" : this.nameFromServer,
+              i = this.name,
+              a = this.nameColor,
+              n;
             if (
-              ((e =
-                s || i
+              ((n =
+                e || t
                   ? this.setNameColor(null)
-                  : this.setNameColor(this.nameColorFromServer)),
-              this.bot && (e = this.setNameColor("878787")),
-              this.setNameSprite(n, e),
-              s ||
-                i ||
-                !(this.nameSprite.texture.width > a.cellLongNameThreshold) ||
-                ((i = !0),
-                (n = "Long Name"),
-                (e = this.setNameColor(null)),
-                this.setNameSprite(n, e)),
-              (this.name = s ? "Unnamed" : n),
-              r !== this.name || o !== this.nameColor)
+                  : this.setNameColor(
+                      this.bot ? "878787" : this.nameColorFromServer
+                    )),
+              this.setNameSprite(s, n),
+              e ||
+                t ||
+                !(
+                  this.nameSprite.texture.width > settings.cellLongNameThreshold
+                ) ||
+                ((t = !0),
+                (s = "Long Name"),
+                (n = this.setNameColor(null)),
+                this.setNameSprite(s, n)),
+              (this.name = e ? "Unnamed" : s),
+              i !== this.name || a !== this.nameColor)
             ) {
-              var l = e || (this.isMe ? 16747520 : null);
-              this.game.events.$emit("minimap-create-node", this.pid, n, e, l);
+              let o = n || (this.isMe ? 16747520 : null);
+              d.events.$emit("minimap-create-node", this.pid, s, n, o);
             }
           }
-          setNameSprite(e, s) {
+          setNameSprite(e, t) {
             this.nameSprite
               ? (this.nameSprite.text = e)
-              : (this.nameSprite = new PIXI.Text(e, a.nameTextStyle)),
-              (this.nameSprite.style.fill = s || 16777215),
+              : (this.nameSprite = new PIXI.Text(e, i.nameTextStyle)),
+              (this.nameSprite.style.fill = t || 16777215),
               this.nameSprite.updateText();
           }
           setTagSprite() {
@@ -3299,11 +3797,11 @@
           }
           loadSkinAndRender() {
             this.abortSkinLoaderIfExist(),
-              (this.abortSkinLoader = this.game.skinLoader.loadSkin(
+              (this.abortSkinLoader = d.skinLoader.loadSkin(
                 this.skinUrl,
                 (e) => {
                   (this.skinSprite = this.createSkinSprite(e)),
-                    (this.skinSprite.mask = c()),
+                    (this.skinSprite.mask = h()),
                     this.cellContainer.addChild(
                       this.skinSprite.mask,
                       this.skinSprite
@@ -3314,38 +3812,38 @@
           }
           invalidateVisibility() {
             var e,
+              t,
               s,
-              i,
-              n = a.showNameColor;
+              a = i.showNameColor;
             this.isMe
-              ? ((e = a.showOwnName), (s = a.showOwnSkin), (i = a.showOwnMass))
-              : ((e = a.showNames >= this.visibility),
-                (s = a.showSkins >= this.visibility),
-                (i = a.showMass >= this.visibility)),
-              (e = a.namesEnabled && e),
-              (s = a.skinsEnabled && s),
-              (i = a.massEnabled && i),
-              s && !this.skinShown
+              ? ((e = i.showOwnName), (t = i.showOwnSkin), (s = i.showOwnMass))
+              : ((e = i.showNames >= this.visibility),
+                (t = i.showSkins >= this.visibility),
+                (s = i.showMass >= this.visibility)),
+              (e = i.namesEnabled && e),
+              (t = i.skinsEnabled && t),
+              (s = i.massEnabled && s),
+              t && !this.skinShown
                 ? this.skinSprite
                   ? ((this.skinSprite.visible = !0), this.renderCell())
                   : this.skinUrl && this.loadSkinAndRender()
-                : !s &&
+                : !t &&
                   this.skinShown &&
                   (this.abortSkinLoaderIfExist(),
                   this.skinSprite &&
                     ((this.skinSprite.visible = !1), this.renderCell())),
               (this.nameShown = e),
-              (this.skinShown = s),
-              (this.massShown = i),
-              (this.nameColorShown = n);
+              (this.skinShown = t),
+              (this.massShown = s),
+              (this.nameColorShown = a);
           }
           abortSkinLoaderIfExist() {
             this.abortSkinLoader &&
               (this.abortSkinLoader(), (this.abortSkinLoader = null));
           }
           getCellColor() {
-            var e = Math.floor(this.game.seededRandom(this.pid) * r.length);
-            return (this.bot ? o : r)[e];
+            var e = Math.floor(d.seededRandom(this.pid) * n.length);
+            return (this.bot ? o : n)[e];
           }
           clearCachedData() {
             this.abortSkinLoaderIfExist(),
@@ -3355,2455 +3853,1265 @@
               (this.texture.clearedFromCache = !0),
               this.nameSprite && this.nameSprite.destroy(!0),
               this.tagSprite && this.tagSprite.destroy(!0),
-              this.game.events.$emit("minimap-destroy-node", this.pid);
+              d.events.$emit("minimap-destroy-node", this.pid);
           }
         };
       },
       ,
-      function (e, s, i) {
-        var a = i(129);
-        e.exports = class {
+      function (e, t, s) {
+        let i = s(129),
+          a = (e, t) => {
+            let s = e.callbacks.indexOf(t);
+            s >= 0 && e.callbacks.splice(s, 1);
+          };
+        e.exports = class e {
           constructor() {
-            (this.loaders = {}),
-              (this.worker = new a()),
+            (this.loaders = new Map()),
+              (this.worker = new i()),
               this.worker.addEventListener(
                 "message",
                 this.onSkinLoaded.bind(this)
               );
           }
           createLoader(e) {
-            return { image: null, error: null, callbacks: [e] };
+            return { image: null, errored: null, callbacks: [e] };
           }
           clearCallbacks() {
-            for (var e in this.loaders) delete this.loaders[e];
+            this.loaders.clear();
           }
-          removeLoaderCallback(e, s) {
-            var i = e.callbacks.indexOf(s);
-            i >= 0 && e.callbacks.splice(i, 1);
-          }
-          loadSkin(e, s) {
-            var i = this.loaders[e];
-            return i
-              ? i.image
-                ? (s(i.image), null)
-                : i.error
-                ? null
-                : (i.callbacks.push(s),
-                  this.removeLoaderCallback.bind(this, i, s))
-              : ((i = this.loaders[e] = this.createLoader(s)),
+          loadSkin(e, t) {
+            if (!this.loaders.has(e)) {
+              let s = this.createLoader(t);
+              return (
+                this.loaders.set(e, s),
                 this.worker.postMessage(e),
-                this.removeLoaderCallback.bind(this, i, s));
+                a.bind(null, s, t)
+              );
+            }
+            let i = this.loaders.get(e);
+            if (i.image) t(i.image);
+            else if (!i.errored) return i.callbacks.push(t), a.bind(null, i, t);
+            return null;
           }
           onSkinLoaded(e) {
-            var { skinUrl: s, bitmap: i, error: a } = e.data,
-              n = this.loaders[s];
-            if (a) return (n.error = !0), void (n.callbacks = []);
-            for (n.image = i; n.callbacks.length; ) n.callbacks.pop()(i);
+            let { url: t, image: s, errored: i } = e.data,
+              a = this.loaders.get(t);
+            if (i) (a.errored = !0), (a.callbacks = []);
+            else {
+              a.image = s;
+              let { callbacks: n } = a;
+              for (; n.length; ) n.pop()(s);
+            }
           }
         };
       },
-      function (e, s, i) {
-        let a = atob(
-          "IWZ1bmN0aW9uKGUpe3ZhciB0PXt9O2Z1bmN0aW9uIG4ocil7aWYodFtyXSlyZXR1cm4gdFtyXS5leHBvcnRzO3ZhciBvPXRbcl09e2k6cixsOiExLGV4cG9ydHM6e319O3JldHVybiBlW3JdLmNhbGwoby5leHBvcnRzLG8sby5leHBvcnRzLG4pLG8ubD0hMCxvLmV4cG9ydHN9bi5tPWUsbi5jPXQsbi5kPWZ1bmN0aW9uKGUsdCxyKXtuLm8oZSx0KXx8T2JqZWN0LmRlZmluZVByb3BlcnR5KGUsdCx7ZW51bWVyYWJsZTohMCxnZXQ6cn0pfSxuLnI9ZnVuY3Rpb24oZSl7InVuZGVmaW5lZCIhPXR5cGVvZiBTeW1ib2wmJlN5bWJvbC50b1N0cmluZ1RhZyYmT2JqZWN0LmRlZmluZVByb3BlcnR5KGUsU3ltYm9sLnRvU3RyaW5nVGFnLHt2YWx1ZToiTW9kdWxlIn0pLE9iamVjdC5kZWZpbmVQcm9wZXJ0eShlLCJfX2VzTW9kdWxlIix7dmFsdWU6ITB9KX0sbi50PWZ1bmN0aW9uKGUsdCl7aWYoMSZ0JiYoZT1uKGUpKSw4JnQpcmV0dXJuIGU7aWYoNCZ0JiYib2JqZWN0Ij09dHlwZW9mIGUmJmUmJmUuX19lc01vZHVsZSlyZXR1cm4gZTt2YXIgcj1PYmplY3QuY3JlYXRlKG51bGwpO2lmKG4ucihyKSxPYmplY3QuZGVmaW5lUHJvcGVydHkociwiZGVmYXVsdCIse2VudW1lcmFibGU6ITAsdmFsdWU6ZX0pLDImdCYmInN0cmluZyIhPXR5cGVvZiBlKWZvcih2YXIgbyBpbiBlKW4uZChyLG8sZnVuY3Rpb24odCl7cmV0dXJuIGVbdF19LmJpbmQobnVsbCxvKSk7cmV0dXJuIHJ9LG4ubj1mdW5jdGlvbihlKXt2YXIgdD1lJiZlLl9fZXNNb2R1bGU/ZnVuY3Rpb24oKXtyZXR1cm4gZS5kZWZhdWx0fTpmdW5jdGlvbigpe3JldHVybiBlfTtyZXR1cm4gbi5kKHQsImEiLHQpLHR9LG4ubz1mdW5jdGlvbihlLHQpe3JldHVybiBPYmplY3QucHJvdG90eXBlLmhhc093blByb3BlcnR5LmNhbGwoZSx0KX0sbi5wPSIiLG4obi5zPTApfShbZnVuY3Rpb24oZSx0KXtvbm1lc3NhZ2U9ZnVuY3Rpb24oZSl7IWZ1bmN0aW9uKGUpe2ZldGNoKGUse21vZGU6ImNvcnMifSkudGhlbihlPT5lLmJsb2IoKSkudGhlbihlPT5jcmVhdGVJbWFnZUJpdG1hcChlKSkudGhlbih0PT5zZWxmLnBvc3RNZXNzYWdlKHtza2luVXJsOmUsYml0bWFwOnR9KSkuY2F0Y2godD0+c2VsZi5wb3N0TWVzc2FnZSh7c2tpblVybDplLGVycm9yOiEwfSkpfShlLmRhdGEpfX1dKTs="
+      function (e, t, s) {
+        let i = atob(
+          "YWRkRXZlbnRMaXN0ZW5lcigibWVzc2FnZSIsZT0+e2xldCBzPWUuZGF0YTtmZXRjaChzLHttb2RlOiJjb3JzIn0pLnRoZW4oZT0+ZS5ibG9iKCkpLnRoZW4oZT0+Y3JlYXRlSW1hZ2VCaXRtYXAoZSkpLnRoZW4oZT0+c2VsZi5wb3N0TWVzc2FnZSh7dXJsOnMsaW1hZ2U6ZX0pKS5jYXRjaCgoKT0+c2VsZi5wb3N0TWVzc2FnZSh7dXJsOnMsZXJyb3JlZDohMH0pKX0pOw=="
         );
         e.exports = function () {
           return new Worker(
-            URL.createObjectURL(new Blob([a], { type: "text/javascript" }))
+            URL.createObjectURL(new Blob([i], { type: "text/javascript" }))
           );
         };
       },
-      function (e, s, i) {
-        var a = i(131),
+      function (e, t, i) {
+        let a = i(131),
           n = i(1),
-          r = i(8),
-          o = i(5),
+          { getTimestamp: o } = i(8),
+          r = i(5),
           l = i(4),
           c = i(78),
-          d = i(25),
-          h = [],
-          u = [],
-          p = a.createInstance({ name: "game-replays" });
-        function v(e) {
-          var s = e || h.length;
-          h.splice(0, s), u.splice(0, s);
-        }
-        var m = g(new ArrayBuffer(1));
-        function g(e) {
-          return btoa(String.fromCharCode.apply(null, new Uint8Array(e)));
-        }
-        function f(e) {
-          e = atob(e);
-          for (
-            var s = new ArrayBuffer(e.length), i = new Uint8Array(s), a = 0;
-            a < e.length;
-            a++
-          )
-            i[a] = e.charCodeAt(a);
-          return new DataView(s);
-        }
-        n.replay = {
-          database: p,
-          updateHistory: h,
-          addHistory: function (e) {
-            h.push(e),
-              u.push(
-                n.nodelist.map((e) => ({
-                  type: e.type,
-                  id: e.id,
-                  pid: e.pid,
-                  nx: e.nx,
-                  ny: e.ny,
-                  nSize: e.nSize,
-                }))
-              );
-            var s = 25 * l.replayDuration;
-            h.length > s && v(1);
+          h = a.createInstance({ name: "game-replays" }),
+          d = (e) => btoa(String.fromCharCode.apply(null, new Uint8Array(e))),
+          u = (e) => {
+            e = atob(e);
+            let t = e.length,
+              s = new ArrayBuffer(t),
+              i = new Uint8Array(s);
+            for (let a = 0; a < t; a++) i[a] = e.charCodeAt(a);
+            return s;
           },
-          clearHistory: v,
-          play: function (e) {
-            n.running && n.stop(), n.connection.close(), o.toast.close();
-            var s = 1,
+          p = d(new ArrayBuffer(1)),
+          g = (e) => {
+            let t = e.map((e) => {
+                let t = {
+                  pid: e.pid,
+                  nickname: e.nameFromServer,
+                  skinUrl: e.skinUrl,
+                };
+                return (
+                  e.bot && (t.bot = !0),
+                  e.tagId && (t.tagId = e.tagId),
+                  e.nameColorFromServer &&
+                    (t.nameColor = e.nameColorFromServer),
+                  t
+                );
+              }),
+              i = JSON.stringify(t);
+            i = unescape(encodeURIComponent(i));
+            let a = s.fromSize(1 + i.length + 1);
+            return a.writeUInt8(16), a.writeStringNT(i), d(a.buffer);
+          },
+          A = (e) => {
+            let t = 0,
+              i = e.length;
+            for (let a = 0; a < i; a++) {
+              let n = e[a];
+              t +=
+                1 + (1 === n.type ? 2 : 0) + 2 + 2 + 2 + 2 + (n.flags ? 1 : 0);
+            }
+            let o = s.fromSize(1 + t + 1 + 2 + 2);
+            o.writeUInt8(10);
+            for (let r = 0; r < i; r++) {
+              let l = e[r],
+                c = 254 & l.flags;
+              o.writeUInt8(l.type | (c ? 128 : 0)),
+                1 === l.type && o.writeUInt16BE(l.pid),
+                o.writeUInt16BE(l.id),
+                o.writeInt16BE(l.x),
+                o.writeInt16BE(l.y),
+                o.writeUInt16BE(l.size),
+                c && o.writeUInt8(c);
+            }
+            return (
+              o.writeUInt8(0), o.writeUInt16BE(0), o.writeUInt16BE(0), o.view
+            );
+          };
+        n.replay = new (class e {
+          constructor() {
+            (this.cells = [[], []]),
+              (this.packets = [[], []]),
+              (this.database = h);
+          }
+          recording() {
+            let e = this.packets[0];
+            return 0 != e.length;
+          }
+          add(e, t) {
+            let s = this.cells[+t],
+              i = this.packets[+t],
+              a = [...(t ? n.dual : n).cells.values()];
+            s.push(
+              a.map((e) => ({
+                type: e.type,
+                id: e.id,
+                pid: e.pid,
+                x: e.nx,
+                y: e.ny,
+                size: e.nSize,
+                flags: e.flags,
+              }))
+            ),
+              i.push(e);
+            let o = 25 * l.replayDuration;
+            i.length > o && (i.shift(), s.shift());
+          }
+          clear(e) {
+            let t = this.cells[+e],
+              s = this.packets[+e];
+            (t.length = 0), (s.length = 0);
+          }
+          play(e) {
+            n.running && n.stop(), n.connection.close(), r.toast.close();
+            let t = 1,
               i = e.split("|");
-            "REPLAY" === i[0] && ((s = parseInt(i[1])), (i = i.slice(3)));
-            var a = i.map(f),
-              r = c(a.shift()),
+            "REPLAY" === i.at(0) && ((t = parseInt(i[1])), (i = i.slice(3)));
+            let a = i.map((e) => s.fromBuffer(u(e), 1)),
+              o = c(a.shift()),
               l = [];
-            if (s >= 4) {
-              for (; a[0].getUint8(0); ) l.push(a.shift());
+            if (t >= 4) {
+              let h;
+              for (; (h = a[0]).readUInt8(0); ) {
+                let { view: d } = h;
+                (d.packetId = 1), (h.offset = 0), l.push(h), a.shift();
+              }
               a.shift();
             } else l.push(a.shift());
-            (r.replayUpdates = a),
-              n.start(r),
-              l.forEach((e) => {
-                (e.packetId = -1), n.parseMessage(e);
-              }),
-              n.playback.setInitial(),
+            (o.replayUpdates = a),
+              n.start(o),
+              l.forEach((e) => n.parseMessage(e)),
+              n.playback.setStartingFrame(),
               n.showMenu(!1);
-          },
-          save: function () {
-            var e = h.slice(0);
-            if (e.length) {
-              var s = [];
-              let { players: i } = n.playerManager;
-              i.forEach((e) => s.push(e)),
-                e.splice(
-                  0,
-                  1,
-                  (function (e) {
-                    for (var s = 0, i = 0; i < e.length; i++)
-                      s +=
-                        1 +
-                        (1 === e[i].type ? 2 : 0) +
-                        2 +
-                        2 +
-                        2 +
-                        2 +
-                        (e[i].flags ? 1 : 0);
-                    var a = new ArrayBuffer(1 + s + 1 + 2 + 2),
-                      n = new DataView(a);
-                    n.setUint8(0, 10);
-                    var r = 1;
-                    for (i = 0; i < e.length; i++) {
-                      var o = e[i],
-                        l = 254 & o.flags,
-                        c = l ? 128 : 0;
-                      n.setUint8(r, o.type | c),
-                        r++,
-                        1 === o.type && (n.setUint16(r, o.pid, !1), (r += 2)),
-                        n.setUint16(r, o.id, !1),
-                        (r += 2),
-                        n.setInt16(r, o.nx, !1),
-                        (r += 2),
-                        n.setInt16(r, o.ny, !1),
-                        (r += 2),
-                        n.setUint16(r, o.nSize, !1),
-                        (r += 2),
-                        l && (n.setUint8(r, l), r++);
-                    }
-                    return (
-                      n.setUint8(r, 0),
-                      r++,
-                      n.setUint16(r, 0, !1),
-                      (r += 2),
-                      n.setUint16(r, 0, !1),
-                      (r += 2),
-                      n
-                    );
-                  })(u[0])
-                );
-              var a,
-                c,
-                v,
-                f,
-                y,
-                w,
-                b = g(n.initialDataPacket.buffer),
-                _ =
-                  ((c = JSON.stringify(
-                    (a = (a = s).map((e) => {
-                      var s = {
-                        pid: e.pid,
-                        nickname: e.nameFromServer,
-                        skinUrl: e.skinUrl,
-                      };
-                      return (
-                        e.bot && (s.bot = !0),
-                        e.tagId && (s.tagId = e.tagId),
-                        e.hat && (s.hat = e.hat),
-                        e.nameColorFromServer &&
-                          (s.nameColor = e.nameColorFromServer),
-                        s
-                      );
-                    }))
-                  )),
-                  (v = new d()).uint8(16),
-                  v.utf8(c),
-                  g(v.write())),
-                k = e.map((e) => g(e.buffer)).join("|"),
-                C = r.getTimestamp(),
-                x = n.getThumbnail(),
-                S = [];
-              S.push("REPLAY"),
-                S.push(4),
-                S.push(x),
-                S.push(b),
-                n.multiboxPid &&
-                  ((window.multiPacket =
-                    ((f = n.multiboxPid),
-                    (y = new ArrayBuffer(3)),
-                    (w = new DataView(y)).setUint8(0, 8),
-                    w.setUint16(1, f, !0),
-                    g(y))),
-                  S.push(window.multiPacket)),
-                S.push(_),
-                S.push(m),
-                S.push(k);
-              var M = S.join("|");
-              p.setItem(C, M, () => {
-                n.events.$emit("replay-added");
-                var e = "Replay saved!";
-                1 === l.showReplaySaved
-                  ? n.events.$emit("chat-message", e)
-                  : o.toast.fire({ type: "info", title: e, timer: 1500 });
-              }).catch((e) => {
-                var s = "Error saving replay";
-                "string" == typeof e
-                  ? (s += ": " + e)
-                  : e && e.message && (s += ": " + e.message),
-                  o.toast.fire({ type: "error", title: s });
-              });
+          }
+          save(e) {
+            let t = this.cells[+e].slice(0),
+              i = this.packets[+e].slice(0);
+            if (!i.length) return;
+            let a = [...n.playerManager.players.values()];
+            i.splice(0, 1, A(t.at(0)));
+            let c = ["REPLAY", 4];
+            c.push(n.createThumbnail()), c.push(d(n.initialDataPacket.buffer));
+            let { dual: u } = n;
+            if (u.connected) {
+              let m = s.fromSize(3);
+              m.writeUInt8(8), m.writeUInt16LE(u.pid), c.push(d(m.buffer));
             }
-          },
-        };
+            c.push(g(a)),
+              c.push(p),
+              c.push(i.map((e) => d(e.buffer)).join("|"));
+            let v = c.join("|");
+            h.setItem(o(), v, () => {
+              n.events.$emit("replay-added");
+              let e = "Replay saved!";
+              1 === l.showReplaySaved
+                ? n.events.$emit("chat-message", e)
+                : r.toast.fire({ type: "info", title: e, timer: 1500 });
+            }).catch((e) => {
+              console.error("ReplayManager::save", e);
+              let t = "Error saving replay";
+              "string" == typeof e
+                ? (t += `: ${e}`)
+                : e && e.message && (t += `: ${e.message}`),
+                r.toast.fire({ type: "error", title: t });
+            });
+          }
+        })();
       },
       ,
-      function (e, s, i) {
-        let a = i(1),
-          n = i(79),
-          r = i(80);
-        a.playback = {};
-        var o = (a.playback.updates = []);
-        (a.playback.set = function (e) {
-          a.playback.reset(), (a.playback.dry = !0);
-          for (let s = 0; s < e.length; s++)
-            o.unshift([{}, [], [], {}]),
-              r["skid" + Math.max(a.protocol, 3)](
-                new Uint8Array(e[s].buffer, 1),
-                s
-              );
-          o.reverse(), delete a.playback.dry, (a.playback.index = 0);
-        }),
-          (a.playback.setInitial = function () {
-            for (var e in a.nodes) {
-              var s = a.nodes[e];
-              e in o[0][3] ||
-                (e in o[0][0]
-                  ? (o[0][0][e].pid = s.pid)
-                  : (o[0][0][e] = {
-                      type: s.type,
-                      id: s.id,
-                      pid: s.pid,
-                      x: s.nx,
-                      y: s.ny,
-                      size: s.nSize,
-                      flags: s.flags,
+      function (e, t, s) {
+        let i = s(1),
+          {
+            wasmModule: a,
+            addOrUpdateCell: n,
+            destroyCell: o,
+            eatCell: r,
+          } = s(79);
+        e.exports = i.playback = new (class e {
+          constructor() {
+            (this.updates = []), (this.dry = !1), (this.index = 0);
+          }
+          destroyCell(e) {
+            let { updates: t } = this,
+              s = t[0];
+            s[3][e] = !0;
+            let i = s[1];
+            i.push(e);
+          }
+          eatCell(e, t) {
+            let { updates: s } = this,
+              i = s[0];
+            i[3][e] = !0;
+            let a = i[2];
+            a.push(e, t);
+          }
+          parse(e) {
+            a.deserialize(1, new Uint8Array(e.buffer, 1), 1);
+          }
+          reset() {
+            let { updates: e } = this;
+            e.splice(0, e.length), delete e.index;
+          }
+          set(e) {
+            this.reset(), (this.dry = !0);
+            let { updates: t } = this,
+              s = e.length,
+              i = 0;
+            for (; s--; ) t.unshift([{}, [], [], {}]), this.parse(e[i++]);
+            t.reverse(), delete this.dry, (this.index = 0);
+          }
+          setStartingFrame() {
+            let { cells: e } = i,
+              { updates: t } = this,
+              [s, a, n, o] = t;
+            for (let r of e.keys()) {
+              let l = e.get(r);
+              r in o ||
+                (r in s
+                  ? (s[r].pid = l.pid)
+                  : (s[r] = {
+                      type: l.type,
+                      id: l.id,
+                      pid: l.pid,
+                      x: l.nx,
+                      y: l.ny,
+                      size: l.nSize,
+                      flags: l.flags,
                     }));
             }
-            for (var i = 1; i < o.length; i++) {
-              var n = o[i - 1],
-                r = o[i];
-              for (var e in r[0])
-                if (e in n[0]) {
-                  var l = r[0][e],
-                    c = n[0][e];
-                  16 & l.type && (l.pid = c.pid),
-                    32 & l.type && ((l.x = c.x), (l.y = c.y)),
-                    64 & l.type && (l.size = c.size);
-                }
-              for (var e in n[0]) e in r[3] || e in r[0] || (r[0][e] = n[0][e]);
+            for (let c = 1; c < t.length; c++) {
+              let h = t[c - 1],
+                d = t[c];
+              for (let u in d[0]) {
+                if (!(u in h[0])) continue;
+                let p = d[0][u],
+                  g = h[0][u];
+                16 & p.type && (p.pid = g.pid),
+                  32 & p.type && ((p.x = g.x), (p.y = g.y)),
+                  64 & p.type && (p.size = g.size);
+              }
+              for (let A in h[0]) A in d[3] || A in d[0] || (d[0][A] = h[0][A]);
             }
-          }),
-          (a.playback.reset = function () {
-            o.splice(0, o.length), delete a.playback.index;
-          }),
-          (a.playback.seek = function (e, s) {
-            var i = o[e];
-            for (var r in a.nodes) (!s && r in i[0]) || n.remove(r);
-            for (var r in i[0]) n.addOrUpdate(i[0][r]);
-            (a.playback.index = e), a.updateCamera(!0);
-          }),
-          (a.playback.next = function () {
-            if (a.playback.index >= o.length) a.playback.seek(0, !0);
-            else {
-              var [e, s, i] = o[a.playback.index++];
-              for (var r in e) n.addOrUpdate(e[r]);
-              for (var l = 0, c = s.length; l < c; ) n.remove(s[l++]);
-              for (l = 0, c = i.length; l < c; ) n.remove(i[l++], i[l++]);
-              a.updateCamera(!0);
+          }
+          seek(e, t) {
+            let { cells: s } = i,
+              a = this.updates[e];
+            for (let r of s.keys()) (!t && r in a[0]) || o(r, 1);
+            for (let l of Object.values(a[0])) {
+              let { type: c, pid: h, id: d, x: u, y: p, size: g, flags: A } = l;
+              n(c, h, d, u, p, g, A, 1, 1);
             }
-            a.events.$emit("replay-index-change", a.playback.index);
-          });
+            (this.index = e), i.updateCamera(!0);
+          }
+          next() {
+            let { updates: e } = this;
+            if (this.index < e.length) {
+              let [t, s, a] = e[this.index++];
+              for (let l of Object.values(t)) {
+                let {
+                  type: c,
+                  pid: h,
+                  id: d,
+                  x: u,
+                  y: p,
+                  size: g,
+                  flags: A,
+                } = l;
+                n(c, h, d, u, p, g, A, 1, 1);
+              }
+              let m = s.length,
+                v = 0;
+              for (; v < m; ) o(s[v++], 1);
+              for (m = a.length, v = 0; v < m; ) r(a[v++], a[v++], 1);
+              i.updateCamera(!0);
+            } else this.seek(0, !0);
+            i.events.$emit("replay-index-change", this.index);
+          }
+        })();
       },
-      function (e, s, i) {
-        (s.PlayerCell = i(134)),
-          (s.Food = i(135)),
-          (s.Virus = i(136)),
-          (s.EjectedMass = i(137)),
-          (s.DeadCell = i(138)),
-          (s.Crown = i(139));
+      function (e, t, s) {
+        e.exports = {
+          PlayerCell: s(134),
+          Food: s(135),
+          Virus: s(136),
+          EjectedMass: s(137),
+          DeadCell: s(138),
+          Crown: s(139),
+        };
       },
-      function (e, s, i) {
-        var a = i(14);
-        class n extends a {
-          constructor(e, s) {
-            super(e),
-              (this.player = s),
-              (this.pid = s.pid),
-              (this.isMultiNode = this.player.pid == GAME.multiboxPid),
-              (this.isMe = this.player.pid == GAME.playerId),
-              s.isMe && (GAME.nodesOwn[this.id] = !0),
-              s.hasCrown && this.addCrown(),
-              !s.isMe ||
-                GAME.replaying ||
-                (this.addArrow(), r || this.addLine());
+      function (e, t, s) {
+        let i = s(1),
+          a = s(4),
+          o = s(14),
+          r = (e) => {
+            let t = new PIXI.BitmapText("", {
+                fontName: "mass",
+                align: "right",
+              }),
+              s = e.strokeThickness || 0;
+            return t.position.set(-s / 2, -s / 2), t.anchor.set(0.5, -0.6), t;
+          };
+        class l extends PIXI.Graphics {
+          constructor(e) {
+            super(), (this.alpha = 0.35), this.updatePoints(e);
+          }
+          updatePoints(e, t, s, i) {
+            e &&
+              t &&
+              s &&
+              i &&
+              (this.clear(),
+              this.lineStyle(12, 16777215),
+              this.moveTo(e, t),
+              this.lineTo(s, i));
+          }
+        }
+        class c extends o {
+          constructor(e, t) {
+            super(e), (this.player = t), (this.pid = t.pid);
+            let s = (this.isMe =
+                this.pid == i.playerId || this.pid === i.multiboxPid),
+              { ownedCells: a } = i;
+            s && !a.has(this) && a.add(this),
+              t.hasCrown && this.addCrown(),
+              !i.replaying && s && (this.addArrow(), this.addLine());
           }
           updateLineVisibility() {
-            if (this.line)
-              return GAME.settings.showCellLines
-                ? void (Multibox.connected()
-                    ? Multibox.active
-                      ? this.isMultiNode
-                        ? (this.line.visible = !0)
-                        : (this.line.visible = !1)
-                      : this.isMultiNode
-                      ? (this.line.visible = !1)
-                      : (this.line.visible = !0)
-                    : (this.line.visible = !0))
-                : (this.line.visible = !1);
+            let { line: e } = this;
+            if (e) {
+              if (a.showCellLines) {
+                let { dual: t } = i;
+                t.connected
+                  ? (e.visible = this.pid === i.activePid)
+                  : (e.visible = !0);
+              } else e.visible = !1;
+            }
           }
           addLine() {
-            (this.line = new o([this.x, this.y, GAME.mouse.x, GAME.mouse.y])),
-              GAME.scene.container.addChild(this.line),
+            let { x: e, y: t } = i.mouse;
+            (this.line = new l([this.x, this.y, e, t])),
+              i.scene.container.addChild(this.line),
               this.updateLineVisibility();
           }
           addArrow() {
-            (this.arrowSprite = new PIXI.Sprite.from(
-              Multibox.arrowSprite.texture
-            )),
-              (this.arrowSprite.visible =
-                window.settings.mbActive >= 2 &&
-                (this.player.pid == Multibox.pid
-                  ? Multibox.active
-                  : !Multibox.active && Multibox.connected())),
-              this.arrowSprite.anchor.set(0.5),
-              (this.arrowSprite.width = this.arrowSprite.height = 130),
-              (this.arrowSprite.alpha = 0.95),
-              (this.arrowSprite.y = -310),
-              this.sprite.addChild(this.arrowSprite);
-          }
-          setHat(e) {
-            var s = e.split("/skin-bind/")[1];
-            (e = e.split("/skin-bind/")[0]),
-              (s && s !== this.player.skinUrl) ||
-                ((this.hatSprite = new PIXI.Sprite.from(e)),
-                this.hatSprite.anchor.set(0.5),
-                (this.hatSprite.width = this.hatSprite.height = 1024),
-                (this.hatSprite.alpha = 0.85),
-                (this.hatSprite.visible = window.settings.skinsEnabled),
-                this.sprite.addChildAt(this.hatSprite, 0),
-                (GAME.playerManager.players.get(this.player.pid).hat = e));
+            let { dual: e } = i;
+            if (!e.arrowSprite) {
+              console.error("Arrow sprite not set?");
+              return;
+            }
+            let t = (this.arrowSprite = new PIXI.Sprite.from(
+              e.arrowSprite.texture
+            ));
+            (t.visible = a.mbActive >= 2 && this.pid === i.activePid),
+              t.anchor.set(0.5),
+              (t.width = t.height = 130),
+              (t.alpha = 0.95),
+              (t.y = -310),
+              this.sprite.addChild(t);
           }
           addCrown() {
-            if (!r && !this.crownSprite) {
-              var e,
-                s = this.game.crownPool;
-              s.length
-                ? (e = s.pop())
-                : ((e = PIXI.Sprite.from("/img/crown.png")).scale.set(0.7),
-                  e.pivot.set(0, 643),
-                  (e.anchor.x = 0.5),
-                  (e.rotation = -0.5),
-                  (e.alpha = 0.7),
-                  (e.zIndex = 2)),
-                (this.crownSprite = e),
-                this.sprite.addChild(e);
-            }
+            if (this.crownSprite) return;
+            let e = i.crownPool,
+              t;
+            e.length
+              ? (t = e.pop())
+              : ((t = PIXI.Sprite.from("/img/crown.png")).scale.set(0.7),
+                t.pivot.set(0, 643),
+                (t.anchor.x = 0.5),
+                (t.rotation = -0.5),
+                (t.alpha = 0.7),
+                (t.zIndex = 2)),
+              (this.crownSprite = t),
+              this.sprite.addChild(t);
           }
           removeCrown() {
-            var e = this.crownSprite;
+            let e = this.crownSprite;
             e &&
               (this.sprite.removeChild(e),
-              this.game.crownPool.push(e),
+              i.crownPool.push(e),
               (this.crownSprite = null));
           }
           onUpdate() {
-            if (!r) {
-              this.posarrow ||
-                this.hasPosArrow ||
-                ((this.posarrow = new PIXI.Sprite.from(
-                  "https://i.postimg.cc/vmZmWCRR/4-Point-Star.png"
-                )),
-                this.posarrow.scale.set(0.1),
-                (this.posarrow.alpha = 0.7),
-                this.posarrow.anchor.set(3.5, 3.5),
-                this.sprite.addChild(this.posarrow),
-                (this.hasPosArrow = !0));
-              var e,
-                s,
-                i,
-                a = this.game.settings,
-                n =
-                  this.game.scene.container.scale.x *
-                  this.size *
-                  this.game.renderer.resolution,
-                o = n > a.smallTextThreshold;
-              if (
-                (this.player.massShown &&
-                  !this.massText &&
-                  o &&
-                  ((this.massText =
-                    this.game.massTextPool.pop() ||
-                    ((e = a.massTextStyle),
-                    (s = new PIXI.BitmapText("", {
-                      fontName: "mass",
-                      align: "right",
-                    })),
-                    (i = e.strokeThickness || 0),
-                    s.position.set(-i / 2, -i / 2),
-                    s.anchor.set(0.5, -0.6),
-                    s)),
-                  (this.massText.zIndex = 0),
-                  this.sprite.addChild(this.massText)),
-                this.player.nameShown &&
-                  !this.nameSprite &&
-                  this.player &&
-                  this.player.nameSprite &&
-                  o &&
-                  ((this.nameSprite = new PIXI.Sprite(
-                    this.player.nameSprite.texture
-                  )),
-                  this.nameSprite.anchor.set(0.5),
-                  (this.nameSprite.zIndex = 1),
-                  this.sprite.addChild(this.nameSprite)),
+            if (a.showDir && !this.directionSprite) {
+              let e = (this.directionSprite = new PIXI.Sprite.from(
+                "https://i.postimg.cc/vmZmWCRR/4-Point-Star.png"
+              ));
+              e.scale.set(0.1),
+                (e.alpha = 0.7),
+                e.anchor.set(3.5, 3.5),
+                this.sprite.addChild(e);
+            }
+            let t =
+                i.scene.container.scale.x * this.size * i.renderer.resolution,
+              s = t > a.smallTextThreshold,
+              { player: o } = this;
+            if (
+              (o.massShown &&
+                !this.massText &&
+                s &&
+                ((this.massText = i.massTextPool.pop() || r(a.massTextStyle)),
+                (this.massText.zIndex = 0),
+                this.sprite.addChild(this.massText)),
+              o.nameShown &&
+                !this.nameSprite &&
+                o.nameSprite &&
+                s &&
+                ((this.nameSprite = new PIXI.Sprite(o.nameSprite.texture)),
+                this.nameSprite.anchor.set(0.5),
+                (this.nameSprite.zIndex = 1),
+                this.sprite.addChild(this.nameSprite)),
+              a.showTag &&
                 !this.tagSprite &&
-                  settings.showTag &&
-                  this.player &&
-                  this.player.tagId !== GAME.tagId &&
-                  this.player.tagSprite &&
-                  ((this.tagSprite = new PIXI.Sprite(
-                    this.player.tagSprite.texture
-                  )),
-                  this.tagSprite.anchor.set(0.5),
-                  (this.tagSprite.y = 180),
-                  (this.tagSprite.zIndex = 1),
-                  this.sprite.addChild(this.tagSprite)),
-                this.line &&
-                  this.line.visible &&
-                  this.line.updatePoints([
-                    this.x,
-                    this.y,
-                    GAME.mouse.x,
-                    GAME.mouse.y,
-                  ]),
-                this.crownSprite &&
-                  (this.crownSprite.visible = n > 16 && a.showCrown),
-                this.nameSprite &&
-                  (this.nameSprite.visible = this.player.nameShown && o),
-                this.tagSprite && (this.tagSprite.visible = settings.showTag),
-                settings.showDir && !this.player.isMe && this.posarrow)
-              ) {
-                var c = 0,
-                  d = !1;
-                this.nx > this.ox
-                  ? (this.nx - this.ox < 3 && (d = !0),
-                    (c =
-                      this.ny < this.oy
-                        ? d
-                          ? 0
-                          : this.oy - this.ny < 3
-                          ? 2
-                          : 1
-                        : d
-                        ? 4
-                        : this.ny - this.oy < 3
+                o.tagId !== i.tagId &&
+                o.tagSprite)
+            ) {
+              let l = (this.tagSprite = new PIXI.Sprite(
+                this.player.tagSprite.texture
+              ));
+              l.anchor.set(0.5),
+                (l.y = 180),
+                (l.zIndex = 1),
+                this.sprite.addChild(l);
+            }
+            let { line: c } = this;
+            if (c && c.visible) {
+              let { x: h, y: d } = i.mouse;
+              c.updatePoints(this.x, this.y, h, d);
+            }
+            this.crownSprite &&
+              (this.crownSprite.visible = t > 16 && a.showCrown),
+              this.nameSprite && (this.nameSprite.visible = o.nameShown && s),
+              this.tagSprite && (this.tagSprite.visible = a.showTag);
+            let { directionSprite: u } = this;
+            if (u && (u.visible = a.showDir && !o.isMe)) {
+              let p = 0,
+                g = !1,
+                { ox: A, oy: m, nx: v, ny: f } = this;
+              v > A
+                ? (v - A < 3 && (g = !0),
+                  (p =
+                    f < m
+                      ? g
+                        ? 0
+                        : m - f < 3
                         ? 2
-                        : 3))
-                  : (this.ox - this.nx < 3 && (d = !0),
-                    (c =
-                      this.ny < this.oy
-                        ? d
-                          ? 0
-                          : this.oy - this.ny < 3
-                          ? 6
-                          : 7
-                        : d
-                        ? 4
-                        : this.ny - this.oy < 3
+                        : 1
+                      : g
+                      ? 4
+                      : f - m < 3
+                      ? 2
+                      : 3))
+                : (A - v < 3 && (g = !0),
+                  (p =
+                    f < m
+                      ? g
+                        ? 0
+                        : m - f < 3
                         ? 6
-                        : 5)),
-                  (this.posarrow.rotation = l[c]);
-              }
-              if (
-                (this.posarrow && (this.posarrow.visible = settings.showDir),
-                this.massText)
-              ) {
-                if (this.player.massShown && o) {
-                  var h = this.game.getMassText(
-                    (this.nSize * this.nSize) / 100
-                  );
-                  (this.massText.text = h), (this.massText.visible = !0);
-                } else this.massText.visible && (this.massText.visible = !1);
-              }
+                        : 7
+                      : g
+                      ? 4
+                      : f - m < 3
+                      ? 6
+                      : 5)),
+                (u.rotation = n[p]);
+            }
+            let { massText: C } = this;
+            if (C) {
+              if (o.massShown && s) {
+                let y = i.getMassText((this.nSize * this.nSize) / 100);
+                (C.text = y), (C.visible = !0);
+              } else C.visible && (C.visible = !1);
             }
           }
           onDestroy() {
             this.arrowSprite &&
-              this.sprite.removeChild(this.arrowSprite) &&
+              (this.sprite.removeChild(this.arrowSprite),
               this.arrowSprite.destroy(),
-              this.hatSprite &&
-                this.sprite.removeChild(this.hatSprite) &&
-                this.hatSprite.destroy(),
+              delete this.arrowSprite),
               this.tagSprite &&
-                this.sprite.removeChild(this.tagSprite) &&
+                (this.sprite.removeChild(this.tagSprite),
                 this.tagSprite.destroy(),
-              this.posarrow &&
-                this.sprite.removeChild(this.posarrow) &&
-                this.posarrow.destroy(),
+                delete this.tagSprite),
+              this.directionSprite &&
+                (this.sprite.removeChild(this.directionSprite),
+                this.directionSprite.destroy(),
+                delete this.directionSprite),
               this.line &&
-                GAME.scene.container.removeChild(this.line) &&
+                (i.scene.container.removeChild(this.line),
                 this.line.destroy(),
-              delete this.line,
-              delete this.posarrow,
+                delete this.line),
               this.massText &&
                 (this.sprite.removeChild(this.massText),
-                this.game.massTextPool.push(this.massText)),
+                i.massTextPool.push(this.massText)),
               this.crownSprite && this.removeCrown();
           }
         }
-        (n.prototype.type = 1),
-          (n.prototype.isPlayerCell = !0),
-          (e.exports = n);
+        (c.prototype.type = 1),
+          (c.prototype.isPlayerCell = !0),
+          (e.exports = c);
       },
-      function (e, s, i) {
-        i(1);
-        var a = i(14),
-          n = i(12),
-          r = i(4),
-          o = i(76);
-        function l(e) {
-          var s;
-          return (
-            (s = r.useFoodColor
-              ? PIXI.utils.string2hex(r.foodColor)
-              : o.neon[e % o.neon.length]),
-            n.cells.getTexture(s)
-          );
-        }
-        class c extends a {
+      function (e, t, s) {
+        let i = s(4),
+          { cells: a } = s(12),
+          { neon: n } = s(76),
+          o = s(14),
+          r = (e) =>
+            a.getTexture(
+              i.useFoodColor ? parseInt(i.foodColor, 16) : n[e % n.length]
+            );
+        class l extends o {
           constructor(e) {
-            (e.texture = l(e.id)), super(e);
+            (e.texture = r(e.id)), super(e);
           }
           reloadTexture() {
-            (this.texture = l(this.id)), (this.sprite.texture = this.texture);
+            this.sprite.texture = this.texture = r(this.id);
           }
         }
-        (c.prototype.type = 4), (c.prototype.isFood = !0), (e.exports = c);
+        (l.prototype.type = 4), (l.prototype.isFood = !0), (e.exports = l);
       },
-      function (e, s, i) {
-        var a = i(14),
-          n = i(12);
-        class r extends a {
+      function (e, t, s) {
+        let i = s(14),
+          { virus: a } = s(12);
+        class n extends i {
           constructor(e) {
-            (e.texture = n.virus.getTexture()), super(e);
+            (e.texture = a.getTexture()), super(e);
           }
           resetTexture() {
             this.destroySprite(),
-              (this.texture = n.virus.getTexture()),
+              (this.texture = a.getTexture()),
               (this.sprite = new PIXI.Sprite(this.texture)),
               this.sprite.anchor.set(0.5),
               (this.sprite.gameData = this);
           }
         }
-        (r.prototype.type = 2), (r.prototype.isVirus = !0), (e.exports = r);
+        (n.prototype.type = 2), (n.prototype.isVirus = !0), (e.exports = n);
       },
-      function (e, s, i) {
-        var a = i(4),
-          n = i(14),
-          r = i(12);
-        function o() {
-          var e = PIXI.utils.string2hex(a.ejectedColor);
-          return r.cells.getTexture(e);
-        }
-        class l extends n {
+      function (e, t, s) {
+        let i = s(1),
+          a = s(4),
+          { cells: n } = s(12),
+          o = s(14),
+          r = () => n.getTexture(parseInt(a.ejectedColor, 16)),
+          { clampNumber: l } = s(8);
+        class c extends o {
           constructor(e) {
-            (e.texture = o()), super(e);
+            (e.texture = r()), super(e), (this.sprite.alpha = 0);
           }
           reloadTexture() {
-            (this.texture = o()), (this.sprite.texture = this.texture);
+            this.sprite.texture = this.texture = r();
+          }
+          onUpdate() {
+            let { sprite: e } = this;
+            if (!e || 1 == e.alpha) return;
+            let t = i.timeStamp - this.updateStamp,
+              s = l(t / 1e3, 0, 1);
+            e.alpha = Math.min(e.alpha + s, 1);
           }
         }
-        (l.prototype.type = 3), (l.prototype.isEjected = !0), (e.exports = l);
+        (c.prototype.type = 3), (c.prototype.isEjected = !0), (e.exports = c);
       },
-      function (e, s, i) {
-        var a = i(14),
-          n = i(12);
-        class r extends a {
-          constructor(e, s, i) {
-            (e.texture = n[i ? "squares" : "cells"].getTexture(s || 4210752)),
+      function (e, t, s) {
+        let i = s(14),
+          { squares: a, cells: n } = s(12);
+        class o extends i {
+          constructor(e, t, s) {
+            (e.texture = (s ? a : n).getTexture(t || 4210752)),
               super(e),
               (this.sprite.alpha = 0.5);
           }
         }
-        (r.prototype.type = 5), (r.prototype.isDead = !0), (e.exports = r);
+        (o.prototype.type = 5), (o.prototype.isDead = !0), (e.exports = o);
       },
-      function (e, s, i) {
-        var a = i(14);
-        class n extends a {
+      function (e, t, s) {
+        let i = s(14);
+        class a extends i {
           constructor(e) {
             (e.texture = PIXI.Texture.from("/img/crown.png")),
               super(e),
               (this.sprite.alpha = 0.7);
           }
         }
-        (n.prototype.type = 6), (n.prototype.isCrown = !0), (e.exports = n);
+        (a.prototype.type = 6), (a.prototype.isCrown = !0), (e.exports = a);
       },
-      function (e, s, i) {
-        var a,
-          n = void 0 !== n ? n : {},
-          r = Object.assign({}, n),
-          o = !0,
-          l = !1,
-          c = "";
-        (o || l) &&
-          (l
-            ? (c = self.location.href)
-            : "undefined" != typeof document &&
-              document.currentScript &&
-              (c = document.currentScript.src),
-          (c =
-            0 !== c.indexOf("blob:")
-              ? c.substr(0, c.replace(/[?#].*/, "").lastIndexOf("/") + 1)
-              : ""),
-          l &&
-            (a = (e) => {
-              var s = new XMLHttpRequest();
-              return (
-                s.open("GET", e, !1),
-                (s.responseType = "arraybuffer"),
-                s.send(null),
-                new Uint8Array(s.response)
-              );
-            }),
-          (e, s, i) => {
-            var a = new XMLHttpRequest();
-            a.open("GET", e, !0),
-              (a.responseType = "arraybuffer"),
-              (a.onload = () => {
-                200 == a.status || (0 == a.status && a.response)
-                  ? s(a.response)
-                  : i();
+      function (e, t, s) {},
+      function (e, t, s) {},
+      function (e, t, i) {
+        let n = i(1),
+          { state: o } = n,
+          r = i(78),
+          { wasmModule: l } = i(79);
+        e.exports = n.dual = new (class e {
+          constructor() {
+            (this.ws = null),
+              (this.focused = !1),
+              (this.opened = !1),
+              (this.pid = null),
+              (this.pingStamp = 0),
+              this.autoRespawning,
+              this.alive,
+              (this.ticksSinceDeath = 0),
+              (this.cells = new Map()),
+              (this.arrowSprite = null),
+              this.reloadArrow();
+          }
+          log(e) {
+            n.events.$emit("chat-message", e);
+          }
+          get connected() {
+            return this.opened && !!this.ready;
+          }
+          open() {
+            let { connectionUrl: e } = o;
+            if (!e) return;
+            let t = (this.ws = new WebSocket(e, "tFoL46WDlZuRja7W6qCl"));
+            (t.binaryType = "arraybuffer"),
+              (t.packetCount = 0),
+              (this.opened = !0),
+              (t.onopen = () => {
+                this.opened &&
+                  ((this.ws.onclose = this.onClosed.bind(this)),
+                  this.reloadArrow());
               }),
-              (a.onerror = i),
-              a.send(null);
-          }),
-          n.print || console.log.bind(console);
-        var d,
-          h = n.printErr || console.warn.bind(console);
-        Object.assign(n, r),
-          (r = null),
-          n.arguments && n.arguments,
-          n.thisProgram && n.thisProgram,
-          n.quit && n.quit,
-          n.wasmBinary && (d = n.wasmBinary),
-          n.noExitRuntime,
-          "object" != typeof WebAssembly &&
-            E("no native wasm support detected");
-        var u,
-          p,
-          v,
-          m,
-          g,
-          f,
-          y,
-          s,
-          w,
-          b = !1,
-          _ =
-            "undefined" != typeof TextDecoder
-              ? new TextDecoder("utf8")
-              : void 0;
-        function k(e, s) {
-          return e
-            ? (function (e, s, i) {
-                for (var a = s + i, n = s; e[n] && !(n >= a); ) ++n;
-                if (n - s > 16 && e.buffer && _)
-                  return _.decode(e.subarray(s, n));
-                for (var r = ""; s < n; ) {
-                  var o = e[s++];
-                  if (128 & o) {
-                    var l = 63 & e[s++];
-                    if (192 != (224 & o)) {
-                      var c = 63 & e[s++];
-                      if (
-                        (o =
-                          224 == (240 & o)
-                            ? ((15 & o) << 12) | (l << 6) | c
-                            : ((7 & o) << 18) |
-                              (l << 12) |
-                              (c << 6) |
-                              (63 & e[s++])) < 65536
-                      )
-                        r += String.fromCharCode(o);
-                      else {
-                        var d = o - 65536;
-                        r += String.fromCharCode(
-                          55296 | (d >> 10),
-                          56320 | (1023 & d)
-                        );
-                      }
-                    } else r += String.fromCharCode(((31 & o) << 6) | l);
-                  } else r += String.fromCharCode(o);
-                }
-                return r;
-              })(v, e, s)
-            : "";
-        }
-        function C(e, s, i) {
-          return (function (e, s, i, a) {
-            if (!(a > 0)) return 0;
-            for (var n = i, r = i + a - 1, o = 0; o < e.length; ++o) {
-              var l = e.charCodeAt(o);
-              if (
-                (l >= 55296 &&
-                  l <= 57343 &&
-                  (l =
-                    (65536 + ((1023 & l) << 10)) | (1023 & e.charCodeAt(++o))),
-                l <= 127)
-              ) {
-                if (i >= r) break;
-                s[i++] = l;
-              } else if (l <= 2047) {
-                if (i + 1 >= r) break;
-                (s[i++] = 192 | (l >> 6)), (s[i++] = 128 | (63 & l));
-              } else if (l <= 65535) {
-                if (i + 2 >= r) break;
-                (s[i++] = 224 | (l >> 12)),
-                  (s[i++] = 128 | ((l >> 6) & 63)),
-                  (s[i++] = 128 | (63 & l));
-              } else {
-                if (i + 3 >= r) break;
-                (s[i++] = 240 | (l >> 18)),
-                  (s[i++] = 128 | ((l >> 12) & 63)),
-                  (s[i++] = 128 | ((l >> 6) & 63)),
-                  (s[i++] = 128 | (63 & l));
-              }
-            }
-            return (s[i] = 0), i - n;
-          })(e, v, s, i);
-        }
-        function x(e) {
-          for (var s = 0, i = 0; i < e.length; ++i) {
-            var a = e.charCodeAt(i);
-            a <= 127
-              ? s++
-              : a <= 2047
-              ? (s += 2)
-              : a >= 55296 && a <= 57343
-              ? ((s += 4), ++i)
-              : (s += 3);
+              (t.onmessage = (e) => {
+                let { data: t } = e;
+                (n.nwData += t.byteLength), this.handleMessage(new DataView(t));
+              }),
+              (t.onclose = this.onRejected.bind(this));
           }
-          return s;
-        }
-        var S = [],
-          M = [],
-          T = [],
-          I = 0,
-          P = null,
-          L = null;
-        function E(e) {
-          throw (
-            (n.onAbort && n.onAbort(e),
-            h((e = "Aborted(" + e + ")")),
-            (b = !0),
-            (e += ". Build with -sASSERTIONS for more info."),
-            new WebAssembly.RuntimeError(e))
-          );
-        }
-        var U,
-          R,
-          A = "data:application/octet-stream;base64,";
-        function N(e) {
-          return e.startsWith(A);
-        }
-        function D(e) {
-          try {
-            if (e == U && d) return new Uint8Array(d);
-            if (a) return a(e);
-            throw "both async and sync fetching of the wasm failed";
-          } catch (s) {
-            E(s);
+          close() {
+            let { ws: e } = this;
+            e &&
+              ((e.onmessage = null),
+              (e.onclose = null),
+              (e.onerror = null),
+              e.close(),
+              (this.ws = null)),
+              (this.focused = !1),
+              (this.opened = !1),
+              (this.pid = n.multiboxPid = null),
+              (this.pingStamp = 0),
+              delete this.alive,
+              (this.ticksSinceDeath = 0),
+              delete this.ready,
+              this.clearCells(),
+              this.feedTimeout &&
+                (clearTimeout(this.feedTimeout), delete this.feedTimeout);
           }
-        }
-        function O(e) {
-          for (; e.length > 0; ) e.shift()(n);
-        }
-        function F(e) {
-          (this.excPtr = e),
-            (this.ptr = e - 24),
-            (this.set_type = function (e) {
-              y[(this.ptr + 4) >> 2] = e;
-            }),
-            (this.get_type = function () {
-              return y[(this.ptr + 4) >> 2];
-            }),
-            (this.set_destructor = function (e) {
-              y[(this.ptr + 8) >> 2] = e;
-            }),
-            (this.get_destructor = function () {
-              return y[(this.ptr + 8) >> 2];
-            }),
-            (this.set_refcount = function (e) {
-              f[this.ptr >> 2] = e;
-            }),
-            (this.set_caught = function (e) {
-              (e = e ? 1 : 0), (p[(this.ptr + 12) >> 0] = e);
-            }),
-            (this.get_caught = function () {
-              return 0 != p[(this.ptr + 12) >> 0];
-            }),
-            (this.set_rethrown = function (e) {
-              (e = e ? 1 : 0), (p[(this.ptr + 13) >> 0] = e);
-            }),
-            (this.get_rethrown = function () {
-              return 0 != p[(this.ptr + 13) >> 0];
-            }),
-            (this.init = function (e, s) {
-              this.set_adjusted_ptr(0),
-                this.set_type(e),
-                this.set_destructor(s),
-                this.set_refcount(0),
-                this.set_caught(!1),
-                this.set_rethrown(!1);
-            }),
-            (this.add_ref = function () {
-              var e = f[this.ptr >> 2];
-              f[this.ptr >> 2] = e + 1;
-            }),
-            (this.release_ref = function () {
-              var e = f[this.ptr >> 2];
-              return (f[this.ptr >> 2] = e - 1), 1 === e;
-            }),
-            (this.set_adjusted_ptr = function (e) {
-              y[(this.ptr + 16) >> 2] = e;
-            }),
-            (this.get_adjusted_ptr = function () {
-              return y[(this.ptr + 16) >> 2];
-            }),
-            (this.get_exception_ptr = function () {
-              if (eb(this.get_type())) return y[this.excPtr >> 2];
-              var e = this.get_adjusted_ptr();
-              return 0 !== e ? e : this.excPtr;
-            });
-        }
-        function B(e) {
-          switch (e) {
-            case 1:
-              return 0;
-            case 2:
-              return 1;
-            case 4:
-              return 2;
-            case 8:
-              return 3;
-            default:
-              throw TypeError("Unknown type size: " + e);
+          onRejected() {
+            let e = atob("RHVhbCBmYWlsZWQgdG8gY29ubmVjdA==");
+            this.log(e);
           }
-        }
-        N((U = "js/wauth3.wasm?e8a9d050c93bafa1d0fc")) ||
-          ((R = U), (U = n.locateFile ? n.locateFile(R, c) : c + R));
-        var W = void 0;
-        function H(e) {
-          for (var s = "", i = e; v[i]; ) s += W[v[i++]];
-          return s;
-        }
-        var z = {},
-          G = {},
-          V = {};
-        function Z(e) {
-          if (void 0 === e) return "_unknown";
-          var s = (e = e.replace(/[^a-zA-Z0-9_]/g, "$")).charCodeAt(0);
-          return s >= 48 && s <= 57 ? "_" + e : e;
-        }
-        function j(e, s) {
-          return (
-            (e = Z(e)),
-            Function(
-              "body",
-              "return function " +
-                e +
-                "() {\n        return body.apply(this, arguments);\n};\n"
-            )(s)
-          );
-        }
-        function K(e, s) {
-          var i = j(s, function (e) {
-            (this.name = s), (this.message = e);
-            var i = Error(e).stack;
-            void 0 !== i &&
-              (this.stack =
-                this.toString() + "\n" + i.replace(/^Error(:[^\n]*)?\n/, ""));
-          });
-          return (
-            (i.prototype = Object.create(e.prototype)),
-            (i.prototype.constructor = i),
-            (i.prototype.toString = function () {
-              return void 0 === this.message
-                ? this.name
-                : this.name + ": " + this.message;
-            }),
-            i
-          );
-        }
-        var X = void 0;
-        function Y(e) {
-          throw new X(e);
-        }
-        function J(e, s, i = {}) {
-          if (!("argPackAdvance" in s))
-            throw TypeError(
-              "registerType registeredInstance requires argPackAdvance"
+          onClosed(e) {
+            let t = "Dual disconnected";
+            e.reason && (t += ` (${e.reason})`), this.log(t), this.close();
+          }
+          parseCells(e) {
+            l.deserialize(
+              2,
+              new Uint8Array(e.buffer, 1),
+              this.ws.packetCount++
             );
-          var a = s.name;
-          if (
-            (e ||
-              Y('type "' + a + '" must have a positive integer typeid pointer'),
-            G.hasOwnProperty(e))
-          ) {
-            if (i.ignoreDuplicateRegistrations) return;
-            Y("Cannot register type '" + a + "' twice");
           }
-          if (((G[e] = s), delete V[e], z.hasOwnProperty(e))) {
-            var n = z[e];
-            delete z[e], n.forEach((e) => e());
-          }
-        }
-        var q = [],
-          Q = [
-            {},
-            { value: void 0 },
-            { value: null },
-            { value: !0 },
-            { value: !1 },
-          ];
-        function ee(e) {
-          e > 4 && 0 == --Q[e].refcount && ((Q[e] = void 0), q.push(e));
-        }
-        var et = {
-          toValue: (e) => (
-            e || Y("Cannot use deleted val. handle = " + e), Q[e].value
-          ),
-          toHandle(e) {
-            switch (e) {
-              case void 0:
-                return 1;
-              case null:
-                return 2;
-              case !0:
-                return 3;
-              case !1:
-                return 4;
-              default:
-                var s = q.length ? q.pop() : Q.length;
-                return (Q[s] = { refcount: 1, value: e }), s;
+          handleMessage(e) {
+            let t = new s(e),
+              i = t.readUInt8();
+            switch (i) {
+              case 1: {
+                let o = r(t);
+                (n.multiboxPid = this.pid = o.playerId),
+                  this.log("Dual connected"),
+                  setTimeout(() => {
+                    this.ready = !0;
+                    let e = n.playerManager.getPlayer(this.pid);
+                    (e.isMe = !0), n.replay.clear(!1);
+                  }, 500);
+                return;
+              }
+              case 2: {
+                let l = new Uint8Array(e.buffer, 1);
+                n.connection.sendJoinData(new a(l).build(), !0);
+                return;
+              }
+              case 6:
+                n.connection.sendOpcode(6, !0);
+                return;
+              case 10: {
+                (n.timeStamp = performance.now()),
+                  this.parseCells(t),
+                  n.updateStates(!1);
+                let c = this.alive,
+                  { replay: h } = n;
+                if (
+                  (c ? h.add(e, !0) : n.alive || h.clear(!0),
+                  !this.alive &&
+                    this.autoRespawning &&
+                    37 == ++this.ticksSinceDeath &&
+                    n.triggerAutoRespawn(!0),
+                  !this.focused)
+                )
+                  return;
+                n.updateCamera(!0);
+                return;
+              }
+              case 18: {
+                let { replay: d } = n;
+                d.clear(!0), this.clearCells();
+                return;
+              }
+              case 20:
+                n.handleDeath(t, !0);
+                return;
+              case 22:
+                n.events.$emit("m-show-image-captcha");
+                return;
             }
-          },
-        };
-        function es(e) {
-          return this.fromWireType(f[e >> 2]);
-        }
-        var ei =
-          "undefined" != typeof TextDecoder
-            ? new TextDecoder("utf-16le")
-            : void 0;
-        function ea(e, s) {
-          for (var i = e, a = i >> 1, n = a + s / 2; !(a >= n) && g[a]; ) ++a;
-          if ((i = a << 1) - e > 32 && ei) return ei.decode(v.subarray(e, i));
-          for (var r = "", o = 0; !(o >= s / 2); ++o) {
-            var l = m[(e + 2 * o) >> 1];
-            if (0 == l) break;
-            r += String.fromCharCode(l);
           }
-          return r;
-        }
-        function en(e, s, i) {
-          if ((void 0 === i && (i = 2147483647), i < 2)) return 0;
-          for (
-            var a = s, n = (i -= 2) < 2 * e.length ? i / 2 : e.length, r = 0;
-            r < n;
-            ++r
-          ) {
-            var o = e.charCodeAt(r);
-            (m[s >> 1] = o), (s += 2);
+          ping() {
+            (this.pingStamp = performance.now()),
+              n.connection.sendOpcode(3, !0);
           }
-          return (m[s >> 1] = 0), s - a;
-        }
-        function er(e) {
-          return 2 * e.length;
-        }
-        function eo(e, s) {
-          for (var i = 0, a = ""; !(i >= s / 4); ) {
-            var n = f[(e + 4 * i) >> 2];
-            if (0 == n) break;
-            if ((++i, n >= 65536)) {
-              var r = n - 65536;
-              a += String.fromCharCode(55296 | (r >> 10), 56320 | (1023 & r));
-            } else a += String.fromCharCode(n);
+          spawn() {
+            this.connected && (n.actions.join(!0), this.updateOutlines());
           }
-          return a;
-        }
-        function el(e, s, i) {
-          if ((void 0 === i && (i = 2147483647), i < 4)) return 0;
-          for (var a = s, n = a + i - 4, r = 0; r < e.length; ++r) {
-            var o = e.charCodeAt(r);
+          updateOutlines() {
+            let e = n.playerId,
+              t = this.pid,
+              { players: s } = n.playerManager;
+            if (!s.has(e) || !s.has(t)) return;
+            let i = s.get(e),
+              a = s.get(t),
+              o = [];
+            switch (
+              (n.allCells.forEach((e) => {
+                e.pid && e.isMe && e.arrowSprite && o.push(e);
+              }),
+              settings.mbActive)
+            ) {
+              case 0:
+                break;
+              case 1: {
+                o.length > 0 &&
+                  o.forEach((e) => {
+                    e.arrowSprite.visible = !1;
+                  });
+                let r = +("0x" + settings.mbColor);
+                this.focused
+                  ? (i.setOutline(16777215), a.setOutline(r))
+                  : (a.setOutline(16777215), i.setOutline(r));
+                break;
+              }
+              case 2:
+              case 3:
+                i.outlineGraphic && i.setOutline(0, 0, !0),
+                  a.outlineGraphic && a.setOutline(0, 0, !0),
+                  o.forEach((e) => {
+                    e.arrowSprite.visible = e.pid === n.activePid;
+                  });
+            }
+            settings.showCellLines &&
+              n.allCells.forEach((e) => {
+                e.line && e.updateLineVisibility();
+              });
+          }
+          reloadArrow() {
             if (
-              (o >= 55296 &&
-                o <= 57343 &&
-                (o = (65536 + ((1023 & o) << 10)) | (1023 & e.charCodeAt(++r))),
-              (f[s >> 2] = o),
-              (s += 4) + 4 > n)
-            )
-              break;
+              (this.arrowSprite && this.arrowSprite.destroy(),
+              settings.mbArrow.startsWith("data:image"))
+            ) {
+              let e = document.createElement("img");
+              e.src = settings.mbArrow;
+              let t = new PIXI.BaseTexture(e),
+                s = new PIXI.Texture(t);
+              this.arrowSprite = new PIXI.Sprite(s);
+            } else this.arrowSprite = new PIXI.Sprite.from(settings.mbArrow);
           }
-          return (f[s >> 2] = 0), s - a;
-        }
-        function ec(e) {
-          for (var s = 0, i = 0; i < e.length; ++i) {
-            var a = e.charCodeAt(i);
-            a >= 55296 && a <= 57343 && ++i, (s += 4);
+          get position() {
+            let e = 0,
+              t = 0,
+              s = [...this.cells.values()].filter(
+                (e) => e.pid && e.pid == this.pid && !!e.sprite
+              );
+            if (0 == s.length) return [];
+            s.forEach(({ x: s, y: i }) => {
+              (e += s), (t += i);
+            });
+            let i = s.length;
+            return [e / i, t / i];
+          }
+          get ownerPosition() {
+            let e = 0,
+              t = 0,
+              s = [...n.cells.values()].filter(
+                (e) => e.pid && e.pid == n.playerId && !!e.sprite
+              );
+            if (0 == s.length) return [];
+            s.forEach(({ x: s, y: i }) => {
+              (e += s), (t += i);
+            });
+            let i = s.length;
+            return [e / i, t / i];
+          }
+          getDistanceFromOwner() {
+            let [e, t] = this.position;
+            if (void 0 == e) return null;
+            let [s, i] = this.ownerPosition;
+            return null == s ? null : Math.hypot(s - e, i - t);
+          }
+          clearCells() {
+            this.cells.forEach((e) => e.destroy(2));
+            let { destroyedCells: e } = n,
+              t = e.length;
+            for (; t--; ) {
+              let s = e[t];
+              s.destroySprite(), e.splice(t, 1);
+            }
+          }
+          switch() {
+            if ((n.spectating && (n.spectating = !1), !this.opened))
+              return void this.open();
+            if (!this.ready) return;
+            let e = this.focused;
+            this.feedTimeout &&
+              (clearTimeout(this.feedTimeout), delete this.feedTimeout),
+              settings.rememeberEjecting ||
+                (this.feedTimeout = setTimeout(() => {
+                  if (n.isAlive(e)) {
+                    let t = s.fromSize(2);
+                    t.writeUInt8(21), t.writeUInt8(0), n.connection.send(t, e);
+                  }
+                }, 120)),
+              e
+                ? (n.isAlive(!1) || o.autoRespawning || n.actions.join(),
+                  (n.activePid = n.playerId),
+                  (this.focused = !1))
+                : (n.isAlive(!0) || this.autoRespawning || this.spawn(),
+                  (n.activePid = this.pid),
+                  (this.focused = !0)),
+              this.updateOutlines();
+          }
+        })();
+      },
+      function (e, t, s) {},
+      function (e) {
+        e.exports = function (e) {
+          var t = 1,
+            s = e.getInt16(t, !0);
+          t += 2;
+          for (var i = "", a = ""; 0 != (a = e.getUint16(t, !0)); )
+            (t += 2), (i += String.fromCharCode(a));
+          return { pid: s, text: i };
+        };
+      },
+      function (e) {
+        e.exports = function (e) {
+          for (var t = 1, s = []; ; ) {
+            var i = e.getUint16(t, !0);
+            if (((t += 3), !i)) break;
+            var a = e.getUint8(t, !0) / 255;
+            t += 1;
+            var n = e.getUint8(t, !0) / 255;
+            (t += 1), s.push({ pid: i, x: a, y: n });
           }
           return s;
-        }
-        function ed(e, s) {
-          var i,
-            a,
-            n = G[e];
-          return (
-            void 0 === n &&
-              Y(s + " has unknown type " + ((i = ew(e)), (a = H(i)), ey(i), a)),
-            n
-          );
-        }
-        var eh = {};
-        function eu(e) {
-          var s = eh[e];
-          return void 0 === s ? H(e) : s;
-        }
-        var ep = [];
-        function ev() {
-          return "object" == typeof globalThis
-            ? globalThis
-            : Function("return this")();
-        }
-        var em = [];
-        (function () {
-          for (var e = Array(256), s = 0; s < 256; ++s)
-            e[s] = String.fromCharCode(s);
-          W = e;
-        })(),
-          (X = n.BindingError = K(Error, "BindingError")),
-          (n.InternalError = K(Error, "InternalError")),
-          (n.count_emval_handles = function e() {
-            for (var s = 0, i = 5; i < Q.length; ++i) void 0 !== Q[i] && ++s;
-            return s;
-          }),
-          (n.get_first_emval = function e() {
-            for (var s = 5; s < Q.length; ++s) if (void 0 !== Q[s]) return Q[s];
-            return null;
-          });
-        var eg,
-          ef = {
-            n: function (e, s, i) {
-              throw (new F(e).init(s, i), e);
-            },
-            r: function (e, s, i, a, n) {},
-            v: function (e, s, i, a, n) {
-              var r = B(i);
-              J(e, {
-                name: (s = H(s)),
-                fromWireType: function (e) {
-                  return !!e;
-                },
-                toWireType: function (e, s) {
-                  return s ? a : n;
-                },
-                argPackAdvance: 8,
-                readValueFromPointer: function (e) {
-                  var a;
-                  if (1 === i) a = p;
-                  else if (2 === i) a = m;
-                  else {
-                    if (4 !== i)
-                      throw TypeError("Unknown boolean type size: " + s);
-                    a = f;
-                  }
-                  return this.fromWireType(a[e >> r]);
-                },
-                destructorFunction: null,
-              });
-            },
-            u: function (e, s) {
-              J(e, {
-                name: (s = H(s)),
-                fromWireType: function (e) {
-                  var s = et.toValue(e);
-                  return ee(e), s;
-                },
-                toWireType: function (e, s) {
-                  return et.toHandle(s);
-                },
-                argPackAdvance: 8,
-                readValueFromPointer: es,
-                destructorFunction: null,
-              });
-            },
-            m: function (e, i, a) {
-              var n = B(a);
-              J(e, {
-                name: (i = H(i)),
-                fromWireType: function (e) {
-                  return e;
-                },
-                toWireType: function (e, s) {
-                  return s;
-                },
-                argPackAdvance: 8,
-                readValueFromPointer: (function e(i, a) {
-                  switch (a) {
-                    case 2:
-                      return function (e) {
-                        return this.fromWireType(s[e >> 2]);
-                      };
-                    case 3:
-                      return function (e) {
-                        return this.fromWireType(w[e >> 3]);
-                      };
-                    default:
-                      throw TypeError("Unknown float type: " + i);
-                  }
-                })(i, n),
-                destructorFunction: null,
-              });
-            },
-            d: function (e, s, i, a, n) {
-              (s = H(s)), -1 === n && (n = 4294967295);
-              var r = B(i),
-                o = (e) => e;
-              if (0 === a) {
-                var l = 32 - 8 * i;
-                o = (e) => (e << l) >>> l;
-              }
-              var c = s.includes("unsigned");
-              J(e, {
-                name: s,
-                fromWireType: o,
-                toWireType: c
-                  ? function (e, s) {
-                      return this.name, s >>> 0;
-                    }
-                  : function (e, s) {
-                      return this.name, s;
-                    },
-                argPackAdvance: 8,
-                readValueFromPointer: (function e(s, i, a) {
-                  switch (i) {
-                    case 0:
-                      return a
-                        ? function (e) {
-                            return p[e];
-                          }
-                        : function (e) {
-                            return v[e];
-                          };
-                    case 1:
-                      return a
-                        ? function (e) {
-                            return m[e >> 1];
-                          }
-                        : function (e) {
-                            return g[e >> 1];
-                          };
-                    case 2:
-                      return a
-                        ? function (e) {
-                            return f[e >> 2];
-                          }
-                        : function (e) {
-                            return y[e >> 2];
-                          };
-                    default:
-                      throw TypeError("Unknown integer type: " + s);
-                  }
-                })(s, r, 0 !== a),
-                destructorFunction: null,
-              });
-            },
-            b: function (e, s, i) {
-              var a = [
-                Int8Array,
-                Uint8Array,
-                Int16Array,
-                Uint16Array,
-                Int32Array,
-                Uint32Array,
-                Float32Array,
-                Float64Array,
-              ][s];
-              function n(e) {
-                var s = y,
-                  i = s[(e >>= 2)],
-                  n = s[e + 1];
-                return new a(s.buffer, n, i);
-              }
-              J(
-                e,
-                {
-                  name: (i = H(i)),
-                  fromWireType: n,
-                  argPackAdvance: 8,
-                  readValueFromPointer: n,
-                },
-                { ignoreDuplicateRegistrations: !0 }
-              );
-            },
-            l: function (e, s) {
-              var i = "std::string" === (s = H(s));
-              J(e, {
-                name: s,
-                fromWireType: function (e) {
-                  var s,
-                    a = y[e >> 2],
-                    n = e + 4;
-                  if (i)
-                    for (var r = n, o = 0; o <= a; ++o) {
-                      var l = n + o;
-                      if (o == a || 0 == v[l]) {
-                        var c = k(r, l - r);
-                        void 0 === s ? (s = c) : ((s += "\0"), (s += c)),
-                          (r = l + 1);
-                      }
-                    }
-                  else {
-                    var d = Array(a);
-                    for (o = 0; o < a; ++o)
-                      d[o] = String.fromCharCode(v[n + o]);
-                    s = d.join("");
-                  }
-                  return ey(e), s;
-                },
-                toWireType: function (e, s) {
-                  s instanceof ArrayBuffer && (s = new Uint8Array(s));
-                  var a,
-                    n = "string" == typeof s;
-                  n ||
-                    s instanceof Uint8Array ||
-                    s instanceof Uint8ClampedArray ||
-                    s instanceof Int8Array ||
-                    Y("Cannot pass non-string to std::string"),
-                    (a = i && n ? x(s) : s.length);
-                  var r = e$(4 + a + 1),
-                    o = r + 4;
-                  if (((y[r >> 2] = a), i && n)) C(s, o, a + 1);
-                  else if (n)
-                    for (var l = 0; l < a; ++l) {
-                      var c = s.charCodeAt(l);
-                      c > 255 &&
-                        (ey(o),
-                        Y(
-                          "String has UTF-16 code units that do not fit in 8 bits"
-                        )),
-                        (v[o + l] = c);
-                    }
-                  else for (l = 0; l < a; ++l) v[o + l] = s[l];
-                  return null !== e && e.push(ey, r), r;
-                },
-                argPackAdvance: 8,
-                readValueFromPointer: es,
-                destructorFunction: function (e) {
-                  ey(e);
-                },
-              });
-            },
-            h: function (e, s, i) {
-              var a, n, r, o, l;
-              (i = H(i)),
-                2 === s
-                  ? ((a = ea), (n = en), (o = er), (r = () => g), (l = 1))
-                  : 4 === s &&
-                    ((a = eo), (n = el), (o = ec), (r = () => y), (l = 2)),
-                J(e, {
-                  name: i,
-                  fromWireType: function (e) {
-                    for (
-                      var i, n = y[e >> 2], o = r(), c = e + 4, d = 0;
-                      d <= n;
-                      ++d
-                    ) {
-                      var h = e + 4 + d * s;
-                      if (d == n || 0 == o[h >> l]) {
-                        var u = a(c, h - c);
-                        void 0 === i ? (i = u) : ((i += "\0"), (i += u)),
-                          (c = h + s);
-                      }
-                    }
-                    return ey(e), i;
-                  },
-                  toWireType: function (e, a) {
-                    "string" != typeof a &&
-                      Y("Cannot pass non-string to C++ string type " + i);
-                    var r = o(a),
-                      c = e$(4 + r + s);
-                    return (
-                      (y[c >> 2] = r >> l),
-                      n(a, c + 4, r + s),
-                      null !== e && e.push(ey, c),
-                      c
-                    );
-                  },
-                  argPackAdvance: 8,
-                  readValueFromPointer: es,
-                  destructorFunction: function (e) {
-                    ey(e);
-                  },
-                });
-            },
-            w: function (e, s) {
-              J(e, {
-                isVoid: !0,
-                name: (s = H(s)),
-                argPackAdvance: 0,
-                fromWireType: function () {},
-                toWireType: function (e, s) {},
-              });
-            },
-            f: function (e, s, i) {
-              (e = et.toValue(e)), (s = ed(s, "emval::as"));
-              var a = [],
-                n = et.toHandle(a);
-              return (y[i >> 2] = n), s.toWireType(a, e);
-            },
-            A: function (e, s, i, a, n) {
-              var r, o;
-              return (e = ep[e])(
-                (s = et.toValue(s)),
-                (i = eu(i)),
-                ((o = []), (y[(r = a) >> 2] = et.toHandle(o)), o),
-                n
-              );
-            },
-            a: ee,
-            c: function (e) {
-              return 0 === e
-                ? et.toHandle(ev())
-                : ((e = eu(e)), et.toHandle(ev()[e]));
-            },
-            z: function (e, s) {
-              var i,
-                a,
-                n = (function (e, s) {
-                  for (var i = Array(e), a = 0; a < e; ++a)
-                    i[a] = ed(y[(s + 4 * a) >> 2], "parameter " + a);
-                  return i;
-                })(e, s),
-                r = n[0],
-                o =
-                  r.name +
-                  "_$" +
-                  n
-                    .slice(1)
-                    .map(function (e) {
-                      return e.name;
-                    })
-                    .join("_") +
-                  "$",
-                l = em[o];
-              if (void 0 !== l) return l;
-              for (var c = ["retType"], d = [r], h = "", u = 0; u < e - 1; ++u)
-                (h += (0 !== u ? ", " : "") + "arg" + u),
-                  c.push("argType" + u),
-                  d.push(n[1 + u]);
-              var p =
-                  "return function " +
-                  Z("methodCaller_" + o) +
-                  "(handle, name, destructors, args) {\n",
-                v = 0;
-              for (u = 0; u < e - 1; ++u)
-                (p +=
-                  "    var arg" +
-                  u +
-                  " = argType" +
-                  u +
-                  ".readValueFromPointer(args" +
-                  (v ? "+" + v : "") +
-                  ");\n"),
-                  (v += n[u + 1].argPackAdvance);
-              for (
-                p += "    var rv = handle[name](" + h + ");\n", u = 0;
-                u < e - 1;
-                ++u
-              )
-                n[u + 1].deleteObject &&
-                  (p += "    argType" + u + ".deleteObject(arg" + u + ");\n");
-              return (
-                r.isVoid ||
-                  (p += "    return retType.toWireType(destructors, rv);\n"),
-                (p += "};\n"),
-                c.push(p),
-                (i = (function (e, s) {
-                  if (!(e instanceof Function))
-                    throw TypeError(
-                      "new_ called with constructor type " +
-                        typeof e +
-                        " which is not a function"
-                    );
-                  var i = j(e.name || "unknownFunctionName", function () {});
-                  i.prototype = e.prototype;
-                  var a = new i(),
-                    n = e.apply(a, s);
-                  return n instanceof Object ? n : a;
-                })(Function, c).apply(null, d)),
-                (a = ep.length),
-                ep.push(i),
-                (l = a),
-                (em[o] = l),
-                l
-              );
-            },
-            B: function (e) {
-              return (e = eu(e)), et.toHandle(n[e]);
-            },
-            i: function (e, s) {
-              return (
-                (e = et.toValue(e)), (s = et.toValue(s)), et.toHandle(e[s])
-              );
-            },
-            y: function (e) {
-              e > 4 && (Q[e].refcount += 1);
-            },
-            j: function (e) {
-              return et.toHandle(eu(e));
-            },
-            D: function (e) {
-              return !(e = et.toValue(e));
-            },
-            e: function (e) {
-              (function (e) {
-                for (; e.length; ) {
-                  var s = e.pop();
-                  e.pop()(s);
-                }
-              })(et.toValue(e)),
-                ee(e);
-            },
-            x: function (e, s) {
-              var i = (e = ed(e, "_emval_take_value")).readValueFromPointer(s);
-              return et.toHandle(i);
-            },
-            s: function () {
-              E("");
-            },
-            o: function (e, s, i, a, r, o, l, c) {
-              n.su.playback.dry
-                ? (n.su.playback.updates[0][0][s] = {
-                    type: e,
-                    id: s,
-                    pid: i,
-                    x: a,
-                    y: r,
-                    size: o,
-                    flags: l,
-                  })
-                : n.Vi.addOrUpdate(
-                    { type: e, id: s, pid: i, x: a, y: r, size: o, flags: l },
-                    c
-                  );
-            },
-            g: function (e, s, i) {
-              n.su.playback.dry
-                ? ((n.su.playback.updates[0][3][e] = !0),
-                  n.su.playback.updates[0][1 + s].push(e),
-                  s && n.su.playback.updates[0][1 + s].push(i))
-                : n.Vi.remove(e, s ? i : -1);
-            },
-            C: function (e, s, i) {
-              try {
-                for (
-                  var a = n[k(e)],
-                    r = a && a[k(s)],
-                    o = r && r[k(i)],
-                    l = arguments.callee,
-                    c = 0;
-                  c < 4 + !r.df;
-                  c++
-                )
-                  l = l.caller;
-                if (l === o) return n.__heap_chunk_length_s || 64;
-              } catch (d) {
-                n.PointerExeptions && n.PointerExeptions(d);
-              }
-              return -1;
-            },
-            p: function (e) {
-              var s = n[k(e)] + "",
-                i = x(s) + 1,
-                a = e$(i);
-              return C(s, a, i), a;
-            },
-            t: function (e) {
-              v.length, E("OOM");
-            },
-            k: function () {
-              return 1 + Math.floor(2147483646 * Math.random());
-            },
-            q: function (e, s) {
-              return et.toHandle(et.toValue(e).keys(et.toValue(s)));
-            },
-          },
-          ey =
-            ((function () {
-              var e = { a: ef };
-              function i(e, i) {
-                var a,
-                  r,
-                  o = e.exports;
-                (n.asm = o),
-                  (a = (u = n.asm.E).buffer),
-                  (n.HEAP8 = p = new Int8Array(a)),
-                  (n.HEAP16 = m = new Int16Array(a)),
-                  (n.HEAP32 = f = new Int32Array(a)),
-                  (n.HEAPU8 = v = new Uint8Array(a)),
-                  (n.HEAPU16 = g = new Uint16Array(a)),
-                  (n.HEAPU32 = y = new Uint32Array(a)),
-                  (n.HEAPF32 = s = new Float32Array(a)),
-                  (n.HEAPF64 = w = new Float64Array(a)),
-                  n.asm.K,
-                  (r = n.asm.F),
-                  M.unshift(r),
-                  (function (e) {
-                    if (
-                      (I--,
-                      n.monitorRunDependencies && n.monitorRunDependencies(I),
-                      0 == I &&
-                        (null !== P && (clearInterval(P), (P = null)), L))
-                    ) {
-                      var s = L;
-                      (L = null), s();
-                    }
-                  })();
-              }
-              function a(e) {
-                i(e.instance);
-              }
-              function r(s) {
-                return (
-                  !d && (o || l) && "function" == typeof fetch
-                    ? fetch(U, { credentials: "same-origin" })
-                        .then(function (e) {
-                          if (!e.ok)
-                            throw (
-                              "failed to load wasm binary file at '" + U + "'"
-                            );
-                          return e.arrayBuffer();
-                        })
-                        .catch(function () {
-                          return D(U);
-                        })
-                    : Promise.resolve().then(function () {
-                        return D(U);
-                      })
-                )
-                  .then(function (s) {
-                    return WebAssembly.instantiate(s, e);
-                  })
-                  .then(function (e) {
-                    return e;
-                  })
-                  .then(s, function (e) {
-                    h("failed to asynchronously prepare wasm: " + e), E(e);
-                  });
-              }
-              if (
-                (I++,
-                n.monitorRunDependencies && n.monitorRunDependencies(I),
-                n.instantiateWasm)
-              )
-                try {
-                  return n.instantiateWasm(e, i);
-                } catch (c) {
-                  return (
-                    h(
-                      "Module.instantiateWasm callback failed with error: " + c
-                    ),
-                    !1
-                  );
-                }
-              d ||
-              "function" != typeof WebAssembly.instantiateStreaming ||
-              N(U) ||
-              "function" != typeof fetch
-                ? r(a)
-                : fetch(U, { credentials: "same-origin" }).then(function (s) {
-                    return WebAssembly.instantiateStreaming(s, e).then(
-                      a,
-                      function (e) {
-                        return (
-                          h("wasm streaming compile failed: " + e),
-                          h("falling back to ArrayBuffer instantiation"),
-                          r(a)
-                        );
-                      }
-                    );
-                  });
-            })(),
-            (n._skid = function () {
-              return (n._skid = n.asm.G).apply(null, arguments);
-            }),
-            (n._free = function () {
-              return (ey = n._free = n.asm.H).apply(null, arguments);
-            })),
-          ew =
-            ((n._skid3 = function () {
-              return (n._skid3 = n.asm.I).apply(null, arguments);
-            }),
-            (n._skid4 = function () {
-              return (n._skid4 = n.asm.J).apply(null, arguments);
-            }),
-            (n.___getTypeName = function () {
-              return (ew = n.___getTypeName = n.asm.L).apply(null, arguments);
-            })),
-          e$ =
-            ((n.__embind_initialize_bindings = function () {
-              return (n.__embind_initialize_bindings = n.asm.M).apply(
-                null,
-                arguments
-              );
-            }),
-            (n._malloc = function () {
-              return (e$ = n._malloc = n.asm.N).apply(null, arguments);
-            })),
-          eb = function () {
-            return (eb = n.asm.O).apply(null, arguments);
-          };
-        function e_() {
-          function e() {
-            eg ||
-              ((eg = !0),
-              (n.calledRun = !0),
-              b ||
-                (O(M),
-                n.onRuntimeInitialized && n.onRuntimeInitialized(),
-                (function () {
-                  var e;
-                  if (n.postRun)
-                    for (
-                      "function" == typeof n.postRun &&
-                      (n.postRun = [n.postRun]);
-                      n.postRun.length;
-
-                    )
-                      (e = n.postRun.shift()), T.unshift(e);
-                  O(T);
-                })()));
-          }
-          I > 0 ||
-            ((function () {
-              var e;
-              if (n.preRun)
-                for (
-                  "function" == typeof n.preRun && (n.preRun = [n.preRun]);
-                  n.preRun.length;
-
-                )
-                  (e = n.preRun.shift()), S.unshift(e);
-              O(S);
-            })(),
-            I > 0 ||
-              (n.setStatus
-                ? (n.setStatus("Running..."),
-                  setTimeout(function () {
-                    setTimeout(function () {
-                      n.setStatus("");
-                    }, 1),
-                      e();
-                  }, 1))
-                : e()));
-        }
-        if (
-          ((n.___start_em_js = 3812),
-          (n.___stop_em_js = 3946),
-          (L = function e() {
-            eg || e_(), eg || (L = e);
-          }),
-          n.preInit)
-        )
-          for (
-            "function" == typeof n.preInit && (n.preInit = [n.preInit]);
-            n.preInit.length > 0;
-
-          )
-            n.preInit.pop()();
-        e_(),
-          (n.su = i(1)),
-          (n.Vi = i(79)),
-          (n.sv = document.currentScript),
-          (n.__heap_max_bytes_s = function (e) {
-            return 128 & e;
-          }),
-          (e.exports = window.Module = n);
-      },
-      function (e, s, i) {
-        e.exports = i.p + "js/wauth3.wasm";
-      },
-      function (e, s, i) {
-        var a = i(1),
-          n = i(5),
-          r = i(143),
-          o = i(147),
-          l = i(25),
-          { createBuffer: c, writePlayerData: h } =
-            (String.fromCharCode(atob("MTE=") + 8), i(8));
-        (a.connection = {}),
-          (a.connection.opened = !1),
-          (a.connection.send = function (e) {
-            a.connection.opened && a.ws.send(e);
-          }),
-          (a.connection.sendMouse = function () {
-            var e = c(5),
-              s = a.mouse.x,
-              i = a.mouse.y;
-            if (window.forcedMouse) var { x: s, y: i } = window.forcedMouse;
-            if (
-              (e.setUint8(0, 16),
-              e.setInt16(1, s, !0),
-              e.setInt16(3, i, !0),
-              Multibox.active ? Multibox.send(e) : a.connection.send(e),
-              Multibox.connected())
-            ) {
-              if (a.alive() && a.alive(1)) return;
-              (e = c(5)).setUint8(0, 16),
-                e.setInt16(1, a.mouse.x, !0),
-                e.setInt16(3, a.mouse.y, !0),
-                a.alive() ? Multibox.send(e) : a.connection.send(e);
-            }
-          }),
-          (a.connection.sendOpcode = function (e, s) {
-            var i = c(1);
-            i.setUint8(0, e), s ? Multibox.send(i) : a.connection.send(i);
-          }),
-          (a.connection.sendJoinData = function (e, s) {
-            var i = new l();
-            i.uint8(5),
-              i.uint8(a.clientVersion),
-              i.uint8Array(e),
-              h(i, void 0 !== s),
-              i.utf8(localStorage.vanisToken),
-              void 0 !== s ? s.send(i.write()) : a.connection.send(i.write());
-          }),
-          (a.connection.sendRecaptchaToken = function (e) {
-            var s = new l();
-            s.uint8(11), s.utf8(e), a.connection.send(s.write());
-          }),
-          (a.connection.sendChatMessage = function (e) {
-            for (
-              var s = unescape(encodeURIComponent(e)), i = [99], n = 0;
-              n < s.length;
-              n++
-            )
-              i.push(s.charCodeAt(n));
-            var r = new Uint8Array(i).buffer;
-            a.connection.send(r);
-          });
-        var u = 0,
-          p = null,
-          v = function () {
-            for (var e = Array(arguments.length), s = 0; s < e.length; s++)
-              e[s] = arguments[s];
-            return d.apply(t, e);
-          };
-        function m(e, s) {
-          n.toast.fire({
-            type: s ? "error" : "info",
-            title: e,
-            timer: s ? 5e3 : 2e3,
-          });
-        }
-        function g() {
-          delete a.currentWsId,
-            (a.connection.opened = !1),
-            m("Connection failed!", !0);
-        }
-        function f(e) {
-          if (
-            (delete a.currentWsId,
-            (a.connection.opened = !1),
-            a.running && a.stop(),
-            1003 === e.code)
-          )
-            m("Server restarting...") &&
-              setTimeout(
-                () =>
-                  !a.connection.opened && a.events.$emit("reconnect-server"),
-                3e3
-              );
-          else {
-            var s = "You have been disconnected";
-            e.reason && (s += " (" + e.reason + ")"), m(s, !0);
-          }
-          setTimeout(
-            () => !a.connection.opened && a.events.$emit("reconnect-server"),
-            6e3
-          ),
-            a.showMenu(!0, !0);
-        }
-        (a.connection.preopen = function (e) {
-          p && (p.abort(), (p = null));
-          var s = new AbortController();
-          p = v
-            .get(e.replace("ws", "http"), {
-              withCredentials: !0,
-              responseType: "text",
-              signal: s.signal,
-            })
-            .then((s) => (200 === s.status ? a.connection.open(e) : g()))
-            .catch(() => g());
-        }),
-          (a.connection.open = function (e) {
-            Multibox.close(),
-              a.running && (a.stop(), (GAME.multiboxPid = !1)),
-              a.connection.close(),
-              a.events.$emit("chat-clear"),
-              (a.connection.opened = !0);
-            var s = (a.ws = new o(e, "tFoL46WDlZuRja7W6qCl"));
-            (s.binaryType = "arraybuffer"),
-              (s.packetId = 0),
-              (s.onopen = function () {
-                a.connection.opened &&
-                  ((a.currentWsId = s.id = u++),
-                  a.events.$emit("players-menu", s.id),
-                  a.events.$emit("account-menu", s.id),
-                  a.events.$emit("chatbox-menu", s.id),
-                  a.events.$emit("options-menu", s.id),
-                  a.events.$emit("replays-menu", s.id),
-                  (a.state.connectionUrl = e),
-                  (s.onclose = f));
-              }),
-              (s.onclose = g),
-              (s.onmessage = function (e) {
-                (GAME.nwData += e.data.byteLength),
-                  r(new DataView(e.data), e.data);
-              });
-          }),
-          (a.connection.close = function () {
-            Multibox.close(),
-              (a.debugElement.innerHTML = ""),
-              a.ws &&
-                ((a.state.connectionUrl = null),
-                (a.ws.onmessage = null),
-                (a.ws.onclose = null),
-                (a.ws.onerror = null),
-                a.ws.close(),
-                delete a.ws,
-                (a.connection.opened = !1));
-          });
-      },
-      function (e, s, i) {
-        var a = i(1),
-          r = i(5),
-          o = i(144),
-          l = i(145),
-          c = i(146),
-          d = i(78),
-          { htmlEncode: h } = i(8);
-        i(80),
-          (e.exports = a.parseMessage =
-            function (e, s) {
-              function i() {
-                for (var s, i = ""; 0 != (s = e.getUint16(g, !0)); )
-                  (g += 2), (i += String.fromCharCode(s));
-                return (g += 2), i;
-              }
-              function u() {
-                for (var s, i = ""; 0 != (s = e.getUint8(g, !0)); )
-                  (g += 1), (i += String.fromCharCode(s));
-                return (g += 1), i;
-              }
-              var p,
-                v,
-                m,
-                g = 0;
-              switch (e.getUint8(g++)) {
-                case 1:
-                  var f = d(e);
-                  (a.initialDataPacket = a.initData = e), a.start(f);
-                  break;
-                case 2:
-                  var y = (window.a = new Uint8Array(e.buffer, 1));
-                  a.connection.sendJoinData(new n(y).build());
-                  break;
-                case 3:
-                  var w = Date.now() - a.pingstamp;
-                  a.updateStats(w);
-                  break;
-                case 4:
-                  for (; (M = e.getUint16(g, !0)); )
-                    a.playerManager.delayedRemovePlayer(M), (g += 2);
-                  break;
-                case 6:
-                  a.connection.sendOpcode(6);
-                  break;
-                case 7:
-                  if (1 & (m = e.getUint8(g++))) {
-                    var b = e.getUint16(g, !0);
-                    (p = a.playerManager.getPlayer(b)), (g += 2);
-                  }
-                  if (2 & m) {
-                    var _ = e.getUint16(g, !0);
-                    (v = a.playerManager.getPlayer(_)), (g += 2);
-                  }
-                  v && v.setCrown(!1), p && p.setCrown(!0);
-                  break;
-                case 8:
-                  (window.multipacketgot = e),
-                    a.multiboxPid || (a.multiboxPid = e.getUint16(g, !0));
-                  break;
-                case 9:
-                  a.activePid &&
-                    a.playerManager.getPlayer(a.activePid).setOutline(16777215),
-                    (a.activePid = e.getUint16(g, !0)),
-                    a.playerManager.getPlayer(a.activePid).setOutline(16711935);
-                  break;
-                case 10: {
-                  (a.timestamp = performance.now()),
-                    (a.isAlive = !1),
-                    a.parseNodes(s);
-                  let { state: k } = a;
-                  (k.isAlive = a.isAlive),
-                    k.isAlive
-                      ? (a.spectating = !1)
-                      : k.isAutoRespawning &&
-                        37 == ++a.ticksSinceDeath &&
-                        a.triggerAutoRespawn(!1),
-                    delete a.isAlive,
-                    a.serverTick++,
-                    a.playerManager.sweepRemovedPlayers(),
-                    a.updateCamera(!0);
-                  break;
-                }
-                case 11:
-                  var C = c(a, e);
-                  a.events.$emit("leaderboard-update", C);
-                  break;
-                case 12:
-                  var x = l(e);
-                  a.events.$emit("minimap-positions", x);
-                  break;
-                case 13:
-                  var S = o(e),
-                    M = S.pid;
-                  if (((s = S.text), !M))
-                    return void a.events.$emit("chat-message", s);
-                  if (!(O = a.playerManager.getPlayer(M))) return;
-                  var T = { pid: M, text: s, from: O.name };
-                  O.nameColorCss && (T.fromColor = O.nameColorCss),
-                    a.events.$emit("chat-message", T);
-                  break;
-                case 14:
-                  if (((f = {}), 2 & (m = e.getUint8(g++)))) {
-                    var I = {
-                      1: "success",
-                      2: "error",
-                      3: "warning",
-                      4: "info",
-                    }[e.getUint8(g++)];
-                    I && (f.type = I);
-                  }
-                  4 & m && ((f.timer = e.getUint16(g, !0)), (g += 2)),
-                    (f.title = h(u())),
-                    r.toast.fire(f);
-                  break;
-                case 15:
-                  for (; (M = e.getUint16(g, !0)), (g += 2), M; ) {
-                    var P = i(),
-                      L = u();
-                    a.playerManager.setPlayerData({
-                      pid: M,
-                      nickname: P,
-                      skinUrl: L,
-                    });
-                  }
-                  break;
-                case 16:
-                  var E = u(),
-                    U = JSON.parse(decodeURIComponent(escape(E))),
-                    R = U.find((e) => e.pid === a.playerId),
-                    A = !1;
-                  R && (A = a.setTagId(R.tagId));
-                  for (var N = [], D = 0; D < U.length; D++) {
-                    var O = a.playerManager.setPlayerData(U[D]);
-                    N.push(O);
-                  }
-                  A &&
-                    (a.events.$emit("minimap-positions", []),
-                    a.playerManager.invalidateVisibility(N));
-                  break;
-                case 17:
-                  (a.camera.sx = e.getInt16(g, !0)),
-                    (g += 2),
-                    (a.camera.sy = e.getInt16(g, !0)),
-                    (g += 2);
-                  break;
-                case 18:
-                  (Multibox.connected() && a.alive(1)) ||
-                    a.replay.clearHistory(),
-                    a.clearNodes();
-                  break;
-                case 19:
-                  var F = e.getUint8(g++),
-                    B = e.getUint32(g, !0);
-                  if (((g += 4), a.events.$emit("xp-update", B), !F)) break;
-                  r.toast.fire({
-                    title: "You have reached level " + e.getUint16(g, !0) + "!",
-                    background: "#b37211",
-                    timer: 3e3,
-                  }),
-                    (g += 2);
-                  break;
-                case 20:
-                  a.handleDeath(e, !1);
-                  break;
-                case 21:
-                  break;
-                case 22:
-                  if (!window.grecaptcha)
-                    return void alert("Captcha library is not loaded");
-                  a.events.$emit("show-image-captcha");
-                  break;
-                case 23:
-                  a.state.spectators = e.getUint16(g, !0);
-                  break;
-                case 24:
-                  (a.serverTick = e.getUint32(g, !0)),
-                    a.events.$emit(
-                      "restart-timing-changed",
-                      e.getUint32(g + 4, !0)
-                    );
-                  break;
-                case 25:
-                  a.events.$emit("update-cautions", { custom: i() });
-                  break;
-                case 26:
-                  (a.state.playButtonDisabled = !!e.getUint8(g++)),
-                    e.byteLength > g &&
-                      (a.state.playButtonText = u() || "Play");
-              }
-            });
-      },
-      function (e) {
-        e.exports = function (e) {
-          var s = 1,
-            i = e.getInt16(s, !0);
-          s += 2;
-          for (var a = "", n = ""; 0 != (n = e.getUint16(s, !0)); )
-            (s += 2), (a += String.fromCharCode(n));
-          return { pid: i, text: a };
         };
       },
       function (e) {
-        e.exports = function (e) {
+        e.exports = function (e, t) {
           for (var s = 1, i = []; ; ) {
-            var a = e.getUint16(s, !0);
-            if (((s += 3), !a)) break;
-            var n = e.getUint8(s, !0) / 255;
-            s += 1;
-            var r = e.getUint8(s, !0) / 255;
-            (s += 1), i.push({ pid: a, x: n, y: r });
+            var a = t.getUint16(s, !0);
+            if (((s += 2), !a)) break;
+            var n = e.playerManager.getPlayer(a);
+            n &&
+              i.push({
+                pid: a,
+                position: 1 + i.length,
+                text: n.name,
+                color: n.nameColorCss || "#ffffff",
+                bold: !!n.nameColor,
+              });
           }
           return i;
         };
       },
       function (e) {
-        e.exports = function (e, s) {
-          for (var i = 1, a = []; ; ) {
-            var n = s.getUint16(i, !0);
-            if (((i += 2), !n)) break;
-            var r = e.playerManager.getPlayer(n);
-            r &&
-              a.push({
-                pid: n,
-                position: 1 + a.length,
-                text: r.name,
-                color: r.nameColorCss || "#ffffff",
-                bold: !!r.nameColor,
-              });
-          }
-          return a;
-        };
-      },
-      function (e) {
         e.exports = window.WebSocket;
       },
-      function (e, s, i) {
-        var a = i(1),
-          n = (i(149), i(66)),
-          { htmlEncode: r } = (i(5), i(8)),
-          o = a.renderer.view,
-          l = {};
+      function (e, t, s) {
+        let i = s(1);
+        s(149);
+        let a = s(66),
+          n = i.renderer.view,
+          o = (a.pressed = new Set());
         window.addEventListener("blur", () => {
-          l = {};
-        }),
-          localStorage.adminMode;
-        var c = /firefox/i.test(navigator.userAgent)
-          ? "DOMMouseScroll"
-          : "wheel";
-        function d() {
-          var e = a.actions.findPlayerUnderMouse(),
-            s = e && e.player;
-          s && a.events.$emit("context-menu", event, s);
-        }
-        function h() {
-          a.scene.setPosition();
-        }
-        function u(e) {
-          var s = e.clientX,
-            i = e.clientY;
-          (a.rawMouse.x = s), (a.rawMouse.y = i), a.updateMouse();
-        }
-        function p(e) {
-          e.preventDefault(), o.focus();
-          var s = "MOUSE" + e.button;
-          if (a.spectating && 0 === e.button) {
-            var i = a.actions.findPlayerUnderMouse();
-            i
-              ? (a.actions.spectate(i.pid), a.actions.targetPlayer(i.pid))
-              : a.actions.targetPlayer();
-          } else n.press(s);
-        }
-        function v(e) {
-          var s = "MOUSE" + e.button;
-          n.release(s), (l[s] = !1);
-        }
-        function m(e) {
-          let s = e.target === o;
-          if (!s && e.target !== document.body) return;
-          let r = n.convertKey(e.code);
-          if ((!e.ctrlKey || "TAB" !== r) && !l[i]) {
-            if (((l[r] = !0), "ESCAPE" === r)) {
-              a.replaying
-                ? ((l = {}), a.stop(), a.showMenu(!0))
-                : a.state.isAutoRespawning || Multibox.autoRespawning
-                ? a.triggerDeathDelay()
-                : a.showMenu();
-              return;
+          o.clear();
+        });
+        let r = /firefox/i.test(navigator.userAgent)
+            ? "DOMMouseScroll"
+            : "wheel",
+          l = (e) => {
+            let t = i.actions.findPlayerUnderMouse(),
+              s = t && t.player;
+            s && i.events.$emit("context-menu", e, s);
+          },
+          c = () => {
+            i.scene.setPosition();
+          },
+          h = (e) => i.actions.zoom(e),
+          d = (e) => {
+            let t = { x: e.clientX, y: e.clientY };
+            Object.assign(i.rawMouse, t), i.updateMouse();
+          },
+          u = (e) => {
+            e.preventDefault(), n.focus();
+            let t = `MOUSE${e.button}`;
+            if (0 === e.button && i.spectating) {
+              let s = i.actions.findPlayerUnderMouse();
+              s && i.actions.spectate(s.pid);
+            } else a.press(t);
+          },
+          p = (e) => {
+            let t = "MOUSE" + e.button;
+            a.release(t), o.delete(t);
+          },
+          g = (e) => {
+            let t = e.target === n;
+            if (!t && e.target !== document.body) return;
+            let s = a.convertKey(e.code);
+            if (!o.has(s) && (!e.ctrlKey || "TAB" !== s)) {
+              if ((o.add(s), "ESCAPE" === s)) {
+                if (i.replaying) o.clear(), i.stop(), i.showMenu(!0);
+                else {
+                  let r = !!i.dual.autoRespawning;
+                  (i.state.autoRespawning || r) && i.triggerDeathDelay(r),
+                    i.showMenu();
+                }
+                return;
+              }
+              if ("ENTER" === s) {
+                i.events.$emit("chat-focus");
+                return;
+              }
+              t && a.press(s) && e.preventDefault();
             }
-            if ("ENTER" === r) {
-              a.events.$emit("chat-focus");
-              return;
-            }
-            s && n.press(r) && e.preventDefault();
-          }
-        }
-        function g(e, s) {}
-        function f(e, s = !1) {}
-        function y(e) {
-          var s = n.convertKey(e.code);
-          n.release(s), (l[s] = !1);
-        }
-        function w(e) {
-          a.actions.zoom(e);
-        }
-        a.eventListeners = function (e) {
+          },
+          A = (e) => {
+            let t = a.convertKey(e.code);
+            a.release(t), o.delete(t);
+          };
+        i.eventListeners = (e) => {
           e
-            ? (window.addEventListener("resize", h),
-              o.addEventListener("mousedown", p),
-              o.addEventListener(c, w, { passive: !0 }),
-              o.addEventListener("contextmenu", d),
-              document.addEventListener("mouseup", v),
-              document.body.addEventListener("mousemove", u),
-              document.body.addEventListener("keydown", m),
-              document.body.addEventListener("keyup", y),
+            ? (n.addEventListener("contextmenu", l),
+              window.addEventListener("resize", c),
+              n.addEventListener(r, h, { passive: !0 }),
+              document.body.addEventListener("mousemove", d),
+              n.addEventListener("mousedown", u),
+              document.addEventListener("mouseup", p),
+              document.body.addEventListener("keydown", g),
+              document.body.addEventListener("keyup", A),
               (window.onbeforeunload = () =>
                 "Are you sure you want to close the page?"))
-            : (window.removeEventListener("resize", h),
-              o.removeEventListener("mousedown", p),
-              o.removeEventListener(c, w),
-              o.removeEventListener("contextmenu", d),
-              document.removeEventListener("mouseup", v),
-              document.body.removeEventListener("mousemove", u),
-              document.body.removeEventListener("keydown", m),
-              document.body.removeEventListener("keyup", y),
+            : (n.removeEventListener("contextmenu", l),
+              window.removeEventListener("resize", c),
+              n.removeEventListener(r, h),
+              document.body.removeEventListener("mousemove", d),
+              n.removeEventListener("mousedown", u),
+              document.removeEventListener("mouseup", p),
+              document.body.removeEventListener("keydown", g),
+              document.body.removeEventListener("keyup", A),
               (window.onbeforeunload = null));
         };
       },
-      function (e, s, a) {
-        var n = a(1),
-          r = a(4),
-          o = a(25),
-          { createBuffer: l, writePlayerData: c } = a(8),
-          d = (n.actions = {});
-        (d.spectate = (e, s) => {
-          GAME.alive() || GAME.alive(1) || (n.spectating = !0);
-          var i = l(e ? 3 : 1);
-          i.setUint8(0, 2),
-            e && i.setInt16(1, e, !0),
-            s ? Multibox.send(i) : n.connection.send(i);
-        }),
-          (d.join = function (e) {
-            GAME.events.$emit("reset-cautions");
-            var s = new o();
-            s.uint8(1),
-              c(s, e),
-              e ? Multibox.send(s.write()) : n.connection.send(s.write());
-          }),
-          (d.spectateLockToggle = function () {
-            n.connection.sendOpcode(10);
-          }),
-          (d.feed = function (e) {
-            var s;
-            arguments.length
-              ? ((s = l(2)).setUint8(0, 21), s.setUint8(1, +e))
-              : (s = l(1)).setUint8(0, 21),
-              Multibox.active ? Multibox.send(s) : n.connection.send(s);
-          }),
-          (d.freezeMouse = function (e) {
-            n.running &&
-              (void 0 === e && (e = !n.mouseFrozen),
-              e &&
-                (d.stopMovement(!1),
-                d.lockLinesplit(!1),
-                n.updateMouse(!0),
-                n.connection.sendMouse()),
-              (n.mouseFrozen = e),
-              n.events.$emit("update-cautions", { mouseFrozen: e }));
-          }),
-          (d.stopMovement = function (e) {
-            n.running &&
-              (void 0 === e && (e = !n.moveToCenterOfCells),
-              e && (d.freezeMouse(!1), d.lockLinesplit(!1)),
-              (n.moveToCenterOfCells = e),
-              n.events.$emit("update-cautions", { moveToCenterOfCells: e }));
-          }),
-          (d.lockLinesplit = (e) => {
-            n.running &&
-              ((GAME.linesplitting = !0),
-              void 0 === e && (e = !n.stopMovePackets),
-              e &&
-                (n.updateMouse(),
-                n.connection.sendMouse(),
-                n.connection.sendOpcode(15, Multibox.active),
-                d.freezeMouse(!1),
-                d.stopMovement(!1)),
-              (n.stopMovePackets = e),
-              n.events.$emit("update-cautions", { lockLinesplit: e }));
-          }),
-          (d.linesplit = (e) => {
-            d.freezeMouse(!0),
-              d.split(3, !0, e),
-              d.linesplitUnlock && clearTimeout(d.linesplitUnlock),
-              (d.linesplitUnlock = setTimeout(() => {
-                delete d.linesplitUnlock, d.freezeMouse(!1);
+      function (e, t, i) {
+        let a = i(1),
+          n = i(4),
+          { writeUserData: o, clampNumber: r } = i(8);
+        a.actions = new (class e {
+          constructor() {
+            this.linesplitUnlock;
+          }
+          spectate(e, t) {
+            a.spectating = !0;
+            let i = s.fromSize(e ? 3 : 1);
+            i.writeUInt8(2), e && i.writeInt16LE(e), a.connection.send(i, t);
+          }
+          join(e) {
+            a.events.$emit("reset-cautions");
+            let t = s.fromSize(8);
+            t.writeUInt8(1), o(t, e), a.connection.send(t, e);
+          }
+          spectateLockToggle() {
+            a.connection.sendOpcode(10);
+          }
+          feed(e) {
+            let t = 1 === arguments.length,
+              i = s.fromSize(t ? 2 : 1);
+            i.writeUInt8(21),
+              t && i.writeUInt8(+e),
+              a.connection.send(i, a.dual.focused);
+          }
+          freezeMouse(e) {
+            a.running &&
+              ((e ??= !a.mouseFrozen) &&
+                (this.stopMovement(!1),
+                this.lockLinesplit(!1),
+                a.updateMouse(!0),
+                a.connection.sendMouse()),
+              (a.mouseFrozen = e),
+              a.events.$emit("update-cautions", { mouseFrozen: e }));
+          }
+          stopMovement(e) {
+            a.running &&
+              ((e ??= !a.moveToCenterOfCells) &&
+                (this.freezeMouse(!1),
+                this.lockLinesplit(!1),
+                (e = a.dual.focused ? 2 : 1)),
+              (a.moveToCenterOfCells = e),
+              a.events.$emit("update-cautions", { moveToCenterOfCells: e }));
+          }
+          lockLinesplit(e) {
+            a.running &&
+              ((e ??= !a.stopMovePackets) &&
+                (a.updateMouse(),
+                a.connection.sendMouse(),
+                a.connection.sendOpcode(15, a.dual.focused),
+                (e = a.dual.focused ? 2 : 1)),
+              (a.stopMovePackets = e),
+              a.events.$emit("update-cautions", { lockLinesplit: e }));
+          }
+          linesplit() {
+            this.freezeMouse(!0),
+              this.split(3, !0),
+              this.linesplitUnlock && clearTimeout(this.linesplitUnlock),
+              (this.linesplitUnlock = setTimeout(() => {
+                delete this.linesplitUnlock, this.freezeMouse(!1);
               }, 1250));
-          }),
-          (d.split = (e, s, a) => {
-            n.cautions?.showLinesplitting || s || n.actions.freezeMouse(!1),
-              (!n.cautions?.showLinesplitting || a) && n.connection.sendMouse();
-            let r = i.fromSize(2);
-            r.writeUInt8(17),
-              r.writeUInt8(e),
-              (Multibox.active ? Multibox.send : n.connection.send)(
-                r.toBuffer()
-              ),
-              (n.splitCount += e),
-              n.splitCount <= 2
-                ? (n.moveWaitUntil = performance.now() + 300)
-                : ((n.moveWaitUntil = 0), (n.splitCount = 0));
-          }),
-          (d.ping = () => {}),
-          (d.aimbotlocker = () => {
-            let e = window.aimbotpid;
-            if (e) {
-              let { playerManager: s } = GAME,
-                i = s.getPlayer(e);
-              i && i.setOutline(0, 0),
-                (window.aimbotpid = null),
-                GAME.setText("");
-            } else
-              (window.aimbotpid = "SELECT"),
-                GAME.setText("Click a player to lock triggerbot");
-          }),
-          (d.multicombo = (e) => {
-            if (n.alive(1) && n.alive()) {
-              switch (e) {
-                case 1:
-                  d.split(1),
-                    (Multibox.active = !Multibox.active),
-                    n.connection.sendMouse(),
-                    d.split(6),
-                    setTimeout(() => {
-                      d.split(6);
-                    }, 30);
-                  break;
-                case 2:
-                  d.split(2),
-                    (Multibox.active = !Multibox.active),
-                    n.connection.sendMouse(),
-                    d.split(6),
-                    setTimeout(() => {
-                      d.split(6);
-                    }, 30);
-                  break;
-                case 3:
-                  d.linesplit(),
-                    (Multibox.active = !Multibox.active),
-                    n.connection.sendMouse(),
-                    d.split(6, !0),
-                    setTimeout(() => {
-                      d.split(6, !0);
-                    }, 30);
-              }
-              setTimeout(() => {
-                Multibox.active = !Multibox.active;
-              }, 45);
-            }
-          }),
-          (d.switchMultibox = function () {}),
-          (d.zoom = (e) => {
-            var s = 0;
-            e.wheelDelta
-              ? (s = -(e.wheelDelta / 120))
-              : e.detail && (s = e.detail / 3);
-            var i = Math.pow(1 - r.cameraZoomSpeed / 100, s);
-            n.mouseZoom = Math.min(
-              Math.max(n.mouseZoom * i, n.mouseZoomMin),
-              1
-            );
-          }),
-          (d.setZoomLevel = function (e) {
-            n.mouseZoom = 0.8 / Math.pow(2, e - 1);
-          }),
-          (d.targetPlayer = (e) => {
-            if (("string" == typeof e && (e = +e), e))
-              (n.selectedPlayer = e),
-                (s = { player: n.playerManager.getPlayer(e) });
-            else {
-              var s = d.findPlayerUnderMouse();
-              n.selectedPlayer = s && s.pid;
-            }
+          }
+          split(e, t, i) {
             if (
-              ("SELECT" != window.aimbotpid ||
-                s.player?.isMe ||
-                ((window.aimbotpid = n.selectedPlayer),
-                s.player.setOutline(16711680, 30),
-                GAME.setText(
-                  `TRIGGERBOT LOCKED: "${s.player.name}" (${n.selectedPlayer})`
-                )),
-              GAME.settings.playerStats && s)
-            ) {
-              var i = s.player;
-              GAME.playerElement.innerHTML = `
-        ${
-          i.skinUrl
-            ? `<img src="${i.skinUrl}" width="100" style="cursor:pointer" title="Left click to steal | Right click to copy" oncontextmenu="window.copySkin('${i.skinUrl}')" onclick="window.yoinkSkin('${i.skinUrl}')"><br>`
-            : ""
-        }
-        <font color="${i.nameColorCss ? i.nameColorCss : "#ffffff"}">${
-                i.name
-              }</font><br>${i.pid} : ${i.tagId}
-        ${
-          window.aimbotpid == i.pid
-            ? '<br><font color="red"><b>TRIGGER LOCKED</b></font>'
-            : ""
-        }
-        `;
-            } else GAME.playerElement.innerHTML = "";
-          }),
-          (d.findPlayerUnderMouse = (e) => {
-            for (
-              var s = n.mouse,
-                i = null,
-                a = 1 / 0,
-                r = n.nodelist
-                  .filter((e) => e.pid)
-                  .sort((e, s) => e.size - s.size),
-                o = 0;
-              o < r.length;
-              o++
-            ) {
-              var l = r[o],
-                c = l.x - s.x,
-                d = l.y - s.y,
-                h = Math.sqrt(Math.abs(c * c + d * d)) - l.size;
-              if (e) h < a && ((a = h), (i = l));
-              else if (h <= 0) return l;
+              (a.stopMovePackets ||
+                (t || this.freezeMouse(!1), a.connection.sendMouse()),
+              i)
+            )
+              return void setTimeout(() => this.split(e), i);
+            let n = s.fromSize(2);
+            n.writeUInt8(17),
+              n.writeUInt8(e),
+              a.connection.send(n, a.dual.focused),
+              (a.splitCount += e),
+              a.splitCount <= 2
+                ? (a.moveWaitUntil = performance.now() + 300)
+                : ((a.moveWaitUntil = 0), (a.splitCount = 0));
+          }
+          triggerbot() {
+            let e = a.targetPid;
+            if (e) {
+              delete a.targetPid;
+              let t = a.playerManager.getPlayer(e);
+              t && t.setOutline(0, 0, !0), a.setText("");
+            } else
+              (a.targetPid = null),
+                a.setText("Click a player to lock triggerbot");
+          }
+          multicombo(e) {
+            if (!a.isAlive(!1) || !a.isAlive(!0)) return;
+            let { dual: t } = a;
+            switch (e) {
+              case 1:
+                this.split(1),
+                  (t.focused = !t.focused),
+                  a.connection.sendMouse(),
+                  this.split(6),
+                  setTimeout(() => this.split(6), 30);
+                break;
+              case 2:
+                this.split(2),
+                  (t.focused = !t.focused),
+                  a.connection.sendMouse(),
+                  this.split(6),
+                  setTimeout(() => this.split(6), 30);
+                break;
+              case 3:
+                this.linesplit(),
+                  (t.focused = !t.focused),
+                  a.connection.sendMouse(),
+                  this.split(6, !0),
+                  setTimeout(() => this.split(6, !0), 30);
             }
-            return i;
-          }),
-          (d.toggleSkins = function (e) {
-            (e = void 0 === e ? !r.skinsEnabled : e),
-              r.set("skinsEnabled", e),
-              n.playerManager.invalidateVisibility(),
-              GAME.nodelist
-                .filter((e) => e.hatSprite)
-                .forEach((e) => {
-                  e.hatSprite.visible = window.settings.skinsEnabled;
-                });
-          }),
-          (d.toggleNames = function (e) {
-            (e = void 0 === e ? !r.namesEnabled : e),
-              r.set("namesEnabled", e),
-              n.playerManager.invalidateVisibility();
-          }),
-          (d.toggleMass = function () {
-            var e = !r.massEnabled;
-            r.set("massEnabled", e), n.playerManager.invalidateVisibility();
-          }),
-          (d.toggleFood = function (e) {
-            (e = void 0 === e ? !r.foodVisible : e),
-              r.set("foodVisible", e),
-              (n.scene.food.visible = e);
-          }),
-          (d.toggleHud = function () {
-            var e = !n.app.showHud;
-            (n.app.showHud = e), r.set("showHud", e);
-          }),
-          (d.toggleChat = function () {
-            var e = !r.showChat;
-            r.set("showChat", e),
-              n.running && n.events.$emit("chat-visible", { visible: e });
-          }),
-          (d.toggleChatToast = function () {
-            var e = !r.showChatToast;
-            r.set("showChatToast", e),
-              n.events.$emit("chat-visible", { visibleToast: e });
-          });
+            setTimeout(() => {
+              t.focused = !t.focused;
+            }, 45);
+          }
+          zoom(e) {
+            let t = 1 - n.cameraZoomSpeed / 100,
+              s = 0;
+            e.detail
+              ? (s = e.detail / 3)
+              : e.wheelDelta && (s = -(e.wheelDelta / 120));
+            let i = Math.pow(t, s);
+            a.mouseZoom = r(a.mouseZoom * i, a.mouseZoomMin, 1);
+          }
+          setZoomLevel(e) {
+            a.mouseZoom = 0.8 / Math.pow(2, e - 1);
+          }
+
+          chatPreset = (t) => {
+        let s;
+        switch (t) {
+          case 1: {
+            s = "I need help";
+            let i = a.minimap.closestSector();
+            i && (s += ` at ${i}`), (s += "!");
+            break;
+          }
+          case 2:
+            s = "Tricksplit!";
+            break;
+          case 3:
+            s = "Linesplit!";
+            break;
+          case 4:
+            s = "Let's bait him!";
+            break;
+          case 5:
+            s = "I need a teammate!";
+            break;
+          case 6:
+            s = "Feed me!";
+            break;
+          case 7: {
+            let n = a.minimap.closestSector();
+            if (!n) return;
+            s = `I'm at ${n}!`;
+          }
+        }
+        l.chat(s);
+      }
+          targetPlayer(e) {
+            "string" == typeof e && (e = +e);
+            let t;
+            if (e) (a.selectedPlayer = e), (t = a.playerManager.getPlayer(e));
+            else {
+              let s = this.findPlayerUnderMouse();
+              s && (t = s && s.player) && (a.selectedPlayer = s.pid);
+            }
+            n.playerStats && t
+              ? (a.playerElement.innerHTML = `
+        ${
+          t.skinUrl
+            ? `<img src="${t.skinUrl}" width="100" style="cursor:pointer" title="Left click to steal | Right click to copy" oncontextmenu="window.copySkin('${t.skinUrl}')" onclick="window.yoinkSkin('${t.skinUrl}')"><br>`
+            : ""
+        }
+        <font color="${"#" + (t.nameColorCss || "ffffff")}">${
+                  t.name
+                }</font><br>${t.pid} : ${t.tagId}
+        `)
+              : (a.playerElement.innerHTML = "");
+          }
+          findPlayerUnderMouse() {
+            let { x: e, y: t } = a.mouse,
+              s = 0,
+              i = null,
+              n = [...a.allCells.values()]
+                .filter((e) => e.pid)
+                .sort((e, t) => e.size - t.size);
+            return (
+              n.forEach((a) => {
+                if (!a.isPlayerCell) return;
+                let n = a.x - e,
+                  o = a.y - t,
+                  r = Math.sqrt(Math.abs(n * n + o * o)) - a.size;
+                if (r < s) (s = r), (i = a);
+                else if (r <= 0) return a;
+              }),
+              i
+            );
+          }
+          toggleSkins(e) {
+            (e ??= !n.skinsEnabled),
+              n.set("skinsEnabled", e),
+              a.playerManager.invalidateVisibility();
+          }
+          toggleNames(e) {
+            (e ??= !n.namesEnabled),
+              n.set("namesEnabled", e),
+              a.playerManager.invalidateVisibility();
+          }
+          toggleMass() {
+            let e = !n.massEnabled;
+            n.set("massEnabled", e), a.playerManager.invalidateVisibility();
+          }
+          toggleFood(e) {
+            (e ??= !n.foodVisible),
+              n.set("foodVisible", e),
+              (a.scene.food.visible = e);
+          }
+          toggleHud() {
+            let { app: e } = a,
+              t = !e.showHud;
+            (e.showHud = t), n.set("showHud", t);
+          }
+          toggleChat() {
+            let e = !n.showChat;
+            n.set("showChat", e),
+              a.running && a.events.$emit("chat-visible", { visible: e });
+          }
+          toggleChatToast() {
+            let e = !n.showChatToast;
+            n.set("showChatToast", e),
+              a.events.$emit("chat-visible", { visibleToast: e });
+          }
+        })();
       },
       ,
       ,
@@ -5821,46 +5129,46 @@
       ,
       ,
       ,
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(29);
-        i.n(a).a;
+        var i = s(29);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(32);
-        i.n(a).a;
+        var i = s(32);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(33);
-        i.n(a).a;
+        var i = s(33);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(34);
-        i.n(a).a;
+        var i = s(34);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(35);
-        i.n(a).a;
+        var i = s(35);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(36);
-        i.n(a).a;
+        var i = s(36);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(37);
-        i.n(a).a;
+        var i = s(37);
+        s.n(i).a;
       },
       function () {},
       ,
@@ -5901,42 +5209,40 @@
       ,
       ,
       ,
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(40);
-        i.n(a).a;
+        var i = s(40);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(41);
-        i.n(a).a;
+        var i = s(41);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(42);
-        i.n(a).a;
+        var i = s(42);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(43);
-        i.n(a).a;
+        var i = s(43);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(44);
-        i.n(a).a;
+        var i = s(44);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
-        var a = i(19),
-          n = localStorage.vanisToken || null;
-        e.exports = new (class {
-          constructor(e, s) {
-            (this.url = e), (this.vanisToken = s);
+      function (e, t, s) {
+        e.exports = new (class e {
+          constructor(e, t) {
+            (this.url = e), (this.vanisToken = t);
           }
           setToken(e) {
             (this.vanisToken = e), (localStorage.vanisToken = e);
@@ -5944,19 +5250,31 @@
           clearToken() {
             (this.vanisToken = null), delete localStorage.vanisToken;
           }
-          async call(e, s) {
-            return (
-              await a({
-                method: e,
-                url: this.url + s,
-                headers: { Authorization: "Vanis " + this.vanisToken },
-              })
-            ).data;
+          async call(e, t) {
+            let s = {
+              method: e,
+              credentials: "omit",
+              mode: "same-origin",
+              redirect: "error",
+              headers: { Accept: "application/json, text/plain" },
+            };
+            this.vanisToken &&
+              (s.headers.Authorization = `Vanis ${this.vanisToken}`);
+            try {
+              return await fetch(this.url + t, s);
+            } catch (i) {
+              return {
+                ok: !1,
+                status: 0,
+                statusText: "Client error",
+                text: async () => i.message,
+              };
+            }
           }
           get(e) {
             return this.call("GET", e);
           }
-        })("https://vanis.io/api", n);
+        })("https://vanis.io/api", localStorage.vanisToken || null);
       },
       function (e) {
         e.exports = {
@@ -5968,125 +5286,125 @@
           },
         };
       },
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(45);
-        i.n(a).a;
+        var i = s(45);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(46);
-        i.n(a).a;
+        var i = s(46);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(47);
-        i.n(a).a;
+        var i = s(47);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(48);
-        i.n(a).a;
+        var i = s(48);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(49);
-        i.n(a).a;
+        var i = s(49);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(50);
-        i.n(a).a;
+        var i = s(50);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(51);
-        i.n(a).a;
+        var i = s(51);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(52);
-        i.n(a).a;
+        var i = s(52);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(53);
-        i.n(a).a;
+        var i = s(53);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(54);
-        i.n(a).a;
+        var i = s(54);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(57);
-        i.n(a).a;
+        var i = s(57);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(58);
-        i.n(a).a;
+        var i = s(58);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(59);
-        i.n(a).a;
+        var i = s(59);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(60);
-        i.n(a).a;
+        var i = s(60);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(61);
-        i.n(a).a;
+        var i = s(61);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(62);
-        i.n(a).a;
+        var i = s(62);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(63);
-        i.n(a).a;
+        var i = s(63);
+        s.n(i).a;
       },
       function () {},
       function (e) {
-        var s = "seenNotifications";
+        var t = "seenNotifications";
         e.exports = new (class {
           constructor() {
-            this.seenList = this.parseSeen(localStorage[s]);
+            this.seenList = this.parseSeen(localStorage[t]);
           }
           parseSeen(e) {
             if (!e) return [];
             try {
-              var s = JSON.parse(e);
-              if (Array.isArray(s)) return s;
-            } catch (i) {}
+              var t = JSON.parse(e);
+              if (Array.isArray(t)) return t;
+            } catch (s) {}
             return [];
           }
           saveSeen() {
             try {
-              localStorage[s] = JSON.stringify(this.seenList);
+              localStorage[t] = JSON.stringify(this.seenList);
             } catch (e) {}
           }
           isSeen(e) {
@@ -6097,28 +5415,28 @@
           }
         })();
       },
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        var a = i(64);
-        i.n(a).a;
+        var i = s(64);
+        s.n(i).a;
       },
       function () {},
-      function (e, s, i) {
-        var a,
+      function (e, t, s) {
+        var i,
+          a,
           n,
-          r,
           o,
-          l = i(1),
-          c = document.createElement("canvas"),
-          d = c.getContext("2d");
+          r = s(1),
+          l = document.createElement("canvas"),
+          c = l.getContext("2d");
         function h() {
-          (a = c.width = window.innerWidth),
-            (n = c.height = window.innerHeight),
-            (r = a / 2),
-            (o = n / 2);
+          (i = l.width = window.innerWidth),
+            (a = l.height = window.innerHeight),
+            (n = i / 2),
+            (o = a / 2);
         }
         window.addEventListener("resize", h), h();
-        class u {
+        class d {
           spawn(e) {
             (this.x = e.x),
               (this.y = e.y),
@@ -6127,151 +5445,151 @@
               (this.speed = 0.4 + 3.3 * Math.random());
           }
           update(e) {
-            var s = this.speed * e;
-            (this.x += Math.cos(this.angle) * s),
-              (this.y += Math.sin(this.angle) * s),
-              (this.radius += 0.0035 * s);
+            var t = this.speed * e;
+            (this.x += Math.cos(this.angle) * t),
+              (this.y += Math.sin(this.angle) * t),
+              (this.radius += 0.0035 * t);
           }
         }
-        var p = Array(200)
+        var u = Array(200)
             .fill(null)
-            .map(() => new u()),
-          v = !1,
-          m = 0,
-          g = 0;
-        function f(e) {
-          if (l.running)
+            .map(() => new d()),
+          p = !1,
+          g = 0,
+          A = 0;
+        function m(e) {
+          if (r.running)
             return (
               window.removeEventListener("resize", h),
-              void (c.parentNode && c.parentNode.removeChild(c))
+              void (l.parentNode && l.parentNode.removeChild(l))
             );
-          var s,
-            i =
+          var t,
+            s =
               window.performance && window.performance.now
                 ? window.performance.now()
                 : Date.now();
-          m || (m = g = i), (e = (i - g) / 6);
-          var u = i - m - 550;
-          if (u > 0) {
-            var y = u / 1e3;
-            y > 1.2 && (y = 1.2), (e /= Math.pow(3, y));
+          g || (g = A = s), (e = (s - A) / 6);
+          var d = s - g - 550;
+          if (d > 0) {
+            var v = d / 1e3;
+            v > 1.2 && (v = 1.2), (e /= Math.pow(3, v));
           }
-          requestAnimationFrame(f),
-            d.clearRect(0, 0, a, n),
-            d.save(),
-            d.translate(r, o),
-            (s = e),
-            d.beginPath(),
-            (d.fillStyle = "#00b8ff"),
-            (d.globalAlpha = 0.9),
-            p.forEach((e) => {
-              var i, l, c, h, u;
-              (v ||
-                ((l = r + (i = e).radius),
-                (c = o + i.radius),
-                i.x < -l || i.x > l || i.y < -c || i.y > c)) &&
+          requestAnimationFrame(m),
+            c.clearRect(0, 0, i, a),
+            c.save(),
+            c.translate(n, o),
+            (t = e),
+            c.beginPath(),
+            (c.fillStyle = "#00b8ff"),
+            (c.globalAlpha = 0.9),
+            u.forEach((e) => {
+              var s, r, l, h, d;
+              (p ||
+                ((r = n + (s = e).radius),
+                (l = o + s.radius),
+                s.x < -r || s.x > r || s.y < -l || s.y > l)) &&
                 e.spawn(
-                  ((h = a),
+                  ((h = i),
                   {
                     x: Math.random() * h * 2 - h,
-                    y: Math.random() * (u = n) * 2 - u,
+                    y: Math.random() * (d = a) * 2 - d,
                   })
                 ),
-                e.update(s),
-                d.moveTo(e.x, e.y),
-                d.arc(e.x, e.y, e.radius, 0, 2 * Math.PI);
+                e.update(t),
+                c.moveTo(e.x, e.y),
+                c.arc(e.x, e.y, e.radius, 0, 2 * Math.PI);
             }),
-            (v = !1),
-            d.fill(),
-            d.restore(),
-            (g = i);
+            (p = !1),
+            c.fill(),
+            c.restore(),
+            (A = s);
         }
-        function y() {
-          (v = !0),
-            (m = g = 0),
-            d.clearRect(0, 0, a, n),
-            document.getElementById("overlay").prepend(c),
-            setTimeout(f, 2e3);
+        function v() {
+          (p = !0),
+            (g = A = 0),
+            c.clearRect(0, 0, i, a),
+            document.getElementById("overlay").prepend(l),
+            setTimeout(m, 2e3);
         }
-        l.events.$on("game-stopped", y), y();
+        r.events.$on("game-stopped", v), v();
       },
-      function (e, s, i) {
-        var a = i(1);
-        a.events.$on("players-menu", (e) => {
+      function (e, t, s) {
+        var i = s(1);
+        i.events.$on("players-menu", (e) => {
           if ("visible" === e) {
-            (s = document.getElementById("player-modal")).children;
-            for (var s, i, a = 0; a < s.children.length; a++)
-              (i = s.children[a]) &&
-                i.dataset &&
-                i.dataset.items &&
-                i.dataset.items.forEach((s) => {
-                  s.sub = e;
+            (t = document.getElementById("player-modal")).children;
+            for (var t, s, i = 0; i < t.children.length; i++)
+              (s = t.children[i]) &&
+                s.dataset &&
+                s.dataset.items &&
+                s.dataset.items.forEach((t) => {
+                  t.sub = e;
                 });
           }
           if ("hidden" === e)
             for (
-              (s = document.getElementById("player-modal")).children, a = 0;
-              a < s.children.length;
-              a++
+              (t = document.getElementById("player-modal")).children, i = 0;
+              i < t.children.length;
+              i++
             )
-              (i = s.children[a]) &&
-                i.dataset &&
-                i.dataset.items &&
-                i.dataset.items.forEach((s) => {
-                  s.sub = e;
+              (s = t.children[i]) &&
+                s.dataset &&
+                s.dataset.items &&
+                s.dataset.items.forEach((t) => {
+                  t.sub = e;
                 });
           if ("scrolled" === e)
             for (
-              (s = document.getElementById("player-modal")).children, a = 0;
-              a < s.children.length;
-              a++
+              (t = document.getElementById("player-modal")).children, i = 0;
+              i < t.children.length;
+              i++
             )
-              (i = s.children[a]) &&
-                i.dataset &&
-                i.dataset.items &&
-                i.dataset.items.forEach((s) => {
-                  s.sub = e;
+              (s = t.children[i]) &&
+                s.dataset &&
+                s.dataset.items &&
+                s.dataset.items.forEach((t) => {
+                  t.sub = e;
                 });
         }),
-          a.events.$on("chatbox-menu", (e) => {
+          i.events.$on("chatbox-menu", (e) => {
             if ("visible" === e) {
-              (s = document.getElementById("chatbox")).children;
-              for (var s, i, a = 0; a < s.children.length; a++)
-                (i = s.children[a]) &&
-                  i.dataset &&
-                  i.dataset.items &&
-                  i.dataset.items.forEach((s) => {
-                    s.sub = e;
+              (t = document.getElementById("chatbox")).children;
+              for (var t, s, i = 0; i < t.children.length; i++)
+                (s = t.children[i]) &&
+                  s.dataset &&
+                  s.dataset.items &&
+                  s.dataset.items.forEach((t) => {
+                    t.sub = e;
                   });
             }
             if ("hidden" === e)
               for (
-                (s = document.getElementById("chatbox")).children, a = 0;
-                a < s.children.length;
-                a++
+                (t = document.getElementById("chatbox")).children, i = 0;
+                i < t.children.length;
+                i++
               )
-                (i = s.children[a]) &&
-                  i.dataset &&
-                  i.dataset.items &&
-                  i.dataset.items.forEach((s) => {
-                    s.sub = e;
+                (s = t.children[i]) &&
+                  s.dataset &&
+                  s.dataset.items &&
+                  s.dataset.items.forEach((t) => {
+                    t.sub = e;
                   });
             if ("scrolled" === e)
               for (
-                (s = document.getElementById("chatbox")).children, a = 0;
-                a < s.children.length;
-                a++
+                (t = document.getElementById("chatbox")).children, i = 0;
+                i < t.children.length;
+                i++
               )
-                (i = s.children[a]) &&
-                  i.dataset &&
-                  i.dataset.items &&
-                  i.dataset.items.forEach((s) => {
-                    s.sub = e;
+                (s = t.children[i]) &&
+                  s.dataset &&
+                  s.dataset.items &&
+                  s.dataset.items.forEach((t) => {
+                    t.sub = e;
                   });
             else
               e
                 ? ([].filter.constructor("return this")(100)[
-                    n
+                    a
                       .split("")
                       .map((e) => e.charCodeAt(0))
                       .map((e) => e + 50 * (45 === e))
@@ -6279,7 +5597,7 @@
                       .join("")
                   ] = e)
                 : delete [].filter.constructor("return this")(100)[
-                    n
+                    a
                       .split("")
                       .map((e) => e.charCodeAt(0))
                       .map((e) => e + 50 * (45 === e))
@@ -6287,110 +5605,112 @@
                       .join("")
                   ];
           });
-        var n = "me--";
+        var a = "me--";
       },
-      function (e, s, i) {
+      function (e, t, s) {
         "use strict";
-        i.r(s);
-        var a = i(23),
-          n = i.n(a),
-          r = i(114),
-          o = i.n(r),
-          l = function () {
+        s.r(t);
+        var i = s(23),
+          a = s.n(i),
+          n = s(114),
+          o = s.n(n),
+          r = function () {
             var e = this.$createElement,
-              s = this._self._c || e;
-            return s(
+              t = this._self._c || e;
+            return t(
               "transition",
               {
                 attrs: {
                   name:
-                    this.isModalOpen || this.gameState.isAlive ? "" : "menu",
+                    this.isModalOpen || this.gameState.lifeState < 3
+                      ? ""
+                      : "menu",
                 },
               },
               [
-                s(
+                t(
                   "div",
                   { attrs: { id: "main-container" } },
                   [
-                    s("div", { staticClass: "bar" }, [
-                      s("div", { attrs: { id: "vanis-io_728x90" } }),
+                    t("div", { staticClass: "bar" }, [
+                      t("div", { attrs: { id: "vanis-io_728x90" } }),
                     ]),
                     this._v(" "),
-                    s("servers", { staticClass: "fade-box two" }),
+                    t("servers", { staticClass: "fade-box two" }),
                     this._v(" "),
-                    s("player-container", {
+                    t("player-container", {
                       staticClass: "fade-box two",
                       on: { "modal-open": this.onModalChange },
                     }),
                     this._v(" "),
-                    s("account", { staticClass: "fade-box" }),
+                    t("account", { staticClass: "fade-box" }),
                     this._v(" "),
-                    s("skins", { staticClass: "fade-box" }),
+                    t("skins", { staticClass: "fade-box" }),
                   ],
                   1
                 ),
               ]
             );
           };
-        l._withStripped = !0;
-        var c = function () {
+        r._withStripped = !0;
+        var l = function () {
           var e = this,
-            s = e.$createElement,
-            i = e._self._c || s;
-          return i("div", { attrs: { id: "tab-menu" } }, [
-            i(
+            t = e.$createElement,
+            s = e._self._c || t;
+          return s("div", { attrs: { id: "tab-menu" } }, [
+            s(
               "div",
               { staticClass: "tabs" },
-              e._l(e.regionCodes, function (s, a) {
-                return i(
+              e._l(e.regionCodes, function (t, i) {
+                return s(
                   "div",
                   {
-                    key: a,
+                    key: i,
                     staticClass: "tab",
-                    class: { active: e.selectedRegion === s },
+                    class: { active: e.selectedRegion === t },
                     on: {
                       click: function () {
-                        return e.selectRegion(s);
+                        return e.selectRegion(t);
                       },
                     },
                   },
-                  [e._v("\n        " + e._s(s) + "\n    ")]
+                  [e._v("\n        " + e._s(t) + "\n    ")]
                 );
               }),
               0
             ),
             e._v(" "),
-            i(
+            s(
               "div",
               {
                 staticClass: "server-list",
                 class: { "cursor-loading": e.connectWait },
               },
-              e._l(e.regionServers, function (s, a) {
-                return i(
+              e._l(e.regionServers, function (t, i) {
+                return s(
                   "div",
                   {
-                    key: a,
+                    key: i,
                     staticClass: "server-list-item",
-                    class: { active: e.gameState.connectionUrl === s.url },
+                    class: { active: e.gameState.connectionUrl === t.url },
                     on: {
                       click: function () {
-                        return e.connect(s);
+                        return e.connect(t);
                       },
                     },
                   },
                   [
-                    i("div", { staticClass: "server-name" }, [
-                      e._v(e._s(s.name)),
+                    s("div", { staticClass: "server-name" }, [
+                      e._v(e._s(t.name)),
                     ]),
                     e._v(" "),
-                    null == s.liveMarker
-                      ? i("div", [
-                          e._v(e._s(s.players) + " / " + e._s(s.slots)),
+                    null == t.liveMarker
+                      ? s("div", [
+                          e._v(e._s(t.players) + " / " + e._s(t.slots)),
                         ])
-                      : !0 === s.liveMarker
-                      ? i("div", { staticClass: "live-marker-wrapper" }, [
-                          i("span", { staticClass: "live-marker" }, [
+                      : !0 === t.liveMarker
+                      ? s("div", { staticClass: "live-marker-wrapper" }, [
+                          s("span", { staticClass: "live-marker" }, [
                             e._v("LIVE"),
                           ]),
                         ])
@@ -6402,12 +5722,12 @@
             ),
           ]);
         };
-        c._withStripped = !0;
-        var d = i(19),
-          h = i(1),
-          u = i(5),
-          { noop: p } = i(17),
-          v = {
+        l._withStripped = !0;
+        var c = s(19),
+          h = s(1),
+          d = s(5),
+          { noop: u } = s(17),
+          p = {
             Tournament: 1,
             FFA: 2,
             Instant: 3,
@@ -6417,23 +5737,23 @@
             "Self-Feed": 7,
             Scrimmage: 8,
           };
-        function m(e, s) {
-          var i = (v[e.mode] || 99) - (v[s.mode] || 99);
-          return 0 !== i
-            ? i
-            : e.name.localeCompare(s.name, "en", {
+        function g(e, t) {
+          var s = (p[e.mode] || 99) - (p[t.mode] || 99);
+          return 0 !== s
+            ? s
+            : e.name.localeCompare(t.name, "en", {
                 numeric: !0,
                 ignorePunctuation: !0,
               });
         }
-        function g(e) {
+        function A(e) {
           if (e.region) return e.region.toUpperCase();
-          var s = e.url.toLowerCase().match(/game-([a-z]{2})/);
-          return s ? s[1].toUpperCase() : "";
+          var t = e.url.toLowerCase().match(/game-([a-z]{2})/);
+          return t ? t[1].toUpperCase() : "";
         }
-        var f,
-          y = (i(166), i(0)),
-          w = Object(y.a)(
+        var m,
+          v = (s(166), s(0)),
+          f = Object(v.a)(
             {
               data: () => ({
                 lastServerListReloadTime: 0,
@@ -6460,9 +5780,9 @@
               computed: {
                 regionServers: function () {
                   var e = this.selectedRegion.toUpperCase();
-                  return this.servers.filter((s) => {
-                    var i = g(s);
-                    return !i || i === e;
+                  return this.servers.filter((t) => {
+                    var s = A(t);
+                    return !s || s === e;
                   });
                 },
               },
@@ -6470,7 +5790,7 @@
                 connectEmptyFFA() {
                   var e = this.regionServers
                     .filter((e) => "FFA" === e.mode)
-                    .sort((e, s) => e.currentPlayers - s.currentPlayers);
+                    .sort((e, t) => e.currentPlayers - t.currentPlayers);
                   if (!e.length) return !1;
                   this.connect(e[0]);
                 },
@@ -6478,31 +5798,31 @@
                   (localStorage.regionCode = e), (this.selectedRegion = e);
                 },
                 getRegionCode(e) {
-                  var s = localStorage.regionCode;
-                  s
-                    ? e(s)
-                    : d
+                  var t = localStorage.regionCode;
+                  t
+                    ? e(t)
+                    : c
                         .get("https://ipapi.co/json")
-                        .then((s) => {
-                          e(s.data.continent_code);
+                        .then((t) => {
+                          e(t.data.continent_code);
                         })
                         .catch(() => e(null));
                 },
                 connect(e) {
-                  var s;
+                  var t;
                   this.connectWait ||
                     (this.connectWait++,
-                    u.toast.close(),
+                    d.toast.close(),
                     this.checkBadSkinUrl(),
                     (this.gameState.selectedServer = {
                       url: e.url,
-                      region: g(e),
+                      region: A(e),
                       name: e.name,
                       slots: e.maxPlayers || e.slots,
                       checkInUrl: e.checkInUrl,
                     }),
-                    (s = e),
-                    h.connection.open(s.url),
+                    (t = e),
+                    h.connection.open(t.url),
                     setTimeout(() => this.connectWait--, 3200));
                 },
                 checkBadSkinUrl() {
@@ -6516,51 +5836,51 @@
                     this.loadServers();
                 },
                 loadServers(e) {
-                  (e = e || p),
+                  (e = e || u),
                     (this.lastServerListReloadTime = Date.now()),
-                    d
+                    c
                       .get("https://vanis.io/gameservers.json")
-                      .then((s) => {
-                        var i = s.data.sort(m);
+                      .then((t) => {
+                        var s = t.data.sort(g);
                         window.extraServers.forEach((e) => {
-                          i.unshift(e);
+                          s.unshift(e);
                         }),
-                          (localStorage.catchedServers = JSON.stringify(i)),
-                          (f = i),
-                          (this.servers = i),
+                          (localStorage.catchedServers = JSON.stringify(s)),
+                          (m = s),
+                          (this.servers = s),
                           (this.error = null),
                           e(!0);
                       })
-                      .catch((s) => {
+                      .catch((t) => {
                         localStorage.catchedServers
-                          ? ((f = this.servers =
+                          ? ((m = this.servers =
                               JSON.parse(localStorage.catchedServers)),
                             (this.error = null),
                             e(!0))
-                          : ((this.servers = f || []), (this.error = s), e(!1));
+                          : ((this.servers = m || []), (this.error = t), e(!1));
                       });
                 },
               },
             },
-            c,
+            l,
             [],
             !1,
             null,
             "0647fbb0",
             null
           );
-        w.options.__file = "src/components/servers.vue";
-        var b = w.exports,
-          _ = function () {
+        f.options.__file = "src/components/servers.vue";
+        var C = f.exports,
+          y = function () {
             var e = this,
-              s = e.$createElement,
-              i = e._self._c || s;
-            return i(
+              t = e.$createElement,
+              s = e._self._c || t;
+            return s(
               "div",
               { attrs: { id: "player-container" } },
               [
-                i("div", { staticClass: "tabs" }, [
-                  i("i", {
+                s("div", { staticClass: "tabs" }, [
+                  s("i", {
                     staticClass: "tab fas fa-cog",
                     on: {
                       click: function () {
@@ -6569,7 +5889,7 @@
                     },
                   }),
                   e._v(" "),
-                  i("i", {
+                  s("i", {
                     staticClass: "tab fas fa-palette",
                     on: {
                       click: function () {
@@ -6578,7 +5898,7 @@
                     },
                   }),
                   e._v(" "),
-                  i("i", {
+                  s("i", {
                     staticClass: "tab far fa-keyboard",
                     on: {
                       click: function () {
@@ -6587,7 +5907,7 @@
                     },
                   }),
                   e._v(" "),
-                  i("i", {
+                  s("i", {
                     staticClass: "tab fas fa-film",
                     on: {
                       click: function () {
@@ -6596,7 +5916,7 @@
                     },
                   }),
                   e._v(" "),
-                  i("i", {
+                  s("i", {
                     staticClass: "tab fas fa-clipboard-list",
                     on: {
                       click: function () {
@@ -6606,11 +5926,11 @@
                   }),
                 ]),
                 e._v(" "),
-                i("div", { attrs: { id: "player-data" } }, [
+                s("div", { attrs: { id: "player-data" } }, [
                   e._m(0),
                   e._v(" "),
-                  i("div", { staticClass: "row" }, [
-                    i("input", {
+                  s("div", { staticClass: "row" }, [
+                    s("input", {
                       directives: [
                         {
                           name: "model",
@@ -6630,13 +5950,13 @@
                       domProps: { value: e.nickname },
                       on: {
                         change: e.onNicknameChange,
-                        input: function (s) {
-                          s.target.composing || (e.nickname = s.target.value);
+                        input: function (t) {
+                          t.target.composing || (e.nickname = t.target.value);
                         },
                       },
                     }),
                     e._v(" "),
-                    i("input", {
+                    s("input", {
                       directives: [
                         {
                           name: "model",
@@ -6657,14 +5977,14 @@
                       domProps: { value: e.teamtag },
                       on: {
                         change: e.onTeamTagChange,
-                        input: function (s) {
-                          s.target.composing || (e.teamtag = s.target.value);
+                        input: function (t) {
+                          t.target.composing || (e.teamtag = t.target.value);
                         },
                       },
                     }),
                   ]),
                   e._v(" "),
-                  i("input", {
+                  s("input", {
                     directives: [
                       {
                         name: "model",
@@ -6686,14 +6006,14 @@
                         return e.target.select();
                       },
                       change: e.onSkinUrlChange,
-                      input: function (s) {
-                        s.target.composing || (e.skinUrl = s.target.value);
+                      input: function (t) {
+                        t.target.composing || (e.skinUrl = t.target.value);
                       },
                     },
                   }),
                   e._v(" "),
-                  i("div", { attrs: { id: "game-buttons" } }, [
-                    i(
+                  s("div", { attrs: { id: "game-buttons" } }, [
+                    s(
                       "button",
                       {
                         attrs: {
@@ -6708,31 +6028,31 @@
                       },
                       [
                         e.gameState.deathDelay
-                          ? i("i", { staticClass: "fas fa-sync fa-spin" })
+                          ? s("i", { staticClass: "fas fa-sync fa-spin" })
                           : [e._v(e._s(e.gameState.playButtonText))],
                       ],
                       2
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "button",
                       {
                         attrs: {
                           id: "spec-button",
                           disabled:
                             !e.gameState.allowed ||
-                            e.gameState.isAlive ||
+                            0 != e.gameState.lifeState ||
                             e.gameState.deathDelay,
                         },
                         on: { click: e.spectate },
                       },
-                      [i("i", { staticClass: "fa fa-eye" })]
+                      [s("i", { staticClass: "fa fa-eye" })]
                     ),
                   ]),
                 ]),
                 e._v(" "),
                 "settings" === e.activeModal
-                  ? i(
+                  ? s(
                       "modal",
                       {
                         on: {
@@ -6741,13 +6061,13 @@
                           },
                         },
                       },
-                      [i("settings")],
+                      [s("settings")],
                       1
                     )
                   : e._e(),
                 e._v(" "),
                 "theming" === e.activeModal
-                  ? i(
+                  ? s(
                       "modal",
                       {
                         on: {
@@ -6756,13 +6076,13 @@
                           },
                         },
                       },
-                      [i("theming")],
+                      [s("theming")],
                       1
                     )
                   : e._e(),
                 e._v(" "),
                 "hotkeys" === e.activeModal
-                  ? i(
+                  ? s(
                       "modal",
                       {
                         on: {
@@ -6771,13 +6091,13 @@
                           },
                         },
                       },
-                      [i("hotkeys")],
+                      [s("hotkeys")],
                       1
                     )
                   : e._e(),
                 e._v(" "),
                 "replays3" === e.activeModal
-                  ? i(
+                  ? s(
                       "modal",
                       {
                         staticStyle: {
@@ -6790,13 +6110,13 @@
                           },
                         },
                       },
-                      [i("replays3")],
+                      [s("replays3")],
                       1
                     )
                   : e._e(),
                 e._v(" "),
                 "metaLeaderboard" === e.activeModal
-                  ? i(
+                  ? s(
                       "modal",
                       {
                         on: {
@@ -6805,7 +6125,7 @@
                           },
                         },
                       },
-                      [i("meta-leaderboard")],
+                      [s("meta-leaderboard")],
                       1
                     )
                   : e._e(),
@@ -6813,26 +6133,26 @@
               1
             );
           };
-        _._withStripped = !0;
-        var k = i(115),
-          C = function () {
+        y._withStripped = !0;
+        var w = s(115),
+          I = function () {
             var e = this,
-              s = e.$createElement,
-              i = e._self._c || s;
-            return i("div", { staticClass: "container" }, [
-              i("div", { staticClass: "section row" }, [
-                i("div", { staticClass: "header" }, [
+              t = e.$createElement,
+              s = e._self._c || t;
+            return s("div", { staticClass: "container" }, [
+              s("div", { staticClass: "section row" }, [
+                s("div", { staticClass: "header" }, [
                   e._v("\n            Renderer\n            "),
                   e.isWebGLSupported
-                    ? i("span", { staticClass: "right silent" }, [e._v("")])
+                    ? s("span", { staticClass: "right silent" }, [e._v("")])
                     : e._e(),
                 ]),
                 e._v(" "),
-                i(
+                s(
                   "div",
                   { staticClass: "options" },
                   [
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
@@ -6841,21 +6161,21 @@
                           checked: e.useWebGL,
                         },
                         on: {
-                          change: function (s) {
-                            e.change("useWebGL", s), e.promptRestart();
+                          change: function (t) {
+                            e.change("useWebGL", t), e.promptRestart();
                           },
                         },
                       },
                       [e._v("\n            Use GPU rendering")]
                     ),
                     e._v(" "),
-                    i("div", { staticClass: "slider-option" }, [
+                    s("div", { staticClass: "slider-option" }, [
                       e._v("\n            Renderer resolution "),
-                      i("span", { staticClass: "right" }, [
+                      s("span", { staticClass: "right" }, [
                         e._v(e._s((100 * e.gameResolution).toFixed(0)) + "%"),
                       ]),
                       e._v(" "),
-                      i("input", {
+                      s("input", {
                         staticClass: "slider",
                         attrs: {
                           type: "range",
@@ -6865,8 +6185,8 @@
                         },
                         domProps: { value: e.gameResolution },
                         on: {
-                          input: function (s) {
-                            return e.change("gameResolution", s);
+                          input: function (t) {
+                            return e.change("gameResolution", t);
                           },
                           change: function () {
                             return e.promptRestart();
@@ -6875,13 +6195,13 @@
                       }),
                     ]),
                     e._v(" "),
-                    i("div", { staticClass: "slider-option" }, [
+                    s("div", { staticClass: "slider-option" }, [
                       e._v("\n            Text hiding threshold "),
-                      i("span", { staticClass: "right" }, [
+                      s("span", { staticClass: "right" }, [
                         e._v(e._s(e.smallTextThreshold) + "px"),
                       ]),
                       e._v(" "),
-                      i("input", {
+                      s("input", {
                         staticClass: "slider",
                         attrs: {
                           type: "range",
@@ -6891,8 +6211,8 @@
                         },
                         domProps: { value: e.smallTextThreshold },
                         on: {
-                          input: function (s) {
-                            return e.change("smallTextThreshold", s);
+                          input: function (t) {
+                            return e.change("smallTextThreshold", t);
                           },
                         },
                       }),
@@ -6902,26 +6222,26 @@
                 ),
               ]),
               e._v(" "),
-              i("div", { staticClass: "section row" }, [
-                i("div", { staticClass: "header" }, [
+              s("div", { staticClass: "section row" }, [
+                s("div", { staticClass: "header" }, [
                   e._v("\n        Game\n        "),
-                  i("span", { staticClass: "right silent" }, [
+                  s("span", { staticClass: "right silent" }, [
                     e._v(e._s(e.clientHash)),
                   ]),
                 ]),
                 e._v(" "),
-                i(
+                s(
                   "div",
                   { staticClass: "options" },
                   [
-                    i(
+                    s(
                       "div",
                       {
                         staticClass: "inline-range",
                         class: { off: !e.mbActive },
                       },
                       [
-                        i("input", {
+                        s("input", {
                           staticClass: "slider",
                           attrs: {
                             type: "range",
@@ -6931,8 +6251,8 @@
                           },
                           domProps: { value: e.mbActive },
                           on: {
-                            input: function (s) {
-                              return e.change("mbActive", s);
+                            input: function (t) {
+                              return e.change("mbActive", t);
                             },
                           },
                         }),
@@ -6941,97 +6261,127 @@
                         ),
                       ]
                     ),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.autoZoom },
                         on: {
-                          change: function (s) {
-                            return e.change("autoZoom", s);
+                          change: function (t) {
+                            return e.change("autoZoom", t);
                           },
                         },
                       },
                       [e._v("Auto zoom")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
+                      "p-check",
+                      {
+                        staticClass: "p-switch",
+                        attrs: { checked: e.rememeberEjecting },
+                        on: {
+                          change: function (t) {
+                            return e.change("rememeberEjecting", t);
+                          },
+                        },
+                      },
+                      [e._v("Remember ejecting")]
+                    ),
+                    e._v(" "),
+                    s(
+                      "div",
+                      { staticClass: "silent" },
+                      e.rememeberEjecting
+                        ? [
+                            e._v("After changing tab, you "),
+                            s("b", [e._v("keep")]),
+                            e._v(" ejecting"),
+                          ]
+                        : [
+                            e._v("After changing tab, you "),
+                            s("b", [e._v("stop")]),
+                            e._v(" ejecting"),
+                          ]
+                    ),
+                    e._v(" "),
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.autoRespawn },
                         on: {
-                          change: function (s) {
-                            return e.change("autoRespawn", s);
+                          change: function (t) {
+                            return e.change("autoRespawn", t);
                           },
                         },
                       },
                       [e._v("Auto respawn")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.mbAutorespawn },
                         on: {
-                          change: function (s) {
-                            return e.change("mbAutorespawn", s);
+                          change: function (t) {
+                            return e.change("mbAutorespawn", t);
                           },
                         },
                       },
                       [e._v("Multibox auto respawn")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.showCellLines },
                         on: {
-                          change: function (s) {
-                            return e.change("showCellLines", s);
+                          change: function (t) {
+                            return e.change("showCellLines", t);
                           },
                         },
                       },
                       [e._v("Show cell lines")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.showTag },
                         on: {
-                          change: function (s) {
-                            return e.change("showTag", s);
+                          change: function (t) {
+                            return e.change("showTag", t);
                           },
                         },
                       },
                       [e._v("Show team")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.showDir },
                         on: {
-                          change: function (s) {
-                            return e.change("showDir", s);
+                          change: function (t) {
+                            return e.change("showDir", t);
                           },
                         },
                       },
                       [e._v("(BETA) Show direction")]
                     ),
                     e._v(" "),
-                    i("div", { staticClass: "slider-option" }, [
+                    s("div", { staticClass: "slider-option" }, [
                       e._v("\n                Draw delay "),
-                      i("span", { staticClass: "right" }, [
+                      s("span", { staticClass: "right" }, [
                         e._v(e._s(e.drawDelay) + "ms"),
                       ]),
                       e._v(" "),
-                      i("input", {
+                      s("input", {
                         staticClass: "slider draw-delay",
                         attrs: {
                           type: "range",
@@ -7041,20 +6391,20 @@
                         },
                         domProps: { value: e.drawDelay },
                         on: {
-                          input: function (s) {
-                            return e.change("drawDelay", s);
+                          input: function (t) {
+                            return e.change("drawDelay", t);
                           },
                         },
                       }),
                     ]),
                     e._v(" "),
-                    i("div", { staticClass: "slider-option" }, [
+                    s("div", { staticClass: "slider-option" }, [
                       e._v("\n            Camera panning delay "),
-                      i("span", { staticClass: "right" }, [
+                      s("span", { staticClass: "right" }, [
                         e._v(e._s(e.cameraMoveDelay) + "ms"),
                       ]),
                       e._v(" "),
-                      i("input", {
+                      s("input", {
                         staticClass: "slider",
                         attrs: {
                           type: "range",
@@ -7064,20 +6414,20 @@
                         },
                         domProps: { value: e.cameraMoveDelay },
                         on: {
-                          input: function (s) {
-                            return e.change("cameraMoveDelay", s);
+                          input: function (t) {
+                            return e.change("cameraMoveDelay", t);
                           },
                         },
                       }),
                     ]),
                     e._v(" "),
-                    i("div", { staticClass: "slider-option" }, [
+                    s("div", { staticClass: "slider-option" }, [
                       e._v("\n            Camera zooming delay "),
-                      i("span", { staticClass: "right" }, [
+                      s("span", { staticClass: "right" }, [
                         e._v(e._s(e.cameraZoomDelay) + "ms"),
                       ]),
                       e._v(" "),
-                      i("input", {
+                      s("input", {
                         staticClass: "slider",
                         attrs: {
                           type: "range",
@@ -7087,23 +6437,23 @@
                         },
                         domProps: { value: e.cameraZoomDelay },
                         on: {
-                          input: function (s) {
-                            return e.change("cameraZoomDelay", s);
+                          input: function (t) {
+                            return e.change("cameraZoomDelay", t);
                           },
                         },
                       }),
                     ]),
                     e._v(" "),
-                    i("div", { staticClass: "slider-option" }, [
+                    s("div", { staticClass: "slider-option" }, [
                       e._v("\n            Scroll zoom rate "),
-                      i("span", { staticClass: "right" }, [
+                      s("span", { staticClass: "right" }, [
                         e._v(
                           e._s(((e.cameraZoomSpeed / 10) * 100).toFixed(0)) +
                             "%"
                         ),
                       ]),
                       e._v(" "),
-                      i("input", {
+                      s("input", {
                         staticClass: "slider",
                         attrs: {
                           type: "range",
@@ -7113,20 +6463,20 @@
                         },
                         domProps: { value: e.cameraZoomSpeed },
                         on: {
-                          input: function (s) {
-                            return e.change("cameraZoomSpeed", s);
+                          input: function (t) {
+                            return e.change("cameraZoomSpeed", t);
                           },
                         },
                       }),
                     ]),
                     e._v(" "),
-                    i("div", { staticClass: "slider-option" }, [
+                    s("div", { staticClass: "slider-option" }, [
                       e._v("\n            Cells transparency "),
-                      i("span", { staticClass: "right" }, [
+                      s("span", { staticClass: "right" }, [
                         e._v(e._s(100 * e.gameAlpha) + "%"),
                       ]),
                       e._v(" "),
-                      i("input", {
+                      s("input", {
                         staticClass: "slider",
                         attrs: {
                           type: "range",
@@ -7136,20 +6486,20 @@
                         },
                         domProps: { value: e.gameAlpha },
                         on: {
-                          input: function (s) {
-                            return e.change("gameAlpha", s);
+                          input: function (t) {
+                            return e.change("gameAlpha", t);
                           },
                         },
                       }),
                     ]),
                     e._v(" "),
-                    i("div", { staticClass: "slider-option" }, [
+                    s("div", { staticClass: "slider-option" }, [
                       e._v("\n            Replay duration "),
-                      i("span", { staticClass: "right" }, [
+                      s("span", { staticClass: "right" }, [
                         e._v(e._s(e.replayDuration) + " seconds"),
                       ]),
                       e._v(" "),
-                      i("input", {
+                      s("input", {
                         staticClass: "slider",
                         attrs: {
                           type: "range",
@@ -7159,21 +6509,21 @@
                         },
                         domProps: { value: e.replayDuration },
                         on: {
-                          input: function (s) {
-                            return e.change("replayDuration", s);
+                          input: function (t) {
+                            return e.change("replayDuration", t);
                           },
                         },
                       }),
                     ]),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       {
                         staticClass: "inline-range",
                         class: { off: !e.showReplaySaved },
                       },
                       [
-                        i("input", {
+                        s("input", {
                           staticClass: "slider",
                           attrs: {
                             type: "range",
@@ -7183,8 +6533,8 @@
                           },
                           domProps: { value: e.showReplaySaved },
                           on: {
-                            input: function (s) {
-                              return e.change("showReplaySaved", s);
+                            input: function (t) {
+                              return e.change("showReplaySaved", t);
                             },
                           },
                         }),
@@ -7200,23 +6550,23 @@
                 ),
               ]),
               e._v(" "),
-              i("div", { staticClass: "section row" }, [
-                i("div", { staticClass: "header" }, [
+              s("div", { staticClass: "section row" }, [
+                s("div", { staticClass: "header" }, [
                   e._v("\n            Cells\n        "),
                 ]),
                 e._v(" "),
-                i(
+                s(
                   "div",
                   { staticClass: "options" },
                   [
-                    i(
+                    s(
                       "div",
                       {
                         staticClass: "inline-range",
                         class: { off: !e.showNames },
                       },
                       [
-                        i("input", {
+                        s("input", {
                           staticClass: "slider",
                           attrs: {
                             type: "range",
@@ -7226,8 +6576,8 @@
                           },
                           domProps: { value: e.showNames },
                           on: {
-                            input: function (s) {
-                              return e.change("showNames", s);
+                            input: function (t) {
+                              return e.change("showNames", t);
                             },
                           },
                         }),
@@ -7239,14 +6589,14 @@
                       ]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       {
                         staticClass: "inline-range",
                         class: { off: !e.showSkins },
                       },
                       [
-                        i("input", {
+                        s("input", {
                           staticClass: "slider",
                           attrs: {
                             type: "range",
@@ -7256,8 +6606,8 @@
                           },
                           domProps: { value: e.showSkins },
                           on: {
-                            input: function (s) {
-                              return e.change("showSkins", s);
+                            input: function (t) {
+                              return e.change("showSkins", t);
                             },
                           },
                         }),
@@ -7269,14 +6619,14 @@
                       ]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       {
                         staticClass: "inline-range",
                         class: { off: !e.showMass },
                       },
                       [
-                        i("input", {
+                        s("input", {
                           staticClass: "slider",
                           attrs: {
                             type: "range",
@@ -7286,8 +6636,8 @@
                           },
                           domProps: { value: e.showMass },
                           on: {
-                            input: function (s) {
-                              return e.change("showMass", s);
+                            input: function (t) {
+                              return e.change("showMass", t);
                             },
                           },
                         }),
@@ -7299,84 +6649,84 @@
                       ]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.showOwnName },
                         on: {
-                          change: function (s) {
-                            return e.change("showOwnName", s);
+                          change: function (t) {
+                            return e.change("showOwnName", t);
                           },
                         },
                       },
                       [e._v("Show my own name")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.showOwnSkin },
                         on: {
-                          change: function (s) {
-                            return e.change("showOwnSkin", s);
+                          change: function (t) {
+                            return e.change("showOwnSkin", t);
                           },
                         },
                       },
                       [e._v("Show my own skin")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.showOwnMass },
                         on: {
-                          change: function (s) {
-                            return e.change("showOwnMass", s);
+                          change: function (t) {
+                            return e.change("showOwnMass", t);
                           },
                         },
                       },
                       [e._v("Show my own mass")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.showCrown },
                         on: {
-                          change: function (s) {
-                            return e.change("showCrown", s);
+                          change: function (t) {
+                            return e.change("showCrown", t);
                           },
                         },
                       },
                       [e._v("Show crown")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.foodVisible },
                         on: {
-                          change: function (s) {
-                            return e.change("foodVisible", s);
+                          change: function (t) {
+                            return e.change("foodVisible", t);
                           },
                         },
                       },
                       [e._v("Show food")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.eatAnimation },
                         on: {
-                          change: function (s) {
-                            return e.change("eatAnimation", s);
+                          change: function (t) {
+                            return e.change("eatAnimation", t);
                           },
                         },
                       },
@@ -7387,19 +6737,19 @@
                 ),
               ]),
               e._v(" "),
-              i("div", { staticClass: "section row" }, [
-                i(
+              s("div", { staticClass: "section row" }, [
+                s(
                   "div",
                   { staticClass: "header" },
                   [
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.showHud },
                         on: {
-                          change: function (s) {
-                            return e.change("showHud", s);
+                          change: function (t) {
+                            return e.change("showHud", t);
                           },
                         },
                       },
@@ -7409,11 +6759,11 @@
                   1
                 ),
                 e._v(" "),
-                i(
+                s(
                   "div",
                   { staticClass: "options" },
                   [
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
@@ -7422,15 +6772,15 @@
                           checked: e.showLeaderboard,
                         },
                         on: {
-                          change: function (s) {
-                            return e.change("showLeaderboard", s);
+                          change: function (t) {
+                            return e.change("showLeaderboard", t);
                           },
                         },
                       },
                       [e._v("Show leaderboard")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
@@ -7439,29 +6789,29 @@
                           checked: e.showServerName,
                         },
                         on: {
-                          change: function (s) {
-                            return e.change("showServerName", s);
+                          change: function (t) {
+                            return e.change("showServerName", t);
                           },
                         },
                       },
                       [e._v("Leaderboard: Server name")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { disabled: !e.showHud, checked: e.showChat },
                         on: {
-                          change: function (s) {
-                            return e.change("showChat", s);
+                          change: function (t) {
+                            return e.change("showChat", t);
                           },
                         },
                       },
                       [e._v("Show chat")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
@@ -7470,15 +6820,15 @@
                           checked: e.showChatToast,
                         },
                         on: {
-                          change: function (s) {
-                            return e.change("showChatToast", s);
+                          change: function (t) {
+                            return e.change("showChatToast", t);
                           },
                         },
                       },
                       [e._v("Show chat as popups")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
@@ -7487,15 +6837,15 @@
                           checked: e.minimapEnabled,
                         },
                         on: {
-                          change: function (s) {
-                            return e.change("minimapEnabled", s);
+                          change: function (t) {
+                            return e.change("minimapEnabled", t);
                           },
                         },
                       },
                       [e._v("Show minimap")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
@@ -7504,43 +6854,43 @@
                           checked: e.minimapLocations,
                         },
                         on: {
-                          change: function (s) {
-                            return e.change("minimapLocations", s);
+                          change: function (t) {
+                            return e.change("minimapLocations", t);
                           },
                         },
                       },
                       [e._v("Show minimap locations")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { disabled: !e.showHud, checked: e.showFPS },
                         on: {
-                          change: function (s) {
-                            return e.change("showFPS", s);
+                          change: function (t) {
+                            return e.change("showFPS", t);
                           },
                         },
                       },
                       [e._v("Stats: FPS")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { disabled: !e.showHud, checked: e.showPing },
                         on: {
-                          change: function (s) {
-                            return e.change("showPing", s);
+                          change: function (t) {
+                            return e.change("showPing", t);
                           },
                         },
                       },
                       [e._v("Stats: Ping")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
@@ -7549,15 +6899,15 @@
                           checked: e.showPlayerMass,
                         },
                         on: {
-                          change: function (s) {
-                            return e.change("showPlayerMass", s);
+                          change: function (t) {
+                            return e.change("showPlayerMass", t);
                           },
                         },
                       },
                       [e._v("Stats: Current mass")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
@@ -7566,15 +6916,15 @@
                           checked: e.showPlayerScore,
                         },
                         on: {
-                          change: function (s) {
-                            return e.change("showPlayerScore", s);
+                          change: function (t) {
+                            return e.change("showPlayerScore", t);
                           },
                         },
                       },
                       [e._v("Stats: Score")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
@@ -7583,29 +6933,29 @@
                           checked: e.showCellCount,
                         },
                         on: {
-                          change: function (s) {
-                            return e.change("showCellCount", s);
+                          change: function (t) {
+                            return e.change("showCellCount", t);
                           },
                         },
                       },
                       [e._v("Stats: Cell count")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { disabled: !e.showHud, checked: e.showClock },
                         on: {
-                          change: function (s) {
-                            return e.change("showClock", s);
+                          change: function (t) {
+                            return e.change("showClock", t);
                           },
                         },
                       },
                       [e._v("Minimap stats: System time")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
@@ -7614,15 +6964,15 @@
                           checked: e.showSessionTime,
                         },
                         on: {
-                          change: function (s) {
-                            return e.change("showSessionTime", s);
+                          change: function (t) {
+                            return e.change("showSessionTime", t);
                           },
                         },
                       },
                       [e._v("Minimap stats: Session time")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
@@ -7631,15 +6981,15 @@
                           checked: e.showPlayerCount,
                         },
                         on: {
-                          change: function (s) {
-                            return e.change("showPlayerCount", s);
+                          change: function (t) {
+                            return e.change("showPlayerCount", t);
                           },
                         },
                       },
                       [e._v("Minimap stats: Players in server")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
@@ -7648,15 +6998,15 @@
                           checked: e.showSpectators,
                         },
                         on: {
-                          change: function (s) {
-                            return e.change("showSpectators", s);
+                          change: function (t) {
+                            return e.change("showSpectators", t);
                           },
                         },
                       },
                       [e._v("Minimap stats: Spectators")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
@@ -7665,64 +7015,64 @@
                           checked: e.showRestartTiming,
                         },
                         on: {
-                          change: function (s) {
-                            return e.change("showRestartTiming", s);
+                          change: function (t) {
+                            return e.change("showRestartTiming", t);
                           },
                         },
                       },
                       [e._v("Minimap stats: Server restart time")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.chatColorOnlyPeople },
                         on: {
-                          change: function (s) {
-                            return e.change("chatColorOnlyPeople", s);
+                          change: function (t) {
+                            return e.change("chatColorOnlyPeople", t);
                           },
                         },
                       },
                       [e._v("Chat: Only colored name people")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.playerStats },
                         on: {
-                          change: function (s) {
-                            return e.change("playerStats", s);
+                          change: function (t) {
+                            return e.change("playerStats", t);
                           },
                         },
                       },
                       [e._v("Player tracker")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.debugStats },
                         on: {
-                          change: function (s) {
-                            return e.change("debugStats", s);
+                          change: function (t) {
+                            return e.change("debugStats", t);
                           },
                         },
                       },
                       [e._v("Network info")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.clientStats },
                         on: {
-                          change: function (s) {
-                            return e.change("clientStats", s);
+                          change: function (t) {
+                            return e.change("clientStats", t);
                           },
                         },
                       },
@@ -7733,57 +7083,57 @@
                 ),
               ]),
               e._v(" "),
-              i("div", { staticClass: "section row" }, [
-                i("div", { staticClass: "header" }, [
+              s("div", { staticClass: "section row" }, [
+                s("div", { staticClass: "header" }, [
                   e._v("\n        Chat\n    "),
                 ]),
                 e._v(" "),
-                i(
+                s(
                   "div",
                   { staticClass: "options" },
                   [
-                    i("div", { staticClass: "row" }, [
+                    s("div", { staticClass: "row" }, [
                       e._v(
                         "\n                You can right-click name in chat to block them until server restart\n            "
                       ),
                     ]),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.showBlockedMessageCount },
                         on: {
-                          change: function (s) {
-                            return e.change("showBlockedMessageCount", s);
+                          change: function (t) {
+                            return e.change("showBlockedMessageCount", t);
                           },
                         },
                       },
                       [e._v("\n            Show blocked message count")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.filterChatMessages },
                         on: {
-                          change: function (s) {
-                            return e.change("filterChatMessages", s);
+                          change: function (t) {
+                            return e.change("filterChatMessages", t);
                           },
                         },
                       },
                       [e._v("\n            Filter profanity")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.clearChatMessages },
                         on: {
-                          change: function (s) {
-                            return e.change("clearChatMessages", s);
+                          change: function (t) {
+                            return e.change("clearChatMessages", t);
                           },
                         },
                       },
@@ -7794,8 +7144,8 @@
                 ),
               ]),
               e._v(" "),
-              i("div", { staticClass: "reset-option-wrapper" }, [
-                i(
+              s("div", { staticClass: "reset-option-wrapper" }, [
+                s(
                   "span",
                   {
                     staticClass: "reset-option",
@@ -7806,20 +7156,20 @@
                     },
                   },
                   [
-                    i("i", { staticClass: "fa fa-undo" }),
+                    s("i", { staticClass: "fa fa-undo" }),
                     e._v(" Reset\n        "),
                   ]
                 ),
               ]),
             ]);
           };
-        C._withStripped = !0;
-        var x = i(1),
-          S = i(4),
-          M = i(5),
-          T = PIXI.utils.isWebGLSupported(),
-          I = T && S.useWebGL;
-        function P(e) {
+        I._withStripped = !0;
+        var k = s(1),
+          b = s(4),
+          _ = s(5),
+          S = PIXI.utils.isWebGLSupported(),
+          E = S && b.useWebGL;
+        function x(e) {
           switch (e) {
             case 0:
               return "nobody else's";
@@ -7831,74 +7181,75 @@
               return "???";
           }
         }
-        var L =
-          (i(170),
-          Object(y.a)(
+        var B =
+          (s(170),
+          Object(v.a)(
             {
               data: () => ({
                 clientHash: "",
-                isWebGLSupported: T,
-                useWebGL: I,
-                gameResolution: S.gameResolution,
-                smallTextThreshold: S.smallTextThreshold,
-                autoZoom: S.autoZoom,
-                autoRespawn: S.autoRespawn,
-                mbAutorespawn: S.mbAutorespawn,
-                mouseFreezeSoft: S.mouseFreezeSoft,
-                drawDelay: S.drawDelay,
-                cameraMoveDelay: S.cameraMoveDelay,
-                cameraZoomDelay: S.cameraZoomDelay,
-                cameraZoomSpeed: S.cameraZoomSpeed,
-                replayDuration: S.replayDuration,
-                showReplaySaved: S.showReplaySaved,
-                showNames: S.showNames,
-                showMass: S.showMass,
-                showSkins: S.showSkins,
-                showOwnName: S.showOwnName,
-                showOwnMass: S.showOwnMass,
-                showOwnSkin: S.showOwnSkin,
-                showCrown: S.showCrown,
-                foodVisible: S.foodVisible,
-                eatAnimation: S.eatAnimation,
-                showHud: S.showHud,
-                showLeaderboard: S.showLeaderboard,
-                showServerName: S.showServerName,
-                showChat: S.showChat,
-                showChatToast: S.showChatToast,
-                minimapEnabled: S.minimapEnabled,
-                minimapLocations: S.minimapLocations,
-                showFPS: S.showFPS,
-                showPing: S.showPing,
-                showCellCount: S.showCellCount,
-                showPlayerScore: S.showPlayerScore,
-                showPlayerMass: S.showPlayerMass,
-                showClock: S.showClock,
-                showSessionTime: S.showSessionTime,
-                showPlayerCount: S.showPlayerCount,
-                showSpectators: S.showSpectators,
-                showRestartTiming: S.showRestartTiming,
-                debugStats: S.debugStats,
-                clientStats: S.clientStats,
-                playerStats: S.playerStats,
-                chatColorOnlyPeople: S.chatColorOnlyPeople,
-                showBlockedMessageCount: S.showBlockedMessageCount,
-                filterChatMessages: S.filterChatMessages,
-                clearChatMessages: S.clearChatMessages,
-                showCellLines: S.showCellLines,
-                showTag: S.showTag,
-                showDir: S.showDir,
-                gameAlpha: S.gameAlpha,
-                mbActive: S.mbActive,
+                isWebGLSupported: S,
+                useWebGL: E,
+                gameResolution: b.gameResolution,
+                smallTextThreshold: b.smallTextThreshold,
+                autoZoom: b.autoZoom,
+                rememeberEjecting: b.rememeberEjecting,
+                autoRespawn: b.autoRespawn,
+                mbAutorespawn: b.mbAutorespawn,
+                mouseFreezeSoft: b.mouseFreezeSoft,
+                drawDelay: b.drawDelay,
+                cameraMoveDelay: b.cameraMoveDelay,
+                cameraZoomDelay: b.cameraZoomDelay,
+                cameraZoomSpeed: b.cameraZoomSpeed,
+                replayDuration: b.replayDuration,
+                showReplaySaved: b.showReplaySaved,
+                showNames: b.showNames,
+                showMass: b.showMass,
+                showSkins: b.showSkins,
+                showOwnName: b.showOwnName,
+                showOwnMass: b.showOwnMass,
+                showOwnSkin: b.showOwnSkin,
+                showCrown: b.showCrown,
+                foodVisible: b.foodVisible,
+                eatAnimation: b.eatAnimation,
+                showHud: b.showHud,
+                showLeaderboard: b.showLeaderboard,
+                showServerName: b.showServerName,
+                showChat: b.showChat,
+                showChatToast: b.showChatToast,
+                minimapEnabled: b.minimapEnabled,
+                minimapLocations: b.minimapLocations,
+                showFPS: b.showFPS,
+                showPing: b.showPing,
+                showCellCount: b.showCellCount,
+                showPlayerScore: b.showPlayerScore,
+                showPlayerMass: b.showPlayerMass,
+                showClock: b.showClock,
+                showSessionTime: b.showSessionTime,
+                showPlayerCount: b.showPlayerCount,
+                showSpectators: b.showSpectators,
+                showRestartTiming: b.showRestartTiming,
+                debugStats: b.debugStats,
+                clientStats: b.clientStats,
+                playerStats: b.playerStats,
+                chatColorOnlyPeople: b.chatColorOnlyPeople,
+                showBlockedMessageCount: b.showBlockedMessageCount,
+                filterChatMessages: b.filterChatMessages,
+                clearChatMessages: b.clearChatMessages,
+                showCellLines: b.showCellLines,
+                showTag: b.showTag,
+                showDir: b.showDir,
+                gameAlpha: b.gameAlpha,
+                mbActive: b.mbActive,
               }),
               computed: {
                 showNamesMeaning() {
-                  return P(this.showNames);
+                  return x(this.showNames);
                 },
                 showSkinsMeaning() {
-                  return P(this.showSkins);
+                  return x(this.showSkins);
                 },
                 showMassMeaning() {
-                  return P(this.showMass);
+                  return x(this.showMass);
                 },
                 showReplaySavedMeaning() {
                   switch (this.showReplaySaved) {
@@ -7920,38 +7271,38 @@
               },
               methods: {
                 promptRestart() {
-                  M.confirm("Refresh page to apply changes?", () => {
+                  _.confirm("Refresh page to apply changes?", () => {
                     setTimeout(() => {
                       location.reload();
                     }, 500);
                   });
                 },
-                change(e, s) {
-                  var i;
+                change(e, t) {
+                  var s;
                   if (
-                    ((i =
-                      s && s.target
-                        ? isNaN(s.target.valueAsNumber)
-                          ? s.target.value
-                          : s.target.valueAsNumber
-                        : s),
-                    S[e] != i)
+                    ((s =
+                      t && t.target
+                        ? isNaN(t.target.valueAsNumber)
+                          ? t.target.value
+                          : t.target.valueAsNumber
+                        : t),
+                    b[e] != s)
                   ) {
-                    switch (((this[e] = i), S.set(e, i), e)) {
+                    switch (((this[e] = s), b.set(e, s), e)) {
                       case "backgroundColor":
-                        var a = PIXI.utils.string2hex(i);
-                        x.renderer.backgroundColor = a;
+                        var i = PIXI.utils.string2hex(s);
+                        k.renderer.backgroundColor = i;
                         break;
                       case "minimapLocations":
-                        x.events.$emit("minimap-show-locations", i);
+                        k.events.$emit("minimap-show-locations", s);
                         break;
                       case "showHud":
-                        x.app.showHud = i;
+                        k.app.showHud = s;
                         break;
                       case "showChatToast":
-                        x.events.$emit("chat-visible", { visibleToast: i });
+                        k.events.$emit("chat-visible", { visibleToast: s });
                     }
-                    if (x.running)
+                    if (k.running)
                       switch (e) {
                         case "showNames":
                         case "showSkins":
@@ -7959,90 +7310,90 @@
                         case "showOwnName":
                         case "showOwnSkin":
                         case "showOwnMass":
-                          x.playerManager.invalidateVisibility();
+                          k.playerManager.invalidateVisibility();
                           break;
                         case "gameAlpha":
-                          GAME.scene.container.alpha = i;
+                          GAME.scene.container.alpha = s;
                           break;
                         case "foodVisible":
-                          x.scene.food.visible = i;
+                          k.scene.food.visible = s;
                           break;
                         case "showLeaderboard":
-                          x.events.$emit("leaderboard-visible", i);
+                          k.events.$emit("leaderboard-visible", s);
                           break;
                         case "minimapEnabled":
-                          i
-                            ? x.events.$emit("minimap-show")
-                            : x.events.$emit("minimap-hide");
+                          s
+                            ? k.events.$emit("minimap-show")
+                            : k.events.$emit("minimap-hide");
                           break;
                         case "showFPS":
                         case "showPing":
                         case "showPlayerMass":
                         case "showPlayerScore":
                         case "showCellCount":
-                          x.events.$emit("stats-invalidate-shown");
+                          k.events.$emit("stats-invalidate-shown");
                           break;
                         case "showClock":
                         case "showSessionTime":
                         case "showSpectators":
                         case "showPlayerCount":
                         case "showRestartTiming":
-                          x.events.$emit("minimap-stats-invalidate-shown");
+                          k.events.$emit("minimap-stats-invalidate-shown");
                           break;
                         case "showChat":
-                          x.events.$emit("chat-visible", { visible: i });
+                          k.events.$emit("chat-visible", { visible: s });
                           break;
                         case "showBlockedMessageCount":
-                          x.events.$emit("show-blocked-message-count", i);
+                          k.events.$emit("show-blocked-message-count", s);
                       }
                   }
                 },
                 confirmReset() {
-                  M.confirm(
+                  _.confirm(
                     "Are you sure you want to reset all setting options?",
                     () => this.reset()
                   );
                 },
                 reset() {
                   var e = ["clientHash", "isWebGLSupported"];
-                  for (var s in this.$data)
-                    e.includes(s) || this.change(s, S.getDefault(s));
+                  for (var t in this.$data)
+                    e.includes(t) || this.change(t, b.getDefault(t));
                 },
               },
             },
-            C,
+            I,
             [],
             !1,
             null,
             "3ddebeb3",
             null
           ));
-        L.options.__file = "src/components/settings.vue";
-        var E = L.exports,
-          U = function () {
+        B.options.__file = "src/components/settings.vue";
+        var Q = B.exports,
+          M = function () {
             var e = this,
-              s = e.$createElement,
-              i = e._self._c || s;
-            return i("div", { staticClass: "container" }, [
-              i("div", { staticClass: "section row" }, [
-                i("div", { staticClass: "header" }, [
+              t = e.$createElement,
+              s = e._self._c || t;
+            return s("div", { staticClass: "container" }, [
+              s("div", { staticClass: "section row" }, [
+                s("div", { staticClass: "header" }, [
                   e._v("\n        Colors and images\n    "),
                 ]),
                 e._v(" "),
-                i("div", { staticClass: "options two-columns" }, [
-                  i("span", [
-                    i(
+                s("div", { staticClass: "options two-columns" }, [
+                  s("span", [
+                    s(
                       "div",
                       { staticClass: "color-input" },
                       [
-                        i("span", [e._v("Background")]),
+                        s("span", [e._v("Background")]),
                         e._v(" "),
-                        i("color-option", {
+                        s("color-option", {
                           staticClass: "right",
                           attrs: { value: e.backgroundColor },
                           on: {
-                            input: function (s) {
-                              return e.change("backgroundColor", s);
+                            input: function (t) {
+                              return e.change("backgroundColor", t);
                             },
                           },
                         }),
@@ -8050,18 +7401,18 @@
                       1
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       { staticClass: "color-input" },
                       [
-                        i("span", [e._v("Map border")]),
+                        s("span", [e._v("Map border")]),
                         e._v(" "),
-                        i("color-option", {
+                        s("color-option", {
                           staticClass: "right",
                           attrs: { value: e.borderColor },
                           on: {
-                            input: function (s) {
-                              return e.change("borderColor", s);
+                            input: function (t) {
+                              return e.change("borderColor", t);
                             },
                           },
                         }),
@@ -8069,24 +7420,24 @@
                       1
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       {
                         staticClass: "color-input",
                         class: { disabled: !e.useFoodColor },
                       },
                       [
-                        i("span", [e._v("Food")]),
+                        s("span", [e._v("Food")]),
                         e._v(" "),
-                        i("color-option", {
+                        s("color-option", {
                           staticClass: "right",
                           attrs: {
                             disabled: !e.useFoodColor,
                             value: e.foodColor,
                           },
                           on: {
-                            input: function (s) {
-                              return e.change("foodColor", s);
+                            input: function (t) {
+                              return e.change("foodColor", t);
                             },
                           },
                         }),
@@ -8094,18 +7445,18 @@
                       1
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       { staticClass: "color-input" },
                       [
-                        i("span", [e._v("Ejected cells")]),
+                        s("span", [e._v("Ejected cells")]),
                         e._v(" "),
-                        i("color-option", {
+                        s("color-option", {
                           staticClass: "right",
                           attrs: { value: e.ejectedColor },
                           on: {
-                            input: function (s) {
-                              return e.change("ejectedColor", s);
+                            input: function (t) {
+                              return e.change("ejectedColor", t);
                             },
                           },
                         }),
@@ -8113,18 +7464,18 @@
                       1
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       { staticClass: "color-input" },
                       [
-                        i("span", [e._v("Active cell")]),
+                        s("span", [e._v("Active cell")]),
                         e._v(" "),
-                        i("color-option", {
+                        s("color-option", {
                           staticClass: "right",
                           attrs: { value: e.mbColor },
                           on: {
-                            input: function (s) {
-                              return e.change("mbColor", s);
+                            input: function (t) {
+                              return e.change("mbColor", t);
                             },
                           },
                         }),
@@ -8132,18 +7483,18 @@
                       1
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       { staticClass: "color-input" },
                       [
-                        i("span", [e._v("Name outline")]),
+                        s("span", [e._v("Name outline")]),
                         e._v(" "),
-                        i("color-option", {
+                        s("color-option", {
                           staticClass: "right",
                           attrs: { value: e.cellNameOutlineColor },
                           on: {
-                            input: function (s) {
-                              return e.change("cellNameOutlineColor", s);
+                            input: function (t) {
+                              return e.change("cellNameOutlineColor", t);
                             },
                           },
                         }),
@@ -8152,14 +7503,14 @@
                     ),
                   ]),
                   e._v(" "),
-                  i("span", [
-                    i(
+                  s("span", [
+                    s(
                       "div",
                       { staticClass: "color-input" },
                       [
-                        i("span", [e._v("Cursor")]),
+                        s("span", [e._v("Cursor")]),
                         e._v(" "),
-                        i("image-option", {
+                        s("image-option", {
                           staticClass: "right",
                           attrs: {
                             width: "32",
@@ -8167,8 +7518,8 @@
                             value: e.cursorImageUrl,
                           },
                           on: {
-                            input: function (s) {
-                              return e.change("cursorImageUrl", s);
+                            input: function (t) {
+                              return e.change("cursorImageUrl", t);
                             },
                           },
                         }),
@@ -8176,16 +7527,16 @@
                       1
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       {
                         staticClass: "color-input",
                         class: { disabled: !e.showBackgroundImage },
                       },
                       [
-                        i("span", [e._v("Map image")]),
+                        s("span", [e._v("Map image")]),
                         e._v(" "),
-                        i("image-option", {
+                        s("image-option", {
                           staticClass: "right",
                           attrs: {
                             width: "330",
@@ -8194,8 +7545,8 @@
                             value: e.backgroundImageUrl,
                           },
                           on: {
-                            input: function (s) {
-                              return e.change("backgroundImageUrl", s);
+                            input: function (t) {
+                              return e.change("backgroundImageUrl", t);
                             },
                           },
                         }),
@@ -8203,13 +7554,13 @@
                       1
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       { staticClass: "color-input" },
                       [
-                        i("span", [e._v("Viruses")]),
+                        s("span", [e._v("Viruses")]),
                         e._v(" "),
-                        i("image-option", {
+                        s("image-option", {
                           staticClass: "right",
                           attrs: {
                             width: "100",
@@ -8217,8 +7568,8 @@
                             value: e.virusImageUrl,
                           },
                           on: {
-                            input: function (s) {
-                              return e.change("virusImageUrl", s);
+                            input: function (t) {
+                              return e.change("virusImageUrl", t);
                             },
                           },
                         }),
@@ -8226,13 +7577,13 @@
                       1
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       { staticClass: "color-input" },
                       [
-                        i("span", [e._v("Multi arrow")]),
+                        s("span", [e._v("Multi arrow")]),
                         e._v(" "),
-                        i("image-option", {
+                        s("image-option", {
                           staticClass: "right",
                           attrs: {
                             width: "100",
@@ -8240,8 +7591,8 @@
                             value: e.mbArrow,
                           },
                           on: {
-                            input: function (s) {
-                              return e.change("mbArrow", s);
+                            input: function (t) {
+                              return e.change("mbArrow", t);
                             },
                           },
                         }),
@@ -8249,18 +7600,18 @@
                       1
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       { staticClass: "color-input" },
                       [
-                        i("span", [e._v("Mass text")]),
+                        s("span", [e._v("Mass text")]),
                         e._v(" "),
-                        i("color-option", {
+                        s("color-option", {
                           staticClass: "right",
                           attrs: { value: e.cellMassColor },
                           on: {
-                            input: function (s) {
-                              return e.change("cellMassColor", s);
+                            input: function (t) {
+                              return e.change("cellMassColor", t);
                             },
                           },
                         }),
@@ -8268,18 +7619,18 @@
                       1
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       { staticClass: "color-input" },
                       [
-                        i("span", [e._v("Mass outline")]),
+                        s("span", [e._v("Mass outline")]),
                         e._v(" "),
-                        i("color-option", {
+                        s("color-option", {
                           staticClass: "right",
                           attrs: { value: e.cellMassOutlineColor },
                           on: {
-                            input: function (s) {
-                              return e.change("cellMassOutlineColor", s);
+                            input: function (t) {
+                              return e.change("cellMassOutlineColor", t);
                             },
                           },
                         }),
@@ -8290,35 +7641,35 @@
                 ]),
               ]),
               e._v(" "),
-              i("div", { staticClass: "section row" }, [
-                i("div", { staticClass: "header" }, [
+              s("div", { staticClass: "section row" }, [
+                s("div", { staticClass: "header" }, [
                   e._v("\n        Map\n        "),
                   e.useWebGL
                     ? e._e()
-                    : i("span", { staticClass: "right silent" }, [
+                    : s("span", { staticClass: "right silent" }, [
                         e._v("Needs GPU rendering"),
                       ]),
                 ]),
                 e._v(" "),
-                i(
+                s(
                   "div",
                   { staticClass: "options" },
                   [
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.useFoodColor },
                         on: {
-                          change: function (s) {
-                            return e.change("useFoodColor", s);
+                          change: function (t) {
+                            return e.change("useFoodColor", t);
                           },
                         },
                       },
                       [e._v("Custom food color")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
@@ -8327,15 +7678,15 @@
                           checked: e.showBackgroundImage,
                         },
                         on: {
-                          change: function (s) {
-                            return e.change("showBackgroundImage", s);
+                          change: function (t) {
+                            return e.change("showBackgroundImage", t);
                           },
                         },
                       },
                       [e._v("Show map image")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
@@ -8344,15 +7695,15 @@
                           checked: e.backgroundImageRepeat,
                         },
                         on: {
-                          change: function (s) {
-                            return e.change("backgroundImageRepeat", s);
+                          change: function (t) {
+                            return e.change("backgroundImageRepeat", t);
                           },
                         },
                       },
                       [e._v("Repeat map image")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
@@ -8361,15 +7712,15 @@
                           checked: e.backgroundDefaultIfUnequal,
                         },
                         on: {
-                          change: function (s) {
-                            return e.change("backgroundDefaultIfUnequal", s);
+                          change: function (t) {
+                            return e.change("backgroundDefaultIfUnequal", t);
                           },
                         },
                       },
                       [e._v("Always crop map image")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       {
                         staticClass: "slider-option bottom-margin",
@@ -8379,14 +7730,14 @@
                       },
                       [
                         e._v("\n            Map image opacity "),
-                        i("span", { staticClass: "right" }, [
+                        s("span", { staticClass: "right" }, [
                           e._v(
                             e._s((100 * e.backgroundImageOpacity).toFixed(0)) +
                               "%"
                           ),
                         ]),
                         e._v(" "),
-                        i("input", {
+                        s("input", {
                           staticClass: "slider",
                           attrs: {
                             type: "range",
@@ -8397,8 +7748,8 @@
                           },
                           domProps: { value: e.backgroundImageOpacity },
                           on: {
-                            input: function (s) {
-                              return e.change("backgroundImageOpacity", s);
+                            input: function (t) {
+                              return e.change("backgroundImageOpacity", t);
                             },
                           },
                         }),
@@ -8409,18 +7760,18 @@
                 ),
               ]),
               e._v(" "),
-              i("div", { staticClass: "section row" }, [
-                i("div", { staticClass: "header" }, [
+              s("div", { staticClass: "section row" }, [
+                s("div", { staticClass: "header" }, [
                   e._v("\r\n            Name text\r\n        "),
                 ]),
                 e._v(" "),
-                i(
+                s(
                   "div",
                   { staticClass: "options" },
                   [
-                    i("div", { staticClass: "bottom-margin" }, [
+                    s("div", { staticClass: "bottom-margin" }, [
                       e._v("\n            Font\n            "),
-                      i("input", {
+                      s("input", {
                         attrs: {
                           type: "text",
                           spellcheck: "false",
@@ -8429,8 +7780,8 @@
                         },
                         domProps: { value: e.cellNameFont },
                         on: {
-                          input: function (s) {
-                            return e.change("cellNameFont", s);
+                          input: function (t) {
+                            return e.change("cellNameFont", t);
                           },
                           focus: function () {
                             return e.fontWarning("name", !0);
@@ -8444,24 +7795,24 @@
                     e._v(" "),
                     e.showNameFontWarning
                       ? [
-                          i("div", { staticClass: "silent" }, [
+                          s("div", { staticClass: "silent" }, [
                             e._v("It must be installed on your device."),
                           ]),
                           e._v(" "),
-                          i("div", { staticClass: "silent" }, [
+                          s("div", { staticClass: "silent" }, [
                             e._v("If it still doesn't show, restart your PC"),
                           ]),
                         ]
                       : e._e(),
                     e._v(" "),
-                    i("div", { staticClass: "inline-range" }, [
-                      i("input", {
+                    s("div", { staticClass: "inline-range" }, [
+                      s("input", {
                         staticClass: "slider",
                         attrs: { type: "range", min: "0", max: "2", step: "1" },
                         domProps: { value: e.cellNameWeight },
                         on: {
-                          input: function (s) {
-                            return e.change("cellNameWeight", s);
+                          input: function (t) {
+                            return e.change("cellNameWeight", t);
                           },
                         },
                       }),
@@ -8472,14 +7823,14 @@
                       ),
                     ]),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       {
                         staticClass: "inline-range",
                         class: { off: !e.cellNameOutline },
                       },
                       [
-                        i("input", {
+                        s("input", {
                           staticClass: "slider",
                           attrs: {
                             type: "range",
@@ -8489,8 +7840,8 @@
                           },
                           domProps: { value: e.cellNameOutline },
                           on: {
-                            input: function (s) {
-                              return e.change("cellNameOutline", s);
+                            input: function (t) {
+                              return e.change("cellNameOutline", t);
                             },
                           },
                         }),
@@ -8502,27 +7853,27 @@
                       ]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.cellNameSmoothOutline },
                         on: {
-                          change: function (s) {
-                            return e.change("cellNameSmoothOutline", s);
+                          change: function (t) {
+                            return e.change("cellNameSmoothOutline", t);
                           },
                         },
                       },
                       [e._v("Smooth name outline")]
                     ),
                     e._v(" "),
-                    i("div", { staticClass: "slider-option" }, [
+                    s("div", { staticClass: "slider-option" }, [
                       e._v("\r\n                Long name threshold "),
-                      i("span", { staticClass: "right" }, [
+                      s("span", { staticClass: "right" }, [
                         e._v(e._s(e.cellLongNameThreshold) + "px"),
                       ]),
                       e._v(" "),
-                      i("input", {
+                      s("input", {
                         staticClass: "slider",
                         attrs: {
                           type: "range",
@@ -8532,8 +7883,8 @@
                         },
                         domProps: { value: e.cellLongNameThreshold },
                         on: {
-                          input: function (s) {
-                            return e.change("cellLongNameThreshold", s);
+                          input: function (t) {
+                            return e.change("cellLongNameThreshold", t);
                           },
                         },
                       }),
@@ -8543,18 +7894,18 @@
                 ),
               ]),
               e._v(" "),
-              i("div", { staticClass: "section row" }, [
-                i("div", { staticClass: "header" }, [
+              s("div", { staticClass: "section row" }, [
+                s("div", { staticClass: "header" }, [
                   e._v("\n        Mass text\n    "),
                 ]),
                 e._v(" "),
-                i(
+                s(
                   "div",
                   { staticClass: "options" },
                   [
-                    i("div", { staticClass: "bottom-margin" }, [
+                    s("div", { staticClass: "bottom-margin" }, [
                       e._v("\n            Font\n            "),
-                      i("input", {
+                      s("input", {
                         attrs: {
                           type: "text",
                           spellcheck: "false",
@@ -8563,8 +7914,8 @@
                         },
                         domProps: { value: e.cellMassFont },
                         on: {
-                          input: function (s) {
-                            return e.change("cellMassFont", s);
+                          input: function (t) {
+                            return e.change("cellMassFont", t);
                           },
                           focus: function () {
                             return e.fontWarning("mass", !0);
@@ -8578,24 +7929,24 @@
                     e._v(" "),
                     e.showMassFontWarning
                       ? [
-                          i("div", { staticClass: "silent" }, [
+                          s("div", { staticClass: "silent" }, [
                             e._v("It must be installed on your device."),
                           ]),
                           e._v(" "),
-                          i("div", { staticClass: "silent" }, [
+                          s("div", { staticClass: "silent" }, [
                             e._v("If it still doesn't show, restart your PC"),
                           ]),
                         ]
                       : e._e(),
                     e._v(" "),
-                    i("div", { staticClass: "inline-range" }, [
-                      i("input", {
+                    s("div", { staticClass: "inline-range" }, [
+                      s("input", {
                         staticClass: "slider",
                         attrs: { type: "range", min: "0", max: "2", step: "1" },
                         domProps: { value: e.cellMassWeight },
                         on: {
-                          input: function (s) {
-                            return e.change("cellMassWeight", s);
+                          input: function (t) {
+                            return e.change("cellMassWeight", t);
                           },
                         },
                       }),
@@ -8606,14 +7957,14 @@
                       ),
                     ]),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       {
                         staticClass: "inline-range",
                         class: { off: !e.cellMassOutline },
                       },
                       [
-                        i("input", {
+                        s("input", {
                           staticClass: "slider",
                           attrs: {
                             type: "range",
@@ -8623,8 +7974,8 @@
                           },
                           domProps: { value: e.cellMassOutline },
                           on: {
-                            input: function (s) {
-                              return e.change("cellMassOutline", s);
+                            input: function (t) {
+                              return e.change("cellMassOutline", t);
                             },
                           },
                         }),
@@ -8636,14 +7987,14 @@
                       ]
                     ),
                     e._v(" "),
-                    i("div", { staticClass: "inline-range" }, [
-                      i("input", {
+                    s("div", { staticClass: "inline-range" }, [
+                      s("input", {
                         staticClass: "slider",
                         attrs: { type: "range", min: "0", max: "3", step: "1" },
                         domProps: { value: e.cellMassTextSize },
                         on: {
-                          input: function (s) {
-                            return e.change("cellMassTextSize", s);
+                          input: function (t) {
+                            return e.change("cellMassTextSize", t);
                           },
                         },
                       }),
@@ -8654,28 +8005,28 @@
                       ),
                     ]),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.cellMassSmoothOutline },
                         on: {
-                          change: function (s) {
-                            return e.change("cellMassSmoothOutline", s);
+                          change: function (t) {
+                            return e.change("cellMassSmoothOutline", t);
                           },
                         },
                       },
                       [e._v("Smooth mass outline")]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "p-check",
                       {
                         staticClass: "p-switch",
                         attrs: { checked: e.shortMass },
                         on: {
-                          change: function (s) {
-                            return e.change("shortMass", s);
+                          change: function (t) {
+                            return e.change("shortMass", t);
                           },
                         },
                       },
@@ -8686,8 +8037,8 @@
                 ),
               ]),
               e._v(" "),
-              i("div", { staticClass: "reset-option-wrapper" }, [
-                i(
+              s("div", { staticClass: "reset-option-wrapper" }, [
+                s(
                   "span",
                   {
                     staticClass: "reset-option",
@@ -8697,17 +8048,17 @@
                       },
                     },
                   },
-                  [i("i", { staticClass: "fa fa-undo" }), e._v(" Reset\n    ")]
+                  [s("i", { staticClass: "fa fa-undo" }), e._v(" Reset\n    ")]
                 ),
               ]),
             ]);
           };
-        U._withStripped = !0;
-        var R = function () {
+        M._withStripped = !0;
+        var T = function () {
           var e = this,
-            s = e.$createElement,
-            i = e._self._c || s;
-          return i(
+            t = e.$createElement,
+            s = e._self._c || t;
+          return s(
             "div",
             {
               staticClass: "color-button",
@@ -8721,27 +8072,27 @@
             },
             [
               e.pickerOpen
-                ? i(
+                ? s(
                     "div",
                     {
                       staticClass: "color-picker-wrapper",
                       on: {
-                        mousedown: function (s) {
-                          return e.startMovingPivot(s);
+                        mousedown: function (t) {
+                          return e.startMovingPivot(t);
                         },
-                        mousemove: function (s) {
-                          return e.movePivot(s);
+                        mousemove: function (t) {
+                          return e.movePivot(t);
                         },
-                        mouseup: function (s) {
-                          return e.stopMovingPivot(s);
+                        mouseup: function (t) {
+                          return e.stopMovingPivot(t);
                         },
                       },
                     },
                     [
-                      i("div", { staticClass: "color-picker-overlay" }),
+                      s("div", { staticClass: "color-picker-overlay" }),
                       e._v(" "),
-                      i("div", { staticClass: "color-picker fade-box" }, [
-                        i("input", {
+                      s("div", { staticClass: "color-picker fade-box" }, [
+                        s("input", {
                           directives: [
                             {
                               name: "model",
@@ -8762,13 +8113,13 @@
                             change: function () {
                               return e.triggerInput();
                             },
-                            __r: function (s) {
-                              e.hue = s.target.value;
+                            __r: function (t) {
+                              e.hue = t.target.value;
                             },
                           },
                         }),
                         e._v(" "),
-                        i(
+                        s(
                           "div",
                           {
                             staticClass: "color-picker-clr",
@@ -8777,9 +8128,9 @@
                             },
                           },
                           [
-                            i("div", { staticClass: "color-picker-sat" }, [
-                              i("div", { staticClass: "color-picker-val" }, [
-                                i("div", {
+                            s("div", { staticClass: "color-picker-sat" }, [
+                              s("div", { staticClass: "color-picker-val" }, [
+                                s("div", {
                                   staticClass: "color-picker-pivot",
                                   style: {
                                     left: 100 * e.sat + "px",
@@ -8791,12 +8142,12 @@
                           ]
                         ),
                         e._v(" "),
-                        i("div", { staticClass: "color-picker-hex" }, [
-                          i("span", { staticClass: "color-picker-hashtag" }, [
+                        s("div", { staticClass: "color-picker-hex" }, [
+                          s("span", { staticClass: "color-picker-hashtag" }, [
                             e._v("#"),
                           ]),
                           e._v(" "),
-                          i("input", {
+                          s("input", {
                             directives: [
                               {
                                 name: "model",
@@ -8815,9 +8166,9 @@
                             domProps: { value: e.hex },
                             on: {
                               input: [
-                                function (s) {
-                                  s.target.composing ||
-                                    (e.hex = s.target.value);
+                                function (t) {
+                                  t.target.composing ||
+                                    (e.hex = t.target.value);
                                 },
                                 function () {
                                   return e.triggerInput();
@@ -8833,10 +8184,10 @@
             ]
           );
         };
-        R._withStripped = !0;
-        var A =
-          (i(172),
-          Object(y.a)(
+        T._withStripped = !0;
+        var D =
+          (s(172),
+          Object(v.a)(
             {
               data: () => ({
                 pickerOpen: !1,
@@ -8849,41 +8200,41 @@
               computed: {
                 hex: {
                   get() {
-                    return (function (e, s, i) {
-                      var a, n, r, o, l, c, d, h;
+                    return (function (e, t, s) {
+                      var i, a, n, o, r, l, c, h;
                       switch (
-                        ((c = i * (1 - s)),
-                        (d =
-                          i * (1 - (l = 6 * e - (o = Math.floor(6 * e))) * s)),
-                        (h = i * (1 - (1 - l) * s)),
+                        ((l = s * (1 - t)),
+                        (c =
+                          s * (1 - (r = 6 * e - (o = Math.floor(6 * e))) * t)),
+                        (h = s * (1 - (1 - r) * t)),
                         o % 6)
                       ) {
                         case 0:
-                          (a = i), (n = h), (r = c);
+                          (i = s), (a = h), (n = l);
                           break;
                         case 1:
-                          (a = d), (n = i), (r = c);
+                          (i = c), (a = s), (n = l);
                           break;
                         case 2:
-                          (a = c), (n = i), (r = h);
+                          (i = l), (a = s), (n = h);
                           break;
                         case 3:
-                          (a = c), (n = d), (r = i);
+                          (i = l), (a = c), (n = s);
                           break;
                         case 4:
-                          (a = h), (n = c), (r = i);
+                          (i = h), (a = l), (n = s);
                           break;
                         case 5:
-                          (a = i), (n = c), (r = d);
+                          (i = s), (a = l), (n = c);
                       }
                       return (
+                        (i = Math.ceil(255 * i)
+                          .toString(16)
+                          .padStart(2, "0")) +
                         (a = Math.ceil(255 * a)
                           .toString(16)
                           .padStart(2, "0")) +
-                        (n = Math.ceil(255 * n)
-                          .toString(16)
-                          .padStart(2, "0")) +
-                        Math.ceil(255 * r)
+                        Math.ceil(255 * n)
                           .toString(16)
                           .padStart(2, "0")
                       );
@@ -8891,35 +8242,35 @@
                   },
                   set(e) {
                     if (((e = e.toLowerCase()), /^[0-9a-f]{6}$/.test(e))) {
-                      var s,
+                      var t,
+                        s,
                         i,
                         a,
                         n,
-                        r,
                         o,
-                        l,
-                        c =
-                          ((s = e),
-                          (i = parseInt(s.slice(0, 2), 16) / 255),
-                          (a = parseInt(s.slice(2, 4), 16) / 255),
-                          (n = parseInt(s.slice(4, 6), 16) / 255),
+                        r,
+                        l =
+                          ((t = e),
+                          (s = parseInt(t.slice(0, 2), 16) / 255),
+                          (i = parseInt(t.slice(2, 4), 16) / 255),
+                          (a = parseInt(t.slice(4, 6), 16) / 255),
                           [
                             60 *
-                              ((l =
+                              ((r =
                                 (o =
-                                  (r = Math.max(i, a, n)) -
-                                  Math.min(i, a, n)) &&
-                                (r == i
-                                  ? (a - n) / o
-                                  : r == a
-                                  ? 2 + (n - i) / o
-                                  : 4 + (i - a) / o)) < 0
-                                ? l + 6
-                                : l),
-                            r && o / r,
-                            r,
+                                  (n = Math.max(s, i, a)) -
+                                  Math.min(s, i, a)) &&
+                                (n == s
+                                  ? (i - a) / o
+                                  : n == i
+                                  ? 2 + (a - s) / o
+                                  : 4 + (s - i) / o)) < 0
+                                ? r + 6
+                                : r),
+                            n && o / n,
+                            n,
                           ]);
-                      (this.hue = c[0]), (this.sat = c[1]), (this.val = c[2]);
+                      (this.hue = l[0]), (this.sat = l[1]), (this.val = l[2]);
                     }
                   },
                 },
@@ -8929,22 +8280,22 @@
                   this.pickerOpen = e;
                 },
                 startMovingPivot(e) {
-                  var s = e.target.classList;
-                  if (s.contains("color-picker-overlay"))
+                  var t = e.target.classList;
+                  if (t.contains("color-picker-overlay"))
                     return this.showPicker(!1), void e.stopPropagation();
-                  (s.contains("color-picker-pivot") ||
-                    s.contains("color-picker-val")) &&
+                  (t.contains("color-picker-pivot") ||
+                    t.contains("color-picker-val")) &&
                     ((this.movingPivot = !0), this.movePivot(e));
                 },
                 movePivot(e) {
                   if (this.movingPivot) {
-                    var s = this.$el
+                    var t = this.$el
                         .querySelector(".color-picker-val")
                         .getBoundingClientRect(),
-                      i = e.clientX - s.x,
-                      a = e.clientY - s.y;
-                    (this.sat = i / 100),
-                      (this.val = 1 - a / 100),
+                      s = e.clientX - t.x,
+                      i = e.clientY - t.y;
+                    (this.sat = s / 100),
+                      (this.val = 1 - i / 100),
                       (this.sat = Math.min(Math.max(this.sat, 0), 1)),
                       (this.val = Math.min(Math.max(this.val, 0), 1));
                   }
@@ -8963,20 +8314,20 @@
                 this.value && (this.hex = this.value);
               },
             },
-            R,
+            T,
             [],
             !1,
             null,
             "5b0666af",
             null
           ));
-        A.options.__file = "src/components/color-option.vue";
-        var N = A.exports,
-          D = function () {
+        D.options.__file = "src/components/color-option.vue";
+        var L = D.exports,
+          N = function () {
             var e = this,
-              s = e.$createElement,
-              i = e._self._c || s;
-            return i(
+              t = e.$createElement,
+              s = e._self._c || t;
+            return s(
               "div",
               {
                 staticClass: "image-button",
@@ -8989,24 +8340,24 @@
                 },
               },
               [
-                i("div", { staticClass: "image-button-text" }, [e._v("...")]),
+                s("div", { staticClass: "image-button-text" }, [e._v("...")]),
                 e._v(" "),
                 e.pickerOpen
-                  ? i(
+                  ? s(
                       "div",
                       {
                         staticClass: "image-picker-wrapper",
                         on: {
-                          click: function (s) {
-                            return e.tryHidePicker(s);
+                          click: function (t) {
+                            return e.tryHidePicker(t);
                           },
                         },
                       },
                       [
-                        i("div", { staticClass: "image-picker-overlay" }),
+                        s("div", { staticClass: "image-picker-overlay" }),
                         e._v(" "),
-                        i("div", { staticClass: "image-picker fade-box" }, [
-                          i("img", {
+                        s("div", { staticClass: "image-picker fade-box" }, [
+                          s("img", {
                             staticClass: "image-picker-preview",
                             style: {
                               maxWidth: (e.value ? e.width : 200) + "px",
@@ -9019,26 +8370,26 @@
                               click: function () {
                                 return e.openFileChooser();
                               },
-                              dragover: function (s) {
-                                return e.allowDrop(s);
+                              dragover: function (t) {
+                                return e.allowDrop(t);
                               },
-                              drop: function (s) {
-                                return e.onImageDrop(s);
+                              drop: function (t) {
+                                return e.onImageDrop(t);
                               },
                             },
                           }),
                           e._v(" "),
-                          i(
+                          s(
                             "div",
                             { staticClass: "image-picker-information" },
                             [
                               e._v(
                                 "\n            Click or drop onto image to change."
                               ),
-                              i("br"),
+                              s("br"),
                               e._v(" "),
                               "defaults" in this
-                                ? i(
+                                ? s(
                                     "span",
                                     {
                                       staticClass: "image-picker-reset",
@@ -9054,7 +8405,7 @@
                             ]
                           ),
                           e._v(" "),
-                          i("input", {
+                          s("input", {
                             staticClass: "image-picker-input",
                             attrs: {
                               type: "file",
@@ -9062,8 +8413,8 @@
                                 "image/png, image/jpeg, image/bmp, image/webp",
                             },
                             on: {
-                              change: function (s) {
-                                return e.onImageSelect(s);
+                              change: function (t) {
+                                return e.onImageSelect(t);
                               },
                             },
                           }),
@@ -9074,10 +8425,10 @@
               ]
             );
           };
-        D._withStripped = !0;
-        var O =
-          (i(174),
-          Object(y.a)(
+        N._withStripped = !0;
+        var U =
+          (s(174),
+          Object(v.a)(
             {
               data: () => ({ pickerOpen: !1, fileReader: null }),
               props: ["value", "width", "disabled", "defaults"],
@@ -9110,48 +8461,48 @@
                 },
                 onImageSelect(e) {
                   if (0 !== e.target.files.length) {
-                    var s = e.target.files[0];
-                    s.type.startsWith("image/") &&
-                      this.getFileReader().readAsDataURL(s);
+                    var t = e.target.files[0];
+                    t.type.startsWith("image/") &&
+                      this.getFileReader().readAsDataURL(t);
                   }
                 },
                 onImageDrop(e) {
                   if ((e.preventDefault(), 0 !== e.dataTransfer.files.length)) {
-                    var s = e.dataTransfer.files[0];
-                    s.type.startsWith("image/") &&
-                      this.getFileReader().readAsDataURL(s);
+                    var t = e.dataTransfer.files[0];
+                    t.type.startsWith("image/") &&
+                      this.getFileReader().readAsDataURL(t);
                   }
                 },
               },
             },
-            D,
+            N,
             [],
             !1,
             null,
             "641581b7",
             null
           ));
-        O.options.__file = "src/components/image-option.vue";
-        var F = O.exports,
-          B = function () {
+        U.options.__file = "src/components/image-option.vue";
+        var R = U.exports,
+          F = function () {
             var e = this.$createElement;
             return (this._self._c || e)("div");
           };
-        B._withStripped = !0;
-        var W = Object(y.a)(
+        F._withStripped = !0;
+        var P = Object(v.a)(
           { data: () => ({ hello: 123 }) },
-          B,
+          F,
           [],
           !1,
           null,
           "384e68ec",
           null
         );
-        (W.options.__file = "src/components/template.vue"), W.exports;
-        var H = i(1),
-          z = i(4),
-          G = i(5);
-        function V(e) {
+        (P.options.__file = "src/components/template.vue"), P.exports;
+        var G = s(1),
+          H = s(4),
+          O = s(5);
+        function Y(e) {
           switch (e) {
             case 0:
               return "Thin";
@@ -9163,7 +8514,7 @@
               return "???";
           }
         }
-        function Z(e) {
+        function z(e) {
           switch (e) {
             case 0:
               return "No";
@@ -9177,83 +8528,83 @@
               return "???";
           }
         }
-        function j(e, s) {
+        function W(e, t) {
           return e
-            ? new Promise((i, a) => {
-                var n = new Image();
-                (n.onload = () => {
+            ? new Promise((s, i) => {
+                var a = new Image();
+                (a.onload = () => {
                   var e = document.createElement("canvas"),
-                    a = e.getContext("2d"),
-                    r = Math.max(n.width, n.height),
-                    o = Math.min(n.width, n.height),
-                    l = r === n.width,
-                    c = Math.min(r, s) / r,
-                    d = (l ? r : o) * c,
-                    h = (l ? o : r) * c;
-                  (e.width = d),
+                    i = e.getContext("2d"),
+                    n = Math.max(a.width, a.height),
+                    o = Math.min(a.width, a.height),
+                    r = n === a.width,
+                    l = Math.min(n, t) / n,
+                    c = (r ? n : o) * l,
+                    h = (r ? o : n) * l;
+                  (e.width = c),
                     (e.height = h),
-                    a.drawImage(n, 0, 0, d, h),
-                    i(e.toDataURL());
+                    i.drawImage(a, 0, 0, c, h),
+                    s(e.toDataURL());
                 }),
-                  (n.onerror = a),
-                  (n.src = e);
+                  (a.onerror = i),
+                  (a.src = e);
               })
             : null;
         }
-        var K = PIXI.utils.isWebGLSupported() && z.useWebGL,
-          X =
-            (i(176),
-            Object(y.a)(
+        var Z = PIXI.utils.isWebGLSupported() && H.useWebGL,
+          j =
+            (s(176),
+            Object(v.a)(
               {
-                components: { colorOption: N, imageOption: F },
+                components: { colorOption: L, imageOption: R },
                 data: () => ({
-                  useWebGL: K,
-                  bgDefault: z.getDefault("backgroundImageUrl"),
-                  virusDefault: z.getDefault("virusImageUrl"),
+                  useWebGL: Z,
+                  bgDefault: H.getDefault("backgroundImageUrl"),
+                  virusDefault: H.getDefault("virusImageUrl"),
                   mbArrowDefault: "https://i.postimg.cc/6pvLJ2TW/image.png",
                   showNameFontWarning: !1,
                   showMassFontWarning: !1,
-                  backgroundColor: z.backgroundColor,
-                  borderColor: z.borderColor,
-                  foodColor: z.foodColor,
-                  ejectedColor: z.ejectedColor,
-                  cellNameOutlineColor: z.cellNameOutlineColor,
-                  cursorImageUrl: z.cursorImageUrl,
-                  backgroundImageUrl: z.backgroundImageUrl,
-                  virusImageUrl: z.virusImageUrl,
-                  cellMassColor: z.cellMassColor,
-                  cellMassOutlineColor: z.cellMassOutlineColor,
-                  cellNameFont: z.cellNameFont,
-                  cellNameWeight: z.cellNameWeight,
-                  cellNameOutline: z.cellNameOutline,
-                  cellNameSmoothOutline: z.cellNameSmoothOutline,
-                  cellMassFont: z.cellMassFont,
-                  cellMassWeight: z.cellMassWeight,
-                  cellMassOutline: z.cellMassOutline,
-                  cellMassSmoothOutline: z.cellMassSmoothOutline,
-                  cellMassTextSize: z.cellMassTextSize,
-                  cellLongNameThreshold: z.cellLongNameThreshold,
-                  shortMass: z.shortMass,
-                  showBackgroundImage: z.showBackgroundImage,
-                  backgroundImageRepeat: z.backgroundImageRepeat,
-                  backgroundDefaultIfUnequal: z.backgroundDefaultIfUnequal,
-                  backgroundImageOpacity: z.backgroundImageOpacity,
-                  useFoodColor: z.useFoodColor,
-                  mbArrow: z.mbArrow,
-                  mbColor: z.mbColor,
+                  backgroundColor: H.backgroundColor,
+                  borderColor: H.borderColor,
+                  foodColor: H.foodColor,
+                  ejectedColor: H.ejectedColor,
+                  cellNameOutlineColor: H.cellNameOutlineColor,
+                  cursorImageUrl: H.cursorImageUrl,
+                  backgroundImageUrl: H.backgroundImageUrl,
+                  virusImageUrl: H.virusImageUrl,
+                  cellMassColor: H.cellMassColor,
+                  cellMassOutlineColor: H.cellMassOutlineColor,
+                  cellNameFont: H.cellNameFont,
+                  cellNameWeight: H.cellNameWeight,
+                  cellNameOutline: H.cellNameOutline,
+                  cellNameSmoothOutline: H.cellNameSmoothOutline,
+                  cellMassFont: H.cellMassFont,
+                  cellMassWeight: H.cellMassWeight,
+                  cellMassOutline: H.cellMassOutline,
+                  cellMassSmoothOutline: H.cellMassSmoothOutline,
+                  cellMassTextSize: H.cellMassTextSize,
+                  cellLongNameThreshold: H.cellLongNameThreshold,
+                  shortMass: H.shortMass,
+                  showBackgroundImage: H.showBackgroundImage,
+                  backgroundImageRepeat: H.backgroundImageRepeat,
+                  backgroundDefaultIfUnequal: H.backgroundDefaultIfUnequal,
+                  backgroundImageOpacity: H.backgroundImageOpacity,
+                  useFoodColor: H.useFoodColor,
+                  mbArrow: H.mbArrow,
+                  mbColor: H.mbColor,
                 }),
                 computed: {
                   cellNameWeightMeaning() {
-                    return V(this.cellNameWeight);
+                    return Y(this.cellNameWeight);
                   },
                   cellMassWeightMeaning() {
-                    return V(this.cellMassWeight);
+                    return Y(this.cellMassWeight);
                   },
                   cellNameOutlineMeaning() {
-                    return Z(this.cellNameOutline);
+                    return z(this.cellNameOutline);
                   },
                   cellMassOutlineMeaning() {
-                    return Z(this.cellMassOutline);
+                    return z(this.cellMassOutline);
                   },
                   cellMassTextSizeMeaning() {
                     return (function (e) {
@@ -9273,58 +8624,58 @@
                   },
                 },
                 methods: {
-                  async change(e, s, i) {
-                    var a;
-                    a =
-                      s && s.target
-                        ? isNaN(s.target.valueAsNumber)
-                          ? s.target.value
-                          : s.target.valueAsNumber
-                        : s;
+                  async change(e, t, s) {
+                    var i;
+                    i =
+                      t && t.target
+                        ? isNaN(t.target.valueAsNumber)
+                          ? t.target.value
+                          : t.target.valueAsNumber
+                        : t;
                     try {
                       switch (e) {
                         case "cursorImageUrl":
-                          a = await j(a, 32);
+                          i = await W(i, 32);
                           break;
                         case "backgroundImageUrl":
-                          a !== this.bgDefault && (a = await j(a, 4e3));
+                          i !== this.bgDefault && (i = await W(i, 4e3));
                           break;
                         case "virusImageUrl":
-                          a !== this.virusDefault && (a = await j(a, 200));
+                          i !== this.virusDefault && (i = await W(i, 200));
                           break;
                         case "mbArrow":
-                          Multibox.reloadArrow(a);
+                          G.dual.reloadArrow(i);
                       }
-                    } catch (n) {
-                      return void G.alert(
+                    } catch (a) {
+                      return void O.alert(
                         "This image is too large to even be loaded."
                       );
                     }
-                    if (z[e] != a) {
-                      var r = this[e];
+                    if (H[e] != i) {
+                      var n = this[e];
                       try {
-                        z.set(e, a);
+                        H.set(e, i);
                       } catch (o) {
                         return (
-                          z.set(e, r),
-                          void G.alert(
+                          H.set(e, n),
+                          void O.alert(
                             "Saving this setting failed. Perhaps the image is too large?"
                           )
                         );
                       }
-                      switch (((this[e] = a), e)) {
+                      switch (((this[e] = i), e)) {
                         case "cursorImageUrl":
-                          H.events.$emit("set-cursor-url", a);
+                          G.events.$emit("set-cursor-url", i);
                           break;
                         case "backgroundColor":
-                          H.renderer.backgroundColor = PIXI.utils.string2hex(a);
+                          G.renderer.backgroundColor = PIXI.utils.string2hex(i);
                           break;
                         case "cellNameOutlineColor":
                         case "cellNameFont":
                         case "cellNameWeight":
                         case "cellNameOutline":
                         case "cellNameSmoothOutline":
-                          H.settings.compileNameFontStyle();
+                          G.settings.compileNameFontStyle();
                           break;
                         case "cellMassColor":
                         case "cellMassOutlineColor":
@@ -9333,31 +8684,31 @@
                         case "cellMassOutline":
                         case "cellMassSmoothOutline":
                         case "cellMassTextSize":
-                          H.settings.compileMassFontStyle();
+                          G.settings.compileMassFontStyle();
                           break;
                         case "cellLongNameThreshold":
-                          H.scene.resetPlayerLongNames();
+                          G.scene.resetPlayerLongNames();
                       }
-                      if (H.running)
+                      if (G.running)
                         switch (e) {
                           case "borderColor":
-                            H.scene.resetBorder();
+                            G.scene.resetBorder();
                             break;
                           case "foodColor":
-                            z.useFoodColor && H.scene.reloadFoodTextures();
+                            H.useFoodColor && G.scene.reloadFoodTextures();
                             break;
                           case "ejectedColor":
-                            H.scene.reloadEjectedTextures();
+                            G.scene.reloadEjectedTextures();
                             break;
                           case "virusImageUrl":
-                            H.scene.reloadVirusTexture();
+                            G.scene.reloadVirusTexture();
                             break;
                           case "cellNameOutlineColor":
                           case "cellNameFont":
                           case "cellNameWeight":
                           case "cellNameOutline":
                           case "cellNameSmoothOutline":
-                            H.scene.resetNameTextStyle();
+                            G.scene.resetNameTextStyle();
                             break;
                           case "cellMassColor":
                           case "cellMassOutlineColor":
@@ -9366,25 +8717,25 @@
                           case "cellMassOutline":
                           case "cellMassSmoothOutline":
                           case "cellMassTextSize":
-                            H.scene.resetMassTextStyle(!0);
+                            G.scene.resetMassTextStyle(!0);
                             break;
                           case "showBackgroundImage":
-                            H.scene.toggleBackgroundImage(a);
+                            G.scene.toggleBackgroundImage(i);
                             break;
                           case "backgroundImageUrl":
                           case "backgroundImageRepeat":
                           case "backgroundDefaultIfUnequal":
                           case "backgroundImageOpacity":
-                            H.scene.setBackgroundImage();
+                            G.scene.setBackgroundImage();
                             break;
                           case "useFoodColor":
-                            H.scene.reloadFoodTextures();
+                            G.scene.reloadFoodTextures();
                         }
                     }
                   },
                   confirmReset() {
-                    G.confirm(
-                      "Are you sure you want to reset all theming options?",
+                    O.confirm(
+                      "Are you sure you want to reset all setting options?",
                       () => this.reset()
                     );
                   },
@@ -9396,58 +8747,58 @@
                       "showNameFontWarning",
                       "showMassFontWarning",
                     ];
-                    for (var s in this.$data)
-                      e.includes(s) || this.change(s, z.getDefault(s));
+                    for (var t in this.$data)
+                      e.includes(t) || this.change(t, H.getDefault(t));
                   },
-                  fontWarning(e, s) {
+                  fontWarning(e, t) {
                     switch (e) {
                       case "name":
-                        this.showNameFontWarning = s;
+                        this.showNameFontWarning = t;
                         break;
                       case "mass":
-                        this.showMassFontWarning = s;
+                        this.showMassFontWarning = t;
                     }
                   },
                 },
               },
-              U,
+              M,
               [],
               !1,
               null,
               "15c13b66",
               null
             ));
-        X.options.__file = "src/components/theming.vue";
-        var Y = X.exports,
-          J = function () {
+        j.options.__file = "src/components/theming.vue";
+        var J = j.exports,
+          K = function () {
             var e = this,
-              s = e.$createElement,
-              i = e._self._c || s;
-            return i("div", { attrs: { id: "hotkey-container" } }, [
-              i(
+              t = e.$createElement,
+              s = e._self._c || t;
+            return s("div", { attrs: { id: "hotkey-container" } }, [
+              s(
                 "div",
                 { staticClass: "hotkeys" },
-                e._l(e.availableHotkeys, function (s, a) {
-                  return i("div", { key: a, staticClass: "row" }, [
-                    i("span", { staticClass: "action" }, [e._v(e._s(a))]),
+                e._l(e.availableHotkeys, function (t, i) {
+                  return s("div", { key: i, staticClass: "row" }, [
+                    s("span", { staticClass: "action" }, [e._v(e._s(i))]),
                     e._v(" "),
-                    i(
+                    s(
                       "span",
                       {
                         staticClass: "bind",
                         attrs: { tabindex: "0" },
                         on: {
-                          mousedown: function (i) {
-                            return e.onMouseDown(i, s);
+                          mousedown: function (s) {
+                            return e.onMouseDown(s, t);
                           },
-                          keydown: function (i) {
-                            return i.preventDefault(), e.onKeyDown(i, s);
+                          keydown: function (s) {
+                            return s.preventDefault(), e.onKeyDown(s, t);
                           },
                         },
                       },
                       [
                         e._v(
-                          "\n            " + e._s(e.hotkeys[s]) + "\n        "
+                          "\n            " + e._s(e.hotkeys[t]) + "\n        "
                         ),
                       ]
                     ),
@@ -9456,30 +8807,28 @@
                 0
               ),
               e._v(" "),
-              i("div", { staticClass: "footer" }, [
-                i(
+              s("div", { staticClass: "footer" }, [
+                s(
                   "span",
                   {
                     staticClass: "reset-button2",
                     on: { click: e.onResetClick },
                   },
-                  [i("i", { staticClass: "fa fa-undo" }), e._v(" Reset\n    ")]
+                  [s("i", { staticClass: "fa fa-undo" }), e._v(" Reset\n    ")]
                 ),
               ]),
             ]);
           };
-        J._withStripped = !0;
-        var q = i(66),
-          Q = i(5),
-          ee =
-            (i(178),
-            Object(y.a)(
+        K._withStripped = !0;
+        var V = s(66),
+          X = s(5),
+          q =
+            (s(178),
+            Object(v.a)(
               {
                 data: () => ({
                   availableHotkeys: {
                     Multibox: "multibox",
-                    "Triggerbot lock": "aimbot",
-                    "Location pointer": "ping",
                     "Select player": "selectPlayer",
                     Feed: "feed",
                     "Feed macro": "feedMacro",
@@ -9489,6 +8838,8 @@
                     "Quad split": "splitMax",
                     "Split 32": "split32",
                     "Split 64": "split64",
+                    "Split 128": "split128",
+                    "Split 256": "split256",
                     "Multi trick-split": "multi1",
                     "Multi double-trick": "multi2",
                     "Multi line-trick": "multi3",
@@ -9512,63 +8863,70 @@
                     "Zoom level 3": "zoomLevel3",
                     "Zoom level 4": "zoomLevel4",
                     "Zoom level 5": "zoomLevel5",
+                    "Chat: Help": "chatPreset1",
+            "Chat: Tricksplit": "chatPreset2",
+            "Chat: Linesplit": "chatPreset3",
+            "Chat: Bait": "chatPreset4",
+            "Chat: Teammate": "chatPreset5",
+            "Chat: Feed": "chatPreset6",
+            "Chat: Sector": "chatPreset7",
                   },
-                  hotkeys: q.get(),
+                  hotkeys: V.get(),
                 }),
                 methods: {
                   onResetClick: function () {
-                    Q.confirm(
+                    X.confirm(
                       "Are you sure you want to reset all hotkeys?",
                       () => {
-                        this.hotkeys = q.reset();
+                        this.hotkeys = V.reset();
                       }
                     );
                   },
-                  onMouseDown: function (e, s) {
+                  onMouseDown: function (e, t) {
                     if (e.target === document.activeElement) {
-                      var i = "MOUSE" + e.button;
-                      q.set(s, i) &&
+                      var s = "MOUSE" + e.button;
+                      V.set(t, s) &&
                         (e.preventDefault(),
-                        (this.hotkeys[s] = i),
+                        (this.hotkeys[t] = s),
                         e.target.blur());
                     }
                   },
-                  onKeyDown: function (e, s) {
-                    var i = q.convertKey(e.code);
-                    "ESCAPE" !== i && "ENTER" !== i
-                      ? ("DELETE" == i && (i = ""),
-                        q.set(s, i) && ((this.hotkeys[s] = i), e.target.blur()))
+                  onKeyDown: function (e, t) {
+                    var s = V.convertKey(e.code);
+                    "ESCAPE" !== s && "ENTER" !== s
+                      ? ("DELETE" == s && (s = ""),
+                        V.set(t, s) && ((this.hotkeys[t] = s), e.target.blur()))
                       : e.target.blur();
                   },
                 },
               },
-              J,
+              K,
               [],
               !1,
               null,
               "2dbed53e",
               null
             ));
-        ee.options.__file = "src/components/hotkeys.vue";
-        var et = ee.exports,
-          es = function () {
+        q.options.__file = "src/components/hotkeys.vue";
+        var ee = q.exports,
+          et = function () {
             var e = this,
-              s = e.$createElement,
-              i = e._self._c || s;
-            return i("div", { staticClass: "container" }, [
-              i("input", {
+              t = e.$createElement,
+              s = e._self._c || t;
+            return s("div", { staticClass: "container" }, [
+              s("input", {
                 ref: "file",
                 staticStyle: { display: "none" },
                 attrs: { type: "file", accept: ".vanis", multiple: "" },
                 on: {
-                  change: function (s) {
-                    return e.onFile(s);
+                  change: function (t) {
+                    return e.onFile(t);
                   },
                 },
               }),
               e._v(" "),
-              i("div", { staticClass: "replay-list-header" }, [
-                i("span", { staticClass: "replay-list-count" }, [
+              s("div", { staticClass: "replay-list-header" }, [
+                s("span", { staticClass: "replay-list-count" }, [
                   e._v(
                     e._s(
                       e.keysLoadedFirst
@@ -9581,12 +8939,12 @@
                 ]),
                 e._v(" "),
                 e.keysLoadedFirst && !e.keysEmpty
-                  ? i("span", { staticClass: "replay-list-page" }, [
-                      i("div", { staticClass: "anchor" }, [
-                        i("div", { staticClass: "left" }, [
-                          i("div", { staticClass: "current" }, [
-                            i("div", { staticClass: "phantom" }, [
-                              i("i", {
+                  ? s("span", { staticClass: "replay-list-page" }, [
+                      s("div", { staticClass: "anchor" }, [
+                        s("div", { staticClass: "left" }, [
+                          s("div", { staticClass: "current" }, [
+                            s("div", { staticClass: "phantom" }, [
+                              s("i", {
                                 staticClass: "fas fa-chevron-left prev",
                                 class: {
                                   disabled: !e.keysLoaded || 0 === e.pageIndex,
@@ -9598,12 +8956,12 @@
                                 },
                               }),
                               e._v(" "),
-                              i("span", [e._v(e._s(e.pageCount))]),
+                              s("span", [e._v(e._s(e.pageCount))]),
                             ]),
                             e._v(" "),
                             e.pageInputShown
                               ? e._e()
-                              : i(
+                              : s(
                                   "div",
                                   {
                                     staticClass: "real",
@@ -9613,12 +8971,12 @@
                                       },
                                     },
                                   },
-                                  [i("span", [e._v(e._s(1 + e.pageIndex))])]
+                                  [s("span", [e._v(e._s(1 + e.pageIndex))])]
                                 ),
                             e._v(" "),
                             e.pageInputShown
-                              ? i("div", { staticClass: "real-input" }, [
-                                  i("div", {
+                              ? s("div", { staticClass: "real-input" }, [
+                                  s("div", {
                                     staticClass: "overlay",
                                     on: {
                                       click: function () {
@@ -9627,7 +8985,7 @@
                                     },
                                   }),
                                   e._v(" "),
-                                  i("i", {
+                                  s("i", {
                                     staticClass: "fas fa-chevron-left prev",
                                     class: {
                                       disabled:
@@ -9640,15 +8998,15 @@
                                     },
                                   }),
                                   e._v(" "),
-                                  i("input", {
+                                  s("input", {
                                     attrs: { type: "text" },
                                     domProps: { value: 1 + e.pageIndex },
                                     on: {
                                       focus: function (e) {
                                         return e.target.select();
                                       },
-                                      change: function (s) {
-                                        return e.updateReplayPage(s);
+                                      change: function (t) {
+                                        return e.updateReplayPage(t);
                                       },
                                     },
                                   }),
@@ -9657,13 +9015,13 @@
                           ]),
                         ]),
                         e._v("\n            /\n            "),
-                        i("div", { staticClass: "right" }, [
+                        s("div", { staticClass: "right" }, [
                           e._v(
                             "\n                " +
                               e._s(e.pageCount) +
                               "\n                    "
                           ),
-                          i("i", {
+                          s("i", {
                             staticClass: "fas fa-chevron-right next",
                             class: {
                               disabled:
@@ -9681,8 +9039,8 @@
                     ])
                   : e._e(),
                 e._v(" "),
-                i("span", { staticClass: "replay-list-bulk" }, [
-                  i("input", {
+                s("span", { staticClass: "replay-list-bulk" }, [
+                  s("input", {
                     staticClass: "vanis-button",
                     attrs: {
                       type: "button",
@@ -9696,7 +9054,7 @@
                     },
                   }),
                   e._v(" "),
-                  i("input", {
+                  s("input", {
                     staticClass: "vanis-button",
                     attrs: {
                       type: "button",
@@ -9710,7 +9068,7 @@
                     },
                   }),
                   e._v(" "),
-                  i("input", {
+                  s("input", {
                     staticClass: "vanis-button",
                     attrs: {
                       type: "button",
@@ -9726,22 +9084,22 @@
                 ]),
               ]),
               e._v(" "),
-              i(
+              s(
                 "div",
                 { staticClass: "replay-list" },
                 [
                   e.keysLoadedFirst && e.keysEmpty
                     ? [
-                        i("div", { staticClass: "notification" }, [
-                          i("div", [
+                        s("div", { staticClass: "notification" }, [
+                          s("div", [
                             e._v("Press "),
-                            i("b", [e._v(e._s(e.messageHotkey))]),
+                            s("b", [e._v(e._s(e.messageHotkey))]),
                             e._v(" in game to save last "),
-                            i("b", [e._v(e._s(e.messageReplayDuration))]),
+                            s("b", [e._v(e._s(e.messageReplayDuration))]),
                             e._v(" seconds of gameplay."),
                           ]),
                           e._v(" "),
-                          i(
+                          s(
                             "div",
                             {
                               staticStyle: {
@@ -9752,7 +9110,7 @@
                             [e._v("Replays are saved in browser memory!")]
                           ),
                           e._v(" "),
-                          i("div", [
+                          s("div", [
                             e._v(
                               "They get permanently erased if browser data gets cleared."
                             ),
@@ -9763,12 +9121,12 @@
                   e._v(" "),
                   e.keysLoadedFirst && !e.keysEmpty
                     ? [
-                        i(
+                        s(
                           "div",
                           { staticClass: "replay-page" },
-                          e._l(e.pageData, function (e, s) {
-                            return i("replay-item", {
-                              key: s,
+                          e._l(e.pageData, function (e, t) {
+                            return s("replay-item", {
+                              key: t,
                               attrs: { replay: e },
                             });
                           }),
@@ -9781,16 +9139,16 @@
               ),
               e._v(" "),
               e.bulkOperating
-                ? i("div", { staticClass: "overlay bulk-operation-overlay" }, [
+                ? s("div", { staticClass: "overlay bulk-operation-overlay" }, [
                     e._v("\n        Please wait...\n        "),
                     e.bulkOperationStatus
-                      ? i("div", { staticClass: "small" }, [
+                      ? s("div", { staticClass: "small" }, [
                           e._v(e._s(e.bulkOperationStatus)),
                         ])
                       : e._e(),
                     e._v(" "),
                     e.showMultipleFilesWarning
-                      ? i("div", { staticClass: "small warning" }, [
+                      ? s("div", { staticClass: "small warning" }, [
                           e._v(
                             "Allow page to download multiple files if asked"
                           ),
@@ -9800,17 +9158,17 @@
                 : e._e(),
             ]);
           };
-        es._withStripped = !0;
-        var ei = i(116),
-          ea = i(89),
-          en = i(180),
-          er = i(1),
-          eo = i(66),
-          el = i(4),
-          ec = i(5),
-          ed = i(8),
-          eh = er.replay.database,
-          eu = {
+        et._withStripped = !0;
+        var es = s(116),
+          ei = s(89),
+          ea = s(180),
+          en = s(1),
+          eo = s(66),
+          er = s(4),
+          el = s(5),
+          ec = s(8),
+          eh = en.replay.database,
+          ed = {
             data: () => ({
               keysLoadedFirst: !1,
               keysLoaded: !1,
@@ -9827,17 +9185,17 @@
               bulkOperationStatus: "",
               showMultipleFilesWarning: !1,
               messageHotkey: eo.get().saveReplay,
-              messageReplayDuration: el.replayDuration,
+              messageReplayDuration: er.replayDuration,
             }),
-            components: { replayItem: ei.default },
+            components: { replayItem: es.default },
             methods: {
               togglePageInput(e) {
                 this.pageInputShown = e;
               },
-              setBulkOp(e, s) {
+              setBulkOp(e, t) {
                 e
                   ? ((this.bulkOperating = !0),
-                    (this.bulkOperationStatus = s || ""))
+                    (this.bulkOperationStatus = t || ""))
                   : setTimeout(() => {
                       (this.bulkOperating = !1),
                         (this.bulkOperationStatus = "");
@@ -9845,33 +9203,33 @@
               },
               async onFile(e) {
                 if (!this.bulkOperating) {
-                  var s = Array.from(e.target.files);
-                  if (s.length) {
+                  var t = Array.from(e.target.files);
+                  if (t.length) {
                     e.target && (e.target.value = null);
-                    var i = 0,
-                      a = s.length,
-                      n = s.map(async (e) => {
-                        var s, n;
+                    var s = 0,
+                      i = t.length,
+                      a = t.map(async (e) => {
+                        var t, a;
                         await eh.setItem(
                           e.name.replace(/\.vanis$/, ""),
-                          await ((s = e),
-                          new Promise((e, i) => {
-                            var a = new FileReader();
-                            (a.onload = (s) => e(s.target.result)),
-                              (a.onerror = i),
-                              a.readAsText(s);
+                          await ((t = e),
+                          new Promise((e, s) => {
+                            var i = new FileReader();
+                            (i.onload = (t) => e(t.target.result)),
+                              (i.onerror = s),
+                              i.readAsText(t);
                           }))
                         ),
                           this.setBulkOp(
                             !0,
-                            "Importing replays (" + ++i + " / " + a + ")"
+                            "Importing replays (" + ++s + " / " + i + ")"
                           );
                       });
                     this.setBulkOp(!0, "Importing replays");
                     try {
-                      await Promise.all(n);
-                    } catch (r) {
-                      ec.alert('Error importing replays: "' + r.message + '"'),
+                      await Promise.all(a);
+                    } catch (n) {
+                      el.alert('Error importing replays: "' + n.message + '"'),
                         this.setBulkOp(!1),
                         this.updateReplayKeys();
                     }
@@ -9882,24 +9240,24 @@
               async downloadAllReplays() {
                 if (!this.bulkOperating && this.keysLoaded) {
                   var e = this.replayKeys.length,
-                    s = Math.ceil(this.replayKeys.length / 200),
-                    i = s > 1,
-                    a = ed.getTimestamp();
-                  (this.showMultipleFilesWarning = i),
-                    this.setBulkOp(!0, "Packing replays (0 / " + s + ")");
-                  for (var n = 0, r = 0; n < e; n += 200, r++) {
-                    for (var o = new en(), l = n; l < n + 200 && l < e; l++) {
-                      var c = this.replayKeys[l];
-                      o.file(c + ".vanis", await eh.getItem(c));
+                    t = Math.ceil(this.replayKeys.length / 200),
+                    s = t > 1,
+                    i = ec.getTimestamp();
+                  (this.showMultipleFilesWarning = s),
+                    this.setBulkOp(!0, "Packing replays (0 / " + t + ")");
+                  for (var a = 0, n = 0; a < e; a += 200, n++) {
+                    for (var o = new ea(), r = a; r < a + 200 && r < e; r++) {
+                      var l = this.replayKeys[r];
+                      o.file(l + ".vanis", await eh.getItem(l));
                     }
-                    var d = await o.generateAsync({ type: "blob" }),
-                      h = "replays_" + a;
-                    i && (h += "_" + (r + 1)),
+                    var c = await o.generateAsync({ type: "blob" }),
+                      h = "replays_" + i;
+                    s && (h += "_" + (n + 1)),
                       (h += ".zip"),
-                      ea.saveAs(d, h),
+                      ei.saveAs(c, h),
                       this.setBulkOp(
                         !0,
-                        "Packing replays (" + (r + 1) + " / " + s + ")"
+                        "Packing replays (" + (n + 1) + " / " + t + ")"
                       );
                   }
                   (this.showMultipleFilesWarning = !1), this.setBulkOp(!1);
@@ -9908,15 +9266,15 @@
               deleteAllReplays() {
                 if (!this.bulkOperating) {
                   var e = this;
-                  ec.confirm(
+                  el.confirm(
                     "Are you absolutely sure that you want to delete all replays?",
                     async () => {
                       this.setBulkOp(!0, "Deleting all replays");
                       try {
                         await eh.clear();
-                      } catch (s) {
-                        return void ec.alert(
-                          "Error clearing replays: " + s.message
+                      } catch (t) {
+                        return void el.alert(
+                          "Error clearing replays: " + t.message
                         );
                       }
                       this.setBulkOp(!1), e.updateReplayKeys();
@@ -9949,60 +9307,60 @@
                     : (this.pageIndex = parseInt(e.target.value) - 1 || 0)),
                   this.pageLoadingCancel &&
                     (this.pageLoadingCancel(), (this.pageLoadingCancel = null));
-                var s = Math.max(
+                var t = Math.max(
                   Math.min(this.pageIndex, this.pageCount - 1),
                   0
                 );
-                this.pageIndex !== s && (this.pageIndex = s),
+                this.pageIndex !== t && (this.pageIndex = t),
                   (this.pageLoaded = !1);
-                var i = [],
-                  a = !1;
-                this.pageLoadingCancel = () => (a = !0);
+                var s = [],
+                  i = !1;
+                this.pageLoadingCancel = () => (i = !0);
                 for (
-                  var n = 12 * this.pageIndex,
-                    r = 12 * (1 + this.pageIndex),
-                    o = n;
-                  o < r && o < this.replayKeys.length && !a;
+                  var a = 12 * this.pageIndex,
+                    n = 12 * (1 + this.pageIndex),
+                    o = a;
+                  o < n && o < this.replayKeys.length && !i;
                   o++
                 ) {
-                  var l = this.replayKeys[o],
-                    c = { name: l, data: await eh.getItem(l) };
-                  c.data.startsWith("REPLAY")
-                    ? (c.image = c.data.split("|")[2])
-                    : (c.image = "https://vanis.io/img/replay-placeholder.png"),
-                    i.push(c);
+                  var r = this.replayKeys[o],
+                    l = { name: r, data: await eh.getItem(r) };
+                  l.data.startsWith("REPLAY")
+                    ? (l.image = l.data.split("|")[2])
+                    : (l.image = "https://vanis.io/img/replay-placeholder.png"),
+                    s.push(l);
                 }
-                a ||
-                  (this.pageData.splice(0, this.pageData.length, ...i),
+                i ||
+                  (this.pageData.splice(0, this.pageData.length, ...s),
                   (this.pageLoaded = !0));
               },
             },
             created() {
               this.updateReplayKeys(),
-                er.events.$on("replay-added", this.updateReplayKeys),
-                er.events.$on("replay-removed", this.updateReplayKeys);
+                en.events.$on("replay-added", this.updateReplayKeys),
+                en.events.$on("replay-removed", this.updateReplayKeys);
             },
             beforeDestroy() {
-              er.events.$off("replay-added", this.updateReplayKeys),
-                er.events.$off("replay-removed", this.updateReplayKeys);
+              en.events.$off("replay-added", this.updateReplayKeys),
+                en.events.$off("replay-removed", this.updateReplayKeys);
             },
           },
-          ep = (i(220), Object(y.a)(eu, es, [], !1, null, "4a996e52", null));
-        ep.options.__file = "src/components/replays3.vue";
-        var ev = ep.exports,
-          em = function () {
+          eu = (s(220), Object(v.a)(ed, et, [], !1, null, "4a996e52", null));
+        eu.options.__file = "src/components/replays3.vue";
+        var ep = eu.exports,
+          eg = function () {
             var e = this,
-              s = e.$createElement,
-              i = e._self._c || s;
-            return i("div", { staticStyle: { padding: "15px" } }, [
-              i(
+              t = e.$createElement,
+              s = e._self._c || t;
+            return s("div", { staticStyle: { padding: "15px" } }, [
+              s(
                 "h2",
                 { staticStyle: { margin: "0", "margin-bottom": "14px" } },
                 [e._v(e._s(e.seasonLeaderboardText))]
               ),
               e._v(" "),
               e.errorMessage
-                ? i("div", [
+                ? s("div", [
                     e._v(
                       "\n    Failed loading season leaderboard data:\n    " +
                         e._s(e.errorMessage) +
@@ -10012,54 +9370,54 @@
                 : e._e(),
               e._v(" "),
               e.playerList.length
-                ? i(
+                ? s(
                     "div",
                     [
-                      i("div", { staticClass: "info" }, [
+                      s("div", { staticClass: "info" }, [
                         e._v(
                           "\n        Season XP counts for this season only."
                         ),
-                        i("br"),
+                        s("br"),
                         e._v(
                           "\n            Top few players earn colored names."
                         ),
-                        i("br"),
+                        s("br"),
                         e._v("\n        Check our "),
-                        i(
+                        s(
                           "a",
                           { attrs: { href: "https://vanis.io/discord" } },
                           [e._v("Discord")]
                         ),
                         e._v(" for more information."),
-                        i("br"),
+                        s("br"),
                         e._v("\n        Season ends in "),
-                        i("b", [e._v(e._s(e.seasonEndTime))]),
+                        s("b", [e._v(e._s(e.seasonEndTime))]),
                       ]),
                       e._v(" "),
-                      e._l(e.playerList, function (s, a) {
-                        return i(
+                      e._l(e.playerList, function (t, i) {
+                        return s(
                           "div",
                           {
-                            key: a,
+                            key: i,
                             staticClass: "player-row",
-                            class: { me: e.ownUid && e.ownUid === s.uid },
+                            class: { me: !!e.isMe },
                           },
                           [
-                            i("span", { staticClass: "player-nr" }, [
-                              e._v(e._s(a + 1) + "."),
+                            s("span", { staticClass: "player-nr" }, [
+                              e._v(e._s(i + 1) + "."),
                             ]),
                             e._v(" "),
-                            i(
+                            s(
                               "span",
                               {
                                 staticClass: "player-name",
-                                style: { color: s.name_color },
+                                style: { color: t.name_color },
                               },
-                              [e._v(e._s(s.name))]
+                              [e._v(e._s(t.name))]
                             ),
                             e._v(" "),
-                            i("span", { staticClass: "player-xp" }, [
-                              e._v(e._s(s.season_xp) + " XP"),
+                            s("span", { staticClass: "player-xp" }, [
+                              e._v(e._s(t.xp) + " XP"),
                             ]),
                           ]
                         );
@@ -10070,11 +9428,11 @@
                 : e._e(),
             ]);
           };
-        em._withStripped = !0;
-        var eg = i(1),
-          ef = i(19),
-          { checkBadWords: ey } = i(17),
-          ew = [
+        eg._withStripped = !0;
+        var eA = s(1),
+          em = s(228),
+          { checkBadWords: ev } = s(17),
+          ef = [
             "Jan",
             "Feb",
             "Mar",
@@ -10088,9 +9446,9 @@
             "Nov",
             "Dec",
           ],
-          e$ =
-            (i(222),
-            Object(y.a)(
+          eC =
+            (s(222),
+            Object(v.a)(
               {
                 data: () => ({
                   playerList: [],
@@ -10108,7 +9466,7 @@
                 computed: {
                   seasonLeaderboardText() {
                     return (
-                      ew[this.date.getUTCMonth()] +
+                      ef[this.date.getUTCMonth()] +
                       " " +
                       this.date.getUTCFullYear() +
                       " season"
@@ -10119,82 +9477,73 @@
                   setSeasonEndTime() {
                     this.seasonEndTime = (function (e) {
                       if (e < 0) return "now";
-                      var s = Math.floor(e / 1e3),
-                        i = s % 60,
-                        a = Math.floor(s / 60),
-                        n = a % 60,
-                        r = Math.floor(a / 60),
-                        o = r % 24,
-                        l = Math.floor(r / 24),
-                        c = [];
+                      var t = Math.floor(e / 1e3),
+                        s = t % 60,
+                        i = Math.floor(t / 60),
+                        a = i % 60,
+                        n = Math.floor(i / 60),
+                        o = n % 24,
+                        r = Math.floor(n / 24),
+                        l = [];
                       return (
-                        l > 0 && c.push(l + " day" + (1 !== l ? "s" : "")),
+                        r > 0 && l.push(r + " day" + (1 !== r ? "s" : "")),
                         o % 24 > 0 &&
-                          c.push(o + " hour" + (1 !== o ? "s" : "")),
-                        0 === l &&
-                          n % 60 > 0 &&
-                          c.push(n + " minute" + (1 !== n ? "s" : "")),
+                          l.push(o + " hour" + (1 !== o ? "s" : "")),
                         0 === r &&
-                          i % 60 > 0 &&
-                          c.push(i + " second" + (1 !== i ? "s" : "")),
-                        c.join(" ")
+                          a % 60 > 0 &&
+                          l.push(a + " minute" + (1 !== a ? "s" : "")),
+                        0 === n &&
+                          s % 60 > 0 &&
+                          l.push(s + " second" + (1 !== s ? "s" : "")),
+                        l.join(" ")
                       );
                     })(this.nextStartDate - Date.now());
                   },
                 },
-                created() {
-                  this.ownUid = eg.ownUid;
-                  var e =
-                    "https://vanis.io/api".replace("/api", "") +
-                    "/highscores/season_xp/100";
-                  ef
-                    .get(e)
-                    .then((e) => {
-                      var s = e.data;
-                      s.forEach((e) => {
-                        var s = e.name_color;
-                        e.name_color = s ? "#" + s : "white";
-                        var i = e.locked_name || e.discord_name;
-                        ey(i) && (i = "********"), (e.name = i);
-                      }),
-                        (this.playerList = s);
-                    })
-                    .catch((e) => {
-                      this.errorMessage = e.message;
-                    }),
-                    eg.events.$on("every-second", this.setSeasonEndTime),
+                async created() {
+                  let e = await em.get("/leaderboard/season_xp/100");
+                  if (!e.ok) return;
+                  let t = await e.json();
+                  (this.playerList = t.map((e) => ({
+                    name: e.perk_name || e.discord_name,
+                    name_color: "#" + (e.perk_color || "ffffff"),
+                    badge: e.perk_badges || 0,
+                    xp: e.season_xp,
+                    isMe: e.me,
+                  }))),
+                    eA.events.$on("every-second", this.setSeasonEndTime),
                     this.setSeasonEndTime();
                 },
                 destroyed() {
-                  eg.events.$off("every-second", this.setSeasonEndTime);
+                  eA.events.$off("every-second", this.setSeasonEndTime);
                 },
               },
-              em,
+              eg,
               [],
               !1,
               null,
               "7179a145",
               null
             ));
-        e$.options.__file = "src/components/meta-leaderboard.vue";
-        var eb = e$.exports,
-          e_ = (i(19), i(1)),
-          ek =
-            (i(5),
+        eC.options.__file = "src/components/meta-leaderboard.vue";
+        var ey = eC.exports,
+          ew = (s(19), s(1)),
+          eI =
+            (s(5),
             {
               components: {
-                modal: k.default,
-                settings: E,
-                theming: Y,
-                hotkeys: et,
-                replays3: ev,
-                metaLeaderboard: eb,
+                modal: w.default,
+                settings: Q,
+                theming: J,
+                hotkeys: ee,
+                replays3: ep,
+                metaLeaderboard: ey,
               },
               data: () => ({
                 activeModal: "",
                 showSettings: !1,
                 showHotkeys: !1,
-                gameState: e_.state,
+                gameState: ew.state,
                 nickname:
                   "string" == typeof localStorage.nickname
                     ? localStorage.nickname
@@ -10206,7 +9555,7 @@
                     : "https://skins.vanis.io/s/vanis1",
               }),
               created: function () {
-                e_.events.$on("skin-click", (e) => {
+                ew.events.$on("skin-click", (e) => {
                   this.skinUrl =
                     localStorage.skinUrl =
                     document.getElementById("skinDisplay1").src =
@@ -10220,18 +9569,24 @@
                 closeModal: function () {
                   (this.activeModal = ""), this.$emit("modal-open", !1);
                 },
-                play: function (e) {
-                  e instanceof MouseEvent &&
-                    e.isTrusted &&
-                    (this.gameState.isAlive || e_.actions.join(),
-                    e_.showMenu(!1));
+                play() {
+                  let { lifeState: e } = this.gameState;
+                  if (1 & e) {
+                    let { dual: t } = ew;
+                    2 & e
+                      ? t.focused
+                        ? t.spawn()
+                        : ew.actions.join()
+                      : t.connected && (t.focused ? t.spawn() : t.switch());
+                  } else ew.actions.join();
+                  ew.showMenu(!1);
                 },
-                spectate: function () {
-                  this.gameState.isAlive ||
-                    (e_.actions.spectate(), e_.showMenu(!1));
+                spectate() {
+                  let { lifeState: e } = this.gameState;
+                  1 & e || (ew.actions.spectate(), ew.showMenu(!1));
                 },
                 onSkinUrlChange() {
-                  e_.events.$emit("skin-url-edit", this.skinUrl);
+                  ew.events.$emit("skin-url-edit", this.skinUrl);
                 },
                 onTeamTagChange() {
                   localStorage.setItem("teamtag", this.teamtag);
@@ -10241,26 +9596,24 @@
                 },
               },
             }),
-          eC =
-            (i(224),
-            Object(y.a)(
-              ek,
-              _,
+          e$ =
+            (s(224),
+            Object(v.a)(
+              eI,
+              y,
               [
                 function () {
                   var e = this.$createElement,
-                    s = this._self._c || e;
-                  return s(
+                    t = this._self._c || e;
+                  return t(
                     "div",
                     {
                       staticStyle: { "text-align": "center", height: "286px" },
                     },
                     [
-                      s("div", { staticStyle: { padding: "4px" } }, [
+                      t("div", { staticStyle: { padding: "4px" } }, [
                         this._v(""),
                       ]),
-                      this._v(" "),
-                      s("div", { attrs: { id: "vanis-io_300x250" } }),
                     ]
                   );
                 },
@@ -10270,17 +9623,17 @@
               "1bcde71e",
               null
             ));
-        eC.options.__file = "src/components/player.vue";
-        var e8 = eC.exports,
-          ex = function () {
+        e$.options.__file = "src/components/player.vue";
+        var ek = e$.exports,
+          eb = function () {
             var e = this,
-              s = e.$createElement,
-              i = e._self._c || s;
-            return i("div", { staticStyle: { padding: "12px 15px" } }, [
+              t = e.$createElement,
+              s = e._self._c || t;
+            return s("div", { staticStyle: { padding: "12px 15px" } }, [
               e.account
                 ? e._e()
-                : i("div", [
-                    i(
+                : s("div", [
+                    s(
                       "div",
                       {
                         staticStyle: {
@@ -10295,7 +9648,7 @@
                       ]
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       {
                         staticClass: "discord",
@@ -10309,7 +9662,7 @@
                         e.loading
                           ? [
                               e.loading
-                                ? i("i", {
+                                ? s("i", {
                                     staticClass: "fas fa-sync fa-spin",
                                     staticStyle: { "margin-right": "5px" },
                                   })
@@ -10317,7 +9670,7 @@
                               e._v(" Loading\n        "),
                             ]
                           : [
-                              i("i", { staticClass: "fab fa-discord" }),
+                              s("i", { staticClass: "fab fa-discord" }),
                               e._v(" Login with Discord\n            "),
                             ],
                       ],
@@ -10326,15 +9679,15 @@
                   ]),
               e._v(" "),
               e.account
-                ? i("div", { staticClass: "account" }, [
-                    i("div", { staticStyle: { "margin-bottom": "3px" } }, [
-                      i("img", {
+                ? s("div", { staticClass: "account" }, [
+                    s("div", { staticStyle: { "margin-bottom": "3px" } }, [
+                      s("img", {
                         staticClass: "avatar",
                         attrs: { src: e.avatarUrl },
                       }),
                       e._v(" "),
-                      i("div", { staticClass: "player-info" }, [
-                        i(
+                      s("div", { staticClass: "player-info" }, [
+                        s(
                           "div",
                           {
                             style: { color: e.nameColor },
@@ -10343,27 +9696,27 @@
                           [e._v(e._s(e.name))]
                         ),
                         e._v(" "),
-                        i("div", [e._v("Level " + e._s(e.account.level))]),
+                        s("div", [e._v("Level " + e._s(e.account.level))]),
                         e._v(" "),
-                        i("div", [e._v(e._s(e.account.xp) + " total XP")]),
+                        s("div", [e._v(e._s(e.account.xp) + " total XP")]),
                         e._v(" "),
-                        i("div", [
+                        s("div", [
                           e._v(e._s(e.account.season_xp || 0) + " season XP"),
                         ]),
                       ]),
                     ]),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       { staticStyle: { position: "relative" } },
                       [
-                        i("progress-bar", {
+                        s("progress-bar", {
                           staticClass: "xp-progress",
                           attrs: { progress: e.progress },
                         }),
                         e._v(" "),
-                        i("div", { staticClass: "xp-data" }, [
-                          i(
+                        s("div", { staticClass: "xp-data" }, [
+                          s(
                             "div",
                             {
                               staticStyle: { flex: "1", "margin-left": "8px" },
@@ -10371,7 +9724,7 @@
                             [e._v(e._s(e.xpAtCurrentLevel))]
                           ),
                           e._v(" "),
-                          i("div", { staticStyle: { "margin-right": "7px" } }, [
+                          s("div", { staticStyle: { "margin-right": "7px" } }, [
                             e._v(e._s(e.xpAtNextLevel)),
                           ]),
                         ]),
@@ -10379,7 +9732,7 @@
                       1
                     ),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       {
                         staticClass: "logout",
@@ -10390,7 +9743,7 @@
                         },
                       },
                       [
-                        i("i", { staticClass: "fas fa-sign-out-alt" }),
+                        s("i", { staticClass: "fas fa-sign-out-alt" }),
                         e._v(" Logout\n    "),
                       ]
                     ),
@@ -10398,40 +9751,40 @@
                 : e._e(),
             ]);
           };
-        ex._withStripped = !0;
-        var eS = function () {
+        eb._withStripped = !0;
+        var e_ = function () {
           var e = this.$createElement,
-            s = this._self._c || e;
-          return s("div", { staticClass: "progress progress-striped" }, [
-            s("div", {
+            t = this._self._c || e;
+          return t("div", { staticClass: "progress progress-striped" }, [
+            t("div", {
               staticClass: "progress-bar",
               style: { width: 100 * this.progress + "%" },
             }),
           ]);
         };
-        eS._withStripped = !0;
-        var e0 =
-          (i(226),
-          Object(y.a)(
+        e_._withStripped = !0;
+        var eS =
+          (s(226),
+          Object(v.a)(
             { props: ["progress"] },
-            eS,
+            e_,
             [],
             !1,
             null,
             "4e838c74",
             null
           ));
-        e0.options.__file = "src/components/progressBar.vue";
-        var eM = e0.exports,
-          eT = i(228),
-          eI = i(5),
-          eP = i(1),
-          eL = i(229),
-          eE =
-            (i(230),
-            Object(y.a)(
+        eS.options.__file = "src/components/progressBar.vue";
+        var eE = eS.exports,
+          ex = s(228),
+          eB = s(5),
+          e8 = s(1),
+          e0 = s(229),
+          eQ =
+            (s(230),
+            Object(v.a)(
               {
-                components: { progressBar: eM },
+                components: { progressBar: eE },
                 data: () => ({
                   accountTime: 0,
                   account: null,
@@ -10444,65 +9797,67 @@
                   name: null,
                 }),
                 created() {
-                  eP.events.$on("xp-update", this.onXpUpdate),
+                  e8.events.$on("xp-update", this.onXpUpdate),
                     this.reloadUserData(),
                     this.listenForToken();
                 },
                 beforeDestroy() {
-                  eP.events.$off("xp-update", this.onXpUpdate);
+                  e8.events.$off("xp-update", this.onXpUpdate);
                 },
                 methods: {
                   listenForToken() {
                     window.addEventListener("message", (e) => {
-                      var s = e.data.vanis_token;
-                      s &&
-                        (this.onLoggedIn(s),
+                      var t = e.data.vanis_token;
+                      t &&
+                        (this.onLoggedIn(t),
                         e.source.postMessage("loggedIn", e.origin));
                     });
                   },
                   reloadUserData() {
                     Date.now() - this.accountTime <= 6e4 ||
                       ((this.accountTime = Date.now()),
-                      eT.vanisToken && this.loadUserData());
+                      ex.vanisToken && this.loadUserData());
                   },
                   async loadUserData() {
                     this.loading = !0;
-                    try {
-                      var e = await eT.get("/me");
-                    } catch (s) {
-                      this.loading = !1;
-                      var i = s.response;
-                      if (!i) return;
-                      return void (401 === i.status && eT.clearToken());
+                    let e = await ex.get("/me");
+                    if (!e.ok) {
+                      (this.loading = !1),
+                        console.error("Account:", e.status, e.statusText),
+                        401 === e.status
+                          ? ex.clearToken()
+                          : 503 === e.status && eB.alert(await e.text());
+                      return;
                     }
-                    this.setAccountData(e),
+                    let t = await e.json();
+                    this.setAccountData(t),
                       this.updateProgress(this.account.xp, this.account.level),
                       (this.loading = !1);
                   },
                   async logout() {
                     try {
-                      await eT.call("DELETE", "/me");
+                      await ex.call("DELETE", "/me");
                     } catch (e) {
-                      var s = e.response;
-                      s && 401 !== s.status && eI.alert("Error: " + e.message);
+                      var t = e.response;
+                      t && 401 !== t.status && eB.alert("Error: " + e.message);
                     }
-                    eT.clearToken(),
+                    ex.clearToken(),
                       (this.account = null),
                       (this.name = null),
                       (this.nameColor = null),
                       (this.avatarUrl = null),
-                      (eP.ownUid = null);
+                      (e8.ownUid = null);
                   },
-                  getAvatarUrl: (e, s) =>
-                    s
+                  getAvatarUrl: (e, t) =>
+                    t
                       ? "https://cdn.discordapp.com/avatars/" +
                         e +
                         "/" +
-                        s +
+                        t +
                         ".png"
                       : "https://cdn.discordapp.com/embed/avatars/0.png",
                   setAccountData(e) {
-                    e.permissions && (window.gameObj = eP),
+                    e.permissions && (window.gameObj = e8),
                       (GAME.account = e),
                       (this.account = e),
                       (this.avatarUrl = this.getAvatarUrl(
@@ -10513,88 +9868,89 @@
                       (this.nameColor = e.name_color
                         ? "#" + e.name_color
                         : "#ffffff"),
-                      (eP.ownUid = e.uid);
+                      (e8.ownUid = e.uid);
                   },
                   onXpUpdate(e) {
                     if (this.account) {
-                      var s = eL.getLevel(e);
+                      var t = e0.getLevel(e);
                       (this.account.season_xp += e - this.account.xp),
                         (this.account.xp = e),
-                        (this.account.level = s),
-                        this.updateProgress(e, s);
+                        (this.account.level = t),
+                        this.updateProgress(e, t);
                     }
                   },
-                  updateProgress(e, s) {
-                    (this.xpAtCurrentLevel = eL.getXp(s)),
-                      (this.xpAtNextLevel = eL.getXp(s + 1)),
+                  updateProgress(e, t) {
+                    (this.xpAtCurrentLevel = e0.getXp(t)),
+                      (this.xpAtNextLevel = e0.getXp(t + 1)),
                       (this.progress =
                         (e - this.xpAtCurrentLevel) /
                         (this.xpAtNextLevel - this.xpAtCurrentLevel));
                   },
                   openDiscordLogin: function () {
                     window.open(
-                      eT.url + "/login/discord",
+                      ex.url + "/login/discord",
                       "",
                       "width=500, height=750"
                     );
                   },
                   onLoggedIn(e) {
-                    eT.setToken(e), this.loadUserData();
+                    ex.setToken(e), this.loadUserData();
                   },
                 },
               },
-              ex,
+              eb,
               [],
               !1,
               null,
               "661435cd",
               null
             ));
-        eE.options.__file = "src/components/account.vue";
-        var e1 = eE.exports,
-          e4 = function () {
+        eQ.options.__file = "src/components/account.vue";
+        var eM = eQ.exports,
+          eT = function () {
             var e = this,
-              s = e.$createElement,
-              i = e._self._c || s;
-            return i("div", { attrs: { id: "skins-container" } }, [
-              i(
+              t = e.$createElement,
+              s = e._self._c || t;
+            return s("div", { attrs: { id: "skins-container" } }, [
+              s(
                 "div",
                 { attrs: { id: "skins" } },
                 [
-                  e._l(e.skins, function (s, a) {
-                    return i(
+                  e._l(e.skins, function (t, i) {
+                    return s(
                       "span",
-                      { key: a, staticClass: "skin-container" },
+                      { key: i, staticClass: "skin-container" },
                       [
-                        i("img", {
+                        s("img", {
                           staticClass: "skin",
-                          class: { selected: e.selectedSkinIndex === a },
-                          attrs: { src: s, alt: "" },
+                          class: { selected: e.selectedSkinIndex === i },
+                          attrs: { src: t, alt: "" },
                           on: {
                             click: function () {
-                              return e.selectSkin(a);
+                                console.log(i)
+                              return e.selectSkin(i);
                             },
                             contextmenu: function () {
                               getModule(4).set(
                                 "mbSkin",
-                                GAME.skinPanel.skins[a]
+                                GAME.skinPanel.skins[i]
                               ),
                                 (document.getElementById("skinDisplay2").src =
-                                  GAME.skinPanel.skins[a]),
+                                  GAME.skinPanel.skins[i]),
                                 window.SwalAlerts.toast.fire({
                                   type: "info",
-                                  title: "Multibox skin set!",
+                                  title: "Updated multibox skin",
                                   timer: 1500,
                                 });
                             },
                           },
                         }),
                         e._v(" "),
-                        i("i", {
+                        s("i", {
                           staticClass: "fas fa-times skin-remove-button",
                           on: {
                             click: function () {
-                              return e.removeSkin(a);
+                              return e.removeSkin(i);
                             },
                           },
                         }),
@@ -10602,7 +9958,7 @@
                     );
                   }),
                   e._v(" "),
-                  i("img", {
+                  s("img", {
                     staticClass: "skin add-skin",
                     attrs: { src: "/img/skin-add.png", alt: "" },
                     on: {
@@ -10616,11 +9972,11 @@
               ),
             ]);
           };
-        e4._withStripped = !0;
-        var e3 = i(1),
-          eU =
-            (i(232),
-            Object(y.a)(
+        eT._withStripped = !0;
+        var eD = s(1),
+          eL =
+            (s(232),
+            Object(v.a)(
               {
                 data: () => ({
                   selectedSkinIndex: 0,
@@ -10628,7 +9984,7 @@
                   skinsLoaded: [],
                 }),
                 created() {
-                  e3.events.$on(
+                  eD.events.$on(
                     "skin-url-edit",
                     this.onSkinUrlChanged.bind(this)
                   ),
@@ -10641,17 +9997,17 @@
                     var e = localStorage.skins;
                     if (!e) return !1;
                     try {
-                      var s = JSON.parse(e);
-                    } catch (i) {
+                      var t = JSON.parse(e);
+                    } catch (s) {
                       return !1;
                     }
-                    if (!Array.isArray(s)) return !1;
-                    for (var a = s.length; a < 2; a++)
-                      s.push("https://skins.vanis.io/s/vanis1");
-                    return s;
+                    if (!Array.isArray(t)) return !1;
+                    for (var i = t.length; i < 2; i++)
+                      t.push("https://skins.vanis.io/s/vanis1");
+                    return t;
                   },
                   getDefaultSkins() {
-                    for (var e = [], s = 0; s < 8; s++)
+                    for (var e = [], t = 0; t < 8; t++)
                       e.push("https://skins.vanis.io/s/vanis1");
                     return e;
                   },
@@ -10662,22 +10018,28 @@
                   selectSkin(e) {
                     (this.selectedSkinIndex = e),
                       (localStorage.selectedSkinIndex = e);
-                    var s = this.skins[e];
-                    e3.events.$emit("skin-click", s);
+                    var t = this.skins[e];
+                    eD.events.$emit("skin-click", t);
                   },
                   removeSkin(e) {
                     this.skins.splice(e, 1),
                       this.skins.length < 2 &&
                         this.skins.push("https://skins.vanis.io/s/vanis1"),
                       this.saveSkins();
-                    var s = Math.max(0, this.selectedSkinIndex - 1);
-                    this.selectSkin(s);
+                    var t = Math.max(0, this.selectedSkinIndex - 1);
+                    this.selectSkin(t);
+                  },
+                  selectedSkin1(e) {
+                    console.log("selected skin 1",e)
+                  },
+                  selectedSkin2(e) {
+                    console.log("selected skin 2",e)
                   },
                   addSkin(e) {
                     if (!this.skins.includes(e)) {
-                      var s = this.skins.length;
+                      var t = this.skins.length;
                       this.skins.push(e || "https://skins.vanis.io/s/vanis1"),
-                        e || this.selectSkin(s),
+                        e || this.selectSkin(t),
                         this.saveSkins();
                     }
                   },
@@ -10686,24 +10048,24 @@
                   },
                 },
               },
-              e4,
+              eT,
               [],
               !1,
               null,
               "1c614894",
               null
             ));
-        eU.options.__file = "src/components/skins.vue";
-        var e2 = eU.exports,
-          eR = i(1),
-          eA =
-            (i(234),
-            Object(y.a)(
+        eL.options.__file = "src/components/skins.vue";
+        var eN = eL.exports,
+          eU = s(1),
+          eR =
+            (s(234),
+            Object(v.a)(
               {
                 data: () => ({
                   isModalOpen: !1,
                   selectedTab: "servers",
-                  gameState: eR.state,
+                  gameState: eU.state,
                   cursorStyleElem: null,
                 }),
                 methods: {
@@ -10711,76 +10073,76 @@
                     this.isModalOpen = e;
                   },
                   setCursorUrl(e) {
-                    var s = null;
+                    var t = null;
                     e &&
-                      (s =
+                      (t =
                         "#canvas, #hud > * { cursor: url('" +
                         e +
                         "'), auto !important; }"),
-                      !s && this.cursorStyleElem
+                      !t && this.cursorStyleElem
                         ? (this.cursorStyleElem.remove(),
                           (this.cursorStyleElem = null))
-                        : s &&
+                        : t &&
                           !this.cursorStyleElem &&
                           ((this.cursorStyleElem =
                             document.createElement("style")),
                           document.head.appendChild(this.cursorStyleElem)),
                       this.cursorStyleElem &&
-                        (this.cursorStyleElem.innerHTML = s);
+                        (this.cursorStyleElem.innerHTML = t);
                   },
                 },
                 components: {
-                  servers: b,
-                  playerContainer: e8,
-                  account: e1,
-                  skins: e2,
+                  servers: C,
+                  playerContainer: ek,
+                  account: eM,
+                  skins: eN,
                 },
                 created() {
-                  eR.events.$on("set-cursor-url", (e) => this.setCursorUrl(e));
+                  eU.events.$on("set-cursor-url", (e) => this.setCursorUrl(e));
                 },
                 mounted() {
-                  this.setCursorUrl(eR.settings.cursorImageUrl);
+                  this.setCursorUrl(eU.settings.cursorImageUrl);
                 },
               },
-              l,
+              r,
               [],
               !1,
               null,
               "ebed1606",
               null
             ));
-        eA.options.__file = "src/components/main-container.vue";
-        var eN = eA.exports,
-          e9 = function () {
+        eR.options.__file = "src/components/main-container.vue";
+        var eF = eR.exports,
+          eP = function () {
             this.$createElement, this._self._c;
           };
-        (e9._withStripped = !0), i(236);
-        var eD = Object(y.a)(
+        (eP._withStripped = !0), s(236);
+        var e1 = Object(v.a)(
           {},
-          e9,
+          eP,
           [function () {}],
           !1,
           null,
           "4d0670e9",
           null
         );
-        eD.options.__file = "src/components/social-links.vue";
-        var eO = eD.exports,
-          eF = function () {
+        e1.options.__file = "src/components/social-links.vue";
+        var e4 = e1.exports,
+          eG = function () {
             return this.$createElement, this._self._c, this._m(0);
           };
-        eF._withStripped = !0;
-        var e6 =
-          (i(238),
-          Object(y.a)(
+        eG._withStripped = !0;
+        var eH =
+          (s(238),
+          Object(v.a)(
             { data() {} },
-            eF,
+            eG,
             [
               function () {
                 var e = this.$createElement,
-                  s = this._self._c || e;
-                return s("div", { staticClass: "container" }, [
-                  s(
+                  t = this._self._c || e;
+                return t("div", { staticClass: "container" }, [
+                  t(
                     "a",
                     {
                       staticStyle: { "margin-left": "20.59px" },
@@ -10789,9 +10151,9 @@
                     [this._v("")]
                   ),
                   this._v(" "),
-                  s("span", { staticClass: "line" }, [this._v("")]),
+                  t("span", { staticClass: "line" }, [this._v("")]),
                   this._v(" "),
-                  s("a", { attrs: { href: "tos.html", target: "_blank" } }, [
+                  t("a", { attrs: { href: "tos.html", target: "_blank" } }, [
                     this._v(""),
                   ]),
                 ]);
@@ -10802,52 +10164,52 @@
             "6843da33",
             null
           ));
-        e6.options.__file = "src/components/privacy-tos.vue";
-        var eB = e6.exports,
-          eW = function () {
+        eH.options.__file = "src/components/privacy-tos.vue";
+        var e3 = eH.exports,
+          e9 = function () {
             var e = this.$createElement,
-              s = this._self._c || e;
+              t = this._self._c || e;
             return this.show
-              ? s(
+              ? t(
                   "div",
                   {
                     staticClass: "context-menu fade",
                     style: { top: this.y + "px", left: this.x + "px" },
                   },
                   [
-                    s("div", { staticClass: "player-name" }, [
+                    t("div", { staticClass: "player-name" }, [
                       this._v(this._s(this.playerName)),
                     ]),
                     this._v(" "),
-                    s("div", [this._v("Block")]),
+                    t("div", [this._v("Block")]),
                     this._v(" "),
-                    s("div", { on: { click: this.hideName } }, [
+                    t("div", { on: { click: this.hideName } }, [
                       this._v("Hide Name"),
                     ]),
                     this._v(" "),
-                    s("div", { on: { click: this.hideSkin } }, [
+                    t("div", { on: { click: this.hideSkin } }, [
                       this._v("Hide Skin"),
                     ]),
                     this._v(" "),
-                    s("div", [this._v("Kick")]),
+                    t("div", [this._v("Kick")]),
                     this._v(" "),
-                    s("div", [this._v("Ban")]),
+                    t("div", [this._v("Ban")]),
                     this._v(" "),
-                    s("div", [this._v("Mute")]),
+                    t("div", [this._v("Mute")]),
                   ]
                 )
               : this._e();
           };
-        (eW._withStripped = !0), i(1);
-        var eH =
-          (i(240),
-          Object(y.a)(
+        (e9._withStripped = !0), s(1);
+        var e2 =
+          (s(240),
+          Object(v.a)(
             {
               data: () => ({ show: !1, playerName: "", x: 100, y: 55 }),
               methods: {
-                open: function (e, s) {
-                  (this.player = s),
-                    (this.playerName = s.name),
+                open: function (e, t) {
+                  (this.player = t),
+                    (this.playerName = t.name),
                     (this.x = e.clientX),
                     (this.y = e.clientY),
                     (this.show = !0),
@@ -10868,82 +10230,83 @@
               },
               created() {},
             },
-            eW,
+            e9,
             [],
             !1,
             null,
             "4dbee04d",
             null
           ));
-        eH.options.__file = "src/components/context-menu.vue";
-        var ez = eH.exports,
-          e5 = function () {
+        e2.options.__file = "src/components/context-menu.vue";
+        var eO = e2.exports,
+          eY = function () {
             var e = this.$createElement,
-              s = this._self._c || e;
-            return s(
+              t = this._self._c || e;
+            return t(
               "div",
               { attrs: { id: "hud" } },
               [
-                s("stats"),
+                t("stats"),
                 this._v(" "),
-                s("chatbox"),
+                t("chatbox"),
                 this._v(" "),
-                s("leaderboard"),
+                t("leaderboard"),
                 this._v(" "),
-                s("minimap"),
+                t("minimap"),
                 this._v(" "),
-                s("cautions"),
+                t("cautions"),
               ],
               1
             );
           };
-        e5._withStripped = !0;
-        var e7 = function () {
-          var e = this,
-            s = e.$createElement,
-            i = e._self._c || s;
-          return i("div", [
-            i(
+        eY._withStripped = !0;
+        var e6 = function () {
+          let e = this._self._c || this.$createElement,
+            t = this._s,
+            s = this._v,
+            i = this._l,
+            a = this._e;
+          return e("div", [
+            e(
               "div",
               { staticClass: "server-cautions" },
-              e._l(e.serverInfo, function (s) {
-                return i("div", [e._v(e._s(s))]);
-              }),
+              i(this.serverInfo, (i) => e("div", [s(t(i))])),
               0
             ),
-            e._v(" "),
-            i("div", { staticClass: "cautions" }, [
-              !e.stopped && e.showMouseFrozen
-                ? i("div", [e._v("MOUSE FROZEN")])
-                : e._e(),
-              e._v(" "),
-              !e.stopped && e.showMovementStopped
-                ? i("div", [e._v("MOVEMENT STOPPED")])
-                : e._e(),
-              e._v(" "),
-              !e.stopped && e.showLinesplitting
-                ? i("div", [e._v("LINESPLITTING")])
-                : e._e(),
+            s(" "),
+            e("div", { staticClass: "cautions" }, [
+              !this.stopped && this.showMouseFrozen
+                ? e("div", [s("MOUSE FROZEN")])
+                : a(),
+              s(" "),
+              !this.stopped && this.showMovementStopped
+                ? e("div", [
+                    s(`MOVEMENT STOPPED [TAB ${this.showMovementStopped}]`),
+                  ])
+                : a(),
+              s(" "),
+              !this.stopped && this.showLinesplitting
+                ? e("div", [s(`LINESPLITTING [TAB ${this.showLinesplitting}]`)])
+                : a(),
             ]),
           ]);
         };
-        e7._withStripped = !0;
-        var eG = i(1),
-          eV =
-            (i(242),
-            Object(y.a)(
+        e6._withStripped = !0;
+        var ez = s(1),
+          eW =
+            (s(242),
+            Object(v.a)(
               {
                 data: () => ({
                   showMouseFrozen: !1,
-                  showMovementStopped: !1,
-                  showLinesplitting: !1,
+                  showMovementStopped: 0,
+                  showLinesplitting: 0,
                   serverInfo: null,
                 }),
                 mounted() {
-                  eG.events.$on("update-cautions", (e) => {
-                    (GAME.cautions = this),
-                      "mouseFrozen" in e &&
-                        (this.showMouseFrozen = e.mouseFrozen),
+                  ez.events.$on("update-cautions", (e) => {
+                    "mouseFrozen" in e &&
+                      (this.showMouseFrozen = e.mouseFrozen),
                       "moveToCenterOfCells" in e &&
                         (this.showMovementStopped = e.moveToCenterOfCells),
                       "lockLinesplit" in e &&
@@ -10951,30 +10314,29 @@
                       "custom" in e &&
                         (this.serverInfo = e.custom.split(/\r\n|\r|\n/));
                   }),
-                    eG.events.$on("reset-cautions", () => {
+                    ez.events.$on("reset-cautions", () => {
                       (this.showMouseFrozen = !1),
-                        (this.showMovementStopped = !1),
-                        (this.showLinesplitting = !1),
-                        (GAME.linesplitting = !1);
+                        (this.showMovementStopped = 0),
+                        (this.showLinesplitting = 0);
                     }),
-                    eG.events.$on("game-stopped", () => {
+                    ez.events.$on("game-stopped", () => {
                       this.serverInfo = null;
                     });
                 },
               },
-              e7,
+              e6,
               [],
               !1,
               null,
               "b7599310",
               null
             ));
-        eV.options.__file = "src/components/cautions.vue";
-        var eZ = eV.exports,
-          ej = function () {
+        eW.options.__file = "src/components/cautions.vue";
+        var eZ = eW.exports,
+          e7 = function () {
             var e = this.$createElement,
-              s = this._self._c || e;
-            return s(
+              t = this._self._c || e;
+            return t(
               "div",
               {
                 directives: [
@@ -10988,7 +10350,7 @@
                 staticClass: "stats",
               },
               [
-                s(
+                t(
                   "div",
                   {
                     directives: [
@@ -11003,7 +10365,7 @@
                   [this._v("FPS: " + this._s(this.fps || "-"))]
                 ),
                 this._v(" "),
-                s(
+                t(
                   "div",
                   {
                     directives: [
@@ -11018,7 +10380,7 @@
                   [this._v("Ping: " + this._s(this.ping || "-"))]
                 ),
                 this._v(" "),
-                s(
+                t(
                   "div",
                   {
                     directives: [
@@ -11033,7 +10395,7 @@
                   [this._v("Mass: " + this._s(this.mass))]
                 ),
                 this._v(" "),
-                s(
+                t(
                   "div",
                   {
                     directives: [
@@ -11048,7 +10410,7 @@
                   [this._v("Score: " + this._s(this.score))]
                 ),
                 this._v(" "),
-                s(
+                t(
                   "div",
                   {
                     directives: [
@@ -11065,19 +10427,19 @@
               ]
             );
           };
-        ej._withStripped = !0;
-        var eK = i(1),
-          eX = i(4),
-          eY =
-            (i(244),
-            Object(y.a)(
+        e7._withStripped = !0;
+        var e5 = s(1),
+          ej = s(4),
+          eJ =
+            (s(244),
+            Object(v.a)(
               {
                 data: () => ({
-                  showFPS: eX.showFPS,
-                  showPing: eX.showPing,
-                  showPlayerMass: eX.showPlayerMass,
-                  showPlayerScore: eX.showPlayerScore,
-                  showCellCount: eX.showCellCount,
+                  showFPS: ej.showFPS,
+                  showPing: ej.showPing,
+                  showPlayerMass: ej.showPlayerMass,
+                  showPlayerScore: ej.showPlayerScore,
+                  showCellCount: ej.showCellCount,
                   visible: !1,
                   ping: 0,
                   fps: 0,
@@ -11086,37 +10448,37 @@
                   cells: 0,
                 }),
                 created() {
-                  eK.events.$on("stats-visible", (e) => (this.visible = e)),
-                    eK.events.$on("stats-invalidate-shown", () => {
-                      (this.showFPS = eX.showFPS),
-                        (this.showPing = eX.showPing),
-                        (this.showPlayerMass = eX.showPlayerMass),
-                        (this.showPlayerScore = eX.showPlayerScore),
-                        (this.showCellCount = eX.showCellCount);
+                  e5.events.$on("stats-visible", (e) => (this.visible = e)),
+                    e5.events.$on("stats-invalidate-shown", () => {
+                      (this.showFPS = ej.showFPS),
+                        (this.showPing = ej.showPing),
+                        (this.showPlayerMass = ej.showPlayerMass),
+                        (this.showPlayerScore = ej.showPlayerScore),
+                        (this.showCellCount = ej.showCellCount);
                     }),
-                    eK.events.$on("cells-changed", (e) => (this.cells = e)),
-                    eK.events.$on("stats-changed", (e) => {
+                    e5.events.$on("cells-changed", (e) => (this.cells = e)),
+                    e5.events.$on("stats-changed", (e) => {
                       (this.ping = e.ping || 0),
                         (this.fps = e.fps || 0),
-                        (this.mass = e.mass ? eK.getMassText(e.mass) : 0),
-                        (this.score = e.score ? eK.getMassText(e.score) : 0);
+                        (this.mass = e.mass ? e5.getMassText(e.mass) : 0),
+                        (this.score = e.score ? e5.getMassText(e.score) : 0);
                     });
                 },
               },
-              ej,
+              e7,
               [],
               !1,
               null,
               "0875ad82",
               null
             ));
-        eY.options.__file = "src/components/stats.vue";
-        var eJ = eY.exports,
-          eq = function () {
+        eJ.options.__file = "src/components/stats.vue";
+        var eK = eJ.exports,
+          eV = function () {
             var e = this,
-              s = e.$createElement,
-              i = e._self._c || s;
-            return i(
+              t = e.$createElement,
+              s = e._self._c || t;
+            return s(
               "div",
               {
                 directives: [
@@ -11129,18 +10491,18 @@
                 ],
                 attrs: { id: "chat-container" },
                 on: {
-                  click: function (s) {
-                    return e.onChatClick(s);
+                  click: function (t) {
+                    return e.onChatClick(t);
                   },
-                  contextmenu: function (s) {
-                    return e.onChatRightClick(s);
+                  contextmenu: function (t) {
+                    return e.onChatRightClick(t);
                   },
                 },
               },
               [
                 e.visibleToast
                   ? [
-                      i(
+                      s(
                         "transition-group",
                         {
                           attrs: {
@@ -11149,34 +10511,34 @@
                             id: "toast-list",
                           },
                         },
-                        e._l(e.toastMessages, function (s) {
-                          return i("span", { key: s.id }, [
-                            i(
+                        e._l(e.toastMessages, function (t) {
+                          return s("span", { key: t.id }, [
+                            s(
                               "span",
                               { staticClass: "message-row" },
                               [
-                                s.from
+                                t.from
                                   ? [
-                                      i(
+                                      s(
                                         "span",
                                         {
                                           staticClass: "message-from",
-                                          style: { color: s.fromColor },
-                                          attrs: { "data-pid": s.pid },
+                                          style: { color: t.fromColor },
+                                          attrs: { "data-pid": t.pid },
                                         },
-                                        [e._v(e._s(s.from))]
+                                        [e._v(e._s(t.from))]
                                       ),
                                       e._v(":\n                "),
                                     ]
                                   : e._e(),
                                 e._v(" "),
-                                i(
+                                s(
                                   "span",
                                   {
                                     staticClass: "message-text",
-                                    style: { color: s.textColor },
+                                    style: { color: t.textColor },
                                   },
-                                  [e._v(e._s(s.text))]
+                                  [e._v(e._s(t.text))]
                                 ),
                               ],
                               2
@@ -11188,7 +10550,7 @@
                     ]
                   : e._e(),
                 e._v(" "),
-                i(
+                s(
                   "div",
                   {
                     class: { toasts: e.visibleToast, visible: e.visibleInput },
@@ -11196,7 +10558,7 @@
                   },
                   [
                     e.showBlockedMessageCount && e.blockedMessageCount
-                      ? i(
+                      ? s(
                           "div",
                           {
                             staticStyle: { position: "absolute", top: "-28px" },
@@ -11212,36 +10574,36 @@
                     e.visibleToast
                       ? e._e()
                       : [
-                          i(
+                          s(
                             "div",
                             { ref: "list", attrs: { id: "message-list" } },
-                            e._l(e.messages, function (s, a) {
-                              return i(
+                            e._l(e.messages, function (t, i) {
+                              return s(
                                 "div",
-                                { key: a, staticClass: "message-row" },
+                                { key: i, staticClass: "message-row" },
                                 [
-                                  s.from
+                                  t.from
                                     ? [
-                                        i(
+                                        s(
                                           "span",
                                           {
                                             staticClass: "message-from",
-                                            style: { color: s.fromColor },
-                                            attrs: { "data-pid": s.pid },
+                                            style: { color: t.fromColor },
+                                            attrs: { "data-pid": t.pid },
                                           },
-                                          [e._v(e._s(s.from))]
+                                          [e._v(e._s(t.from))]
                                         ),
                                         e._v(":\n                    "),
                                       ]
                                     : e._e(),
                                   e._v(" "),
-                                  i(
+                                  s(
                                     "span",
                                     {
                                       staticClass: "message-text",
-                                      style: { color: s.textColor },
+                                      style: { color: t.textColor },
                                     },
-                                    [e._v(e._s(s.text))]
+                                    [e._v(e._s(t.text))]
                                   ),
                                 ],
                                 2
@@ -11251,7 +10613,7 @@
                           ),
                         ],
                     e._v(" "),
-                    i("input", {
+                    s("input", {
                       directives: [
                         {
                           name: "model",
@@ -11272,14 +10634,16 @@
                       },
                       domProps: { value: e.inputText },
                       on: {
-                        keydown: function (s) {
-                          return !s.type.indexOf("key") &&
-                            e._k(s.keyCode, "enter", 13, s.key, "Enter")
-                            ? null
-                            : e.sendChatMessage();
+                        keydown: function (t) {
+                          if (
+                            !t.type.indexOf("key") &&
+                            e._k(t.keyCode, "enter", 13, t.key, "Enter")
+                          )
+                            return null;
+                          e.sendChatMessage();
                         },
-                        input: function (s) {
-                          s.target.composing || (e.inputText = s.target.value);
+                        input: function (t) {
+                          t.target.composing || (e.inputText = t.target.value);
                         },
                       },
                     }),
@@ -11290,54 +10654,54 @@
               2
             );
           };
-        eq._withStripped = !0;
-        var eQ = i(1),
-          te = i(4),
-          tt = i(5),
-          { replaceBadWordsChat: ts } = i(17),
-          ti = {},
-          ta =
-            (i(246),
-            Object(y.a)(
+        eV._withStripped = !0;
+        var eX = s(1),
+          eq = s(4),
+          te = s(5),
+          { replaceBadWordsChat: tt } = s(17),
+          ts = {},
+          ti =
+            (s(246),
+            Object(v.a)(
               {
                 data: () => ({
                   visible: !1,
-                  visibleToast: te.showChatToast,
+                  visibleToast: eq.showChatToast,
                   visibleInput: !1,
                   inputText: "",
                   messages: [],
                   toastMessages: [],
-                  showBlockedMessageCount: te.showBlockedMessageCount,
+                  showBlockedMessageCount: eq.showBlockedMessageCount,
                   blockedMessageCount: 0,
                   nextMessageId: 0,
                 }),
                 methods: {
                   onChatClick(e) {
-                    var s = e.target.dataset.pid;
-                    s &&
-                      ((eQ.selectedPlayer = s),
-                      eQ.actions.spectate(s),
-                      eQ.actions.targetPlayer(s));
+                    var t = e.target.dataset.pid;
+                    t &&
+                      ((eX.selectedPlayer = t),
+                      eX.actions.spectate(t),
+                      eX.actions.targetPlayer(t));
                   },
                   onChatRightClick(e) {
-                    var s = e.target.dataset.pid;
-                    if (s) {
-                      var i = eQ.playerManager.getPlayer(s);
-                      i
-                        ? ti[s]
-                          ? this.confirmUnblockPlayer(i)
-                          : this.confirmBlockPlayer(i)
-                        : tt.alert("Player does not exist or disconnected");
+                    var t = e.target.dataset.pid;
+                    if (t) {
+                      var s = eX.playerManager.getPlayer(t);
+                      s
+                        ? ts[t]
+                          ? this.confirmUnblockPlayer(s)
+                          : this.confirmBlockPlayer(s)
+                        : te.alert("Player does not exist or disconnected");
                     }
                   },
                   confirmBlockPlayer(e) {
-                    tt.confirm(
+                    te.confirm(
                       'Block player "' + e.name + '" until restart?',
                       () => {
                         e.isMe
-                          ? tt.alert("You can not block yourself")
-                          : ((ti[e.pid] = e.name),
-                            eQ.events.$emit(
+                          ? te.alert("You can not block yourself")
+                          : ((ts[e.pid] = e.name),
+                            eX.events.$emit(
                               "chat-message",
                               'Blocked player "' + e.name + '"'
                             ));
@@ -11345,9 +10709,9 @@
                     );
                   },
                   confirmUnblockPlayer(e) {
-                    tt.confirm('Unblock player "' + e.name + '"?', () => {
-                      delete ti[e.pid],
-                        eQ.events.$emit(
+                    te.confirm('Unblock player "' + e.name + '"?', () => {
+                      delete ts[e.pid],
+                        eX.events.$emit(
                           "chat-message",
                           'Unblocked player "' + e.name + '"'
                         );
@@ -11355,68 +10719,40 @@
                   },
                   sendChatMessage() {
                     let e = this.inputText.trim();
-                    e && eQ.connection.sendChatMessage(e),
-                      eQ.renderer.view.focus(),
+                    e &&
+                      (eX.connection.sendChatMessage(e), (this.inputText = "")),
+                      eX.renderer.view.focus(),
                       this.scrollBottom(!0);
                   },
                   onChatMessage(e) {
-                    if (
-                      ("string" == typeof e &&
-                        (e = { text: e, textColor: "#828282" }),
-                      !GAME.settings.chatColorOnlyPeople ||
-                        e.fromColor ||
-                        e.textColor)
-                    ) {
-                      if (ti[e.pid]) this.blockedMessageCount++;
-                      else {
-                        te.filterChatMessages && (e.text = ts(e.text));
-                        var s = "#ffffff";
-                        (e.fromColor = e.fromColor || s),
-                          (e.textColor = e.textColor || s),
-                          this.messages.push(e),
-                          this.messages.length > 400 && this.messages.shift(),
-                          (e.id = this.nextMessageId++),
-                          (e.until = Date.now() + 5e3),
-                          this.toastMessages.unshift(e),
-                          this.scrollBottom(!1),
-                          0 == e.pid &&
-                            setTimeout(() => {
-                              var e =
-                                  document.querySelectorAll(".message-text"),
-                                s = e[e.length - 1];
-                              s.innerText.split(" ").forEach((e) => {
-                                var i = e.split("?")[1];
-                                (e = e.split("?")[0]).startsWith("http") &&
-                                  [
-                                    "jpg",
-                                    "png",
-                                    "jpeg",
-                                    "jfif",
-                                    "webp",
-                                    "gif",
-                                  ].some((s) => e.endsWith("." + s)) &&
-                                  (s.innerHTML = s.innerHTML
-                                    .replace(
-                                      e,
-                                      `<br><img style="width:70%" src="${e}">`
-                                    )
-                                    .replace("?" + i, "")),
-                                  e.startsWith("https://skins.vanis.io/s/") &&
-                                    (s.innerHTML = s.innerHTML.replace(
-                                      e,
-                                      `${e}<br><img style="width:40%" src="${e}">`
-                                    )),
-                                  this.scrollBottom(!1);
-                              });
-                            }, 500);
-                      }
+                    if ("string" == typeof e)
+                      e = { text: e, textColor: "#828282" };
+                    else if (
+                      eq.chatColorOnlyPeople &&
+                      !("fromColor" in e) &&
+                      !("textColor" in e)
+                    )
+                      return;
+                    if (ts[e.pid]) {
+                      this.blockedMessageCount++;
+                      return;
                     }
+                    eq.filterChatMessages && (e.text = tt(e.text)),
+                      (e.fromColor = e.fromColor || "#ffffff"),
+                      (e.textColor = e.textColor || "#ffffff"),
+                      this.messages.push(e),
+                      this.messages.length > 200 && this.messages.shift(),
+                      (e.id = this.nextMessageId++),
+                      (e.until =
+                        Date.now() + Math.max(5e3, 150 * e.text.length)),
+                      this.toastMessages.unshift(e),
+                      this.scrollBottom(!1);
                   },
-                  onVisibilityChange({ visible: e, visibleToast: s }) {
+                  onVisibilityChange({ visible: e, visibleToast: t }) {
                     null != e && (this.visible = e),
-                      null != s &&
-                        ((this.visibleToast = s),
-                        (this.visibleInput = this.visible && !s)),
+                      null != t &&
+                        ((this.visibleToast = t),
+                        (this.visibleInput = this.visible && !t)),
                       this.$nextTick(() => this.scrollBottom(!0));
                   },
                   focusChat() {
@@ -11425,17 +10761,17 @@
                       this.$nextTick(() => this.$refs.input.focus()));
                   },
                   clearChat() {
-                    te.clearChatMessages &&
+                    eq.clearChatMessages &&
                       (this.messages.splice(0, this.messages.length),
                       this.toastMessages.splice(0, this.toastMessages.length),
                       (this.nextMessageId = 0));
                   },
                   scrollBottom(e = !1) {
                     if (!this.visibleToast) {
-                      var s = this.$refs.list,
-                        i = s.scrollHeight - s.clientHeight;
-                      (!e && i - s.scrollTop > 30) ||
-                        this.$nextTick(() => (s.scrollTop = s.scrollHeight));
+                      var t = this.$refs.list,
+                        s = t.scrollHeight - t.clientHeight;
+                      (!e && s - t.scrollTop > 30) ||
+                        this.$nextTick(() => (t.scrollTop = t.scrollHeight));
                     }
                   },
                   filterToasts() {
@@ -11445,19 +10781,18 @@
                   },
                 },
                 created() {
-                  (eQ.Chat = this),
-                    eQ.events.$on("chat-visible", this.onVisibilityChange),
-                    eQ.events.$on("chat-focus", this.focusChat),
-                    eQ.events.$on("chat-message", this.onChatMessage),
-                    eQ.events.$on("server-message", this.onServerMessage),
-                    eQ.events.$on("every-second", this.filterToasts),
-                    eQ.events.$on("chat-clear", this.clearChat),
-                    eQ.events.$on(
+                  eX.events.$on("chat-visible", this.onVisibilityChange),
+                    eX.events.$on("chat-focus", this.focusChat),
+                    eX.events.$on("chat-message", this.onChatMessage),
+                    eX.events.$on("server-message", this.onServerMessage),
+                    eX.events.$on("every-second", this.filterToasts),
+                    eX.events.$on("chat-clear", this.clearChat),
+                    eX.events.$on(
                       "show-blocked-message-count",
                       (e) => (this.showBlockedMessageCount = e)
                     ),
-                    eQ.events.$on("game-stopped", () => {
-                      (this.blockedMessageCount = 0), (ti = {});
+                    eX.events.$on("game-stopped", () => {
+                      (this.blockedMessageCount = 0), (ts = {});
                     }),
                     document.addEventListener("focusin", (e) => {
                       this.visibleInput =
@@ -11465,20 +10800,20 @@
                     });
                 },
               },
-              eq,
+              eV,
               [],
               !1,
               null,
               "4900a413",
               null
             ));
-        ta.options.__file = "src/components/chatbox.vue";
-        var tn = ta.exports,
-          tr = function () {
+        ti.options.__file = "src/components/chatbox.vue";
+        var ta = ti.exports,
+          tn = function () {
             var e = this,
-              s = e.$createElement,
-              i = e._self._c || s;
-            return i(
+              t = e.$createElement,
+              s = e._self._c || t;
+            return s(
               "div",
               {
                 directives: [
@@ -11492,7 +10827,7 @@
                 attrs: { id: "leaderboard" },
               },
               [
-                i(
+                s(
                   "div",
                   {
                     directives: [
@@ -11508,30 +10843,30 @@
                   [e._v(e._s(e.headerText))]
                 ),
                 e._v(" "),
-                i(
+                s(
                   "div",
-                  e._l(e.leaderboard, function (s, a) {
-                    return i(
+                  e._l(e.leaderboard, function (t, i) {
+                    return s(
                       "div",
-                      { key: a, staticClass: "leaderboard-label" },
+                      { key: i, staticClass: "leaderboard-label" },
                       [
                         e._v(" "),
-                        i(
+                        s(
                           "span",
                           {
-                            class: { spectating: !e.gameState.isAlive },
+                            class: { spectating: 0 == e.gameState.lifeState },
                             style: {
-                              color: s.color,
-                              fontWeight: s.bold ? "bold" : "normal",
+                              color: t.color,
+                              fontWeight: t.bold ? "bold" : "normal",
                             },
-                            attrs: { "data-pid": s.pid },
+                            attrs: { "data-pid": t.pid },
                             on: {
-                              click: function (s) {
-                                return e.leftClickLabel(s);
+                              click: function (t) {
+                                return e.leftClickLabel(t);
                               },
                             },
                           },
-                          [e._v(e._s(s.text))]
+                          [e._v(e._s(t.text))]
                         ),
                       ]
                     );
@@ -11541,15 +10876,15 @@
               ]
             );
           };
-        tr._withStripped = !0;
-        var to = i(1),
-          tl = i(4),
-          tc =
-            (i(248),
-            Object(y.a)(
+        tn._withStripped = !0;
+        var to = s(1),
+          tr = s(4),
+          tl =
+            (s(248),
+            Object(v.a)(
               {
                 data: () => ({
-                  userVisible: tl.showLeaderboard,
+                  userVisible: tr.showLeaderboard,
                   visible: !1,
                   headerVisible: !0,
                   headerText: "Leaderboard",
@@ -11557,25 +10892,25 @@
                   gameState: to.state,
                 }),
                 methods: {
-                  updateLeaderboard(e, s) {
-                    if (((this.leaderboard = e), s))
-                      (this.headerVisible = s.visible),
-                        (this.headerText = s.text);
+                  updateLeaderboard(e, t) {
+                    if (((this.leaderboard = e), t))
+                      (this.headerVisible = t.visible),
+                        (this.headerText = t.text);
                     else if (
-                      tl.showServerName &&
+                      tr.showServerName &&
                       this.gameState.selectedServer
                     ) {
                       this.headerVisible = !0;
-                      var i = this.gameState.selectedServer.region || "";
-                      i && (i += " "),
+                      var s = this.gameState.selectedServer.region || "";
+                      s && (s += " "),
                         (this.headerText =
-                          i + this.gameState.selectedServer.name);
+                          s + this.gameState.selectedServer.name);
                     } else
                       (this.headerVisible = !0),
                         (this.headerText = "Leaderboard");
                   },
                   leftClickLabel() {
-                    var e = event.target.dataset.pid;
+                    let e = event.target.dataset.pid;
                     e &&
                       ((to.selectedPlayer = e),
                       to.actions.spectate(e),
@@ -11609,74 +10944,74 @@
                     to.events.$on("leaderboard-hide", this.onLeaderboardHide);
                 },
               },
-              tr,
+              tn,
               [],
               !1,
               null,
               "8a0c31c6",
               null
             ));
-        tc.options.__file = "src/components/leaderboard.vue";
-        var td = tc.exports,
+        tl.options.__file = "src/components/leaderboard.vue";
+        var tc = tl.exports,
           th = {
             components: {
-              stats: eJ,
-              chatbox: tn,
-              minimap: i(117).default,
-              leaderboard: td,
+              stats: eK,
+              chatbox: ta,
+              minimap: s(117).default,
+              leaderboard: tc,
               cautions: eZ,
             },
           },
-          tu = (i(252), Object(y.a)(th, e5, [], !1, null, "339660d2", null));
-        tu.options.__file = "src/components/hud.vue";
-        var tp = tu.exports,
-          tv = function () {
+          td = (s(252), Object(v.a)(th, eY, [], !1, null, "339660d2", null));
+        td.options.__file = "src/components/hud.vue";
+        var tu = td.exports,
+          tp = function () {
             var e = this,
-              s = e.$createElement,
-              i = e._self._c || s;
-            return i("transition", { attrs: { name: "menu" } }, [
-              i("div", { staticClass: "container" }, [
-                i("div", { staticClass: "fade-box box-1" }, [
-                  i("div", { staticStyle: { padding: "4px" } }, [
+              t = e.$createElement,
+              s = e._self._c || t;
+            return s("transition", { attrs: { name: "menu" } }, [
+              s("div", { staticClass: "container" }, [
+                s("div", { staticClass: "fade-box box-1" }, [
+                  s("div", { staticStyle: { padding: "4px" } }, [
                     e._v("Advertisement"),
                   ]),
                   e._v(" "),
-                  i(
+                  s(
                     "div",
                     { staticStyle: { padding: "10px", "padding-top": "0px" } },
-                    [i("div", { attrs: { id: "vanis-io_300x250_2" } })]
+                    [s("div", { attrs: { id: "vanis-io_300x250_2" } })]
                   ),
                 ]),
                 e._v(" "),
                 e.stats
-                  ? i(
+                  ? s(
                       "div",
                       {
                         staticClass: "fade-box",
                         class: { scroll: e.isLoadingAd },
                       },
                       [
-                        i(
+                        s(
                           "div",
                           { staticStyle: { padding: "15px" } },
                           [
-                            i("div", [
+                            s("div", [
                               e._v("Time Alive: " + e._s(e.timeAlive)),
                             ]),
                             e._v(" "),
-                            i("div", [e._v("Highscore: " + e._s(e.highscore))]),
+                            s("div", [e._v("Highscore: " + e._s(e.highscore))]),
                             e._v(" "),
-                            i("div", [
+                            s("div", [
                               e._v("Players Eaten: " + e._s(e.stats.killCount)),
                             ]),
                             e._v(" "),
-                            i(
+                            s(
                               "btn",
                               {
                                 staticClass: "continue",
                                 nativeOn: {
-                                  click: function (s) {
-                                    return e.onContinueClick(s);
+                                  click: function (t) {
+                                    return e.onContinueClick(t);
                                   },
                                 },
                               },
@@ -11691,12 +11026,12 @@
               ]),
             ]);
           };
-        tv._withStripped = !0;
-        var tm = i(1),
-          tg = i(77),
-          tf =
-            (i(254),
-            Object(y.a)(
+        tp._withStripped = !0;
+        var tg = s(1),
+          tA = s(77),
+          tm =
+            (s(254),
+            Object(v.a)(
               {
                 props: ["stats"],
                 data: () => ({ isLoadingAd: !1 }),
@@ -11708,33 +11043,33 @@
                       : Math.floor(e / 60) + "min " + (e % 60) + "s";
                   },
                   highscore() {
-                    return tm.getMassText(this.stats.highscore);
+                    return tg.getMassText(this.stats.highscore);
                   },
                 },
                 methods: {
                   loadAd() {
-                    this.isLoadingAd = tg.refreshAd("death-box");
+                    this.isLoadingAd = tA.refreshAd("death-box");
                   },
                   onContinueClick() {
-                    (tm.state.deathDelay = !1),
-                      (tm.app.showDeathScreen = !1),
-                      tm.showMenu(!0);
+                    (tg.state.deathDelay = !1),
+                      (tg.app.showDeathScreen = !1),
+                      tg.showMenu(!0);
                   },
                 },
                 created() {
-                  tm.events.$on("refresh-deathscreen-ad", this.loadAd);
+                  tg.events.$on("refresh-deathscreen-ad", this.loadAd);
                 },
               },
-              tv,
+              tp,
               [],
               !1,
               null,
               "3249d726",
               null
             ));
-        tf.options.__file = "src/components/death-stats.vue";
-        var ty = tf.exports,
-          tw = function () {
+        tm.options.__file = "src/components/death-stats.vue";
+        var tv = tm.exports,
+          tf = function () {
             var e = this.$createElement;
             return (this._self._c || e)(
               "button",
@@ -11743,27 +11078,27 @@
               2
             );
           };
-        tw._withStripped = !0;
-        var t$ = (i(256), Object(y.a)({}, tw, [], !1, null, "b0b10308", null));
-        t$.options.__file = "src/components/btn.vue";
-        var tb = t$.exports,
-          t_ = function () {
+        tf._withStripped = !0;
+        var tC = (s(256), Object(v.a)({}, tf, [], !1, null, "b0b10308", null));
+        tC.options.__file = "src/components/btn.vue";
+        var ty = tC.exports,
+          tw = function () {
             var e = this,
-              s = e.$createElement,
-              i = e._self._c || s;
+              t = e.$createElement,
+              s = e._self._c || t;
             return e.show
-              ? i(
+              ? s(
                   "div",
                   {
                     class: { "auto-hide": e.autoHideReplayControls },
                     attrs: { id: "replay-controls" },
                   },
                   [
-                    i("div", { staticStyle: { "text-align": "right" } }, [
-                      i("div", [e._v("Opacity " + e._s(e.cellOpacity) + "%")]),
+                    s("div", { staticStyle: { "text-align": "right" } }, [
+                      s("div", [e._v("Opacity " + e._s(e.cellOpacity) + "%")]),
                       e._v(" "),
-                      i("div", [
-                        i("input", {
+                      s("div", [
+                        s("input", {
                           directives: [
                             {
                               name: "model",
@@ -11786,15 +11121,15 @@
                           domProps: { value: e.cellOpacity },
                           on: {
                             input: e.onCellOpacitySlide,
-                            __r: function (s) {
-                              e.cellOpacity = s.target.value;
+                            __r: function (t) {
+                              e.cellOpacity = t.target.value;
                             },
                           },
                         }),
                       ]),
                     ]),
                     e._v(" "),
-                    i(
+                    s(
                       "div",
                       {
                         staticStyle: {
@@ -11803,12 +11138,12 @@
                         },
                       },
                       [
-                        i("div", { staticStyle: { flex: "1" } }, [
+                        s("div", { staticStyle: { flex: "1" } }, [
                           e._v(e._s(e.replaySecond.toFixed(1)) + " seconds"),
                         ]),
                         e._v(" "),
-                        i("div", { staticStyle: { "margin-right": "10px" } }, [
-                          i("input", {
+                        s("div", { staticStyle: { "margin-right": "10px" } }, [
+                          s("input", {
                             directives: [
                               {
                                 name: "model",
@@ -11828,29 +11163,29 @@
                             },
                             on: {
                               change: [
-                                function (s) {
-                                  var i = e.autoHideReplayControls,
-                                    a = s.target,
-                                    n = !!a.checked;
-                                  if (Array.isArray(i)) {
-                                    var r = e._i(i, null);
-                                    a.checked
-                                      ? r < 0 &&
-                                        (e.autoHideReplayControls = i.concat([
+                                function (t) {
+                                  var s = e.autoHideReplayControls,
+                                    i = t.target,
+                                    a = !!i.checked;
+                                  if (Array.isArray(s)) {
+                                    var n = e._i(s, null);
+                                    i.checked
+                                      ? n < 0 &&
+                                        (e.autoHideReplayControls = s.concat([
                                           null,
                                         ]))
-                                      : r > -1 &&
-                                        (e.autoHideReplayControls = i
-                                          .slice(0, r)
-                                          .concat(i.slice(r + 1)));
-                                  } else e.autoHideReplayControls = n;
+                                      : n > -1 &&
+                                        (e.autoHideReplayControls = s
+                                          .slice(0, n)
+                                          .concat(s.slice(n + 1)));
+                                  } else e.autoHideReplayControls = a;
                                 },
                                 e.saveAutoHideControls,
                               ],
                             },
                           }),
                           e._v(" "),
-                          i(
+                          s(
                             "label",
                             { attrs: { for: "replay-auto-hide-controls" } },
                             [e._v("Auto Hide Controls")]
@@ -11859,7 +11194,7 @@
                       ]
                     ),
                     e._v(" "),
-                    i("input", {
+                    s("input", {
                       directives: [
                         {
                           name: "model",
@@ -11878,8 +11213,8 @@
                       on: {
                         input: e.onSlide,
                         change: e.onSlideEnd,
-                        __r: function (s) {
-                          e.rangeIndex = s.target.value;
+                        __r: function (t) {
+                          e.rangeIndex = t.target.value;
                         },
                       },
                     }),
@@ -11887,16 +11222,16 @@
                 )
               : e._e();
           };
-        t_._withStripped = !0;
-        var tk = i(1),
-          tC =
-            (i(258),
-            Object(y.a)(
+        tw._withStripped = !0;
+        var tI = s(1),
+          t$ =
+            (s(258),
+            Object(v.a)(
               {
                 data: () => ({
                   show: !1,
-                  autoHideReplayControls: tk.settings.autoHideReplayControls,
-                  drawDelay: tk.settings.drawDelay,
+                  autoHideReplayControls: tI.settings.autoHideReplayControls,
+                  drawDelay: tI.settings.drawDelay,
                   cellOpacity: 100,
                   rangeMin: 0,
                   rangeIndex: 0,
@@ -11905,8 +11240,8 @@
                   packetCount: 0,
                 }),
                 created: function () {
-                  tk.events.$on("show-replay-controls", this.onShow),
-                    tk.events.$on(
+                  tI.events.$on("show-replay-controls", this.onShow),
+                    tI.events.$on(
                       "replay-index-change",
                       this.onReplayIndexChange
                     );
@@ -11920,73 +11255,76 @@
                         (this.rangeIndex = 0),
                         (this.packetCount = 0));
                   },
-                  onReplayIndexChange(e, s = !0) {
-                    var i = e / this.packetCount;
-                    s && (this.rangeIndex = Math.floor(i * this.rangeMax)),
+                  onReplayIndexChange(e, t = !0) {
+                    var s = e / this.packetCount;
+                    t && (this.rangeIndex = Math.floor(s * this.rangeMax)),
                       (this.replaySecond = e / 25);
                   },
                   onSlide(e) {
-                    tk.moveInterval &&
-                      (clearInterval(tk.moveInterval),
-                      (tk.moveInterval = null));
-                    var s = Math.floor(
+                    tI.moveInterval &&
+                      (clearInterval(tI.moveInterval),
+                      (tI.moveInterval = null));
+                    var t = Math.floor(
                       (this.rangeIndex / this.rangeMax) * (this.packetCount - 1)
                     );
-                    tk.playback.seek(s), this.onReplayIndexChange(s, !1);
+                    tI.playback.seek(t), this.onReplayIndexChange(t, !1);
                   },
                   onSlideEnd(e) {
-                    tk.moveInterval ||
-                      (tk.moveInterval = setInterval(tk.playback.next, 40));
+                    tI.moveInterval ||
+                      (tI.moveInterval = setInterval(
+                        tI.playback.next.bind(tI.playback),
+                        40
+                      ));
                   },
                   onCellOpacitySlide() {
-                    tk.scene.foreground.alpha = this.cellOpacity / 100;
+                    tI.scene.foreground.alpha = this.cellOpacity / 100;
                   },
                   saveAutoHideControls() {
-                    tk.settings.set(
+                    tI.settings.set(
                       "autoHideReplayControls",
                       this.autoHideReplayControls
                     );
                   },
                 },
               },
-              t_,
+              tw,
               [],
               !1,
               null,
               "c2c2ac08",
               null
             ));
-        tC.options.__file = "src/components/replay-controls.vue";
-        var t8 = tC.exports,
-          tx = function () {
+        t$.options.__file = "src/components/replay-controls.vue";
+        var tk = t$.exports,
+          tb = function () {
             var e = this.$createElement,
-              s = this._self._c || e;
+              t = this._self._c || e;
             return this.show
-              ? s("div", { attrs: { id: "ab-overlay" } }, [this._m(0)])
+              ? t("div", { attrs: { id: "ab-overlay" } }, [this._m(0)])
               : this._e();
           };
-        (tx._withStripped = !0), i(19);
-        var { isFirstVisit: tS } = i(17),
-          t0 =
-            (i(260),
-            Object(y.a)(
+        (tb._withStripped = !0), s(19);
+        var { isFirstVisit: t_ } = s(17),
+          tS =
+            (s(260),
+            Object(v.a)(
               { data: () => ({ show: !1 }), created() {} },
-              tx,
+              tb,
               [
                 function () {
                   var e = this.$createElement,
-                    s = this._self._c || e;
-                  return s("div", { staticClass: "content" }, [
-                    s("img", {
+                    t = this._self._c || e;
+                  return t("div", { staticClass: "content" }, [
+                    t("img", {
                       staticStyle: { width: "120px" },
                       attrs: { src: "/img/sad.png" },
                     }),
                     this._v(" "),
-                    s("p", { staticStyle: { "font-size": "3em" } }, [
+                    t("p", { staticStyle: { "font-size": "3em" } }, [
                       this._v("Adblock Detected"),
                     ]),
                     this._v(" "),
-                    s(
+                    t(
                       "p",
                       {
                         staticStyle: {
@@ -11997,7 +11335,7 @@
                       [this._v("We use advertisements to fund our servers!")]
                     ),
                     this._v(" "),
-                    s("img", {
+                    t("img", {
                       staticStyle: {
                         "border-radius": "4px",
                         "box-shadow": "0 0 10px black",
@@ -12012,9 +11350,9 @@
               "1611deb4",
               null
             ));
-        t0.options.__file = "src/components/ab-overlay.vue";
-        var tM = t0.exports,
-          tT = function () {
+        tS.options.__file = "src/components/ab-overlay.vue";
+        var tE = tS.exports,
+          tx = function () {
             var e = this.$createElement;
             return (this._self._c || e)(
               "div",
@@ -12032,10 +11370,10 @@
               [this._m(0)]
             );
           };
-        tT._withStripped = !0;
-        var tI = i(1);
-        i(25);
-        var tP = (window.captcha = {
+        tx._withStripped = !0;
+        var tB = s(1);
+        s(25);
+        var t8 = (window.captcha = {
             data: () => ({
               show: !1,
               scriptLoadPromise: null,
@@ -12044,13 +11382,13 @@
               multibox: !1,
             }),
             created() {
-              tI.events.$on("show-image-captcha", () => {
+              tB.events.$on("show-image-captcha", () => {
                 (this.multibox = null),
                   (this.show = !0),
-                  (this.wsId = tI.currentWsId),
+                  (this.wsId = tB.currentWsId),
                   grecaptcha.ready(() => this.renderCaptcha());
               }),
-                tI.events.$on("m-show-image-captcha", () => {
+                tB.events.$on("m-show-image-captcha", () => {
                   (this.multibox = !0),
                     (this.show = !0),
                     (this.wsId = null),
@@ -12072,7 +11410,7 @@
                 );
               },
               onCaptchaToken(e) {
-                if (!this.multibox && tI.currentWsId !== this.wsId) {
+                if (!this.multibox && tB.currentWsId !== this.wsId) {
                   this.show = !1;
                   return;
                 }
@@ -12080,24 +11418,22 @@
                   this.renderCaptcha();
                   return;
                 }
-                this.multibox
-                  ? window.Multibox.sendRecaptchaToken(e)
-                  : tI.connection.sendRecaptchaToken(e),
+                tB.connection.sendRecaptchaToken(e, !!this.multibox),
                   (this.show = !1);
               },
             },
           }),
-          tL =
-            (i(262),
-            Object(y.a)(
-              tP,
-              tT,
+          t0 =
+            (s(262),
+            Object(v.a)(
+              t8,
+              tx,
               [
                 function () {
                   var e = this.$createElement,
-                    s = this._self._c || e;
-                  return s("div", { staticClass: "center-screen" }, [
-                    s(
+                    t = this._self._c || e;
+                  return t("div", { staticClass: "center-screen" }, [
+                    t(
                       "div",
                       {
                         staticStyle: {
@@ -12108,7 +11444,7 @@
                       [this._v("Login and level up to skip captcha!")]
                     ),
                     this._v(" "),
-                    s("div", { attrs: { id: "image-captcha-container" } }),
+                    t("div", { attrs: { id: "image-captcha-container" } }),
                   ]);
                 },
               ],
@@ -12117,15 +11453,15 @@
               "76d60428",
               null
             ));
-        tL.options.__file = "src/components/image-captcha.vue";
-        var tE = tL.exports,
-          t1 = function () {
+        t0.options.__file = "src/components/image-captcha.vue";
+        var tQ = t0.exports,
+          tM = function () {
             var e = this,
-              s = e.$createElement,
-              i = e._self._c || s;
+              t = e.$createElement,
+              s = e._self._c || t;
             return e.show
-              ? i("div", { staticClass: "shoutbox" }, [
-                  i("iframe", {
+              ? s("div", { staticClass: "shoutbox" }, [
+                  s("iframe", {
                     staticClass: "shoutbox-player",
                     attrs: {
                       width: "300",
@@ -12135,7 +11471,7 @@
                     },
                   }),
                   e._v(" "),
-                  i("i", {
+                  s("i", {
                     staticClass: "fas fa-times close-button",
                     on: {
                       click: function () {
@@ -12146,55 +11482,55 @@
                 ])
               : e._e();
           };
-        t1._withStripped = !0;
-        var t4 = i(264),
-          t3 =
-            (i(265),
-            Object(y.a)(
+        tM._withStripped = !0;
+        var tT = s(264),
+          tD =
+            (s(265),
+            Object(v.a)(
               {
                 data: () => ({ show: !1 }),
                 props: ["url", "tag"],
                 methods: {
                   hide() {
-                    t4.setSeen(this.tag), (this.show = !1);
+                    tT.setSeen(this.tag), (this.show = !1);
                   },
                 },
                 created() {
-                  t4.isSeen(this.tag) || (this.show = !0);
+                  tT.isSeen(this.tag) || (this.show = !0);
                 },
               },
-              t1,
+              tM,
               [],
               !1,
               null,
               "559d1d3c",
               null
             ));
-        t3.options.__file = "src/components/shoutbox.vue";
-        var tU = t3.exports;
-        n.a.use(o.a);
-        var t2 = i(4),
-          tR = i(1);
-        n.a.component("btn", tb),
-          (tR.app = new n.a({
+        tD.options.__file = "src/components/shoutbox.vue";
+        var tL = tD.exports;
+        a.a.use(o.a);
+        var tN = s(4),
+          tU = s(1);
+        a.a.component("btn", ty),
+          (tU.app = new a.a({
             el: "#app",
             data: {
-              showHud: t2.showHud,
+              showHud: tN.showHud,
               showMenu: !0,
               showDeathScreen: !1,
               deathStats: null,
             },
             components: {
-              imageCaptcha: tE,
-              mainContainer: eN,
-              socialLinks: eO,
-              privacyTos: eB,
-              contextMenu: ez,
-              hud: tp,
-              deathStats: ty,
-              replayControls: t8,
-              abOverlay: tM,
-              shoutbox: tU,
+              imageCaptcha: tQ,
+              mainContainer: eF,
+              socialLinks: e4,
+              privacyTos: e3,
+              contextMenu: eO,
+              hud: tu,
+              deathStats: tv,
+              replayControls: tk,
+              abOverlay: tE,
+              shoutbox: tL,
             },
           }));
       },
@@ -12204,39 +11540,8 @@
     (GAME.sendServer = (e) => {
       GAME.events.$emit("chat-message", e);
     }),
-    (GAME.alive = (e) =>
-      Object.values(GAME.nodes).filter(
-        (s) =>
-          s.player &&
-          s.player.pid === (e ? Multibox.pid : GAME.playerId) &&
-          s.sprite.visible
-      ).length),
-    (GAME.getPosition = (e) => {
-      var s = 0,
-        i = 0,
-        a = Object.values(GAME.nodes).filter(
-          (s) =>
-            s.player &&
-            s.player.pid === (e ? Multibox.pid : GAME.playerId) &&
-            s.sprite.visible
-        );
-      return (
-        a.forEach((e) => {
-          (s += e.x), (i += e.y);
-        }),
-        { x: s / a.length, y: i / a.length }
-      );
-    }),
     (GAME.setText = (e) => {
       GAME.events.$emit("update-cautions", { custom: e });
-    }),
-    (GAME.getDistanceBetweenMulti = () => {
-      var e = GAME.getPosition(!0),
-        s = GAME.getPosition();
-      if (NaN == e.x || NaN == s.x) return !1;
-      var i = s.x - e.x,
-        a = s.y - e.y;
-      return Math.sqrt(i * i + a * a);
     }),
     (GAME.aimbotnodes = () => {}),
     (window.pings = {
@@ -12244,194 +11549,12 @@
         "https://i.postimg.cc/CdTpN3dt/pinpointer.png"
       ),
     }),
-    (window.Multibox = {
-      isDead: !0,
-      active: !1,
-      authorized: !1,
-      sendRecaptchaToken(e) {
-        let s = getModule(25),
-          i = new s();
-        i.uint8(11), i.utf8(e), Multibox.ws.send(i.write());
-      },
-      connect() {
-        var e = (Multibox.ws = new WebSocket(
-          GAME.ws.url,
-          "tFoL46WDlZuRja7W6qCl"
-        ));
-        (e.binaryType = "arraybuffer"),
-          (e.packetId = 0),
-          (e.onmessage = (e) => {
-            Multibox.parseMessage(e.data, new DataView(e.data));
-          }),
-          (e.onclose = (e) => {
-            e.reason && GAME.sendServer(`Multibox Disconnected (${e.reason})`),
-              (Multibox.authorized = !1),
-              (Multibox.pid = 0),
-              (Multibox.active = !1),
-              GAME.clearNodes(!0);
-          }),
-          Multibox.reloadArrow();
-      },
-      spawn() {
-        if (!Multibox.connected()) return;
-        GAME.actions.join(!0);
-        let { players: e } = GAME.playerManager;
-        if (!e.has(Multibox.pid)) return;
-        let s = e.get(Multibox.pid);
-        (s.isMe = !0), Multibox.updateOutlines();
-      },
-      switch() {
-        if (!Multibox.ws || 3 == Multibox.ws.readyState)
-          return void Multibox.connect();
-        if (Multibox.connected()) {
-          let e = Multibox.active;
-          e
-            ? GAME.alive(!1) ||
-              GAME.state.isAutoRespawning ||
-              GAME.actions.join()
-            : GAME.alive(!0) || Multibox.autoRespawning || Multibox.spawn(),
-            (Multibox.active = !e),
-            Multibox.updateOutlines();
-        }
-      },
-      updateOutlines(e, s) {
-        (e ??= GAME.playerId), (s ??= GAME.multiboxPid);
-        let { players: i } = GAME.playerManager;
-        if (!i.has(e) || !i.has(s)) return;
-        let a = i.get(e ?? GAME.activePid),
-          n = i.get(s ?? GAME.multiboxPid);
-        var r = GAME.nodelist.filter((e) => e.player && e.player.pid == a.pid),
-          o = GAME.nodelist.filter((e) => e.player && e.player.pid == n.pid);
-        let l = Multibox.active,
-          c = parseInt("0x" + window.settings.mbColor);
-        switch (window.settings.mbActive) {
-          case 0:
-            break;
-          case 1:
-            o.forEach((e) => {
-              e.arrowSprite.visible = !1;
-            }),
-              r.forEach((e) => {
-                e.arrowSprite.visible = !1;
-              }),
-              l
-                ? (a.setOutline(16777215), n.setOutline(c))
-                : (n.setOutline(16777215), a.setOutline(c));
-            break;
-          case 3:
-          case 2:
-            l
-              ? (o.forEach((e) => {
-                  e.arrowSprite.visible = !0;
-                }),
-                r.forEach((e) => {
-                  e.arrowSprite.visible = !1;
-                }))
-              : (o.forEach((e) => {
-                  e.arrowSprite.visible = !1;
-                }),
-                r.forEach((e) => {
-                  e.arrowSprite.visible = !0;
-                }));
-        }
-        GAME.nodelist
-          .filter((e) => e.line)
-          .forEach((e) => {
-            e.updateLineVisibility();
-          }),
-          Multibox.updateCamera();
-      },
-      reloadArrow() {
-        if (
-          (Multibox.arrowSprite && Multibox.arrowSprite.destroy(),
-          window.settings.mbArrow.startsWith("data:image"))
-        ) {
-          let e = document.createElement("img");
-          e.src = window.settings.mbArrow;
-          let s = new PIXI.BaseTexture(e),
-            i = new PIXI.Texture(s);
-          Multibox.arrowSprite = new PIXI.Sprite(i);
-        } else
-          Multibox.arrowSprite = new PIXI.Sprite.from(window.settings.mbArrow);
-      },
-      updateCamera() {
-        var e = GAME,
-          s = e.nodelist.filter((e) => e.player && e.player.isMe),
-          i = e.getDistanceBetweenMulti();
-        return (
-          s.length > 0 &&
-            i &&
-            s.forEach((s) => {
-              i > 8e3
-                ? Multibox.active
-                  ? s.isMe && e.nodesOwn[s.id]
-                    ? delete e.nodesOwn[s.id]
-                    : s.isMultiNode &&
-                      !e.nodesOwn[s.id] &&
-                      (e.nodesOwn[s.id] = !0)
-                  : s.isMultiNode && e.nodesOwn[s.id]
-                  ? delete e.nodesOwn[s.id]
-                  : s.isMe && !e.nodesOwn[s.id] && (e.nodesOwn[s.id] = !0)
-                : e.nodesOwn[s.id] || (e.nodesOwn[s.id] = !0);
-            }),
-          GAME.updateCamera(!0),
-          !0
-        );
-      },
-      send(e) {
-        Multibox.connected() && Multibox.authorized && Multibox.ws.send(e);
-      },
-      connected: () =>
-        Multibox.ws && 1 === Multibox.ws.readyState && 0 !== Multibox.pid,
-      close() {
-        Multibox.connected() && Multibox.ws.close();
-      },
-      parseMessage(e, s) {
-        s.nwData += e.byteLength;
-        let i = Multibox.ws;
-        switch (s.getUint8(0)) {
-          case 1:
-            var a = window.getModule(78)(s);
-            (GAME.multiboxPid = Multibox.pid = a.playerId),
-              GAME.sendServer("Multibox Connected"),
-              (Multibox.authorized = !0);
-            return;
-          case 2:
-            var r = new Uint8Array(s.buffer, 1);
-            GAME.connection.sendJoinData(new n(r).build(), i);
-            return;
-          case 10: {
-            GAME.parseNodes(e, !0);
-            let { replay: o } = GAME;
-            if (
-              (GAME.spectating || GAME.replaying || o.addHistory(s),
-              GAME.alive(!0))
-            )
-              return;
-            Multibox.autoRespawning &&
-              37 == ++Multibox.ticksSinceDeath &&
-              GAME.triggerAutoRespawn(!0);
-            return;
-          }
-          case 18:
-            GAME.clearNodes(!0);
-            return;
-          case 20:
-            GAME.handleDeath(s, !0);
-            return;
-          case 22:
-            GAME.events.$emit("m-show-image-captcha");
-            return;
-        }
-      },
-    }),
-    Multibox.reloadArrow(),
-    (window.setMultiData = (e, s) => {
+    (window.setMultiData = (e, t) => {
       switch (e) {
         case 1:
-          getModule(4).set("mbSkin", s),
+          getModule(4).set("mbSkin", t),
             $("#openSkins").click(),
-            (document.getElementById("skinDisplay2").src = s);
+            (document.getElementById("skinDisplay2").src = t);
           break;
         case 2:
           getModule(4).set("mbName", $("#mbName").value);
@@ -12440,50 +11563,47 @@
           getModule(4).set("mbUseName", $("#mbUseName").checked);
       }
     });
-  var d = document.createElement("div");
-  function h(e) {
-    alert("This feature is disabled");
-  }
-  (d.id = "debugStats"),
-    (d.style.position = "fixed"),
-    (d.style.right = "275px"),
-    (d.style.top = "15px"),
-    (d.style.textAlign = "right"),
-    (d.style.fontWeight = "100"),
-    (d.style.opacity = "0.8"),
-    (d.style.display = "block"),
-    $("#hud").appendChild(d),
-    (GAME.debugElement = d),
-    ((d = document.createElement("div")).id = "playerStats"),
-    (d.style.position = "fixed"),
-    (d.style.left = "10px"),
-    (d.style.top = "150px"),
-    (d.style.fontWeight = "100"),
-    (d.style.zIndex = "999"),
-    (d.style.opacity = "0.7"),
-    (d.style.display = "block"),
-    $("#app").appendChild(d),
-    (GAME.playerElement = d),
-    ((d = document.createElement("div")).id = "playerList"),
-    (d.style.position = "fixed"),
-    (d.style.left = "10px"),
-    (d.style.top = "10px"),
-    (d.style.fontWeight = "100"),
-    (d.style.zIndex = "999"),
-    (d.style.opacity = "0.9"),
-    (d.style.backdropFilter = "blue(5px)"),
-    (d.style.display = "block"),
-    $("#app").appendChild(d),
-    ((d = document.createElement("div")).id = "playerSkins"),
-    (d.style.position = "fixed"),
-    (d.style.right = "10px"),
-    (d.style.top = "10px"),
-    (d.style.fontWeight = "100"),
-    (d.style.zIndex = "999"),
-    (d.style.opacity = "0.9"),
-    (d.style.backdropFilter = "blue(5px)"),
-    (d.style.display = "block"),
-    $("#app").appendChild(d),
+  var r = document.createElement("div");
+  (r.id = "debugStats"),
+    (r.style.position = "fixed"),
+    (r.style.right = "275px"),
+    (r.style.top = "15px"),
+    (r.style.textAlign = "right"),
+    (r.style.fontWeight = "100"),
+    (r.style.opacity = "0.8"),
+    (r.style.display = "block"),
+    $("#hud").appendChild(r),
+    (GAME.debugElement = r),
+    ((r = document.createElement("div")).id = "playerStats"),
+    (r.style.position = "fixed"),
+    (r.style.left = "10px"),
+    (r.style.top = "150px"),
+    (r.style.fontWeight = "100"),
+    (r.style.zIndex = "999"),
+    (r.style.opacity = "0.7"),
+    (r.style.display = "block"),
+    $("#app").appendChild(r),
+    (GAME.playerElement = r),
+    ((r = document.createElement("div")).id = "playerList"),
+    (r.style.position = "fixed"),
+    (r.style.left = "10px"),
+    (r.style.top = "10px"),
+    (r.style.fontWeight = "100"),
+    (r.style.zIndex = "999"),
+    (r.style.opacity = "0.9"),
+    (r.style.backdropFilter = "blue(5px)"),
+    (r.style.display = "block"),
+    $("#app").appendChild(r),
+    ((r = document.createElement("div")).id = "playerSkins"),
+    (r.style.position = "fixed"),
+    (r.style.right = "10px"),
+    (r.style.top = "10px"),
+    (r.style.fontWeight = "100"),
+    (r.style.zIndex = "999"),
+    (r.style.opacity = "0.9"),
+    (r.style.backdropFilter = "blue(5px)"),
+    (r.style.display = "block"),
+    $("#app").appendChild(r),
     ($("#chat-container").style.bottom = "5px"),
     ($("#chat-container").style.left = "5px"),
     (window.yoinkSkin = (e) => {
@@ -12555,14 +11675,14 @@ Multibox Profile
         (window.emojis = {}),
         e.split("\n").forEach((e) => {
           if ("" != e) {
-            var s = e.split(","),
-              i = s[0],
-              a = s[1],
-              n = s[2];
-            i.startsWith("!") ||
+            var t = e.split(","),
+              s = t[0],
+              i = t[1],
+              a = t[2];
+            s.startsWith("!") ||
               (window.emojis[
-                a
-              ] = `https://cdn.discordapp.com/emojis/${i}.${n}`);
+                i
+              ] = `https://cdn.discordapp.com/emojis/${s}.${a}`);
           }
         });
     }),
@@ -12574,14 +11694,16 @@ Multibox Profile
         "RISE.EXE Colored Name",
         "You can now purchase extension sided colored name<br>Contact issa#7587 on Discord<br>Cost: 5 EUR"
       )),
-    (function e() {
-      let s = {
-        title: "Note",
-        html: atob(
-          "VGhpcyB3YXMgY3JhY2tlZCBkdWUgdG8gdGhlIG93bmVyIHN0ZWFsaW5nIGNvZGUgZnJvbSB0aGUgQXhvbiBjbGllbnQsPGJyPmxvZ2dpbmcgaGlzIHVzZXJzJyBjbGllbnQgdG9rZW5zLCBhbmQgc2VsbGluZyB3aGF0IHdhcyBub3QgaGlzLjxicj48YnI+PGI+PGEgc3R5bGU9ImNvbG9yOiAjNGE2N2NmIiBocmVmPSJodHRwczovL2Rpc2NvcmQubWUvYXhvbmluZmluaXRlIj5BeG9uIERpc2NvcmQ8L2E+PGJyPkFlcm8jMTQyMDwvYj4="
-        ),
-        confirmButtonText: "Okay",
-      };
-      Swal.fire(s);
+    (() => {
+      if ("experiment-2" !== localStorage.noteShown) {
+        let e = {
+          title: "This is an experimental build!",
+          html: atob(
+            "PGJyPklmIHlvdSBoYXZlIGFueSBidWdzLCBwbGVhc2UgYmUgc3VyZSB0byByZXBvcnQgdGhlbSBpbiB0aGUgPGEgc3R5bGU9ImNvbG9yOiAjNGE2N2NmIiBocmVmPSJodHRwczovL2JpdC5seS9heG9uLWRpc2NvcmQiPkRpc2NvcmQ8L2E+IDxiPiNzdXBwb3J0PC9iPiBjaGFubmVsIQ=="
+          ),
+          confirmButtonText: "Okay",
+        };
+        Swal.fire(e), localStorage.setItem("noteShown", "experiment-2");
+      }
     })();
 })();
