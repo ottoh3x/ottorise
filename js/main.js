@@ -5042,7 +5042,8 @@
                 s = `I'm at ${n}!`;
               }
             }
-            chat(s);
+            let b = SmartBuffer.fromSize(s.length + 1);
+            b.writeUInt8(99), b.writeEscapedString(s), a.connection.send(b);
             
           }
           targetPlayer(e) {
