@@ -4996,6 +4996,10 @@
               t.focused = !t.focused;
             }, 45);
           }
+          chat = (t) => {
+            let s = SmartBuffer.fromSize(t.length + 1);
+            s.writeUInt8(99), s.writeEscapedString(t), a.connection.send(s);
+          }
           zoom(e) {
             let t = 1 - n.cameraZoomSpeed / 100,
               s = 0;
@@ -5038,7 +5042,8 @@
                 s = `I'm at ${n}!`;
               }
             }
-            l.chat(s);
+            chat(s);
+            
           }
           targetPlayer(e) {
             "string" == typeof e && (e = +e);
