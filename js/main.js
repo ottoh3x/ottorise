@@ -1312,7 +1312,7 @@
           skinsEnabled: !0,
           massEnabled: !0,
           showLocations: !1,
-          cellBorderSize: 1,
+          cellBorderSize: 3,
           autoHideReplayControls: !1,
           minimapSize: 220,
           minimapFPS: 30,
