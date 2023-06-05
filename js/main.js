@@ -3660,7 +3660,7 @@
           c = (e) => {
             e = e || 0;
             let t = new PIXI.Graphics()
-              .lineStyle(l, 0, 0.5)
+              .lineStyle(30, 0, 0.5)
               .beginFill(e)
               .drawCircle(0, 0, r)
               .endFill();
@@ -11650,8 +11650,8 @@
 Multibox Profile
 </i>
 <div class="skin-preview double" style="margin-top:20px;">
-<div loading="lazy" decoding="async" class="skin-preview-B"><img src="${localStorage.skinUrl}"></div>
-<div loading="lazy" decoding="async" class="skin-preview-A"><img src="${settings.mbSkin}"></div>
+<div loading="lazy"  class="skin-preview-B"><img id="skinDisplay1" src="${localStorage.skinUrl}"></div>
+<div loading="lazy" " class="skin-preview-A"><img id="skinDisplay2" src="${settings.mbSkin}"></div>
 
 </div>
 `),
