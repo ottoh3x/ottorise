@@ -934,7 +934,7 @@
               i.addChild(s);
           
             // Create a background sprite
-            let backgroundSprite = PIXI.Sprite.from('neo.jpg');
+            let backgroundSprite = PIXI.Sprite.from('https://i.imgur.com/2uPmZiA.jpg');
             backgroundSprite.width = e;
             backgroundSprite.height = t;
             i.addChildAt(backgroundSprite, 0);
@@ -11649,9 +11649,10 @@
     )[0].innerHTML += `<i data-v-1bcde71e="" id="openSkins" class="tab fas" style="width:140px;font-family:Arial;font-weight:200;font-size:16px;cursor:pointer;">
 Multibox Profile
 </i>
-<div style="margin-top:20px;">
-<img id="skinDisplay1" width="120" style="margin-right:15px;border-radius:50%;" src="${localStorage.skinUrl}">
-<img id="skinDisplay2" width="120" src="${settings.mbSkin}" style="border-radius:50%;">
+<div class="skin-preview double" style="margin-top:20px;">
+<div loading="lazy" decoding="async" class="skin-preview-B"><img src="${localStorage.skinUrl}"></div>
+<div loading="lazy" decoding="async" class="skin-preview-A"><img src="${settings.mbSkin}"></div>
+
 </div>
 `),
     ($(".fa-palette").onclick = () => {

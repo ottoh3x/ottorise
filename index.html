@@ -71,6 +71,32 @@
         white-space: nowrap;
         line-height: 1;
       }
+      .skin-preview {
+    margin: auto;
+    height: 150px;
+    width: 150px;
+    --margin: 4px;
+    position: relative;
+    
+}
+.skin-preview.double > * {
+    display: block;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
+.skin-preview.double #skin-preview-B, .skin-preview.double .skin-preview-B {
+    clip-path: polygon(79% 0, 41% 45%, 56% 55%, 19% 100%, 0% 100%, 0 0);
+}
+.skin-preview > * {
+    display: none;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.skin-preview.double #skin-preview-A, .skin-preview.double .skin-preview-A {
+    clip-path: polygon(100% 0, 81% 0%, 44% 45%, 59% 55%, 21% 100%, 100% 100%);
+}
       .pretty input {
         position: absolute;
         left: 0;
