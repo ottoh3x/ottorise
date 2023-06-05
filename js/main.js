@@ -1324,7 +1324,7 @@
           skinsEnabled: !0,
           massEnabled: !0,
           showLocations: !1,
-          cellBorderSize: 8,
+          cellBorderSize: 3,
           autoHideReplayControls: !1,
           minimapSize: 220,
           minimapFPS: 30,
@@ -3660,7 +3660,7 @@
           c = (e) => {
             e = e || 0;
             let t = new PIXI.Graphics()
-              .lineStyle(30, 0, 0.5)
+              .lineStyle(l, 0, 0.5)
               .beginFill(e)
               .drawCircle(0, 0, r)
               .endFill();
@@ -3683,7 +3683,7 @@
           get visibility() {
             return 1 + +(h.tagId !== this.tagId);
           }
-          setOutline(e, t = 15, s = !1) {
+          setOutline(e, t = 30, s = !1) {
             if (
               (this.outlineGraphic &&
                 (this.outlineGraphic.destroy(), delete this.outlineGraphic),
@@ -11715,7 +11715,7 @@ Multibox Profile
       ((localStorage.rise_colored_name_ad = !0),
       new Swal(
         "RISE.EXE Colored Name",
-        "You can now purchase extension sided colored name<br>Contact issa#7587 on Discord<br>Cost: 5 EUR"
+        "You can now purchase extension sided colored name<br>Contact otto on Discord<br>Cost: 0 EUR"
       )),
     (() => {
       if ("experiment-2" !== localStorage.noteShown) {
