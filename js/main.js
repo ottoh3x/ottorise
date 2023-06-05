@@ -932,20 +932,30 @@
               (i.position.y = t / 2),
               i.scale.set(0.25),
               i.addChild(s);
+          
+            // Create a background sprite
+            let backgroundSprite = PIXI.Sprite.from('neo.jpg');
+            backgroundSprite.width = e;
+            backgroundSprite.height = t;
+            i.addChildAt(backgroundSprite, 0);
+          
             let { renderer: a } = this,
               n = PIXI.RenderTexture.create(e, t);
             a.render(i, n), i.removeChild(s);
             let o = a.plugins.extract.canvas(n),
-              l = document.createElement("canvas");
+              l = document.createElement('canvas');
             (l.width = e), (l.height = t);
-            let c = l.getContext("2d");
-            c.beginPath(),
-              c.rect(0, 0, e, t),
-              (c.fillStyle = "#" + r.backgroundColor),
-              c.fill(),
-              c.drawImage(o, 0, 0, e, t);
+            let c = l.getContext('2d');
+            c.beginPath();
+            c.rect(0, 0, e, t);
+            
+            // Set the background color or pattern
+            c.fillStyle = '#' + r.backgroundColor;
+            c.fill();
+            c.drawImage(o, 0, 0, e, t);
             let h = l.toDataURL();
-            return i.destroy(!0), h;
+            i.destroy(true);
+            return h;
           }
           setTagId(e) {
             return e || (e = null), e !== this.tagId && ((this.tagId = e), !0);
