@@ -3709,7 +3709,7 @@
           c = (e) => {
             e = e || 0;
             let t = new PIXI.Graphics()
-              .lineStyle(30, 0, 0.5)
+              .lineStyle(l, 0, 0.5)
               .beginFill(e)
               .drawCircle(0, 0, r)
               .endFill();
