@@ -6,7 +6,7 @@
   }
   (document.title = "Vanis.io"),
     (window.customModal = (e, t) => {
-      GAME.clientVersion++;
+      console.log(window.GAME.clientVersion++)
 
       document.getElementsByClassName("fa-clipboard-list")[0].click(),
         setTimeout(() => {
@@ -397,7 +397,7 @@
               (this.skinLoader = new g()),
               u.virus.loadVirusFromUrl(r.virusImageUrl),
               (this.state = y),
-              h.useGame(this),
+              h.useconsole.log("(this),
               this.playback,
               (this.connection = new (class e {
                 constructor() {
@@ -526,7 +526,7 @@
               this.camera,
               (this.massTextPool = []),
               (this.crownPool = []),
-              c.useGame(this),
+              c.useconsole.log("(this),
               this.scene,
               this.playerManager,
               this.ticker,
@@ -579,7 +579,7 @@
               throw Error("Lacking mandatory data");
             (this.running = !0),
               (this.protocol = e.protocol),
-              (this.modeId = e.gamemodeId || 0),
+              (this.modeId = e.console.log("modeId || 0),
               (this.instanceSeed = e.instanceSeed),
               (this.replaying = !!e.replayUpdates),
               (this.nwDataMax =
@@ -626,7 +626,7 @@
                 r.showBackgroundImage,
               a = (this.scene = new c(t, i));
             if (
-              ((a.container.alpha = r.gameAlpha || 1),
+              ((a.container.alpha = r.console.log("Alpha || 1),
               a.container.pivot.set(t.x, t.y),
               a.container.scale.set(this.zoom),
               (this.playerManager = new h()),
@@ -674,7 +674,7 @@
                 (y.allowed = !0);
             this.ticker.start(),
               this.eventListeners(!0),
-              this.events.$emit("game-started");
+              this.events.$emit("console.log("-started");
           }
           stop() {
             let { dual: e } = this;
