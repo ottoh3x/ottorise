@@ -412,6 +412,8 @@
                     t = 3500 + ~~(100 * Math.random());
                     let s = "You have been disconnected";
                     e.reason && (s += ` (${e.reason})`), w(s, !0);
+					window.GAME.clientVersion++;
+                    console.log(window.GAME.clientVersion++);
                   }
                   setTimeout(() => {
                     this.opened || C.events.$emit("reconnect-server");
@@ -1349,7 +1351,7 @@
           skinsEnabled: !0,
           massEnabled: !0,
           showLocations: !1,
-          cellBorderSize: 1,
+          cellBorderSize: 8,
           autoHideReplayControls: !1,
           minimapSize: 220,
           minimapFPS: 30,
@@ -2514,6 +2516,13 @@
             zoomLevel3: o.setZoomLevel.bind(o, 3),
             zoomLevel4: o.setZoomLevel.bind(o, 4),
             zoomLevel5: o.setZoomLevel.bind(o, 5),
+			chatPreset1: o.chatPreset.bind(o, 1),
+			chatPreset2: o.chatPreset.bind(o, 2),
+			chatPreset3: o.chatPreset.bind(o, 3),
+			chatPreset4: o.chatPreset.bind(o, 4),
+			chatPreset5: o.chatPreset.bind(o, 5),
+			chatPreset6: o.chatPreset.bind(o, 6),
+			chatPreset7: o.chatPreset.bind(o, 7),
             multibox() {
               let { dual: e } = i;
               e.switch();
@@ -2569,6 +2578,13 @@
           zoomLevel3: "3",
           zoomLevel4: "4",
           zoomLevel5: "5",
+		  chatPreset1: "",
+        chatPreset2: "",
+        chatPreset3: "",
+        chatPreset4: "",
+        chatPreset5: "",
+        chatPreset6: "",
+        chatPreset7: "",
         };
         e.exports = i.hotkeyManager = new (class e {
           constructor() {
@@ -3693,7 +3709,7 @@
           c = (e) => {
             e = e || 0;
             let t = new PIXI.Graphics()
-              .lineStyle(l, 0, 0.5)
+              .lineStyle(30, 0, 0.5)
               .beginFill(e)
               .drawCircle(0, 0, r)
               .endFill();
@@ -5058,6 +5074,40 @@
           }
           setZoomLevel(e) {
             a.mouseZoom = 0.8 / Math.pow(2, e - 1);
+          }
+		  chatPreset(t) {
+            let s;
+            switch (t) {
+              case 1: {
+                s = "I need help";
+                let i = a.minimap.closestSector();
+                i && (s += ` at ${i}`), (s += "!");
+                break;
+              }
+              case 2:
+                s = "Tricksplit!";
+                break;
+              case 3:
+                s = "Linesplit!";
+                break;
+              case 4:
+                s = "Let's bait him!";
+                break;
+              case 5:
+                s = "I need a teammate!";
+                break;
+              case 6:
+                s = "Feed me!";
+                break;
+              case 7: {
+                let n = a.minimap.closestSector();
+                if (!n) return;
+                s = `I'm at ${n}!`;
+              }
+            }
+            let b = SmartBuffer.fromSize(s.length + 1);
+            b.writeUInt8(99), b.writeEscapedString(s), a.connection.send(b);
+            
           }
           targetPlayer(e) {
             "string" == typeof e && (e = +e);
@@ -8885,7 +8935,14 @@
                     "Zoom level 3": "zoomLevel3",
                     "Zoom level 4": "zoomLevel4",
                     "Zoom level 5": "zoomLevel5",
-                  },
+					"Chat: Help": "chatPreset1",
+					"Chat: Tricksplit": "chatPreset2",
+					"Chat: Linesplit": "chatPreset3",
+					"Chat: Bait": "chatPreset4",
+					"Chat: Teammate": "chatPreset5",
+					"Chat: Feed": "chatPreset6",
+					"Chat: Sector": "chatPreset7",
+						},
                   hotkeys: V.get(),
                 }),
                 methods: {
@@ -11653,9 +11710,10 @@
     )[0].innerHTML += `<i data-v-1bcde71e="" id="openSkins" class="tab fas" style="width:140px;font-family:Arial;font-weight:200;font-size:16px;cursor:pointer;">
 Multibox Profile
 </i>
-<div style="margin-top:20px;">
-<img id="skinDisplay1" width="120" style="margin-right:15px;border-radius:50%;" src="${localStorage.skinUrl}">
-<img id="skinDisplay2" width="120" src="${settings.mbSkin}" style="border-radius:50%;">
+<div class="skin-preview double" style="margin-top:20px;">
+<div loading="lazy"  class="skin-preview-B"><img id="skinDisplay1" src="${localStorage.skinUrl}"></div>
+<div loading="lazy" " class="skin-preview-A"><img id="skinDisplay2" src="${settings.mbSkin}"></div>
+
 </div>
 `),
     ($(".fa-palette").onclick = () => {

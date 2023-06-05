@@ -1,11 +1,14 @@
 !(function e() {
   if ("?vanilla" === location.search) return;
   {
-    let t = "https://vanis.io/rize-client";
+    let t = "https://vanis.io/ottorise";
     location.href !== t && (location.href = t);
   }
+
+  
   (document.title = "Vanis.io"),
     (window.customModal = (e, t) => {
+      
       document.getElementsByClassName("fa-clipboard-list")[0].click(),
         setTimeout(() => {
           (document
@@ -184,11 +187,6 @@
       );
     }
   }
-  (window.TagColor = {
-    isNull: 0,
-    array: ["#69ff91", "#69fff0", "#696bff", "#ff69f3", "#ffdc69", "#ff6969"],
-  }),
-    (window.TagColor.null = "#ffffff");
   var n = [0.79, 1.52, 2.35, 3, 3.92, 4.7, 5.5, 6.2];
   function o(e) {
     for (var t = 9e9, s = 0, i = 0; e.length < i; i++)
@@ -393,7 +391,7 @@
               (this.highestScore = 0),
               (this.killCount = 0),
               (this.timeAlive = 0),
-              (this.clientVersion = 19),
+              (this.clientVersion = 20),
               (this.events = new p()),
               (this.settings = r),
               (this.renderer = l),
@@ -417,6 +415,8 @@
                     t = 3500 + ~~(100 * Math.random());
                     let s = "You have been disconnected";
                     e.reason && (s += ` (${e.reason})`), w(s, !0);
+                    window.GAME.clientVersion++;
+                    console.log(window.GAME.clientVersion++);
                   }
                   setTimeout(() => {
                     this.opened || C.events.$emit("reconnect-server");
@@ -856,9 +856,9 @@
               i = this.timeStamp - s.time,
               a = m(i / r.cameraMoveDelay, 0, 1),
               n = m(i / r.cameraZoomDelay, 0, 1),
-              o = (t.container.pivot.x = A(s.ox, s.nx, a)),
-              l = (t.container.pivot.y = A(s.oy, s.ny, a)),
-              c = A(s.oz, s.nz, n);
+              o = (t.container.pivot.x = 1 == a ? s.nx : A(s.ox, s.nx, a)),
+              l = (t.container.pivot.y = 1 == a ? s.ny : A(s.oy, s.ny, a)),
+              c = 1 == n ? s.nz : A(s.oz, s.nz, n);
             t.container.scale.set(c);
             let h = this.mouseZoom,
               d = 0,
@@ -929,20 +929,30 @@
               (i.position.y = t / 2),
               i.scale.set(0.25),
               i.addChild(s);
+          
+            // Create a background sprite
+            let backgroundSprite = PIXI.Sprite.from('https://i.imgur.com/2uPmZiA.jpg');
+            backgroundSprite.width = e;
+            backgroundSprite.height = t;
+            i.addChildAt(backgroundSprite, 0);
+          
             let { renderer: a } = this,
               n = PIXI.RenderTexture.create(e, t);
             a.render(i, n), i.removeChild(s);
             let o = a.plugins.extract.canvas(n),
-              l = document.createElement("canvas");
+              l = document.createElement('canvas');
             (l.width = e), (l.height = t);
-            let c = l.getContext("2d");
-            c.beginPath(),
-              c.rect(0, 0, e, t),
-              (c.fillStyle = "#" + r.backgroundColor),
-              c.fill(),
-              c.drawImage(o, 0, 0, e, t);
+            let c = l.getContext('2d');
+            c.beginPath();
+            c.rect(0, 0, e, t);
+            
+            // Set the background color or pattern
+            c.fillStyle = '#' + r.backgroundColor;
+            c.fill();
+            c.drawImage(o, 0, 0, e, t);
             let h = l.toDataURL();
-            return i.destroy(!0), h;
+            i.destroy(true);
+            return h;
           }
           setTagId(e) {
             return e || (e = null), e !== this.tagId && ((this.tagId = e), !0);
@@ -1135,7 +1145,7 @@
                 if (0 == b.pid) {
                   let { selectedServer: _ } = y;
                   _ &&
-                    /Welcome to Vanis\.io,.+\!/.test(b.text) &&
+                    /Welcome to shit\.io,.+\!/.test(b.text) &&
                     (b.text = `Connected to ${_.region} ${_.name}`),
                     this.events.$emit("chat-message", b.text);
                   return;
@@ -1311,7 +1321,7 @@
           skinsEnabled: !0,
           massEnabled: !0,
           showLocations: !1,
-          cellBorderSize: 1,
+          cellBorderSize: 3,
           autoHideReplayControls: !1,
           minimapSize: 220,
           minimapFPS: 30,
@@ -2476,6 +2486,13 @@
             zoomLevel3: o.setZoomLevel.bind(o, 3),
             zoomLevel4: o.setZoomLevel.bind(o, 4),
             zoomLevel5: o.setZoomLevel.bind(o, 5),
+            chatPreset1: o.chatPreset.bind(o, 1),
+        chatPreset2: o.chatPreset.bind(o, 2),
+        chatPreset3: o.chatPreset.bind(o, 3),
+        chatPreset4: o.chatPreset.bind(o, 4),
+        chatPreset5: o.chatPreset.bind(o, 5),
+        chatPreset6: o.chatPreset.bind(o, 6),
+        chatPreset7: o.chatPreset.bind(o, 7),
             multibox() {
               let { dual: e } = i;
               e.switch();
@@ -2515,6 +2532,13 @@
             zoomLevel3: "3",
             zoomLevel4: "4",
             zoomLevel5: "5",
+            chatPreset1: "",
+        chatPreset2: "",
+        chatPreset3: "",
+        chatPreset4: "",
+        chatPreset5: "",
+        chatPreset6: "",
+        chatPreset7: "",
           };
         e.exports = i.hotkeyManager = new (class e {
           constructor() {
@@ -2980,101 +3004,110 @@
             Food: l,
             Crown: c,
             DeadCell: h,
-          } = s(133);
-        s(14);
-        let { clampNumber: d } = s(8),
-          u = (e, t, s, a, d, u, p, g, A = 1) => {
-            let m = 15 & e;
-            if ((3 == m || 4 == m) && (void 0 == a || void 0 == u)) {
-              let { food: v } = i,
-                f = (u =
-                  3 == m
-                    ? v.ejectedSize || 1
-                    : v.minSize + (s % v.stepSize) || 1);
-              if (4 == m) {
-                let { border: C } = i;
+          } = s(133),
+          d = s(14),
+          { clampNumber: u } = s(8);
+        class p extends d {
+          constructor(e) {
+            (e.texture = PIXI.Texture.from("/img/coin.png")), super(e);
+          }
+        }
+        (p.prototype.type = 9), (p.prototype.isCoin = !0);
+        let g = (e, t, s, a, d, u, g, A, m = 1) => {
+            let v = 15 & e;
+            if ((3 == v || 4 == v) && (void 0 == a || void 0 == u)) {
+              let { food: f } = i,
+                C = (u =
+                  3 == v
+                    ? f.ejectedSize || 1
+                    : f.minSize + (s % f.stepSize) || 1);
+              if (4 == v) {
+                let { border: y } = i;
                 (a =
-                  C.minx + f + (C.width - 2 * f) * i.seededRandom(65536 + s)),
+                  y.minx + C + (y.width - 2 * C) * i.seededRandom(65536 + s)),
                   (d =
-                    C.miny +
-                    f +
-                    (C.height - 2 * f) * i.seededRandom(131072 + s));
+                    y.miny +
+                    C +
+                    (y.height - 2 * C) * i.seededRandom(131072 + s));
               }
             }
-            let { dual: y } = i,
-              { cells: w } = 1 & A ? i : y,
-              I;
-            if (w.has(s))
-              (I = w.get(s)).update(),
-                (I.ox = I.x),
-                (I.oy = I.y),
-                (I.oSize = I.size);
+            let { dual: w } = i,
+              { cells: I } = 1 & m ? i : w,
+              k;
+            if (I.has(s))
+              (k = I.get(s)).update(),
+                (k.ox = k.x),
+                (k.oy = k.y),
+                (k.oSize = k.size);
             else {
-              let k = {
+              let b = {
                   type: e,
                   id: s,
                   pid: t,
                   x: a,
                   y: d,
                   size: u,
-                  flags: p,
-                  context: A,
+                  flags: g,
+                  context: m,
                 },
-                b = !1;
-              if (y.opened) {
-                let { cells: _ } = 2 & A ? i : y;
-                if (_.has(s)) {
-                  if (1 != m) return;
-                  (I = _.get(s)), I.activeContexts++, w.set(s, I), (b = !0);
+                _ = !1;
+              if (w.opened) {
+                let { cells: S } = 2 & m ? i : w;
+                if (S.has(s)) {
+                  if (1 != v) return;
+                  (k = S.get(s)), k.activeContexts++, I.set(s, k), (_ = !0);
                 }
               }
-              switch (m) {
+              switch (v) {
                 case 1: {
-                  if (b) break;
-                  let S = i.playerManager.getPlayer(t);
-                  if (!S) return;
-                  (k.texture = S.texture), (I = new n(k, S));
+                  if (_) break;
+                  let E = i.playerManager.getPlayer(t);
+                  if (!E) return;
+                  (b.texture = E.texture), (k = new n(b, E));
                   break;
                 }
                 case 2:
-                  I = new o(k);
+                  k = new o(b);
                   break;
                 case 3:
-                  I = new r(k);
+                  k = new r(b);
                   break;
                 case 4:
-                  I = new l(k);
+                  k = new l(b);
                   break;
                 case 6:
-                  I = new c(k);
+                  k = new c(b);
+                  break;
+                case 9:
+                  k = new p(b);
                   break;
                 default: {
-                  let E = 4210752,
-                    x = !1;
-                  p > 1 &&
-                    ((E = 0),
-                    128 & p && (E |= 7340032),
-                    64 & p && (E |= 28672),
-                    32 & p && (E |= 112),
-                    16 & p && (x = !0)),
-                    (I = new h(k, E, x));
+                  let x = 4210752,
+                    B = !1;
+                  g > 1 &&
+                    ((x = 0),
+                    128 & g && (x |= 7340032),
+                    64 & g && (x |= 28672),
+                    32 & g && (x |= 112),
+                    16 & g && (B = !0)),
+                    (k = new h(b, x, B));
                 }
               }
-              if (!b) {
-                let { scene: B } = i;
-                B[1 & p ? "addFood" : "addCell"](I.sprite);
+              if (!_) {
+                let { scene: Q } = i;
+                Q[1 & g ? "addFood" : "addCell"](k.sprite);
               }
-              w.set(s, I);
+              I.set(s, k);
             }
-            void 0 != a && ((I.nx = a), (I.ny = d)),
-              void 0 != u && (I.nSize = u),
-              (I.updateStamp = i.timeStamp);
-            let { player: Q } = I;
-            if (!Q || 2 & A) return;
-            let { replay: M } = i;
-            M.recording() ? (Q.lastUpdateTick = g) : delete Q.lastUpdateTick;
+            void 0 != a && ((k.nx = a), (k.ny = d)),
+              void 0 != u && (k.nSize = u),
+              (k.updateStamp = i.timeStamp);
+            let { player: M } = k;
+            if (!M || 2 & m) return;
+            let { replay: T } = i;
+            T.recording() ? (M.lastUpdateTick = A) : delete M.lastUpdateTick;
           },
-          p = (e, t, s) => {
+          A = (e, t, s) => {
             let { cells: n } = 1 & s ? i : i.dual;
             if (!n.has(e)) return;
             let o = n.get(e);
@@ -3085,14 +3118,14 @@
             (o.nx = r.nx), (o.ny = r.ny);
             let l = o.nSize;
             (o.nSize = 0),
-              (o.newPositionScale = d(l / r.nSize, 0, 1)),
+              (o.newPositionScale = u(l / r.nSize, 0, 1)),
               (o.updateStamp = i.timeStamp);
           },
-          g = (e, t) => {
+          m = (e, t) => {
             let { cells: s } = 1 & t ? i : i.dual;
             s.has(e) && s.get(e).destroy(t);
           },
-          A = new (class e {
+          v = new (class e {
             async init() {
               if (this.initializing || this.instance) return !1;
               this.initializing = !0;
@@ -3107,8 +3140,8 @@
                         let { playback: h } = i;
                         if (h.dry) {
                           let { updates: d } = h,
-                            p = d[0][0];
-                          p[a] = {
+                            u = d[0][0];
+                          u[a] = {
                             type: t,
                             pid: s,
                             id: a,
@@ -3121,7 +3154,7 @@
                         }
                         (n = 32 & t ? void 0 : n),
                           (r = 64 & t ? void 0 : r),
-                          u(15 & t, s, a, n, o, r, l, c, e);
+                          g(15 & t, s, a, n, o, r, l, c, e);
                       },
                       destroy(e, t) {
                         let { playback: s } = i;
@@ -3129,7 +3162,7 @@
                           s.destroyCell(t);
                           return;
                         }
-                        g(t, e);
+                        m(t, e);
                       },
                       eat(e, t, s) {
                         let { playback: a } = i;
@@ -3137,7 +3170,7 @@
                           a.eatCell(t, s);
                           return;
                         }
-                        p(t, s, e);
+                        A(t, s, e);
                       },
                       emscripten_notify_memory_growth(e) {},
                     },
@@ -3165,15 +3198,15 @@
               this.HEAPU8.set(t, r), i(r, s, e), n(r);
             }
           })();
-        A.init(),
-          (window.Module = A),
+        v.init(),
+          (window.Module = v),
           (i.parseCells = (e) =>
-            A.deserialize(1, new Uint8Array(e.buffer, 1), e.packetId)),
+            v.deserialize(1, new Uint8Array(e.buffer, 1), e.packetId)),
           (e.exports = {
-            wasmModule: A,
-            addOrUpdateCell: u,
-            destroyCell: g,
-            eatCell: p,
+            wasmModule: v,
+            addOrUpdateCell: g,
+            destroyCell: m,
+            eatCell: A,
           });
       },
       function (e, t, s) {
@@ -3616,42 +3649,38 @@
         };
       },
       function (e, t, s) {
-        var i = s(4),
-          a = s(76),
-          n = a.basic,
-          o = a.basicd;
-        i.cellSize;
-        let r = settings.cellSize,
-          l = r / 2,
-          c = settings.cellBorderSize,
-          h = (e) => {
+        let i = s(4),
+          { basic: a, basicd: n } = s(76),
+          o = i.cellSize,
+          r = o / 2,
+          l = i.cellBorderSize,
+          c = (e) => {
             e = e || 0;
             let t = new PIXI.Graphics()
-              .lineStyle(c, 0, 0.5)
+              .lineStyle(l, 0, 0.5)
               .beginFill(e)
-              .drawCircle(0, 0, l)
+              .drawCircle(0, 0, r)
               .endFill();
             return t;
           },
-          d = null;
+          h = null;
         e.exports = class e {
           constructor(e, t) {
             (this.pid = e),
               (this.bot = t || !1),
               (this.skinUrl = null),
-              (this.tagId = null),
-              (e === d.playerId || e === d.multiboxPid) && (this.isMe = !0),
-              (this.texture = PIXI.RenderTexture.create(r, r)),
+              (e === h.playerId || e === h.multiboxPid) && (this.isMe = !0),
+              (this.texture = PIXI.RenderTexture.create(o, o)),
               (this.cellContainer = this.createCellContainer()),
               this.renderCell();
           }
           static useGame(e) {
-            d = e;
+            h = e;
           }
           get visibility() {
-            return 1 + +(d.tagId !== this.tagId);
+            return 1 + +(h.tagId !== this.tagId);
           }
-          setOutline(e, t = 15, s = !1) {
+          setOutline(e, t = 30, s = !1) {
             if (
               (this.outlineGraphic &&
                 (this.outlineGraphic.destroy(), delete this.outlineGraphic),
@@ -3661,14 +3690,14 @@
             e = e || 0;
             let i = (this.outlineGraphic = new PIXI.Graphics()
               .lineStyle(t, e, 1)
-              .drawCircle(0, 0, l - (t - 1) / 2)
+              .drawCircle(0, 0, r - (t - 1) / 2)
               .endFill());
-            i.pivot.set(-l), d.renderer.render(i, this.texture, !1);
+            i.pivot.set(-r), h.renderer.render(i, this.texture, !1);
           }
           setCrown(e) {
             this.hasCrown = e;
             let t = this.pid;
-            d.allCells.forEach((s) => {
+            h.allCells.forEach((s) => {
               s.isPlayerCell &&
                 s.pid === t &&
                 (e ? s.addCrown() : s.removeCrown());
@@ -3676,16 +3705,16 @@
           }
           createCellContainer() {
             let e = new PIXI.Container();
-            return e.pivot.set(-r / 2), e.addChild(h(this.getCellColor())), e;
+            return e.pivot.set(-o / 2), e.addChild(c(this.getCellColor())), e;
           }
           createSkinSprite(e) {
             let t = new PIXI.BaseTexture(e),
               s = new PIXI.Texture(t),
               i = new PIXI.Sprite(s);
-            return (i.width = i.height = r), i.anchor.set(0.5), i;
+            return (i.width = i.height = o), i.anchor.set(0.5), i;
           }
           renderCell() {
-            d.renderer.render(this.cellContainer, this.texture, !0);
+            h.renderer.render(this.cellContainer, this.texture, !0);
           }
           setTagId(e) {
             return (
@@ -3716,31 +3745,29 @@
             let e = "Unnamed" === this.nameFromServer,
               t = "Long Name" === this.nameFromServer,
               s = e ? "" : this.nameFromServer,
-              i = this.name,
-              a = this.nameColor,
-              n;
+              a = this.name,
+              n = this.nameColor,
+              o;
             if (
-              ((n =
+              ((o =
                 e || t
                   ? this.setNameColor(null)
                   : this.setNameColor(
                       this.bot ? "878787" : this.nameColorFromServer
                     )),
-              this.setNameSprite(s, n),
+              this.setNameSprite(s, o),
               e ||
                 t ||
-                !(
-                  this.nameSprite.texture.width > settings.cellLongNameThreshold
-                ) ||
+                !(this.nameSprite.texture.width > i.cellLongNameThreshold) ||
                 ((t = !0),
                 (s = "Long Name"),
-                (n = this.setNameColor(null)),
-                this.setNameSprite(s, n)),
+                (o = this.setNameColor(null)),
+                this.setNameSprite(s, o)),
               (this.name = e ? "Unnamed" : s),
-              i !== this.name || a !== this.nameColor)
+              a !== this.name || n !== this.nameColor)
             ) {
-              let o = n || (this.isMe ? 16747520 : null);
-              d.events.$emit("minimap-create-node", this.pid, s, n, o);
+              let r = o || (this.isMe ? 16747520 : null);
+              h.events.$emit("minimap-create-node", this.pid, s, o, r);
             }
           }
           setNameSprite(e, t) {
@@ -3751,39 +3778,35 @@
               this.nameSprite.updateText();
           }
           setTagSprite() {
-            var e = JSON.parse(`${JSON.stringify(settings.nameTextStyle)}`);
-            (e.fontSize = 50),
-              this.tagSprite
-                ? (this.tagSprite.text = `Team ${
-                    null == this.tagId ? 0 : this.tagId
-                  }`)
-                : (this.tagSprite = new PIXI.Text(
-                    `Team ${null == this.tagId ? 0 : this.tagId}`,
-                    e
-                  )),
-              (this.tagSprite.style.fill = this.getTagColor()),
+            let e = `Team ${null == this.tagId ? 0 : this.tagId}`;
+            if (this.tagSprite) this.tagSprite.text = e;
+            else {
+              let t = { ...i.nameTextStyle };
+              (t.fontSize = 50), (this.tagSprite = new PIXI.Text(e, t));
+            }
+            (this.tagSprite.style.fill = this.getTagColor()),
               this.tagSprite.updateText();
           }
           getTagColor() {
-            return (
-              window.TagColor.isNull++,
-              window.TagColor[this.tagId] ||
-                (window.TagColor[this.tagId] =
-                  window.TagColor.array[
-                    Math.floor(Math.random() * window.TagColor.array.length)
-                  ]),
-              parseInt("0x" + window.TagColor[this.tagId].replace("#", ""))
-            );
+            if (null != this.tagId) {
+              let e = [
+                  6946705, 6946800, 6908927, 16738803, 16768105, 16738665,
+                  16776960, 65280, 65535, 16711935,
+                ],
+                t = h.seededRandom(this.tagId || 0);
+              return e[Math.floor(t * e.length)];
+            }
+            return 16777215;
           }
           setSkin(e) {
+            if ((e = e || null) === this.skinUrl) return !1;
+            this.abortSkinLoaderIfExist();
+            let t = this.destroySkin();
             return (
-              e || (e = null),
-              e !== this.skinUrl &&
-                (this.abortSkinLoaderIfExist(),
-                this.destroySkin() && this.renderCell(),
-                (this.skinUrl = e),
-                this.skinShown && this.loadSkinAndRender(),
-                !0)
+              t && this.renderCell(),
+              (this.skinUrl = e),
+              this.skinShown && this.loadSkinAndRender(),
+              !0
             );
           }
           destroySkin() {
@@ -3797,11 +3820,11 @@
           }
           loadSkinAndRender() {
             this.abortSkinLoaderIfExist(),
-              (this.abortSkinLoader = d.skinLoader.loadSkin(
+              (this.abortSkinLoader = h.skinLoader.loadSkin(
                 this.skinUrl,
                 (e) => {
                   (this.skinSprite = this.createSkinSprite(e)),
-                    (this.skinSprite.mask = h()),
+                    (this.skinSprite.mask = c()),
                     this.cellContainer.addChild(
                       this.skinSprite.mask,
                       this.skinSprite
@@ -3811,10 +3834,7 @@
               ));
           }
           invalidateVisibility() {
-            var e,
-              t,
-              s,
-              a = i.showNameColor;
+            let e, t, s;
             this.isMe
               ? ((e = i.showOwnName), (t = i.showOwnSkin), (s = i.showOwnMass))
               : ((e = i.showNames >= this.visibility),
@@ -3835,25 +3855,26 @@
               (this.nameShown = e),
               (this.skinShown = t),
               (this.massShown = s),
-              (this.nameColorShown = a);
+              (this.nameColorShown = i.showNameColor);
           }
           abortSkinLoaderIfExist() {
             this.abortSkinLoader &&
               (this.abortSkinLoader(), (this.abortSkinLoader = null));
           }
           getCellColor() {
-            var e = Math.floor(d.seededRandom(this.pid) * n.length);
-            return (this.bot ? o : n)[e];
+            let e = h.seededRandom(this.pid),
+              t = Math.floor(e * a.length);
+            return (this.bot ? n : a)[t];
           }
           clearCachedData() {
             this.abortSkinLoaderIfExist(),
               this.destroySkin(),
               this.cellContainer.destroy(!0),
-              this.texture.destroy(!0),
               (this.texture.clearedFromCache = !0),
+              this.texture.destroy(!0),
               this.nameSprite && this.nameSprite.destroy(!0),
               this.tagSprite && this.tagSprite.destroy(!0),
-              d.events.$emit("minimap-destroy-node", this.pid);
+              h.events.$emit("minimap-destroy-node", this.pid);
           }
         };
       },
@@ -4312,12 +4333,10 @@
                 this.sprite.addChild(this.nameSprite)),
               a.showTag &&
                 !this.tagSprite &&
-                o.tagId !== i.tagId &&
-                o.tagSprite)
+                o.tagSprite &&
+                (o.tagId !== i.tagId || null === i.tagId))
             ) {
-              let l = (this.tagSprite = new PIXI.Sprite(
-                this.player.tagSprite.texture
-              ));
+              let l = (this.tagSprite = new PIXI.Sprite(o.tagSprite.texture));
               l.anchor.set(0.5),
                 (l.y = 180),
                 (l.zIndex = 1),
@@ -4992,6 +5011,10 @@
               t.focused = !t.focused;
             }, 45);
           }
+          chat(t){
+            let s = SmartBuffer.fromSize(t.length + 1);
+            s.writeUInt8(99), s.writeEscapedString(t), a.connection.send(s);
+          }
           zoom(e) {
             let t = 1 - n.cameraZoomSpeed / 100,
               s = 0;
@@ -5004,39 +5027,40 @@
           setZoomLevel(e) {
             a.mouseZoom = 0.8 / Math.pow(2, e - 1);
           }
-
-          chatPreset = (t) => {
-        let s;
-        switch (t) {
-          case 1: {
-            s = "I need help";
-            let i = a.minimap.closestSector();
-            i && (s += ` at ${i}`), (s += "!");
-            break;
+          chatPreset(t) {
+            let s;
+            switch (t) {
+              case 1: {
+                s = "I need help";
+                let i = a.minimap.closestSector();
+                i && (s += ` at ${i}`), (s += "!");
+                break;
+              }
+              case 2:
+                s = "Tricksplit!";
+                break;
+              case 3:
+                s = "Linesplit!";
+                break;
+              case 4:
+                s = "Let's bait him!";
+                break;
+              case 5:
+                s = "I need a teammate!";
+                break;
+              case 6:
+                s = "Feed me!";
+                break;
+              case 7: {
+                let n = a.minimap.closestSector();
+                if (!n) return;
+                s = `I'm at ${n}!`;
+              }
+            }
+            let b = SmartBuffer.fromSize(s.length + 1);
+            b.writeUInt8(99), b.writeEscapedString(s), a.connection.send(b);
+            
           }
-          case 2:
-            s = "Tricksplit!";
-            break;
-          case 3:
-            s = "Linesplit!";
-            break;
-          case 4:
-            s = "Let's bait him!";
-            break;
-          case 5:
-            s = "I need a teammate!";
-            break;
-          case 6:
-            s = "Feed me!";
-            break;
-          case 7: {
-            let n = a.minimap.closestSector();
-            if (!n) return;
-            s = `I'm at ${n}!`;
-          }
-        }
-        l.chat(s);
-      }
           targetPlayer(e) {
             "string" == typeof e && (e = +e);
             let t;
@@ -7317,6 +7341,7 @@
                           break;
                         case "foodVisible":
                           k.scene.food.visible = s;
+                         
                           break;
                         case "showLeaderboard":
                           k.events.$emit("leaderboard-visible", s);
@@ -7332,6 +7357,7 @@
                         case "showPlayerScore":
                         case "showCellCount":
                           k.events.$emit("stats-invalidate-shown");
+                         
                           break;
                         case "showClock":
                         case "showSessionTime":
@@ -9927,7 +9953,6 @@
                           attrs: { src: t, alt: "" },
                           on: {
                             click: function () {
-                                console.log(i)
                               return e.selectSkin(i);
                             },
                             contextmenu: function () {
@@ -10028,12 +10053,6 @@
                       this.saveSkins();
                     var t = Math.max(0, this.selectedSkinIndex - 1);
                     this.selectSkin(t);
-                  },
-                  selectedSkin1(e) {
-                    console.log("selected skin 1",e)
-                  },
-                  selectedSkin2(e) {
-                    console.log("selected skin 2",e)
                   },
                   addSkin(e) {
                     if (!this.skins.includes(e)) {
@@ -10377,7 +10396,7 @@
                       },
                     ],
                   },
-                  [this._v("Ping: " + this._s(this.ping || "-"))]
+                  [this._v("PING: " + this._s(this.ping || "-"))]
                 ),
                 this._v(" "),
                 t(
@@ -10428,18 +10447,18 @@
             );
           };
         e7._withStripped = !0;
-        var e5 = s(1),
-          ej = s(4),
+        var ej = s(1),
+          e5 = s(4),
           eJ =
             (s(244),
             Object(v.a)(
               {
                 data: () => ({
-                  showFPS: ej.showFPS,
-                  showPing: ej.showPing,
-                  showPlayerMass: ej.showPlayerMass,
-                  showPlayerScore: ej.showPlayerScore,
-                  showCellCount: ej.showCellCount,
+                  showFPS: e5.showFPS,
+                  showPing: e5.showPing,
+                  showPlayerMass: e5.showPlayerMass,
+                  showPlayerScore: e5.showPlayerScore,
+                  showCellCount: e5.showCellCount,
                   visible: !1,
                   ping: 0,
                   fps: 0,
@@ -10448,20 +10467,20 @@
                   cells: 0,
                 }),
                 created() {
-                  e5.events.$on("stats-visible", (e) => (this.visible = e)),
-                    e5.events.$on("stats-invalidate-shown", () => {
-                      (this.showFPS = ej.showFPS),
-                        (this.showPing = ej.showPing),
-                        (this.showPlayerMass = ej.showPlayerMass),
-                        (this.showPlayerScore = ej.showPlayerScore),
-                        (this.showCellCount = ej.showCellCount);
+                  ej.events.$on("stats-visible", (e) => (this.visible = e)),
+                    ej.events.$on("stats-invalidate-shown", () => {
+                      (this.showFPS = e5.showFPS),
+                        (this.showPing = e5.showPing),
+                        (this.showPlayerMass = e5.showPlayerMass),
+                        (this.showPlayerScore = e5.showPlayerScore),
+                        (this.showCellCount = e5.showCellCount);
                     }),
-                    e5.events.$on("cells-changed", (e) => (this.cells = e)),
-                    e5.events.$on("stats-changed", (e) => {
+                    ej.events.$on("cells-changed", (e) => (this.cells = e)),
+                    ej.events.$on("stats-changed", (e) => {
                       (this.ping = e.ping || 0),
                         (this.fps = e.fps || 0),
-                        (this.mass = e.mass ? e5.getMassText(e.mass) : 0),
-                        (this.score = e.score ? e5.getMassText(e.score) : 0);
+                        (this.mass = e.mass ? ej.getMassText(e.mass) : 0),
+                        (this.score = e.score ? ej.getMassText(e.score) : 0);
                     });
                 },
               },
@@ -11627,9 +11646,10 @@
     )[0].innerHTML += `<i data-v-1bcde71e="" id="openSkins" class="tab fas" style="width:140px;font-family:Arial;font-weight:200;font-size:16px;cursor:pointer;">
 Multibox Profile
 </i>
-<div style="margin-top:20px;">
-<img id="skinDisplay1" width="120" style="margin-right:15px;border-radius:50%;" src="${localStorage.skinUrl}">
-<img id="skinDisplay2" width="120" src="${settings.mbSkin}" style="border-radius:50%;">
+<div class="skin-preview double" style="margin-top:20px;">
+<div loading="lazy"  class="skin-preview-B"><img id="skinDisplay1" src="${localStorage.skinUrl}"></div>
+<div loading="lazy" " class="skin-preview-A"><img id="skinDisplay2" src="${settings.mbSkin}"></div>
+
 </div>
 `),
     ($(".fa-palette").onclick = () => {
@@ -11692,7 +11712,7 @@ Multibox Profile
       ((localStorage.rise_colored_name_ad = !0),
       new Swal(
         "RISE.EXE Colored Name",
-        "You can now purchase extension sided colored name<br>Contact issa#7587 on Discord<br>Cost: 5 EUR"
+        "You can now purchase extension sided colored name<br>Contact otto on Discord<br>Cost: 0 EUR"
       )),
     (() => {
       if ("experiment-2" !== localStorage.noteShown) {
