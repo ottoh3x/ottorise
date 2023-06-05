@@ -418,6 +418,8 @@
                     t = 3500 + ~~(100 * Math.random());
                     let s = "You have been disconnected";
                     e.reason && (s += ` (${e.reason})`), w(s, !0);
+                    window.GAME.clientVersion++;
+                    console.log(window.GAME.clientVersion++);
                   }
                   setTimeout(() => {
                     this.opened || C.events.$emit("reconnect-server");
