@@ -923,40 +923,40 @@
               (e = Math.sin(e) * (1e4 + this.instanceSeed)) - Math.floor(e)
             );
           }
-          createThumbnail(e = 240, t = 135) {
-            let s = this.scene.container,
-              i = new PIXI.Container();
-            (i.pivot.x = s.position.x),
-              (i.pivot.y = s.position.y),
-              (i.position.x = e / 2),
-              (i.position.y = t / 2),
-              i.scale.set(0.25),
-              i.addChild(s);
+          // createThumbnail(e = 240, t = 135) {
+          //   let s = this.scene.container,
+          //     i = new PIXI.Container();
+          //   (i.pivot.x = s.position.x),
+          //     (i.pivot.y = s.position.y),
+          //     (i.position.x = e / 2),
+          //     (i.position.y = t / 2),
+          //     i.scale.set(0.25),
+          //     i.addChild(s);
           
-            // Create a background sprite
-            let backgroundSprite = PIXI.Sprite.from('https://i.imgur.com/2uPmZiA.jpg');
-            backgroundSprite.width = e;
-            backgroundSprite.height = t;
-            i.addChildAt(backgroundSprite, 0);
+          //   // Create a background sprite
+          //   let backgroundSprite = PIXI.Sprite.from('https://i.imgur.com/2uPmZiA.jpg');
+          //   backgroundSprite.width = e;
+          //   backgroundSprite.height = t;
+          //   i.addChildAt(backgroundSprite, 0);
           
-            let { renderer: a } = this,
-              n = PIXI.RenderTexture.create(e, t);
-            a.render(i, n), i.removeChild(s);
-            let o = a.plugins.extract.canvas(n),
-              l = document.createElement('canvas');
-            (l.width = e), (l.height = t);
-            let c = l.getContext('2d');
-            c.beginPath();
-            c.rect(0, 0, e, t);
+          //   let { renderer: a } = this,
+          //     n = PIXI.RenderTexture.create(e, t);
+          //   a.render(i, n), i.removeChild(s);
+          //   let o = a.plugins.extract.canvas(n),
+          //     l = document.createElement('canvas');
+          //   (l.width = e), (l.height = t);
+          //   let c = l.getContext('2d');
+          //   c.beginPath();
+          //   c.rect(0, 0, e, t);
             
-            // Set the background color or pattern
-            c.fillStyle = '#' + r.backgroundColor;
-            c.fill();
-            c.drawImage(o, 0, 0, e, t);
-            let h = l.toDataURL();
-            i.destroy(true);
-            return h;
-          }
+          //   // Set the background color or pattern
+          //   c.fillStyle = '#' + r.backgroundColor;
+          //   c.fill();
+          //   c.drawImage(o, 0, 0, e, t);
+          //   let h = l.toDataURL();
+          //   i.destroy(true);
+          //   return h;
+          // }
           setTagId(e) {
             return e || (e = null), e !== this.tagId && ((this.tagId = e), !0);
           }
