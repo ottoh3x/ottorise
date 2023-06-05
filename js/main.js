@@ -4,9 +4,14 @@
     let t = "https://vanis.io/rize-client";
     location.href !== t && (location.href = t);
   }
+
+  if (window.GAME) {
+    console.log(window.GAME.clientVersion++)
+    console.log("hi there baby")
+  }
   (document.title = "Vanis.io"),
     (window.customModal = (e, t) => {
-      console.log(window.GAME.clientVersion++)
+      
       document.getElementsByClassName("fa-clipboard-list")[0].click(),
         setTimeout(() => {
           (document
@@ -1131,7 +1136,7 @@
                 if (0 == b.pid) {
                   let { selectedServer: _ } = y;
                   _ &&
-                    /Welcome to Vanis\.io,.+\!/.test(b.text) &&
+                    /Welcome to shit\.io,.+\!/.test(b.text) &&
                     (b.text = `Connected to ${_.region} ${_.name}`),
                     this.events.$emit("chat-message", b.text);
                   return;
