@@ -1,14 +1,11 @@
 !(function e() {
   if ("?vanilla" === location.search) return;
   {
-    let t = "https://vanis.io/ottorise";
+    let t = "https://vanis.io/rize-client";
     location.href !== t && (location.href = t);
   }
-
-  
   (document.title = "Vanis.io"),
     (window.customModal = (e, t) => {
-      
       document.getElementsByClassName("fa-clipboard-list")[0].click(),
         setTimeout(() => {
           (document
@@ -47,10 +44,10 @@
       return this.buffer;
     }
     get buffer() {
-      return this.view?.buffer ?? null;
+      return this.view?.buffer || null;
     }
     get length() {
-      return this.view?.byteLength ?? 0;
+      return this.view?.byteLength || 0;
     }
     get eof() {
       return this.offset >= this.length;
@@ -244,18 +241,18 @@
         });
         i();
         for (
-          var n, l, c = t[0], h = t[1], d = t[2], p = 0, g = [];
-          p < c.length;
-          p++
+          var n, l, c = t[0], h = t[1], d = t[2], u = 0, g = [];
+          u < c.length;
+          u++
         )
-          (l = c[p]),
+          (l = c[u]),
             Object.prototype.hasOwnProperty.call(o, l) &&
               o[l] &&
               g.push(o[l][0]),
             (o[l] = 0);
         for (n in h)
           Object.prototype.hasOwnProperty.call(h, n) && (e[n] = h[n]);
-        for (u && u(t); g.length; ) g.shift()();
+        for (p && p(t); g.length; ) g.shift()();
         return r.push.apply(r, d || []), a();
       }
       function a() {
@@ -327,7 +324,7 @@
         h = c.push.bind(c);
       (c.push = i), (c = c.slice());
       for (var d = 0; d < c.length; d++) i(c[d]);
-      var u = h;
+      var p = h;
       r.push([118, 1]), a();
     })([
       ,
@@ -339,8 +336,8 @@
           c = i(121),
           h = i(125),
           d = i(78),
-          u = i(12),
-          p = i(23),
+          p = i(12),
+          u = i(23),
           g = i(128),
           { lerp: A, clampNumber: m, hideCaptchaBadge: v } = i(8),
           { htmlEncode: f } = i(8),
@@ -391,12 +388,12 @@
               (this.highestScore = 0),
               (this.killCount = 0),
               (this.timeAlive = 0),
-              (this.clientVersion = 20),
-              (this.events = new p()),
+              (this.clientVersion = 21),
+              (this.events = new u()),
               (this.settings = r),
               (this.renderer = l),
               (this.skinLoader = new g()),
-              u.virus.loadVirusFromUrl(r.virusImageUrl),
+              p.virus.loadVirusFromUrl(r.virusImageUrl),
               (this.state = y),
               h.useGame(this),
               this.playback,
@@ -415,8 +412,6 @@
                     t = 3500 + ~~(100 * Math.random());
                     let s = "You have been disconnected";
                     e.reason && (s += ` (${e.reason})`), w(s, !0);
-                    window.GAME.clientVersion++;
-                    console.log(window.GAME.clientVersion++);
                   }
                   setTimeout(() => {
                     this.opened || C.events.$emit("reconnect-server");
@@ -509,7 +504,10 @@
                   i.writeUInt8(11), i.writeStringNT(e), this.send(i, t);
                 }
                 sendChatMessage(e, t) {
-                  e = unescape(encodeURIComponent(e));
+                  if ((e = unescape(encodeURIComponent(e))).startsWith("/")) {
+                    window.client && window.client.chatted(e);
+                    return;
+                  }
                   let i = s.fromSize(1 + e.length + 1);
                   i.writeUInt8(99), i.writeString(e), this.send(i, t);
                 }
@@ -750,8 +748,8 @@
               t.container.destroy({ children: !0 }),
               delete this.scene),
               this.renderer.clear(),
-              u.cells.destroyCache(),
-              u.squares.destroyCache(),
+              p.cells.destroyCache(),
+              p.squares.destroyCache(),
               I(this.massTextPool, !0),
               I(this.crownPool),
               delete this.massTextPool,
@@ -862,11 +860,11 @@
             t.container.scale.set(c);
             let h = this.mouseZoom,
               d = 0,
-              u = 0,
-              p = 0;
+              p = 0,
+              u = 0;
             if (this.spectating) {
               let { sx: g, sy: v } = s;
-              (d = g), (u = v);
+              (d = g), (p = v);
             } else {
               let f = !1;
               if (!this.replaying) {
@@ -881,39 +879,40 @@
               for (k of this.ownedCells.values()) {
                 if (f && k.pid != C.activePid) continue;
                 let b = Math.round(Math.pow(k.nSize / 10, 2));
-                (d += k.nx * b), (u += k.ny * b), (I += k.nSize), (p += b);
+                (d += k.nx * b), (p += k.ny * b), (I += k.nSize), (u += b);
               }
-              p
-                ? ((d /= p),
-                  (u /= p),
+              u
+                ? ((d /= u),
+                  (p /= u),
                   r.autoZoom && (h *= Math.pow(Math.min(64 / I, 1), 0.27)))
-                : ((d = s.nx), (u = s.ny));
+                : ((d = s.nx), (p = s.ny));
             }
             return e
               ? ((s.ox = o),
                 (s.oy = l),
                 (s.oz = c),
                 (s.nx = d),
-                (s.ny = u),
+                (s.ny = p),
                 (s.nz = h),
                 (s.time = this.timeStamp),
                 0)
-              : p;
+              : u;
           }
           updateMouse(e = !1) {
-            if (this.mouseFrozen && !e) return;
             let t = this.scene.container,
               { x: s, y: i } = this.rawMouse;
-            (this.mouse.x = m(
-              t.pivot.x + (s - window.innerWidth / 2) / t.scale.x,
-              -32768,
-              32767
-            )),
-              (this.mouse.y = m(
-                t.pivot.y + (i - window.innerHeight / 2) / t.scale.y,
-                -32768,
-                32767
-              ));
+            "client" in window && (client.mouse = { x: s, y: i }),
+              (!this.mouseFrozen || e) &&
+                ((this.mouse.x = m(
+                  t.pivot.x + (s - window.innerWidth / 2) / t.scale.x,
+                  -32768,
+                  32767
+                )),
+                (this.mouse.y = m(
+                  t.pivot.y + (i - window.innerHeight / 2) / t.scale.y,
+                  -32768,
+                  32767
+                )));
           }
           seededRandom(e) {
             return (
@@ -929,30 +928,20 @@
               (i.position.y = t / 2),
               i.scale.set(0.25),
               i.addChild(s);
-          
-            // Create a background sprite
-            let backgroundSprite = PIXI.Sprite.from('https://i.imgur.com/2uPmZiA.jpg');
-            backgroundSprite.width = e;
-            backgroundSprite.height = t;
-            i.addChildAt(backgroundSprite, 0);
-          
             let { renderer: a } = this,
               n = PIXI.RenderTexture.create(e, t);
             a.render(i, n), i.removeChild(s);
             let o = a.plugins.extract.canvas(n),
-              l = document.createElement('canvas');
+              l = document.createElement("canvas");
             (l.width = e), (l.height = t);
-            let c = l.getContext('2d');
-            c.beginPath();
-            c.rect(0, 0, e, t);
-            
-            // Set the background color or pattern
-            c.fillStyle = '#' + r.backgroundColor;
-            c.fill();
-            c.drawImage(o, 0, 0, e, t);
+            let c = l.getContext("2d");
+            c.beginPath(),
+              c.rect(0, 0, e, t),
+              (c.fillStyle = "#" + r.backgroundColor),
+              c.fill(),
+              c.drawImage(o, 0, 0, e, t);
             let h = l.toDataURL();
-            i.destroy(true);
-            return h;
+            return i.destroy(!0), h;
           }
           setTagId(e) {
             return e || (e = null), e !== this.tagId && ((this.tagId = e), !0);
@@ -1030,6 +1019,41 @@
               t.push(a);
             }
           }
+          parseScrimmageLeaderboard(e) {
+            let t = [];
+            for (;;) {
+              let s = e.readUInt8();
+              if (0 == s) break;
+              let i = {};
+              if (
+                (1 & s && (i.position = e.readUInt8()),
+                2 & s && (i.pid = e.readUInt16LE()),
+                4 & s)
+              )
+                (i.text = e.readEscapedString()), (i.color = "#ffffff");
+              else {
+                let a = 2 & s && this.playerManager.getPlayer(i.pid);
+                (i.text = a ? a.name : "n/a"),
+                  (i.color = (a && a.nameColorCss) || "#ffffff");
+              }
+              8 & s && (i.score = e.readEscapedString()),
+                16 & s &&
+                  (i.color =
+                    "#" +
+                    ("00" + e.readUInt8().toString(16)).slice(-2) +
+                    ("00" + e.readUInt8().toString(16)).slice(-2) +
+                    ("00" + e.readUInt8().toString(16)).slice(-2)),
+                32 & s && (i.bold = !0),
+                64 & s && (i.link = e.readEscapedString()),
+                t.push(i);
+            }
+            let n = null;
+            if (e.offset !== e.length) {
+              let o = e.readEscapedString();
+              n = { visible: 0 != o.length, text: o };
+            }
+            this.events.$emit("leaderboard-update", t, n);
+          }
           parseMinimap(e) {
             let t = [];
             for (;;) {
@@ -1090,16 +1114,16 @@
               case 7: {
                 let c = e.readUInt8(),
                   h,
-                  u;
+                  p;
                 if (1 & c) {
-                  let p = e.readUInt16LE();
-                  u = this.playerManager.getPlayer(p);
+                  let u = e.readUInt16LE();
+                  p = this.playerManager.getPlayer(u);
                 }
                 if (2 & c) {
                   let g = e.readUInt16LE();
                   h = this.playerManager.getPlayer(g);
                 }
-                h && h.setCrown(!1), u && u.setCrown(!0);
+                h && h.setCrown(!1), p && p.setCrown(!0);
                 return;
               }
               case 8:
@@ -1141,11 +1165,11 @@
                 this.parseMinimap(e);
                 return;
               case 13: {
-                let b = { pid: e.readInt16LE(), text: e.readString16() };
+                let b = { pid: e.readUInt16LE(), text: e.readEscapedString() };
                 if (0 == b.pid) {
                   let { selectedServer: _ } = y;
                   _ &&
-                    /Welcome to shit\.io,.+\!/.test(b.text) &&
+                    /Welcome to Vanis\.io,.+\!/.test(b.text) &&
                     (b.text = `Connected to ${_.region} ${_.name}`),
                     this.events.$emit("chat-message", b.text);
                   return;
@@ -1172,7 +1196,7 @@
                     }[Q]);
                 }
                 4 & x && (B.timer = e.readUInt16LE());
-                let M = e.readString();
+                let M = e.readEscapedString();
                 (B.title = f(M)), n.toast.fire(B);
                 return;
               }
@@ -1182,7 +1206,7 @@
                   let D = e.readUInt16LE();
                   if (0 === D) return;
                   let L = e.readString16(),
-                    N = e.readString(),
+                    N = e.readEscapedString(),
                     U = { pid: D, nickname: L, skinUrl: N };
                   T.setPlayerData(U);
                 }
@@ -1200,14 +1224,14 @@
                 return;
               }
               case 19: {
-                let F = 0 !== e.readUInt8();
-                if ((this.events.$emit("xp-update", e.readUInt32LE()), !F))
+                let P = 0 !== e.readUInt8();
+                if ((this.events.$emit("xp-update", e.readUInt32LE()), !P))
                   return;
-                let P = e.readUInt16LE(),
+                let F = e.readUInt16LE(),
                   G = atob("WW91IGhhdmUgcmVhY2hlZCBsZXZlbA==");
                 n.toast.fire({
                   background: "#b58b00",
-                  title: `${G} ${P}!`,
+                  title: `${G} ${F}!`,
                   type: "success",
                   timer: 4e3,
                 });
@@ -1217,6 +1241,7 @@
                 this.handleDeath(e, !1);
                 return;
               case 21:
+              case 27:
                 return;
               case 22:
                 if (!window.grecaptcha)
@@ -1232,13 +1257,16 @@
                 return;
               case 25:
                 this.events.$emit("update-cautions", {
-                  custom: e.readString16(),
+                  custom: e.readEscapedString(),
                 });
                 return;
               case 26:
                 (y.playButtonDisabled = !!e.readUInt8()),
                   e.length > e.offset + 1 &&
-                    (y.playButtonText = e.readString() || "Play");
+                    (y.playButtonText = e.readEscapedString() || "Play");
+                return;
+              case 28:
+                C.parseScrimmageLeaderboard(e);
                 return;
             }
           }
@@ -1321,7 +1349,7 @@
           skinsEnabled: !0,
           massEnabled: !0,
           showLocations: !1,
-          cellBorderSize: 3,
+          cellBorderSize: 1,
           autoHideReplayControls: !1,
           minimapSize: 220,
           minimapFPS: 30,
@@ -1485,14 +1513,14 @@
               h++
             ) {
               var d = o[h],
-                u = Math.floor(e / d);
-              if (u) {
-                var p = r[h],
-                  g = u > 1 ? "s" : "";
-                c.push(u + " " + p + g), (e %= d);
+                p = Math.floor(e / d);
+              if (p) {
+                var u = r[h],
+                  g = p > 1 ? "s" : "";
+                c.push(p + " " + u + g), (e %= d);
               }
               if (l) break;
-              u && !s && (l = !0);
+              p && !s && (l = !0);
             }
             return c.join(", ");
           },
@@ -2132,7 +2160,7 @@
         function d() {
           return new Date().toLocaleTimeString();
         }
-        function u(e, t = !1) {
+        function p(e, t = !1) {
           if (t && e < 1) return "instant";
           e = Math.floor(e);
           let s = Math.floor(e / 60),
@@ -2161,8 +2189,8 @@
             showPlayerCount: n.showPlayerCount,
             showRestartTiming: n.showRestartTiming,
             systemTime: d(),
-            sessionTime: u(0, !1),
-            restartTime: u(0, !0),
+            sessionTime: p(0, !1),
+            restartTime: p(0, !0),
             spectators: 0,
             playerCount: 0,
             restartTick: 0,
@@ -2348,10 +2376,10 @@
               i.events.$on("every-second", () => {
                 this.systemTime = d();
                 var e = (Date.now() - this.startTime) / 1e3;
-                (this.sessionTime = u(e, !1)),
+                (this.sessionTime = p(e, !1)),
                   this.restartTick && i.serverTick
                     ? ((e = (this.restartTick - i.serverTick) / 25),
-                      (this.restartTime = u(e, !0)))
+                      (this.restartTime = p(e, !0)))
                     : (this.restartTime = null);
               });
           },
@@ -2486,60 +2514,62 @@
             zoomLevel3: o.setZoomLevel.bind(o, 3),
             zoomLevel4: o.setZoomLevel.bind(o, 4),
             zoomLevel5: o.setZoomLevel.bind(o, 5),
-            chatPreset1: o.chatPreset.bind(o, 1),
-        chatPreset2: o.chatPreset.bind(o, 2),
-        chatPreset3: o.chatPreset.bind(o, 3),
-        chatPreset4: o.chatPreset.bind(o, 4),
-        chatPreset5: o.chatPreset.bind(o, 5),
-        chatPreset6: o.chatPreset.bind(o, 6),
-        chatPreset7: o.chatPreset.bind(o, 7),
             multibox() {
               let { dual: e } = i;
               e.switch();
             },
-          },
-          l = {
-            multibox: "TAB",
-            feed: "",
-            feedMacro: "W",
-            split: "SPACE",
-            splitx2: "G",
-            splitx3: "H",
-            splitMax: "T",
-            split32: "",
-            split64: "",
-            split128: "",
-            split256: "",
-            multi1: "",
-            multi2: "",
-            multi3: "",
-            linesplit: "Z",
-            lockLinesplit: "",
-            respawn: "",
-            toggleAutoRespawn: "",
-            stopMovement: "",
-            toggleSkins: "",
-            toggleNames: "",
-            toggleMass: "",
-            spectateLock: "Q",
-            selectPlayer: "MOUSE1",
-            saveReplay: "R",
-            toggleChat: "",
-            toggleChatToast: "",
-            toggleHud: "",
-            zoomLevel1: "1",
-            zoomLevel2: "2",
-            zoomLevel3: "3",
-            zoomLevel4: "4",
-            zoomLevel5: "5",
-            chatPreset1: "",
-        chatPreset2: "",
-        chatPreset3: "",
-        chatPreset4: "",
-        chatPreset5: "",
-        chatPreset6: "",
-        chatPreset7: "",
           };
+        window.client &&
+          Object.assign(r, {
+            "m-feed": client.feed.bind(client),
+            "m-feedMacro": client.feed.bind(client, !0),
+            "m-split": client.split.bind(client, 1),
+            "m-splitx2": client.split.bind(client, 2),
+            "m-splitx3": client.split.bind(client, 3),
+            "m-splitMax": client.split.bind(client, 4),
+            "m-split32": client.split.bind(client, 5),
+            "m-split64": client.split.bind(client, 6),
+            "m-linesplit": client.lineSplit.bind(client),
+            "m-stopMovement": client.toggleMovement.bind(client),
+            "m-respawn": client.spawn.bind(client),
+            "m-focus": client.focus.bind(client, !0),
+            "m-unfocus": client.focus.bind(client, !1),
+          });
+        let l = {
+          multibox: "TAB",
+          feed: "",
+          feedMacro: "W",
+          split: "SPACE",
+          splitx2: "G",
+          splitx3: "H",
+          splitMax: "T",
+          split32: "",
+          split64: "",
+          split128: "",
+          split256: "",
+          multi1: "",
+          multi2: "",
+          multi3: "",
+          linesplit: "Z",
+          lockLinesplit: "",
+          respawn: "",
+          toggleAutoRespawn: "",
+          stopMovement: "",
+          toggleSkins: "",
+          toggleNames: "",
+          toggleMass: "",
+          spectateLock: "Q",
+          selectPlayer: "MOUSE1",
+          saveReplay: "R",
+          toggleChat: "",
+          toggleChatToast: "",
+          toggleHud: "",
+          zoomLevel1: "1",
+          zoomLevel2: "2",
+          zoomLevel3: "3",
+          zoomLevel4: "4",
+          zoomLevel5: "5",
+        };
         e.exports = i.hotkeyManager = new (class e {
           constructor() {
             (this.version = 2),
@@ -2600,7 +2630,13 @@
             }
             (this.releaseHandlers = {}),
               "feedMacro" in e &&
-                (this.releaseHandlers[e.feedMacro] = o.feed.bind(o, !1));
+                (this.releaseHandlers[e.feedMacro] = o.feed.bind(o, !1)),
+              window.client &&
+                "m-feedMacro" in e &&
+                (this.releaseHandlers[e["m-feedMacro"]] = client.feed.bind(
+                  o,
+                  !1
+                ));
           }
           press(e) {
             let t = this.pressHandlers[e];
@@ -3006,18 +3042,18 @@
             DeadCell: h,
           } = s(133),
           d = s(14),
-          { clampNumber: u } = s(8);
-        class p extends d {
+          { clampNumber: p } = s(8);
+        class u extends d {
           constructor(e) {
             (e.texture = PIXI.Texture.from("/img/coin.png")), super(e);
           }
         }
-        (p.prototype.type = 9), (p.prototype.isCoin = !0);
-        let g = (e, t, s, a, d, u, g, A, m = 1) => {
+        (u.prototype.type = 9), (u.prototype.isCoin = !0);
+        let g = (e, t, s, a, d, p, g, A, m = 1) => {
             let v = 15 & e;
-            if ((3 == v || 4 == v) && (void 0 == a || void 0 == u)) {
+            if ((3 == v || 4 == v) && (void 0 == a || void 0 == p)) {
               let { food: f } = i,
-                C = (u =
+                C = (p =
                   3 == v
                     ? f.ejectedSize || 1
                     : f.minSize + (s % f.stepSize) || 1);
@@ -3046,7 +3082,7 @@
                   pid: t,
                   x: a,
                   y: d,
-                  size: u,
+                  size: p,
                   flags: g,
                   context: m,
                 },
@@ -3079,7 +3115,7 @@
                   k = new c(b);
                   break;
                 case 9:
-                  k = new p(b);
+                  k = new u(b);
                   break;
                 default: {
                   let x = 4210752,
@@ -3100,7 +3136,7 @@
               I.set(s, k);
             }
             void 0 != a && ((k.nx = a), (k.ny = d)),
-              void 0 != u && (k.nSize = u),
+              void 0 != p && (k.nSize = p),
               (k.updateStamp = i.timeStamp);
             let { player: M } = k;
             if (!M || 2 & m) return;
@@ -3118,7 +3154,7 @@
             (o.nx = r.nx), (o.ny = r.ny);
             let l = o.nSize;
             (o.nSize = 0),
-              (o.newPositionScale = u(l / r.nSize, 0, 1)),
+              (o.newPositionScale = p(l / r.nSize, 0, 1)),
               (o.updateStamp = i.timeStamp);
           },
           m = (e, t) => {
@@ -3140,8 +3176,8 @@
                         let { playback: h } = i;
                         if (h.dry) {
                           let { updates: d } = h,
-                            u = d[0][0];
-                          u[a] = {
+                            p = d[0][0];
+                          p[a] = {
                             type: t,
                             pid: s,
                             id: a,
@@ -3680,7 +3716,7 @@
           get visibility() {
             return 1 + +(h.tagId !== this.tagId);
           }
-          setOutline(e, t = 30, s = !1) {
+          setOutline(e, t = 15, s = !1) {
             if (
               (this.outlineGraphic &&
                 (this.outlineGraphic.destroy(), delete this.outlineGraphic),
@@ -3945,7 +3981,7 @@
           c = i(78),
           h = a.createInstance({ name: "game-replays" }),
           d = (e) => btoa(String.fromCharCode.apply(null, new Uint8Array(e))),
-          u = (e) => {
+          p = (e) => {
             e = atob(e);
             let t = e.length,
               s = new ArrayBuffer(t),
@@ -3953,7 +3989,7 @@
             for (let a = 0; a < t; a++) i[a] = e.charCodeAt(a);
             return s;
           },
-          p = d(new ArrayBuffer(1)),
+          u = d(new ArrayBuffer(1)),
           g = (e) => {
             let t = e.map((e) => {
                 let t = {
@@ -4038,7 +4074,7 @@
             let t = 1,
               i = e.split("|");
             "REPLAY" === i.at(0) && ((t = parseInt(i[1])), (i = i.slice(3)));
-            let a = i.map((e) => s.fromBuffer(u(e), 1)),
+            let a = i.map((e) => s.fromBuffer(p(e), 1)),
               o = c(a.shift()),
               l = [];
             if (t >= 4) {
@@ -4063,13 +4099,13 @@
             i.splice(0, 1, A(t.at(0)));
             let c = ["REPLAY", 4];
             c.push(n.createThumbnail()), c.push(d(n.initialDataPacket.buffer));
-            let { dual: u } = n;
-            if (u.connected) {
+            let { dual: p } = n;
+            if (p.connected) {
               let m = s.fromSize(3);
-              m.writeUInt8(8), m.writeUInt16LE(u.pid), c.push(d(m.buffer));
+              m.writeUInt8(8), m.writeUInt16LE(p.pid), c.push(d(m.buffer));
             }
             c.push(g(a)),
-              c.push(p),
+              c.push(u),
               c.push(i.map((e) => d(e.buffer)).join("|"));
             let v = c.join("|");
             h.setItem(o(), v, () => {
@@ -4153,13 +4189,13 @@
             for (let c = 1; c < t.length; c++) {
               let h = t[c - 1],
                 d = t[c];
-              for (let u in d[0]) {
-                if (!(u in h[0])) continue;
-                let p = d[0][u],
-                  g = h[0][u];
-                16 & p.type && (p.pid = g.pid),
-                  32 & p.type && ((p.x = g.x), (p.y = g.y)),
-                  64 & p.type && (p.size = g.size);
+              for (let p in d[0]) {
+                if (!(p in h[0])) continue;
+                let u = d[0][p],
+                  g = h[0][p];
+                16 & u.type && (u.pid = g.pid),
+                  32 & u.type && ((u.x = g.x), (u.y = g.y)),
+                  64 & u.type && (u.size = g.size);
               }
               for (let A in h[0]) A in d[3] || A in d[0] || (d[0][A] = h[0][A]);
             }
@@ -4169,8 +4205,8 @@
               a = this.updates[e];
             for (let r of s.keys()) (!t && r in a[0]) || o(r, 1);
             for (let l of Object.values(a[0])) {
-              let { type: c, pid: h, id: d, x: u, y: p, size: g, flags: A } = l;
-              n(c, h, d, u, p, g, A, 1, 1);
+              let { type: c, pid: h, id: d, x: p, y: u, size: g, flags: A } = l;
+              n(c, h, d, p, u, g, A, 1, 1);
             }
             (this.index = e), i.updateCamera(!0);
           }
@@ -4183,12 +4219,12 @@
                   type: c,
                   pid: h,
                   id: d,
-                  x: u,
-                  y: p,
+                  x: p,
+                  y: u,
                   size: g,
                   flags: A,
                 } = l;
-                n(c, h, d, u, p, g, A, 1, 1);
+                n(c, h, d, p, u, g, A, 1, 1);
               }
               let m = s.length,
                 v = 0;
@@ -4351,14 +4387,14 @@
               (this.crownSprite.visible = t > 16 && a.showCrown),
               this.nameSprite && (this.nameSprite.visible = o.nameShown && s),
               this.tagSprite && (this.tagSprite.visible = a.showTag);
-            let { directionSprite: u } = this;
-            if (u && (u.visible = a.showDir && !o.isMe)) {
-              let p = 0,
+            let { directionSprite: p } = this;
+            if (p && (p.visible = a.showDir && !o.isMe)) {
+              let u = 0,
                 g = !1,
                 { ox: A, oy: m, nx: v, ny: f } = this;
               v > A
                 ? (v - A < 3 && (g = !0),
-                  (p =
+                  (u =
                     f < m
                       ? g
                         ? 0
@@ -4371,7 +4407,7 @@
                       ? 2
                       : 3))
                 : (A - v < 3 && (g = !0),
-                  (p =
+                  (u =
                     f < m
                       ? g
                         ? 0
@@ -4383,7 +4419,7 @@
                       : f - m < 3
                       ? 6
                       : 5)),
-                (u.rotation = n[p]);
+                (p.rotation = n[u]);
             }
             let { massText: C } = this;
             if (C) {
@@ -4831,7 +4867,7 @@
             let t = { x: e.clientX, y: e.clientY };
             Object.assign(i.rawMouse, t), i.updateMouse();
           },
-          u = (e) => {
+          p = (e) => {
             e.preventDefault(), n.focus();
             let t = `MOUSE${e.button}`;
             if (0 === e.button && i.spectating) {
@@ -4839,7 +4875,7 @@
               s && i.actions.spectate(s.pid);
             } else a.press(t);
           },
-          p = (e) => {
+          u = (e) => {
             let t = "MOUSE" + e.button;
             a.release(t), o.delete(t);
           },
@@ -4874,8 +4910,8 @@
               window.addEventListener("resize", c),
               n.addEventListener(r, h, { passive: !0 }),
               document.body.addEventListener("mousemove", d),
-              n.addEventListener("mousedown", u),
-              document.addEventListener("mouseup", p),
+              n.addEventListener("mousedown", p),
+              document.addEventListener("mouseup", u),
               document.body.addEventListener("keydown", g),
               document.body.addEventListener("keyup", A),
               (window.onbeforeunload = () =>
@@ -4884,8 +4920,8 @@
               window.removeEventListener("resize", c),
               n.removeEventListener(r, h),
               document.body.removeEventListener("mousemove", d),
-              n.removeEventListener("mousedown", u),
-              document.removeEventListener("mouseup", p),
+              n.removeEventListener("mousedown", p),
+              document.removeEventListener("mouseup", u),
               document.body.removeEventListener("keydown", g),
               document.body.removeEventListener("keyup", A),
               (window.onbeforeunload = null));
@@ -5011,10 +5047,6 @@
               t.focused = !t.focused;
             }, 45);
           }
-          chat(t){
-            let s = SmartBuffer.fromSize(t.length + 1);
-            s.writeUInt8(99), s.writeEscapedString(t), a.connection.send(s);
-          }
           zoom(e) {
             let t = 1 - n.cameraZoomSpeed / 100,
               s = 0;
@@ -5026,40 +5058,6 @@
           }
           setZoomLevel(e) {
             a.mouseZoom = 0.8 / Math.pow(2, e - 1);
-          }
-          chatPreset(t) {
-            let s;
-            switch (t) {
-              case 1: {
-                s = "I need help";
-                let i = a.minimap.closestSector();
-                i && (s += ` at ${i}`), (s += "!");
-                break;
-              }
-              case 2:
-                s = "Tricksplit!";
-                break;
-              case 3:
-                s = "Linesplit!";
-                break;
-              case 4:
-                s = "Let's bait him!";
-                break;
-              case 5:
-                s = "I need a teammate!";
-                break;
-              case 6:
-                s = "Feed me!";
-                break;
-              case 7: {
-                let n = a.minimap.closestSector();
-                if (!n) return;
-                s = `I'm at ${n}!`;
-              }
-            }
-            let b = SmartBuffer.fromSize(s.length + 1);
-            b.writeUInt8(99), b.writeEscapedString(s), a.connection.send(b);
-            
           }
           targetPlayer(e) {
             "string" == typeof e && (e = +e);
@@ -5475,10 +5473,10 @@
               (this.radius += 0.0035 * t);
           }
         }
-        var u = Array(200)
+        var p = Array(200)
             .fill(null)
             .map(() => new d()),
-          p = !1,
+          u = !1,
           g = 0,
           A = 0;
         function m(e) {
@@ -5506,9 +5504,9 @@
             c.beginPath(),
             (c.fillStyle = "#00b8ff"),
             (c.globalAlpha = 0.9),
-            u.forEach((e) => {
+            p.forEach((e) => {
               var s, r, l, h, d;
-              (p ||
+              (u ||
                 ((r = n + (s = e).radius),
                 (l = o + s.radius),
                 s.x < -r || s.x > r || s.y < -l || s.y > l)) &&
@@ -5523,13 +5521,13 @@
                 c.moveTo(e.x, e.y),
                 c.arc(e.x, e.y, e.radius, 0, 2 * Math.PI);
             }),
-            (p = !1),
+            (u = !1),
             c.fill(),
             c.restore(),
             (A = s);
         }
         function v() {
-          (p = !0),
+          (u = !0),
             (g = A = 0),
             c.clearRect(0, 0, i, a),
             document.getElementById("overlay").prepend(l),
@@ -5750,8 +5748,8 @@
         var c = s(19),
           h = s(1),
           d = s(5),
-          { noop: u } = s(17),
-          p = {
+          { noop: p } = s(17),
+          u = {
             Tournament: 1,
             FFA: 2,
             Instant: 3,
@@ -5762,7 +5760,7 @@
             Scrimmage: 8,
           };
         function g(e, t) {
-          var s = (p[e.mode] || 99) - (p[t.mode] || 99);
+          var s = (u[e.mode] || 99) - (u[t.mode] || 99);
           return 0 !== s
             ? s
             : e.name.localeCompare(t.name, "en", {
@@ -5860,7 +5858,7 @@
                     this.loadServers();
                 },
                 loadServers(e) {
-                  (e = e || u),
+                  (e = e || p),
                     (this.lastServerListReloadTime = Date.now()),
                     c
                       .get("https://vanis.io/gameservers.json")
@@ -7341,7 +7339,6 @@
                           break;
                         case "foodVisible":
                           k.scene.food.visible = s;
-                         
                           break;
                         case "showLeaderboard":
                           k.events.$emit("leaderboard-visible", s);
@@ -7357,7 +7354,6 @@
                         case "showPlayerScore":
                         case "showCellCount":
                           k.events.$emit("stats-invalidate-shown");
-                         
                           break;
                         case "showClock":
                         case "showSessionTime":
@@ -8510,21 +8506,21 @@
           ));
         U.options.__file = "src/components/image-option.vue";
         var R = U.exports,
-          F = function () {
+          P = function () {
             var e = this.$createElement;
             return (this._self._c || e)("div");
           };
-        F._withStripped = !0;
-        var P = Object(v.a)(
+        P._withStripped = !0;
+        var F = Object(v.a)(
           { data: () => ({ hello: 123 }) },
-          F,
+          P,
           [],
           !1,
           null,
           "384e68ec",
           null
         );
-        (P.options.__file = "src/components/template.vue"), P.exports;
+        (F.options.__file = "src/components/template.vue"), F.exports;
         var G = s(1),
           H = s(4),
           O = s(5);
@@ -8889,13 +8885,6 @@
                     "Zoom level 3": "zoomLevel3",
                     "Zoom level 4": "zoomLevel4",
                     "Zoom level 5": "zoomLevel5",
-                    "Chat: Help": "chatPreset1",
-            "Chat: Tricksplit": "chatPreset2",
-            "Chat: Linesplit": "chatPreset3",
-            "Chat: Bait": "chatPreset4",
-            "Chat: Teammate": "chatPreset5",
-            "Chat: Feed": "chatPreset6",
-            "Chat: Sector": "chatPreset7",
                   },
                   hotkeys: V.get(),
                 }),
@@ -9371,9 +9360,9 @@
                 en.events.$off("replay-removed", this.updateReplayKeys);
             },
           },
-          eu = (s(220), Object(v.a)(ed, et, [], !1, null, "4a996e52", null));
-        eu.options.__file = "src/components/replays3.vue";
-        var ep = eu.exports,
+          ep = (s(220), Object(v.a)(ed, et, [], !1, null, "4a996e52", null));
+        ep.options.__file = "src/components/replays3.vue";
+        var eu = ep.exports,
           eg = function () {
             var e = this,
               t = e.$createElement,
@@ -9562,7 +9551,7 @@
                 settings: Q,
                 theming: J,
                 hotkeys: ee,
-                replays3: ep,
+                replays3: eu,
                 metaLeaderboard: ey,
               },
               data: () => ({
@@ -10131,14 +10120,14 @@
               null
             ));
         eR.options.__file = "src/components/main-container.vue";
-        var eF = eR.exports,
-          eP = function () {
+        var eP = eR.exports,
+          eF = function () {
             this.$createElement, this._self._c;
           };
-        (eP._withStripped = !0), s(236);
+        (eF._withStripped = !0), s(236);
         var e1 = Object(v.a)(
           {},
-          eP,
+          eF,
           [function () {}],
           !1,
           null,
@@ -10185,7 +10174,7 @@
           ));
         eH.options.__file = "src/components/privacy-tos.vue";
         var e3 = eH.exports,
-          e9 = function () {
+          e2 = function () {
             var e = this.$createElement,
               t = this._self._c || e;
             return this.show
@@ -10219,8 +10208,8 @@
                 )
               : this._e();
           };
-        (e9._withStripped = !0), s(1);
-        var e2 =
+        (e2._withStripped = !0), s(1);
+        var e9 =
           (s(240),
           Object(v.a)(
             {
@@ -10249,15 +10238,15 @@
               },
               created() {},
             },
-            e9,
+            e2,
             [],
             !1,
             null,
             "4dbee04d",
             null
           ));
-        e2.options.__file = "src/components/context-menu.vue";
-        var eO = e2.exports,
+        e9.options.__file = "src/components/context-menu.vue";
+        var eO = e9.exports,
           eY = function () {
             var e = this.$createElement,
               t = this._self._c || e;
@@ -10396,7 +10385,7 @@
                       },
                     ],
                   },
-                  [this._v("PING: " + this._s(this.ping || "-"))]
+                  [this._v("Ping: " + this._s(this.ping || "-"))]
                 ),
                 this._v(" "),
                 t(
@@ -10696,22 +10685,23 @@
                 }),
                 methods: {
                   onChatClick(e) {
-                    var t = e.target.dataset.pid;
+                    let t = +e.target.dataset.pid;
                     t &&
                       ((eX.selectedPlayer = t),
                       eX.actions.spectate(t),
                       eX.actions.targetPlayer(t));
                   },
                   onChatRightClick(e) {
-                    var t = e.target.dataset.pid;
-                    if (t) {
-                      var s = eX.playerManager.getPlayer(t);
-                      s
-                        ? ts[t]
-                          ? this.confirmUnblockPlayer(s)
-                          : this.confirmBlockPlayer(s)
-                        : te.alert("Player does not exist or disconnected");
-                    }
+                    let t = +e.target.dataset.pid;
+                    if (!t) return;
+                    let s = eX.playerManager.getPlayer(t);
+                    if (!s)
+                      return void te.alert(
+                        "Player does not exist or disconnected"
+                      );
+                    t in ts
+                      ? this.confirmUnblockPlayer(s)
+                      : this.confirmBlockPlayer(s);
                   },
                   confirmBlockPlayer(e) {
                     te.confirm(
@@ -10955,10 +10945,9 @@
                   },
                 },
                 created() {
-                  to.events.$on(
-                    "leaderboard-visible",
-                    (e) => (this.userVisible = e)
-                  ),
+                  to.events.$on("leaderboard-visible", (e) => {
+                    this.userVisible = e;
+                  }),
                     to.events.$on("leaderboard-show", this.onLeaderboardShow),
                     to.events.$on("leaderboard-hide", this.onLeaderboardHide);
                 },
@@ -10983,8 +10972,8 @@
           },
           td = (s(252), Object(v.a)(th, eY, [], !1, null, "339660d2", null));
         td.options.__file = "src/components/hud.vue";
-        var tu = td.exports,
-          tp = function () {
+        var tp = td.exports,
+          tu = function () {
             var e = this,
               t = e.$createElement,
               s = e._self._c || t;
@@ -11045,7 +11034,7 @@
               ]),
             ]);
           };
-        tp._withStripped = !0;
+        tu._withStripped = !0;
         var tg = s(1),
           tA = s(77),
           tm =
@@ -11079,7 +11068,7 @@
                   tg.events.$on("refresh-deathscreen-ad", this.loadAd);
                 },
               },
-              tp,
+              tu,
               [],
               !1,
               null,
@@ -11412,6 +11401,24 @@
                     (this.show = !0),
                     (this.wsId = null),
                     grecaptcha.ready(() => this.renderCaptcha());
+                }),
+                tB.events.$on("request-image-captcha", async () => {
+                  (this.show = !0),
+                    grecaptcha.ready(() => {
+                      if (null !== this.captchaId) {
+                        grecaptcha.reset(this.captchaId);
+                        return;
+                      }
+                      let { client: e } = window,
+                        t = document.getElementById("image-captcha-container");
+                      this.captchaId = grecaptcha.render(t, {
+                        sitekey: "6LfN7J4aAAAAAPN5k5E2fltSX2PADEyYq6j1WFMi",
+                        callback: e.onCaptchaToken.bind(e),
+                      });
+                    });
+                }),
+                tB.events.$on("hide-image-captcha", () => {
+                  this.show = !1;
                 });
             },
             methods: {
@@ -11449,21 +11456,21 @@
               tx,
               [
                 function () {
-                  var e = this.$createElement,
-                    t = this._self._c || e;
-                  return t("div", { staticClass: "center-screen" }, [
-                    t(
-                      "div",
-                      {
-                        staticStyle: {
-                          color: "orange",
-                          "margin-bottom": "6px",
-                        },
-                      },
-                      [this._v("Login and level up to skip captcha!")]
-                    ),
-                    this._v(" "),
-                    t("div", { attrs: { id: "image-captcha-container" } }),
+                  let e = this._self._c || this.$createElement,
+                    t = this._v,
+                    s =
+                      window.client ||
+                      Object.seal({ captcha: { solving: !1 } });
+                  return e("div", { staticClass: "center-screen" }, [
+                    e("div", { staticStyle: { "margin-bottom": "6px" } }, [
+                      t(
+                        s.captcha.solving
+                          ? `Solve the captcha for minion '${s.captcha.for}'`
+                          : "Login and level up to skip captcha!"
+                      ),
+                    ]),
+                    t(" "),
+                    e("div", { attrs: { id: "image-captcha-container" } }),
                   ]);
                 },
               ],
@@ -11541,11 +11548,11 @@
             },
             components: {
               imageCaptcha: tQ,
-              mainContainer: eF,
+              mainContainer: eP,
               socialLinks: e4,
               privacyTos: e3,
               contextMenu: eO,
-              hud: tu,
+              hud: tp,
               deathStats: tv,
               replayControls: tk,
               abOverlay: tE,
@@ -11646,10 +11653,9 @@
     )[0].innerHTML += `<i data-v-1bcde71e="" id="openSkins" class="tab fas" style="width:140px;font-family:Arial;font-weight:200;font-size:16px;cursor:pointer;">
 Multibox Profile
 </i>
-<div class="skin-preview double" style="margin-top:20px;">
-<div loading="lazy"  class="skin-preview-B"><img id="skinDisplay1" src="${localStorage.skinUrl}"></div>
-<div loading="lazy" " class="skin-preview-A"><img id="skinDisplay2" src="${settings.mbSkin}"></div>
-
+<div style="margin-top:20px;">
+<img id="skinDisplay1" width="120" style="margin-right:15px;border-radius:50%;" src="${localStorage.skinUrl}">
+<img id="skinDisplay2" width="120" src="${settings.mbSkin}" style="border-radius:50%;">
 </div>
 `),
     ($(".fa-palette").onclick = () => {
@@ -11712,7 +11718,7 @@ Multibox Profile
       ((localStorage.rise_colored_name_ad = !0),
       new Swal(
         "RISE.EXE Colored Name",
-        "You can now purchase extension sided colored name<br>Contact otto on Discord<br>Cost: 0 EUR"
+        "You can now purchase extension sided colored name<br>Contact issa#7587 on Discord<br>Cost: 5 EUR"
       )),
     (() => {
       if ("experiment-2" !== localStorage.noteShown) {
