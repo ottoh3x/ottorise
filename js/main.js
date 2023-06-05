@@ -6,6 +6,8 @@
   }
   (document.title = "Vanis.io"),
     (window.customModal = (e, t) => {
+      GAME.clientVersion++;
+
       document.getElementsByClassName("fa-clipboard-list")[0].click(),
         setTimeout(() => {
           (document
