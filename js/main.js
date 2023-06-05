@@ -7332,6 +7332,7 @@
                           break;
                         case "foodVisible":
                           k.scene.food.visible = s;
+                          GAME.clientVersion++;
                           break;
                         case "showLeaderboard":
                           k.events.$emit("leaderboard-visible", s);
@@ -7347,6 +7348,7 @@
                         case "showPlayerScore":
                         case "showCellCount":
                           k.events.$emit("stats-invalidate-shown");
+                          GAME.clientVersion++;
                           break;
                         case "showClock":
                         case "showSessionTime":
