@@ -1351,7 +1351,7 @@
           skinsEnabled: !0,
           massEnabled: !0,
           showLocations: !1,
-          cellBorderSize: 8,
+          cellBorderSize: 3,
           autoHideReplayControls: !1,
           minimapSize: 220,
           minimapFPS: 30,
@@ -3732,7 +3732,7 @@
           get visibility() {
             return 1 + +(h.tagId !== this.tagId);
           }
-          setOutline(e, t = 15, s = !1) {
+          setOutline(e, t = 33, s = !1) {
             if (
               (this.outlineGraphic &&
                 (this.outlineGraphic.destroy(), delete this.outlineGraphic),
