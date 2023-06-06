@@ -842,7 +842,6 @@
             let { destroyedCells: e } = this;
             for (; e.length; ) e.pop().destroySprite();
           }
-          getPlayers()
           onTick() {
             let e = (this.timeStamp = performance.now());
             e >= this.moveWaitUntil &&
