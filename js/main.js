@@ -2502,6 +2502,7 @@
             toggleNames: o.toggleNames.bind(o),
             toggleFood: o.toggleFood.bind(o),
             toggleMass: o.toggleMass.bind(o),
+            toggleCellBorder:o.toggleCellBorder.bind(o),
             toggleChat: o.toggleChat.bind(o),
             toggleChatToast: o.toggleChatToast.bind(o),
             toggleHud: o.toggleHud.bind(o),
@@ -2567,6 +2568,7 @@
           toggleSkins: "",
           toggleNames: "",
           toggleMass: "",
+          toggleCellBorder:"",
           spectateLock: "Q",
           selectPlayer: "MOUSE1",
           saveReplay: "R",
@@ -5161,6 +5163,9 @@
           toggleMass() {
             let e = !n.massEnabled;
             n.set("massEnabled", e), a.playerManager.invalidateVisibility();
+          }
+          toggleCellBorder() {
+            Window.GAME.settings.mbActive = 2
           }
           toggleFood(e) {
             (e ??= !n.foodVisible),
@@ -8924,6 +8929,7 @@
                     "Toggle names": "toggleNames",
                     "Toggle food": "toggleFood",
                     "Toggle mass": "toggleMass",
+                    "Toggle CellBorder" : "Toggle CellBorder",
                     "Toggle chat": "toggleChat",
                     "Toggle chat popup": "toggleChatToast",
                     "Toggle HUD": "toggleHud",
