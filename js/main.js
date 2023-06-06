@@ -8929,7 +8929,7 @@
                     "Toggle names": "toggleNames",
                     "Toggle food": "toggleFood",
                     "Toggle mass": "toggleMass",
-                    "Toggle CellBorder" : "Toggle CellBorder",
+                    "Toggle CellBorder" : "toggleCellBorder",
                     "Toggle chat": "toggleChat",
                     "Toggle chat popup": "toggleChatToast",
                     "Toggle HUD": "toggleHud",
