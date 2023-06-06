@@ -2505,7 +2505,7 @@
             toggleChat: o.toggleChat.bind(o),
             toggleChatToast: o.toggleChatToast.bind(o),
             toggleHud: o.toggleHud.bind(o),
-            spectateLock: o.spectateLockToggle.bind(o),
+            spectateLock: o.showMultiboxMeaning.bind(o),
             selectPlayer: o.targetPlayer.bind(o),
             saveReplay() {
               let { dual: e } = i;
@@ -5078,12 +5078,10 @@
 		  chatPreset(t) {
             let s;
             switch (t) {
-              case 1: {
+              case 1: 
                 s = "I need help";
-                let i = a.minimap.closestSector();
-                i && (s += ` at ${i}`), (s += "!");
                 break;
-              }
+              
               case 2:
                 s = "Tricksplit!";
                 break;
@@ -5149,6 +5147,7 @@
               i
             );
           }
+          
           toggleSkins(e) {
             (e ??= !n.skinsEnabled),
               n.set("skinsEnabled", e),
