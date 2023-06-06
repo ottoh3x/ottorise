@@ -5170,16 +5170,12 @@
               console.log(window.GAME.settings.mbActive = 2)
 
             }
-            if (window.GAME.settings.mbActive == 2) {
+            else  {
               window.GAME.settings.mbActive = 1
               console.log(window.GAME.settings.mbActive = 1)
 
             }
-            else if (window.GAME.settings.mbActive == 0) {
-              window.GAME.settings.mbActive = 1
-              console.log(window.GAME.settings.mbActive = 1)
-
-            }
+           
             
             // let { app: e } = a,
             //   t = !e.mbActive;
