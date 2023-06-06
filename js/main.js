@@ -5165,8 +5165,22 @@
             n.set("massEnabled", e), a.playerManager.invalidateVisibility();
           }
           toggleCellBorder() {
-            window.GAME.settings.mbActive = 2
-            console.log(window.GAME.settings.mbActive = 2)
+            if (window.GAME.settings.mbActive == 1) {
+              window.GAME.settings.mbActive = 2
+              console.log(window.GAME.settings.mbActive = 2)
+
+            }
+            else if (window.GAME.settings.mbActive == 2) {
+              window.GAME.settings.mbActive = 1
+              console.log(window.GAME.settings.mbActive = 1)
+
+            }
+            else if (window.GAME.settings.mbActive == 0) {
+              window.GAME.settings.mbActive = 1
+              console.log(window.GAME.settings.mbActive = 1)
+
+            }
+            
             let { app: e } = a,
               t = !e.mbActive;
             (e.mbActive = 2), n.set("mbActive", 2);
