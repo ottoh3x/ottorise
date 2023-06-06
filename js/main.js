@@ -783,6 +783,20 @@
               });
           }
           static everySecond() {
+            let pl = []
+            function getPlayers() {
+
+              let p = Array.from(new Map(GAME.playerManager.players));
+              let players = p.filter(t => t[1].bot == false).map(b => b[1])
+              players.map(o => pl.push({name:o.name,tag:o.tagId,skinUrl:o.skinUrl}))
+            }
+            getPlayers()
+
+
+            console.log(pl)
+
+
+
             (C.isAlive(!1) || C.isAlive(!0)) && C.timeAlive++,
               C.nwData > C.nwDataMax && (C.nwDataMax = C.nwData),
               (C.nwDataTotal += C.nwData);
