@@ -2505,7 +2505,7 @@
             toggleChat: o.toggleChat.bind(o),
             toggleChatToast: o.toggleChatToast.bind(o),
             toggleHud: o.toggleHud.bind(o),
-            spectateLock: o.showMultiboxMeaning.bind(o),
+            spectateLock: o.mbActive.bind(o),
             selectPlayer: o.targetPlayer.bind(o),
             saveReplay() {
               let { dual: e } = i;
