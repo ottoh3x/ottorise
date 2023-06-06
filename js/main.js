@@ -783,7 +783,6 @@
               });
           }
           static everySecond() {
-            console.log("hi")
             (C.isAlive(!1) || C.isAlive(!0)) && C.timeAlive++,
               C.nwData > C.nwDataMax && (C.nwDataMax = C.nwData),
               (C.nwDataTotal += C.nwData);
