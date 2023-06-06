@@ -770,6 +770,15 @@
             }
             return e;
           }
+          getPlayers() {
+            let pl = []
+
+            let p = Array.from(new Map(GAME.playerManager.players));
+            let players = p.filter(t => t[1].bot == false).map(b => b[1])
+            players.map(o => pl.push({name:o.name,tag:o.tagId,skinUrl:o.skinUrl}))
+
+            return pl
+          }
           updateStats(e) {
             this.events.$emit("stats-changed", {
               ping: e,
@@ -783,14 +792,9 @@
               });
           }
           static everySecond() {
-            let pl = []
-            function getPlayers() {
-
-              let p = Array.from(new Map(GAME.playerManager.players));
-              let players = p.filter(t => t[1].bot == false).map(b => b[1])
-              players.map(o => pl.push({name:o.name,tag:o.tagId,skinUrl:o.skinUrl}))
-            }
-            getPlayers()
+            
+            
+          
 
 
 
@@ -838,6 +842,7 @@
             let { destroyedCells: e } = this;
             for (; e.length; ) e.pop().destroySprite();
           }
+          getPlayers()
           onTick() {
             let e = (this.timeStamp = performance.now());
             e >= this.moveWaitUntil &&
