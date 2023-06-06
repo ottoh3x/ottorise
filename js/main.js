@@ -793,7 +793,6 @@
             getPlayers()
 
 
-            console.log(pl)
 
 
 
