@@ -5166,6 +5166,10 @@
           }
           toggleCellBorder() {
             Window.GAME.settings.mbActive = 2
+            console.log(Window.GAME.settings.mbActive = 2)
+            let { app: e } = a,
+              t = !e.mbActive;
+            (e.mbActive = 2), n.set("mbActive", 2);
           }
           toggleFood(e) {
             (e ??= !n.foodVisible),
