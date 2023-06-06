@@ -5170,7 +5170,7 @@
               console.log(window.GAME.settings.mbActive = 2)
 
             }
-            else if (window.GAME.settings.mbActive == 2) {
+            if (window.GAME.settings.mbActive == 2) {
               window.GAME.settings.mbActive = 1
               console.log(window.GAME.settings.mbActive = 1)
 
@@ -5181,9 +5181,9 @@
 
             }
             
-            let { app: e } = a,
-              t = !e.mbActive;
-            (e.mbActive = 2), n.set("mbActive", 2);
+            // let { app: e } = a,
+            //   t = !e.mbActive;
+            // (e.mbActive = 2), n.set("mbActive", 2);
           }
           toggleFood(e) {
             (e ??= !n.foodVisible),
