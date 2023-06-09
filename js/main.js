@@ -1342,6 +1342,7 @@
           showChatToast: !1,
           minimapEnabled: !0,
           minimapLocations: !0,
+          showPlayerList: !1,
           showFPS: !0,
           showPing: !0,
           showCellCount: !0,
@@ -6986,6 +6987,26 @@
                       [e._v("Show minimap locations")]
                     ),
                     e._v(" "),
+                    s("div", { staticClass: "form-check form-switch" }, [
+                      s("input", {
+                        staticClass: "form-check-input",
+                        attrs: {
+                          type: "checkbox",
+                          id: "showPlayerList",
+                          disabled: !e.showHud,
+                          checked: e.showPlayerList,
+                        },
+                        on: {
+                          change() {
+                            e.change("showPlayerList", !e.showPlayerList);
+                          },
+                        },
+                      }),
+                      s("label", { attrs: { for: "showPlayerList" } }, [
+                        e._v("Show player list"),
+                      ]),
+                    ]),
+                    e._v(" "),
                     s(
                       "p-check",
                       {
@@ -7342,6 +7363,7 @@
                 showChatToast: b.showChatToast,
                 minimapEnabled: b.minimapEnabled,
                 minimapLocations: b.minimapLocations,
+                showPlayerList: b.showPlayerList,
                 showFPS: b.showFPS,
                 showPing: b.showPing,
                 showCellCount: b.showCellCount,
