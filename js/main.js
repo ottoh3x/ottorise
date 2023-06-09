@@ -654,6 +654,7 @@
                 (this.mouseFrozen = !1),
                 r.minimapEnabled && this.events.$emit("minimap-show"),
                 r.showChat &&
+                this.events.$emit("connection-list-visible", a.showPlayerList),
                   this.events.$emit("chat-visible", { visible: !0 }),
                 this.events.$emit("leaderboard-show"),
                 this.events.$emit("stats-visible", !0),
@@ -731,6 +732,8 @@
               this.playback.reset(),
               this.events.$off("every-second", k.everySecond),
               this.skinLoader.clearCallbacks(),
+              this.events.$emit("connection-list-clear"),
+              this.events.$emit("connection-list-visible", !1),
               this.events.$emit("minimap-stats-visible", !0),
               this.events.$emit("stats-visible", !1),
               this.events.$emit("chat-visible", { visible: !1 }),
@@ -1093,10 +1096,19 @@
               i = s && this.setTagId(s.tagId),
               { playerManager: a } = this,
               n = [];
-            for (let o of t) {
-              let r = a.setPlayerData(o);
-              n.push(r);
-            }
+              for (let o of t) {
+                let r = a.setPlayerData(o);
+                n.push(r);
+                  this.events.$emit("connection-list-update", {
+                    ...r,
+                    tagId: r.tagId || 0,
+                    connected: !0,
+                  });
+              }
+            // for (let o of t) {
+            //   let r = a.setPlayerData(o);
+            //   n.push(r);
+            // }
             i &&
               (this.events.$emit("minimap-positions", []),
               a.invalidateVisibility(n));
@@ -1124,9 +1136,14 @@
                 for (;;) {
                   let l = e.readUInt16LE();
                   if (0 == l) return;
+                  this.events.$emit("connection-list-update", {
+                    connected: !1,
+                    pid: d,
+              }),
                   r.delayedRemovePlayer(l);
                 }
               }
+              
               case 6:
                 this.connection.sendOpcode(6);
                 return;
@@ -5760,6 +5777,223 @@
             );
           };
         r._withStripped = !0;
+        var l = function () {
+          var e = this,
+            t = e.$createElement,
+            s = e._self._c || t;
+          return s("div", { attrs: { id: "tab-menu" } }, [
+            s(
+              "div",
+              { staticClass: "tabs" },
+              e._l(e.regionCodes, function (t, i) {
+                return s(
+                  "div",
+                  {
+                    key: i,
+                    staticClass: "tab",
+                    class: { active: e.selectedRegion === t },
+                    on: {
+                      click: function () {
+                        return e.selectRegion(t);
+                      },
+                    },
+                  },
+                  [e._v("\n        " + e._s(t) + "\n    ")]
+                );
+              }),
+              0
+            ),
+            e._v(" "),
+            s(
+              "div",
+              {
+                staticClass: "server-list",
+                class: { "cursor-loading": e.connectWait },
+              },
+              e._l(e.regionServers, function (t, i) {
+                return s(
+                  "div",
+                  {
+                    key: i,
+                    staticClass: "server-list-item",
+                    class: { active: e.gameState.connectionUrl === t.url },
+                    on: {
+                      click: function () {
+                        return e.connect(t);
+                      },
+                    },
+                  },
+                  [
+                    s("div", { staticClass: "server-name" }, [
+                      e._v(e._s(t.name)),
+                    ]),
+                    e._v(" "),
+                    null == t.liveMarker
+                      ? s("div", [
+                          e._v(e._s(t.players) + " / " + e._s(t.slots)),
+                        ])
+                      : !0 === t.liveMarker
+                      ? s("div", { staticClass: "live-marker-wrapper" }, [
+                          s("span", { staticClass: "live-marker" }, [
+                            e._v("LIVE"),
+                          ]),
+                        ])
+                      : e._e(),
+                  ]
+                );
+              }),
+              0
+            ),
+          ]);
+        };
+        l._withStripped = !0;
+        var c = s(19),
+          h = s(1),
+          d = s(5),
+          { noop: p } = s(17),
+          u = {
+            Tournament: 1,
+            FFA: 2,
+            Instant: 3,
+            Gigasplit: 4,
+            Megasplit: 5,
+            Crazy: 6,
+            "Self-Feed": 7,
+            Scrimmage: 8,
+          };
+        function g(e, t) {
+          var s = (u[e.mode] || 99) - (u[t.mode] || 99);
+          return 0 !== s
+            ? s
+            : e.name.localeCompare(t.name, "en", {
+                numeric: !0,
+                ignorePunctuation: !0,
+              });
+        }
+        function A(e) {
+          if (e.region) return e.region.toUpperCase();
+          var t = e.url.toLowerCase().match(/game-([a-z]{2})/);
+          return t ? t[1].toUpperCase() : "";
+        }
+        var m,
+          v = (s(166), s(0)),
+          f = Object(v.a)(
+            {
+              data: () => ({
+                lastServerListReloadTime: 0,
+                regionCodes: ["EU", "NA", "AS"],
+                connectWait: 0,
+                gameState: h.state,
+                selectedRegion: "",
+                error: null,
+                servers: [],
+              }),
+              created() {
+                h.events.$on("reconnect-server", () =>
+                  this.connect(this.gameState.selectedServer)
+                ),
+                  h.events.$on("menu-opened", this.reloadServers),
+                  h.events.$on("every-minute", this.reloadServers),
+                  this.loadServers(),
+                  this.getRegionCode((e) => {
+                    e || (e = "EU"),
+                      this.regionCodes.includes(e) || (e = "EU"),
+                      this.selectRegion(e);
+                  });
+              },
+              computed: {
+                regionServers: function () {
+                  var e = this.selectedRegion.toUpperCase();
+                  return this.servers.filter((t) => {
+                    var s = A(t);
+                    return !s || s === e;
+                  });
+                },
+              },
+              methods: {
+                connectEmptyFFA() {
+                  var e = this.regionServers
+                    .filter((e) => "FFA" === e.mode)
+                    .sort((e, t) => e.currentPlayers - t.currentPlayers);
+                  if (!e.length) return !1;
+                  this.connect(e[0]);
+                },
+                selectRegion(e) {
+                  (localStorage.regionCode = e), (this.selectedRegion = e);
+                },
+                getRegionCode(e) {
+                  var t = localStorage.regionCode;
+                  t
+                    ? e(t)
+                    : c
+                        .get("https://ipapi.co/json")
+                        .then((t) => {
+                          e(t.data.continent_code);
+                        })
+                        .catch(() => e(null));
+                },
+                connect(e) {
+                  var t;
+                  this.connectWait ||
+                    (this.connectWait++,
+                    d.toast.close(),
+                    this.checkBadSkinUrl(),
+                    (this.gameState.selectedServer = {
+                      url: e.url,
+                      region: A(e),
+                      name: e.name,
+                      slots: e.maxPlayers || e.slots,
+                      checkInUrl: e.checkInUrl,
+                    }),
+                    (t = e),
+                    h.connection.open(t.url),
+                    setTimeout(() => this.connectWait--, 3200));
+                },
+                checkBadSkinUrl() {
+                  var e = document.getElementById("skinurl").value;
+                  e &&
+                    /^https:\/\/[a-z0-9_-]+.vanis\.io\/[./a-z0-9_-]+$/i.test(e);
+                },
+                reloadServers() {
+                  h.app.showMenu &&
+                    Date.now() > this.lastServerListReloadTime + 6e4 &&
+                    this.loadServers();
+                },
+                loadServers(e) {
+                  (e = e || p),
+                    (this.lastServerListReloadTime = Date.now()),
+                    c
+                      .get("https://vanis.io/gameservers.json")
+                      .then((t) => {
+                        var s = t.data.sort(g);
+                        window.extraServers.forEach((e) => {
+                          s.unshift(e);
+                        }),
+                          (localStorage.catchedServers = JSON.stringify(s)),
+                          (m = s),
+                          (this.servers = s),
+                          (this.error = null),
+                          e(!0);
+                      })
+                      .catch((t) => {
+                        localStorage.catchedServers
+                          ? ((m = this.servers =
+                              JSON.parse(localStorage.catchedServers)),
+                            (this.error = null),
+                            e(!0))
+                          : ((this.servers = m || []), (this.error = t), e(!1));
+                      });
+                },
+              },
+            },
+            l,
+            [],
+            !1,
+            null,
+            "0647fbb0",
+            null
+          );
+        f.options.__file = "src/components/servers.vue";
         var C = f.exports,
           y = function () {
             var e = this,
@@ -6024,224 +6258,6 @@
             );
           };
         y._withStripped = !0;
-        var l = function () {
-          var e = this,
-            t = e.$createElement,
-            s = e._self._c || t;
-          return s("div", { attrs: { id: "tab-menu" } }, [
-            s(
-              "div",
-              { staticClass: "tabs" },
-              e._l(e.regionCodes, function (t, i) {
-                return s(
-                  "div",
-                  {
-                    key: i,
-                    staticClass: "tab",
-                    class: { active: e.selectedRegion === t },
-                    on: {
-                      click: function () {
-                        return e.selectRegion(t);
-                      },
-                    },
-                  },
-                  [e._v("\n        " + e._s(t) + "\n    ")]
-                );
-              }),
-              0
-            ),
-            e._v(" "),
-            s(
-              "div",
-              {
-                staticClass: "server-list",
-                class: { "cursor-loading": e.connectWait },
-              },
-              e._l(e.regionServers, function (t, i) {
-                return s(
-                  "div",
-                  {
-                    key: i,
-                    staticClass: "server-list-item",
-                    class: { active: e.gameState.connectionUrl === t.url },
-                    on: {
-                      click: function () {
-                        return e.connect(t);
-                      },
-                    },
-                  },
-                  [
-                    s("div", { staticClass: "server-name" }, [
-                      e._v(e._s(t.name)),
-                    ]),
-                    e._v(" "),
-                    null == t.liveMarker
-                      ? s("div", [
-                          e._v(e._s(t.players) + " / " + e._s(t.slots)),
-                        ])
-                      : !0 === t.liveMarker
-                      ? s("div", { staticClass: "live-marker-wrapper" }, [
-                          s("span", { staticClass: "live-marker" }, [
-                            e._v("LIVE"),
-                          ]),
-                        ])
-                      : e._e(),
-                  ]
-                );
-              }),
-              0
-            ),
-          ]);
-        };
-        l._withStripped = !0;
-        var c = s(19),
-          h = s(1),
-          d = s(5),
-          { noop: p } = s(17),
-          u = {
-            Tournament: 1,
-            FFA: 2,
-            Instant: 3,
-            Gigasplit: 4,
-            Megasplit: 5,
-            Crazy: 6,
-            "Self-Feed": 7,
-            Scrimmage: 8,
-          };
-        function g(e, t) {
-          var s = (u[e.mode] || 99) - (u[t.mode] || 99);
-          return 0 !== s
-            ? s
-            : e.name.localeCompare(t.name, "en", {
-                numeric: !0,
-                ignorePunctuation: !0,
-              });
-        }
-        function A(e) {
-          if (e.region) return e.region.toUpperCase();
-          var t = e.url.toLowerCase().match(/game-([a-z]{2})/);
-          return t ? t[1].toUpperCase() : "";
-        }
-        var m,
-          v = (s(166), s(0)),
-          f = Object(v.a)(
-            {
-              data: () => ({
-                lastServerListReloadTime: 0,
-                regionCodes: ["EU", "NA", "AS"],
-                connectWait: 0,
-                gameState: h.state,
-                selectedRegion: "",
-                error: null,
-                servers: [],
-              }),
-              created() {
-                h.events.$on("reconnect-server", () =>
-                  this.connect(this.gameState.selectedServer)
-                ),
-                  h.events.$on("menu-opened", this.reloadServers),
-                  h.events.$on("every-minute", this.reloadServers),
-                  this.loadServers(),
-                  this.getRegionCode((e) => {
-                    e || (e = "EU"),
-                      this.regionCodes.includes(e) || (e = "EU"),
-                      this.selectRegion(e);
-                  });
-              },
-              computed: {
-                regionServers: function () {
-                  var e = this.selectedRegion.toUpperCase();
-                  return this.servers.filter((t) => {
-                    var s = A(t);
-                    return !s || s === e;
-                  });
-                },
-              },
-              methods: {
-                connectEmptyFFA() {
-                  var e = this.regionServers
-                    .filter((e) => "FFA" === e.mode)
-                    .sort((e, t) => e.currentPlayers - t.currentPlayers);
-                  if (!e.length) return !1;
-                  this.connect(e[0]);
-                },
-                selectRegion(e) {
-                  (localStorage.regionCode = e), (this.selectedRegion = e);
-                },
-                getRegionCode(e) {
-                  var t = localStorage.regionCode;
-                  t
-                    ? e(t)
-                    : c
-                        .get("https://ipapi.co/json")
-                        .then((t) => {
-                          e(t.data.continent_code);
-                        })
-                        .catch(() => e(null));
-                },
-                connect(e) {
-                  var t;
-                  this.connectWait ||
-                    (this.connectWait++,
-                    d.toast.close(),
-                    this.checkBadSkinUrl(),
-                    (this.gameState.selectedServer = {
-                      url: e.url,
-                      region: A(e),
-                      name: e.name,
-                      slots: e.maxPlayers || e.slots,
-                      checkInUrl: e.checkInUrl,
-                    }),
-                    (t = e),
-                    h.connection.open(t.url),
-                    setTimeout(() => this.connectWait--, 3200));
-                },
-                checkBadSkinUrl() {
-                  var e = document.getElementById("skinurl").value;
-                  e &&
-                    /^https:\/\/[a-z0-9_-]+.vanis\.io\/[./a-z0-9_-]+$/i.test(e);
-                },
-                reloadServers() {
-                  h.app.showMenu &&
-                    Date.now() > this.lastServerListReloadTime + 6e4 &&
-                    this.loadServers();
-                },
-                loadServers(e) {
-                  (e = e || p),
-                    (this.lastServerListReloadTime = Date.now()),
-                    c
-                      .get("https://vanis.io/gameservers.json")
-                      .then((t) => {
-                        var s = t.data.sort(g);
-                        window.extraServers.forEach((e) => {
-                          s.unshift(e);
-                        }),
-                          (localStorage.catchedServers = JSON.stringify(s)),
-                          (m = s),
-                          (this.servers = s),
-                          (this.error = null),
-                          e(!0);
-                      })
-                      .catch((t) => {
-                        localStorage.catchedServers
-                          ? ((m = this.servers =
-                              JSON.parse(localStorage.catchedServers)),
-                            (this.error = null),
-                            e(!0))
-                          : ((this.servers = m || []), (this.error = t), e(!1));
-                      });
-                },
-              },
-            },
-            l,
-            [],
-            !1,
-            null,
-            "0647fbb0",
-            null
-          );
-        f.options.__file = "src/components/servers.vue";
-        
         var w = s(115),
           I = function () {
             var e = this,
@@ -7400,6 +7416,9 @@
                       case "backgroundColor":
                         var i = PIXI.utils.string2hex(s);
                         k.renderer.backgroundColor = i;
+                        break;
+                      case "showPlayerList":
+                        this.events.$emit("connection-list-visible", s);
                         break;
                       case "minimapLocations":
                         k.events.$emit("minimap-show-locations", s);
